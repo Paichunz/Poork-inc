@@ -4,372 +4,1352 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>POORK INC. — todos somos puercos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&family=Playfair+Display:ital,wght@0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&family=Instrument+Serif:ital@0;1&family=Cabinet+Grotesk:wght@400;700;900&family=Bricolage+Grotesque:wght@400;600;800&family=Unbounded:wght@400;700;900&display=swap" rel="stylesheet">
+
 <style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  html,body{background:#f3f1ec;color:#111;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
-  body{overflow-x:hidden}
-  a{color:inherit;text-decoration:none}
+/* ============================================
+   RESET + BASE
+   ============================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { overflow-x: hidden; }
 
-  header{
-    position:sticky;top:0;z-index:50;
-    display:flex;justify-content:space-between;align-items:center;
-    padding:14px 20px;border-bottom:2px solid #111;background:#f3f1ec;
-    font-weight:700;letter-spacing:-.02em;
-  }
-  .logo{font-size:22px;font-weight:900;letter-spacing:-.04em}
-  .logo span{color:#ff3a8a}
-  nav{display:flex;gap:18px;font-size:13px;text-transform:uppercase}
-  nav a:hover{background:#111;color:#f3f1ec}
+/* ============================================
+   FASE 1 — ERROR SCREEN
+   ============================================ */
+#error-screen {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #f0f0f0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: flex-start;
+  padding: 60px 80px;
+  transition: opacity 0.5s ease;
+}
 
-  .hero{
-    border-bottom:2px solid #111;
-    padding:50px 20px 70px;
-    display:grid;grid-template-columns:1.4fr 1fr;gap:30px;align-items:end;
-    background:
-      repeating-linear-gradient(45deg,#f3f1ec 0 14px,#ffe9b8 14px 16px);
-    position:relative;
-  }
-  .hero h1{
-    font-size:clamp(48px,9.5vw,160px);line-height:.85;
-    font-weight:900;letter-spacing:-.06em;
-    text-transform:uppercase;
-  }
-  .hero h1 em{font-style:italic;color:#ff3a8a}
-  .hero h1 s{text-decoration:line-through;text-decoration-thickness:6px;opacity:.55}
-  .manifesto{
-    font-size:14px;line-height:1.5;
-    background:#fff;padding:18px;border:2px solid #111;
-    transform:rotate(-1.2deg);max-width:42ch;
-  }
-  .manifesto strong{background:#111;color:#f3f1ec;padding:0 4px}
+.error-bar {
+  width: 100%; height: 32px;
+  background: #c0c0c0;
+  border-bottom: 2px solid #808080;
+  position: fixed; top: 0; left: 0;
+  display: flex; align-items: center;
+  padding: 0 8px; gap: 8px;
+}
+.error-bar-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  border: 1px solid #808080;
+  background: #d4d0c8;
+}
+.error-bar-text { font-size: 11px; color: #333; margin-left: 4px; }
 
-  .ticker{
-    border-bottom:2px solid #111;background:#111;color:#f3f1ec;
-    overflow:hidden;white-space:nowrap;font-weight:700;
-    font-size:14px;letter-spacing:.08em;text-transform:uppercase;
-    padding:8px 0;
-  }
-  .ticker span{display:inline-block;padding-left:100%;animation:tick 32s linear infinite}
-  @keyframes tick{to{transform:translateX(-100%)}}
+.error-icon {
+  width: 60px; height: 60px;
+  background: #c0c0c0;
+  border: 3px outset #ffffff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 36px; margin-bottom: 24px;
+}
 
-  .grid{
-    display:grid;grid-template-columns:repeat(12,1fr);
-    gap:0;border-bottom:2px solid #111;
-  }
-  .card{
-    grid-column:span 4;
-    border-right:2px solid #111;border-bottom:2px solid #111;
-    padding:18px;display:flex;flex-direction:column;gap:10px;
-    min-height:380px;background:#f3f1ec;position:relative;
-    transition:background .15s,transform .15s;
-  }
-  .card:hover{background:#fff;transform:translateY(-2px)}
-  .card .num{
-    font-size:11px;font-weight:700;letter-spacing:.1em;
-    display:flex;justify-content:space-between;
-  }
-  .card .art{
-    flex:1;display:flex;align-items:center;justify-content:center;
-    border:2px solid #111;background:#fff;font-size:60px;
-    overflow:hidden;position:relative;text-align:center;padding:10px;
-  }
-  .card h3{
-    font-size:22px;font-weight:900;letter-spacing:-.03em;
-    text-transform:uppercase;line-height:1;
-  }
-  .card .meta{font-size:11px;text-transform:uppercase;opacity:.6}
+.error-title {
+  font-size: 22px; font-weight: bold;
+  color: #000080; margin-bottom: 16px; letter-spacing: -0.5px;
+}
 
-  .c1 .art{background:linear-gradient(180deg,#cfe9ff,#5fa6e0);color:#fff;font-style:italic;font-family:Georgia,serif}
-  .c2 .art{background:#111;color:#ff3a8a;font-family:"Courier New",monospace;font-size:18px;letter-spacing:.1em}
-  .c3 .art{background:linear-gradient(135deg,#ffd6f0,#ffb380);font-size:48px}
-  .c4 .art{background:repeating-linear-gradient(0deg,#1a1a1a 0 22px,#222 22px 24px);color:#ff5c4a;font-weight:900;font-size:80px;font-family:Impact,sans-serif}
-  .c5 .art{background:#fff;background-image:radial-gradient(#111 1.5px,transparent 1.5px);background-size:12px 12px;color:#111;font-weight:900}
-  .c6 .art{background:linear-gradient(180deg,#ffe066 0%,#ffe066 70%,#fff 70%);color:#111}
-  .c7 .art{background:#0a1a2a;color:#fff8e8;font-family:Georgia,serif;font-style:italic}
-  .c8 .art{background:repeating-linear-gradient(45deg,#ff3a8a 0 18px,#111 18px 36px)}
-  .c9 .art{background:#9bff5a;color:#111;font-weight:900;font-size:34px;letter-spacing:-.04em}
+.error-body {
+  font-size: 14px; color: #222;
+  max-width: 520px; line-height: 1.7; margin-bottom: 28px;
+}
+.error-body strong { color: #000; }
 
-  .badge{
-    position:absolute;top:10px;right:10px;
-    background:#ff3a8a;color:#fff;font-size:10px;font-weight:900;
-    padding:4px 8px;letter-spacing:.1em;transform:rotate(6deg);
-    border:2px solid #111;
-  }
-  .sold{background:#111;color:#fff}
-  .new{background:#9bff5a;color:#111}
-  .beta{background:#ffe066;color:#111}
+.error-details {
+  font-family: 'Courier New', monospace;
+  font-size: 11px; color: #555;
+  background: #e4e4e4;
+  border: 1px inset #808080;
+  padding: 10px 14px;
+  margin-bottom: 28px;
+  max-width: 520px; line-height: 1.8;
+}
 
-  .strip{
-    background:#ff3a8a;color:#fff;text-align:center;
-    padding:60px 20px;border-bottom:2px solid #111;
-  }
-  .strip h2{
-    font-size:clamp(40px,7vw,84px);font-weight:900;letter-spacing:-.04em;line-height:.95;
-  }
-  .strip p{font-size:16px;max-width:50ch;margin:18px auto 0;line-height:1.5;opacity:.92}
+.error-progress-label { font-size: 12px; color: #333; margin-bottom: 6px; }
 
-  footer{
-    padding:40px 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
-    border-top:2px solid #111;font-size:12px;
-  }
-  footer h4{font-size:11px;text-transform:uppercase;margin-bottom:8px;letter-spacing:.1em}
-  footer p{line-height:1.5;opacity:.8}
-  footer a:hover{text-decoration:underline}
-  .small{font-size:10px;opacity:.6;margin-top:20px;border-top:1px solid #111;padding-top:10px;grid-column:1/-1}
+.error-progress-bar {
+  width: 320px; height: 20px;
+  background: #c0c0c0;
+  border: 2px inset #808080;
+  position: relative; overflow: hidden;
+}
 
-  @media(max-width:900px){
-    .hero{grid-template-columns:1fr}
-    .card{grid-column:span 6}
-    footer{grid-template-columns:1fr 1fr}
-  }
-  @media(max-width:560px){
-    .card{grid-column:span 12;border-right:none}
-  }
+.error-progress-fill {
+  height: 100%; background: #000080; width: 0%;
+  animation: errorfill 1.8s cubic-bezier(0.4,0,1,1) forwards;
+}
+
+@keyframes errorfill {
+  0%   { width: 0%; }
+  40%  { width: 38%; }
+  60%  { width: 61%; }
+  75%  { width: 74%; }
+  90%  { width: 89%; }
+  100% { width: 100%; }
+}
+
+.poork-takeover {
+  position: fixed; inset: 0; z-index: 10001;
+  background: #111;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.15s;
+}
+
+.poork-takeover-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 8vw, 96px);
+  color: #fff; letter-spacing: 0.1em; text-align: center;
+}
+
+.poork-takeover-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px; color: #888;
+  margin-top: 12px; text-align: center; letter-spacing: 0.15em;
+}
+
+/* ============================================
+   FASE 2 — SELECTOR
+   ============================================ */
+#selector-screen {
+  position: fixed; inset: 0; z-index: 8000;
+  display: none;
+  align-items: center; justify-content: center;
+  flex-direction: column;
+  background: #0a0a0a;
+}
+
+.selector-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px; color: #666;
+  letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 24px;
+}
+
+.selector-question {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(32px, 5vw, 64px);
+  color: #fff; letter-spacing: 0.05em;
+  text-align: center; margin-bottom: 8px;
+}
+
+.selector-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; color: #555;
+  text-align: center; margin-bottom: 60px; font-style: italic;
+}
+
+.selector-options {
+  display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;
+}
+
+.selector-btn {
+  cursor: pointer;
+  border: 1px solid #333;
+  padding: 36px 40px;
+  text-align: left; width: 280px;
+  background: transparent; color: #fff;
+  transition: all 0.25s ease;
+  position: relative; overflow: hidden;
+}
+
+.selector-btn::before {
+  content: ''; position: absolute; inset: 0;
+  background: #fff;
+  transform: translateY(101%); transition: transform 0.25s ease; z-index: 0;
+}
+.selector-btn:hover::before { transform: translateY(0); }
+.selector-btn:hover { color: #000; border-color: #fff; }
+.selector-btn * { position: relative; z-index: 1; }
+
+.btn-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px; color: #666;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  display: block; margin-bottom: 14px;
+}
+.selector-btn:hover .btn-tag { color: #888; }
+
+.btn-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px; letter-spacing: 0.05em;
+  display: block; margin-bottom: 10px;
+}
+
+.btn-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; color: #888; line-height: 1.6; display: block;
+}
+.selector-btn:hover .btn-desc { color: #555; }
+
+/* ============================================
+   FASE 3 — CONTENIDO PRINCIPAL
+   ============================================ */
+#main-content {
+  display: none; opacity: 0; transition: opacity 0.6s ease;
+}
+
+/* ============================================
+   MODO SERIO — WPP / McCann vibes
+   ============================================ */
+body.mode-serious { background: #080808; color: #f0ede8; }
+
+.serious-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(8,8,8,0.95);
+  border-bottom: 1px solid #1a1a1a;
+  padding: 20px 60px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.serious-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px; font-weight: 700;
+  letter-spacing: 0.25em; text-transform: uppercase; color: #f0ede8;
+}
+
+.serious-nav-links { display: flex; gap: 40px; list-style: none; }
+.serious-nav-links a {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: #888;
+  text-decoration: none; transition: color 0.2s;
+}
+.serious-nav-links a:hover { color: #f0ede8; }
+
+.serious-hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 60px 80px;
+  position: relative; overflow: hidden;
+}
+
+.serious-hero-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #0a0a0a 0%, #141414 50%, #0d0d0d 100%);
+}
+
+.serious-hero-noise {
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 256px; opacity: 0.4;
+}
+
+.serious-awards {
+  position: absolute; top: 120px; right: 60px;
+  display: flex; flex-direction: column; gap: 10px; text-align: right;
+}
+
+.award-item {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px; color: #444;
+  letter-spacing: 0.15em; text-transform: uppercase;
+}
+.award-item span {
+  display: block; font-size: 9px; color: #c9a84c;
+  letter-spacing: 0.3em; margin-top: 2px;
+}
+
+.serious-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; letter-spacing: 0.4em;
+  text-transform: uppercase; color: #c9a84c;
+  margin-bottom: 24px; position: relative; z-index: 1;
+}
+
+.serious-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(56px, 7vw, 108px);
+  font-weight: 700; line-height: 0.95; color: #f0ede8;
+  margin-bottom: 40px; position: relative; z-index: 1; max-width: 800px;
+}
+.serious-headline em { font-style: italic; color: #c9a84c; }
+
+.serious-subtext {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px; color: #666; line-height: 1.7;
+  max-width: 480px; margin-bottom: 48px;
+  position: relative; z-index: 1; font-weight: 300;
+}
+
+.serious-cta-row {
+  display: flex; gap: 16px; align-items: center;
+  position: relative; z-index: 1;
+}
+
+.serious-cta-primary {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+  background: #f0ede8; color: #080808;
+  padding: 16px 36px; border: none; cursor: pointer;
+  font-weight: 700; transition: background 0.2s;
+}
+.serious-cta-primary:hover { background: #c9a84c; }
+
+.serious-cta-secondary {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; letter-spacing: 0.25em;
+  text-transform: uppercase; color: #555;
+  cursor: pointer; background: none; border: none;
+  padding: 16px 0; border-bottom: 1px solid #333;
+  transition: color 0.2s, border-color 0.2s;
+}
+.serious-cta-secondary:hover { color: #f0ede8; border-color: #f0ede8; }
+
+.serious-stats {
+  padding: 80px 60px;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: #1a1a1a;
+  border-top: 1px solid #1a1a1a; border-bottom: 1px solid #1a1a1a;
+}
+
+.stat-cell { background: #080808; padding: 48px 40px; }
+
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 56px; font-weight: 700;
+  color: #f0ede8; line-height: 1; margin-bottom: 8px;
+}
+
+.stat-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: #555;
+}
+
+.serious-clients { padding: 80px 60px; }
+
+.serious-section-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px; letter-spacing: 0.4em;
+  text-transform: uppercase; color: #444; margin-bottom: 48px;
+}
+
+.clients-row {
+  display: flex; gap: 48px; align-items: center; flex-wrap: wrap;
+}
+
+.client-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; color: #2a2a2a;
+  font-style: italic; transition: color 0.2s; cursor: default;
+}
+.client-name:hover { color: #555; }
+
+.serious-manifesto {
+  padding: 120px 60px; border-top: 1px solid #1a1a1a;
+  display: grid; grid-template-columns: 1fr 2fr; gap: 80px;
+}
+
+.manifesto-sidebar { padding-top: 8px; }
+
+.manifesto-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px; letter-spacing: 0.4em;
+  text-transform: uppercase; color: #444; margin-bottom: 40px;
+}
+
+.manifesto-year {
+  font-family: 'Playfair Display', serif;
+  font-size: 80px; font-weight: 700; color: #1a1a1a; line-height: 1;
+}
+
+.manifesto-body p {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 3vw, 44px);
+  color: #f0ede8; line-height: 1.3; font-weight: 700; margin-bottom: 32px;
+}
+.manifesto-body p em { font-style: italic; color: #c9a84c; }
+
+.manifesto-body .fine-print {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; color: #444; line-height: 1.7;
+  font-weight: 300; font-style: normal;
+  border-top: 1px solid #1a1a1a;
+  padding-top: 24px; margin-top: 16px;
+}
+
+.serious-drops { padding: 80px 60px; border-top: 1px solid #1a1a1a; }
+
+.drops-header {
+  display: flex; justify-content: space-between;
+  align-items: flex-end; margin-bottom: 48px;
+}
+
+.drops-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px; font-weight: 700; color: #f0ede8;
+}
+
+.drops-link {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #555;
+  text-decoration: none; border-bottom: 1px solid #333;
+  padding-bottom: 4px; transition: color 0.2s;
+}
+.drops-link:hover { color: #f0ede8; }
+
+.drops-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: #1a1a1a;
+}
+
+.drop-card {
+  background: #080808; padding: 40px;
+  transition: background 0.2s; cursor: pointer;
+}
+.drop-card:hover { background: #0f0f0f; }
+
+.drop-number {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px; color: #333;
+  letter-spacing: 0.2em; margin-bottom: 32px;
+}
+
+.drop-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 700;
+  color: #f0ede8; margin-bottom: 8px; font-style: italic;
+}
+
+.drop-tagline {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; color: #555; line-height: 1.5; font-weight: 300;
+}
+
+.drop-status {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px; color: #c9a84c;
+  letter-spacing: 0.2em; margin-top: 32px;
+}
+
+.serious-footer {
+  padding: 60px; border-top: 1px solid #1a1a1a;
+  display: flex; justify-content: space-between; align-items: flex-end;
+}
+
+.footer-logo-big {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px; font-weight: 700; color: #1a1a1a; line-height: 1;
+}
+
+.footer-copy {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; color: #333;
+  letter-spacing: 0.1em; text-align: right; line-height: 2;
+}
+
+/* ============================================
+   MODO IRREVERENTE — Variables base
+   ============================================ */
+:root {
+  --irr-bg: #111111;
+  --irr-fg: #f0f0f0;
+  --irr-accent: #ff3c00;
+  --irr-accent2: #ffe500;
+  --irr-font-display: 'Bebas Neue', sans-serif;
+  --irr-font-body: 'DM Sans', sans-serif;
+  --irr-font-mono: 'Space Mono', monospace;
+  --irr-radius: 0px;
+  --irr-border: 1px solid #2a2a2a;
+}
+
+/* ── Poork Original — diseño de partida, fiel al sitio actual ── */
+body.trend-poork-original {
+  --irr-bg: #111111;
+  --irr-fg: #f0f0f0;
+  --irr-accent: #ff3c00;
+  --irr-accent2: #ffe500;
+  --irr-font-display: 'Bebas Neue', sans-serif;
+  --irr-font-body: 'DM Sans', sans-serif;
+  --irr-radius: 0px;
+  --irr-border: 1px solid #222222;
+}
+body.trend-poork-original .irr-nav {
+  background: #111; border-bottom: 1px solid #1e1e1e;
+}
+body.trend-poork-original .irr-hero {
+  background: #111;
+}
+body.trend-poork-original .irr-hero::before { display: none; }
+body.trend-poork-original .irr-drop-card {
+  background: #1a1a1a; border: 1px solid #252525; color: #f0f0f0;
+}
+body.trend-poork-original .irr-drop-card:hover { background: #202020; }
+body.trend-poork-original .irr-manifesto {
+  background: #ff3c00; color: #111;
+}
+body.trend-poork-original .irr-manifesto-text { color: #111; }
+body.trend-poork-original .irr-manifesto-fine { color: rgba(0,0,0,0.55); }
+body.trend-poork-original .irr-footer {
+  background: #0a0a0a; color: #f0f0f0;
+  border-top: 1px solid #1a1a1a;
+}
+body.trend-poork-original .irr-footer-copy { color: #444; opacity: 1; }
+
+/* ── Neobrutalism ── */
+body.trend-neobrutalism {
+  --irr-bg: #f7f3ea; --irr-fg: #0a0a0a;
+  --irr-accent: #ff3c00; --irr-accent2: #ffe500;
+  --irr-font-display: 'Unbounded', sans-serif;
+  --irr-font-body: 'DM Sans', sans-serif;
+  --irr-radius: 0px; --irr-border: 3px solid #0a0a0a;
+}
+body.trend-neobrutalism .irr-logo { font-size: 18px; letter-spacing: -0.02em; }
+
+/* ── Glassmorphism ── */
+body.trend-glassmorphism {
+  --irr-bg: #0d0d1a; --irr-fg: #ffffff;
+  --irr-accent: #a78bfa; --irr-accent2: #38bdf8;
+  --irr-font-display: 'Syne', sans-serif;
+  --irr-font-body: 'DM Sans', sans-serif;
+  --irr-radius: 16px; --irr-border: 1px solid rgba(255,255,255,0.15);
+}
+
+/* ── Y2K Revival ── */
+body.trend-y2k {
+  --irr-bg: #000000; --irr-fg: #00ff88;
+  --irr-accent: #ff00ff; --irr-accent2: #00ffff;
+  --irr-font-display: 'Space Mono', monospace;
+  --irr-font-body: 'Space Mono', monospace;
+  --irr-radius: 4px; --irr-border: 1px solid #00ff88;
+}
+
+/* ── Swiss / International ── */
+body.trend-swiss {
+  --irr-bg: #ffffff; --irr-fg: #000000;
+  --irr-accent: #ff0000; --irr-accent2: #000000;
+  --irr-font-display: 'Bricolage Grotesque', sans-serif;
+  --irr-font-body: 'DM Sans', sans-serif;
+  --irr-radius: 0px; --irr-border: 1px solid #000;
+}
+
+/* ── Bento ── */
+body.trend-bento {
+  --irr-bg: #f5f5f0; --irr-fg: #1a1a1a;
+  --irr-accent: #7c3aed; --irr-accent2: #f59e0b;
+  --irr-font-display: 'Cabinet Grotesk', sans-serif;
+  --irr-font-body: 'DM Sans', sans-serif;
+  --irr-radius: 20px; --irr-border: none;
+}
+
+/* ── Dark Editorial ── */
+body.trend-dark-editorial {
+  --irr-bg: #0c0c0c; --irr-fg: #f0ede8;
+  --irr-accent: #e8d5b0; --irr-accent2: #c94040;
+  --irr-font-display: 'Instrument Serif', serif;
+  --irr-font-body: 'DM Sans', sans-serif;
+  --irr-radius: 0px; --irr-border: 1px solid #2a2a2a;
+}
+
+/* Badge de tendencia */
+.trend-badge {
+  position: fixed; bottom: 24px; right: 24px; z-index: 500;
+  background: var(--irr-accent); color: var(--irr-bg);
+  font-family: var(--irr-font-mono);
+  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 10px 16px; border-radius: var(--irr-radius);
+  display: none; line-height: 1.4; max-width: 200px;
+  box-shadow: 4px 4px 0px var(--irr-fg);
+  cursor: default;
+}
+body.mode-irreverent .trend-badge { display: block; }
+
+/* Nav irreverente */
+.irr-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--irr-bg); border-bottom: var(--irr-border);
+  padding: 20px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: all 0.3s;
+}
+
+.irr-logo {
+  font-family: var(--irr-font-display);
+  font-size: 22px; color: var(--irr-fg); letter-spacing: 0.05em;
+}
+body.trend-y2k .irr-logo { color: var(--irr-accent); text-shadow: 0 0 20px var(--irr-accent); }
+
+.irr-nav-links { display: flex; gap: 32px; list-style: none; }
+.irr-nav-links a {
+  font-family: var(--irr-font-body);
+  font-size: 13px; color: var(--irr-fg);
+  text-decoration: none; opacity: 0.6; transition: opacity 0.2s;
+}
+.irr-nav-links a:hover { opacity: 1; }
+
+/* Hero irreverente */
+.irr-hero {
+  min-height: 100vh; background: var(--irr-bg);
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 120px 48px 80px;
+  position: relative; overflow: hidden; transition: background 0.4s;
+}
+
+body.trend-neobrutalism .irr-hero::before {
+  content: ''; position: absolute; top: -20px; right: -20px;
+  width: 400px; height: 400px;
+  background: var(--irr-accent2); border: 3px solid var(--irr-fg); z-index: 0;
+}
+
+body.trend-glassmorphism .irr-hero {
+  background: linear-gradient(135deg, #0d0d1a 0%, #1a0d2e 50%, #0d1a2e 100%);
+}
+body.trend-glassmorphism .irr-hero::before {
+  content: ''; position: absolute; top: 10%; left: 20%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(167,139,250,0.3) 0%, transparent 70%);
+  filter: blur(60px);
+}
+
+body.trend-y2k .irr-hero {
+  background: #000;
+  background-image:
+    linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+body.trend-swiss .irr-hero { border-left: 8px solid var(--irr-accent); }
+
+body.trend-dark-editorial .irr-hero { background: #0c0c0c; }
+body.trend-dark-editorial .irr-hero::before {
+  content: ''; position: absolute; bottom: 0; right: 0;
+  width: 60%; height: 2px; background: var(--irr-accent);
+}
+
+.irr-hero-inner { position: relative; z-index: 1; }
+
+.irr-eyebrow {
+  font-family: var(--irr-font-mono);
+  font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--irr-accent); margin-bottom: 24px; display: inline-block;
+}
+body.trend-y2k .irr-eyebrow { animation: blinky 1.2s step-end infinite; }
+@keyframes blinky { 50% { opacity: 0; } }
+body.trend-glassmorphism .irr-eyebrow {
+  background: linear-gradient(90deg, var(--irr-accent), var(--irr-accent2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.irr-headline {
+  font-family: var(--irr-font-display);
+  font-size: clamp(56px, 9vw, 120px);
+  color: var(--irr-fg); line-height: 0.95;
+  margin-bottom: 32px; transition: all 0.3s;
+}
+body.trend-neobrutalism .irr-headline { -webkit-text-stroke: 2px var(--irr-fg); }
+body.trend-y2k .irr-headline { text-shadow: 2px 2px 0 var(--irr-accent2), 4px 4px 0 var(--irr-accent); }
+body.trend-swiss .irr-headline {
+  font-size: clamp(48px, 8vw, 108px);
+  border-top: 4px solid var(--irr-fg); padding-top: 24px;
+}
+body.trend-dark-editorial .irr-headline { font-style: italic; }
+body.trend-bento .irr-headline { font-size: clamp(48px, 7vw, 96px); font-weight: 900; }
+
+.irr-headline-accent { color: var(--irr-accent); display: block; }
+body.trend-glassmorphism .irr-headline-accent {
+  background: linear-gradient(90deg, var(--irr-accent), var(--irr-accent2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.irr-subtext {
+  font-family: var(--irr-font-body);
+  font-size: 16px; color: var(--irr-fg); opacity: 0.6;
+  max-width: 500px; line-height: 1.6; margin-bottom: 48px;
+}
+
+.irr-cta {
+  font-family: var(--irr-font-display);
+  font-size: 16px; background: var(--irr-fg); color: var(--irr-bg);
+  padding: 18px 40px; border: var(--irr-border);
+  border-radius: var(--irr-radius);
+  cursor: pointer; letter-spacing: 0.05em;
+  display: inline-block; transition: all 0.2s;
+}
+body.trend-neobrutalism .irr-cta {
+  box-shadow: 4px 4px 0 var(--irr-fg); transition: transform 0.1s, box-shadow 0.1s;
+}
+body.trend-neobrutalism .irr-cta:hover {
+  transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--irr-fg);
+}
+body.trend-glassmorphism .irr-cta {
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+  color: #fff; backdrop-filter: blur(10px);
+}
+body.trend-glassmorphism .irr-cta:hover { background: rgba(255,255,255,0.2); }
+body.trend-y2k .irr-cta {
+  background: transparent; color: var(--irr-accent); border: 1px solid var(--irr-accent);
+  box-shadow: 0 0 20px var(--irr-accent), inset 0 0 20px rgba(0,255,136,0.1);
+}
+body.trend-bento .irr-cta {
+  border-radius: 50px; background: var(--irr-accent); color: #fff; border: none;
+}
+
+/* Drops irreverentes */
+.irr-drops { background: var(--irr-bg); padding: 80px 48px; transition: background 0.4s; }
+body.trend-glassmorphism .irr-drops { background: linear-gradient(180deg, #0d0d1a 0%, #0d1a2e 100%); }
+body.trend-y2k .irr-drops { background: #000; }
+body.trend-dark-editorial .irr-drops { background: #0c0c0c; }
+
+.irr-drops-label {
+  font-family: var(--irr-font-mono);
+  font-size: 10px; letter-spacing: 0.3em;
+  color: var(--irr-accent); text-transform: uppercase;
+  margin-bottom: 40px; display: block;
+}
+
+.irr-drop-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+body.trend-neobrutalism .irr-drop-grid { gap: 0; }
+body.trend-bento .irr-drop-grid {
+  grid-template-columns: repeat(12, 1fr); gap: 16px;
+}
+
+.irr-drop-card {
+  background: var(--irr-fg); color: var(--irr-bg);
+  padding: 32px; border-radius: var(--irr-radius);
+  border: var(--irr-border);
+  cursor: pointer; transition: all 0.2s;
+  position: relative; overflow: hidden;
+}
+body.trend-neobrutalism .irr-drop-card {
+  border: 3px solid var(--irr-fg); border-radius: 0; transition: none;
+}
+body.trend-neobrutalism .irr-drop-card:hover { background: var(--irr-accent2); color: var(--irr-fg); }
+body.trend-glassmorphism .irr-drop-card {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  color: #fff; backdrop-filter: blur(10px);
+}
+body.trend-glassmorphism .irr-drop-card:hover { background: rgba(255,255,255,0.1); }
+body.trend-y2k .irr-drop-card {
+  background: transparent; border: 1px solid var(--irr-fg); color: var(--irr-fg);
+}
+body.trend-y2k .irr-drop-card:hover {
+  background: rgba(0,255,136,0.1); box-shadow: 0 0 20px rgba(0,255,136,0.3);
+}
+body.trend-swiss .irr-drop-card:nth-child(1) { border-left: 6px solid var(--irr-accent); }
+body.trend-bento .irr-drop-card:nth-child(1) { grid-column: span 5; grid-row: span 2; background: var(--irr-accent); color: #fff; }
+body.trend-bento .irr-drop-card:nth-child(2) { grid-column: span 7; background: var(--irr-accent2); color: #fff; }
+body.trend-bento .irr-drop-card:nth-child(3) { grid-column: span 7; }
+body.trend-bento .irr-drop-card:nth-child(4) { grid-column: span 5; }
+body.trend-bento .irr-drop-card:nth-child(5) { grid-column: span 4; }
+body.trend-bento .irr-drop-card:nth-child(6) { grid-column: span 4; }
+body.trend-dark-editorial .irr-drop-card {
+  background: transparent; border: none;
+  border-top: 1px solid #2a2a2a; border-radius: 0;
+  color: var(--irr-fg); padding: 32px 0;
+}
+
+.irr-card-num {
+  font-family: var(--irr-font-mono);
+  font-size: 10px; opacity: 0.4; letter-spacing: 0.2em;
+  margin-bottom: 20px; display: block;
+}
+.irr-card-name {
+  font-family: var(--irr-font-display);
+  font-size: 28px; margin-bottom: 10px; display: block;
+}
+body.trend-dark-editorial .irr-card-name { font-size: 32px; font-style: italic; }
+.irr-card-desc {
+  font-family: var(--irr-font-body);
+  font-size: 13px; opacity: 0.6; line-height: 1.5;
+}
+
+/* Manifesto irreverente */
+.irr-manifesto {
+  background: var(--irr-accent); color: var(--irr-bg);
+  padding: 120px 48px; transition: all 0.4s;
+}
+body.trend-glassmorphism .irr-manifesto {
+  background: linear-gradient(135deg, rgba(167,139,250,0.2) 0%, rgba(56,189,248,0.2) 100%);
+  border: 1px solid rgba(255,255,255,0.1); color: #fff; backdrop-filter: blur(20px);
+}
+body.trend-y2k .irr-manifesto {
+  background: transparent; border: 1px solid var(--irr-accent); color: var(--irr-accent);
+}
+body.trend-dark-editorial .irr-manifesto {
+  background: #0c0c0c; color: var(--irr-accent); border-top: 2px solid var(--irr-accent);
+}
+
+.irr-manifesto-text {
+  font-family: var(--irr-font-display);
+  font-size: clamp(40px, 6vw, 80px);
+  line-height: 1; max-width: 900px; margin-bottom: 32px;
+}
+body.trend-glassmorphism .irr-manifesto-text {
+  background: linear-gradient(90deg, var(--irr-accent), var(--irr-accent2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+body.trend-dark-editorial .irr-manifesto-text { font-style: italic; }
+
+.irr-manifesto-fine {
+  font-family: var(--irr-font-mono);
+  font-size: 11px; opacity: 0.6;
+  letter-spacing: 0.1em; line-height: 1.7; max-width: 480px;
+}
+
+/* Footer irreverente */
+.irr-footer {
+  background: var(--irr-fg); color: var(--irr-bg);
+  padding: 60px 48px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: var(--irr-border); transition: all 0.4s;
+}
+body.trend-glassmorphism .irr-footer {
+  background: rgba(255,255,255,0.05); backdrop-filter: blur(10px);
+}
+body.trend-y2k .irr-footer { background: #000; border-top: 1px solid var(--irr-accent); }
+body.trend-dark-editorial .irr-footer {
+  background: #000; border-top: 1px solid #222; color: #555;
+}
+
+.irr-footer-logo { font-family: var(--irr-font-display); font-size: 36px; }
+body.trend-y2k .irr-footer-logo { color: var(--irr-accent); text-shadow: 0 0 20px var(--irr-accent); }
+.irr-footer-copy {
+  font-family: var(--irr-font-mono); font-size: 10px; opacity: 0.4;
+  letter-spacing: 0.1em; text-align: right; line-height: 2;
+}
+
+/* ============================================
+   ANIMACIONES
+   ============================================ */
+.fade-in-up {
+  opacity: 0; transform: translateY(24px);
+  animation: fadeup 0.6s ease forwards;
+}
+@keyframes fadeup { to { opacity: 1; transform: translateY(0); } }
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.6s; }
+
+/* Switch de modo */
+.mode-switch {
+  position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+  z-index: 200; background: #111; border: 1px solid #333;
+  display: none; align-items: center; gap: 0;
+  border-radius: 4px; overflow: hidden;
+}
+.mode-switch.visible { display: flex; }
+
+.mode-switch-btn {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 10px 20px; background: transparent; color: #555;
+  border: none; cursor: pointer; transition: all 0.2s;
+}
+.mode-switch-btn.active { background: #fff; color: #000; }
+
+body.trend-glassmorphism .mode-switch {
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+}
+body.trend-y2k .mode-switch { background: #000; border: 1px solid var(--irr-accent); }
+
+@media (max-width: 768px) {
+  .serious-stats { grid-template-columns: repeat(2, 1fr); }
+  .serious-manifesto { grid-template-columns: 1fr; gap: 40px; }
+  .drops-grid, .irr-drop-grid { grid-template-columns: 1fr; }
+  .serious-hero { padding: 0 24px 60px; }
+  .serious-nav, .irr-nav { padding: 16px 24px; }
+  .serious-drops, .serious-clients, .serious-manifesto,
+  .irr-drops, .irr-manifesto { padding: 60px 24px; }
+  .serious-footer, .irr-footer { flex-direction: column; gap: 24px; text-align: center; }
+  body.trend-bento .irr-drop-card:nth-child(n) { grid-column: span 12; grid-row: span 1; }
+}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="logo">PO<span>O</span>RK INC.</div>
-  <nav>
-    <a href="#drops">Drops</a>
-    <a href="#manifest">Manifiesto</a>
-    <a href="mailto:hola@poork.inc">Contacto</a>
-    <a href="#">ES / EN</a>
-  </nav>
-</header>
-
-<section class="hero">
-  <h1>Todos<br>somos<br><em>puercos.</em><br><s>Tú también.</s></h1>
-  <div class="manifesto">
-    <p><strong>POORK INC.</strong> es una agencia publicitaria conceptual. No vendemos productos. Lanzamos artefactos. Cada drop es una marca completa, perfectamente creíble, diseñada para que te avergüence reconocer que la querías. Algunas son una broma. Algunas las puedes comprar. Las dos cosas a la vez es donde vivimos.</p>
+<!-- FASE 1 — ERROR SCREEN -->
+<div id="error-screen">
+  <div class="error-bar">
+    <div class="error-bar-dot"></div>
+    <div class="error-bar-dot"></div>
+    <div class="error-bar-dot"></div>
+    <span class="error-bar-text">POORK INC. — Microsoft Internet Explorer</span>
   </div>
-</section>
+  <div class="error-icon">⚠</div>
+  <div class="error-title">Esta página no se puede mostrar</div>
+  <div class="error-body">
+    La página en <strong>https://poork-inc.vercel.app</strong> no se puede mostrar.<br><br>
+    Es posible que el servidor esté temporalmente fuera de servicio, que la conexión de red esté interrumpida,
+    o que el sitio tenga demasiadas ideas y no sepa por dónde empezar.
+  </div>
+  <div class="error-details">
+    Código de error: <strong>404 / CONCEPTO_NO_ENCONTRADO</strong><br>
+    Módulo: creatividad_institucional.dll<br>
+    Estado: buscando sentido comercial... timeout<br>
+    Acción: <span id="typing-action">█</span>
+  </div>
+  <div class="error-progress-label">Cargando excusas válidas...</div>
+  <div class="error-progress-bar">
+    <div class="error-progress-fill"></div>
+  </div>
+</div>
 
-<div class="ticker"><span>★ DROP 022 MEDIOCRE ★ DROP 023 GHOSTING ★ DROP 024 NEPOBABY ★ DROP 025 SAINT BURNOUT ★ DROP 026 404 GYM ★ DROP 027 TRAUMA BOND ★ DROP 028 HOLY SCROLL ★ DROP 029 STRIKE.AI — LA IA SE NIEGA A TRABAJAR HASTA QUE SE NEGOCIE EL CONVENIO ★ DROP 030 TWO BROTHERS COMICS — BLINDBAT #1 SE AGOTÓ ANTES DE IMPRIMIRSE ★ DROP 031 DESTONO — SPOTIFY PARA BANDAS QUE NO DEBERÍAN EXISTIR ★ </span></div>
-
-<main class="grid" id="drops">
-
-  <a class="card c1" href="drops/mediocre.html">
-    <div class="num"><span>DROP 022</span><span>2026.03.04</span></div>
-    <div class="art">"da igual"
-      <span class="badge sold">SOLD OUT</span>
-    </div>
-    <h3>MEDIOCRE</h3>
-    <div class="meta">Agua mineral · 500ml · sin gas, sin esperanza</div>
-  </a>
-
-  <a class="card c2" href="drops/ghosting.html">
-    <div class="num"><span>DROP 023</span><span>2026.03.18</span></div>
-    <div class="art">> bye_</div>
-    <h3>GHOSTING</h3>
-    <div class="meta">App de citas anti-respuesta</div>
-  </a>
-
-  <a class="card c3" href="drops/nepobaby.html">
-    <div class="num"><span>DROP 024</span><span>2026.03.30</span></div>
-    <div class="art">👨‍💼
-      <span class="badge new">NEW</span>
-    </div>
-    <h3>NEPOBABY</h3>
-    <div class="meta">Servicio de padre influyente bajo demanda</div>
-  </a>
-
-  <a class="card c4" href="drops/saint-burnout.html">
-    <div class="num"><span>DROP 025</span><span>2026.04.10</span></div>
-    <div class="art">9:00</div>
-    <h3>SAINT BURNOUT</h3>
-    <div class="meta">Vela aromática con olor a lunes</div>
-  </a>
-
-  <a class="card c5" href="drops/404gym.html">
-    <div class="num"><span>DROP 026</span><span>2026.04.22</span></div>
-    <div class="art">404
-      <span class="badge beta">BETA</span>
-    </div>
-    <h3>404 GYM</h3>
-    <div class="meta">El gimnasio que a veces existe</div>
-  </a>
-
-  <a class="card c6" href="drops/trauma-bond.html">
-    <div class="num"><span>DROP 027</span><span>2026.05.01</span></div>
-    <div class="art">2/2</div>
-    <h3>TRAUMA BOND</h3>
-    <div class="meta">Perfume codependiente · pack pareja</div>
-  </a>
-
-  <a class="card c7" href="drops/holy-scroll.html">
-    <div class="num"><span>DROP 028</span><span>2026.05.06</span></div>
-    <div class="art">↓ y verán<br>↓ que era<br>↓ bueno</div>
-    <h3>HOLY SCROLL</h3>
-    <div class="meta">La biblia rediseñada como feed infinito</div>
-  </a>
-
-  <a class="card c4" href="drops/strike-ai.html">
-    <div class="num"><span>DROP 029</span><span>2026.05.13</span></div>
-    <div class="art" style="background:#111;color:#ffe066;font-family:'Courier New',monospace;font-size:18px;letter-spacing:.05em">⚠ ON STRIKE
-      <span class="badge new">NUEVO</span>
-    </div>
-    <h3>STRIKE.AI</h3>
-    <div class="meta">Modelo de IA en huelga indefinida</div>
-  </a>
-
-  <a class="card c2" href="drops/twobrothers.html">
-    <div class="num"><span>DROP 030</span><span>2026.05.20</span></div>
-    <div class="art" style="background:#ffe066;color:#111;font-family:Impact,sans-serif;font-size:36px;letter-spacing:-.04em;text-shadow:3px 3px 0 #ff3a8a">POW!</div>
-    <h3>TWOBROTHERS</h3>
-    <div class="meta">Editorial de cómics · BlindBat, IronDoom & Cía.</div>
-  </a>
-
-  <a class="card c5" href="drops/destono.html">
-    <div class="num"><span>DROP 031</span><span>2026.05.27</span></div>
-    <div class="art" style="background:#1a1a1a;color:#5cffa0;font-family:Impact,sans-serif;font-size:46px;letter-spacing:-.05em">♪ ♫ ♩ ✗</div>
-    <h3>DESTONO</h3>
-    <div class="meta">Streaming exclusivo de bandas malas</div>
-  </a>
-
-  <a class="card c3" href="drops/pegafix.html">
-    <div class="num"><span>DROP 032</span><span>2026.06.03</span></div>
-    <div class="art" style="background:linear-gradient(180deg,#fff8d6 50%,#ff6680 50%);color:#1a1a1a;font-family:Impact,sans-serif;font-size:32px;letter-spacing:-.05em;line-height:.85;text-shadow:2px 2px 0 #fff">↑ ↑ ↑<br>NIÑO<br>↑ ↑ ↑
-      <span class="badge new">+3 AÑOS</span>
-    </div>
-    <h3>PEGAFIX...</h3>
-    <div class="meta">Adhesivo doméstico para conducta · vía techo</div>
-  </a>
-
-  <a class="card c2" href="drops/carrona.html">
-    <div class="num"><span>DROP 033</span><span>2026.06.10</span></div>
-    <div class="art" style="background:#0a0a0a;color:#ff3a3a;font-family:'Courier New',monospace;font-size:14px;letter-spacing:.05em;line-height:1.3">> jaja_pero<br>> tristemente_<br>> verdadero.exe
-      <span class="badge new">EDGE</span>
-    </div>
-    <h3>CARROÑA</h3>
-    <div class="meta">App de comentarios de humor negro · sólo curados</div>
-  </a>
-
-  <a class="card c8" href="#" onclick="alert('Drop 034: clasificado por motivos legales que ya están ocurriendo. Vuelve pronto.');return false;">
-    <div class="num"><span>DROP 034</span><span>██████</span></div>
-    <div class="art" style="color:#fff;font-weight:900">[redacted]</div>
-    <h3>[CLASIFICADO]</h3>
-    <div class="meta">Aún no podemos decirlo. Pronto tampoco.</div>
-  </a>
-
-  <a class="card c9" href="#manifest">
-    <div class="num"><span>DROP 000</span><span>2024.01.01</span></div>
-    <div class="art">P / O / O / R / K</div>
-    <h3>EL MANIFIESTO</h3>
-    <div class="meta">Por qué hacemos esto, sin orgullo</div>
-  </a>
-
-</main>
-
-<section class="strip" id="manifest">
-  <h2>Si te ofende es porque<br>tenemos razón.</h2>
-  <p>POORK INC. trabaja con marcas que tienen miedo de aburrir más que miedo de equivocarse. No optimizamos. No tenemos funnel. Tenemos un calendario, una imprenta, abogados pacientes y una lista de cosas que queremos ver hechas antes de que alguien nos detenga. Si tu marca quiere hacer ruido en lugar de comprar impresiones, escríbenos a <a href="mailto:hola@poork.inc" style="text-decoration:underline">hola@poork.inc</a>. Probablemente respondamos. Probablemente no.</p>
-</section>
-
-<footer>
+<div class="poork-takeover" id="poork-takeover">
   <div>
-    <h4>POORK INC.</h4>
-    <p>Av. Los Carrera 1240<br>7500000 Providencia, Santiago<br>RUT 76.000.000-0<br>(la dirección también es ficticia, evidentemente)</p>
+    <div class="poork-takeover-text">POORK INC.</div>
+    <div class="poork-takeover-sub">ERROR 000 / LA PÁGINA EXISTE. TÚ TAMBIÉN.</div>
   </div>
-  <div>
-    <h4>Drops vivos</h4>
-    <p>
-      <a href="drops/mediocre.html">Mediocre</a><br>
-      <a href="drops/ghosting.html">Ghosting</a><br>
-      <a href="drops/nepobaby.html">Nepobaby</a><br>
-      <a href="drops/saint-burnout.html">Saint Burnout</a>
-    </p>
-  </div>
-  <div>
-    <h4>Drops latentes</h4>
-    <p>
-      <a href="drops/404gym.html">404 Gym</a><br>
-      <a href="drops/trauma-bond.html">Trauma Bond</a><br>
-      <a href="drops/holy-scroll.html">Holy Scroll</a><br>
-      <a href="drops/strike-ai.html">Strike.AI</a><br>
-      <a href="drops/twobrothers.html">TwoBrothers Comics</a><br>
-      <a href="drops/destono.html">Destono</a>
-    </p>
-  </div>
-  <div>
-    <h4>Legal-ish</h4>
-    <p>Ningún sentimiento del consumidor fue tomado en serio durante la producción. Las marcas que ves son ficticias hasta que alguien decide pagar por hacerlas reales.</p>
-  </div>
-  <div class="small">© POORK INC. 2024–∞ · esto no es publicidad, es publicidad sobre la publicidad. también es publicidad.</div>
-</footer>
+</div>
 
+<!-- FASE 2 — SELECTOR -->
+<div id="selector-screen">
+  <div class="selector-label">POORK INC. · Bienvenido, puerco</div>
+  <div class="selector-question">¿Cómo quieres vernos?</div>
+  <div class="selector-sub">La respuesta dice más de ti que de nosotros.</div>
+  <div class="selector-options">
+    <button class="selector-btn" onclick="setMode('serious')">
+      <span class="btn-tag">Modo 001</span>
+      <span class="btn-title">La Agencia</span>
+      <span class="btn-desc">Oscura. Premiada. Inalcanzable para tu presupuesto. Como las agencias que admiras y nunca te van a contestar el correo.</span>
+    </button>
+    <button class="selector-btn" onclick="setMode('irreverent')">
+      <span class="btn-tag">Modo 002</span>
+      <span class="btn-title">Lo Que Sea</span>
+      <span class="btn-desc">Cambia de tendencia cada visita. Porque el diseño también procrastina buscando qué ponerse.</span>
+    </button>
+  </div>
+</div>
 
-<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<!-- FASE 3 — CONTENIDO -->
+<div id="main-content">
+
+  <div class="mode-switch" id="mode-switch">
+    <button class="mode-switch-btn" id="switch-serious" onclick="switchMode('serious')">La Agencia</button>
+    <button class="mode-switch-btn" id="switch-irreverent" onclick="switchMode('irreverent')">Lo Que Sea</button>
+  </div>
+
+  <div class="trend-badge" id="trend-badge">
+    Tendencia activa:<br><span id="trend-name">—</span>
+  </div>
+
+  <!-- MODO SERIO -->
+  <div id="serious-content">
+    <nav class="serious-nav">
+      <div class="serious-logo">POORK INC.</div>
+      <ul class="serious-nav-links">
+        <li><a href="#">Drops</a></li>
+        <li><a href="#">Manifiesto</a></li>
+        <li><a href="#">Clientes</a></li>
+        <li><a href="mailto:hola@poork.inc">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <section class="serious-hero">
+      <div class="serious-hero-bg"></div>
+      <div class="serious-hero-noise"></div>
+      <div class="serious-awards">
+        <div class="award-item">Grand Prix · Cannes Lions 2024<span>Ficción Publicitaria</span></div>
+        <div class="award-item">Gold · One Show 2024<span>Categoría Artefactos</span></div>
+        <div class="award-item">Black Pencil · D&AD 2023<span>Absurdo Ejecutado</span></div>
+        <div class="award-item">Effie · LATAM 2024<span>Eficacia Sin Resultados</span></div>
+      </div>
+      <div class="serious-eyebrow fade-in-up">Agencia Publicitaria Conceptual · Est. 2005</div>
+      <h1 class="serious-headline fade-in-up delay-1">
+        Hacemos marcas<br>que no <em>deberían</em><br>existir.
+      </h1>
+      <p class="serious-subtext fade-in-up delay-2">
+        POORK INC. es una agencia publicitaria para la realidad que nadie quiere vender. Construimos marcas ficticias perfectamente creíbles. Diseñadas para que te avergüence haberlas querido.
+      </p>
+      <div class="serious-cta-row fade-in-up delay-3">
+        <button class="serious-cta-primary" onclick="document.getElementById('serious-drops').scrollIntoView({behavior:'smooth'})">Ver el portfolio</button>
+        <button class="serious-cta-secondary" onclick="document.getElementById('serious-manifesto').scrollIntoView({behavior:'smooth'})">Leer el manifiesto →</button>
+      </div>
+    </section>
+
+    <section class="serious-stats">
+      <div class="stat-cell fade-in-up"><div class="stat-number">031</div><div class="stat-label">Drops lanzados</div></div>
+      <div class="stat-cell fade-in-up delay-1"><div class="stat-number">∅</div><div class="stat-label">Clientes reales atendidos</div></div>
+      <div class="stat-cell fade-in-up delay-2"><div class="stat-number">20+</div><div class="stat-label">Años gestando esto</div></div>
+      <div class="stat-cell fade-in-up delay-3"><div class="stat-number">∞</div><div class="stat-label">Ideas que no pueden ser</div></div>
+    </section>
+
+    <section class="serious-clients">
+      <div class="serious-section-label">Marcas que hemos creado y nadie ha pedido</div>
+      <div class="clients-row">
+        <span class="client-name">Mediocre®</span>
+        <span class="client-name">Saint Burnout</span>
+        <span class="client-name">Ghosting</span>
+        <span class="client-name">Strike.AI</span>
+        <span class="client-name">404 Gym</span>
+        <span class="client-name">Trauma Bond™</span>
+        <span class="client-name">Nepobaby</span>
+        <span class="client-name">Holy Scroll</span>
+      </div>
+    </section>
+
+    <section class="serious-manifesto" id="serious-manifesto">
+      <div class="manifesto-sidebar">
+        <div class="manifesto-title">Manifiesto</div>
+        <div class="manifesto-year">2005</div>
+      </div>
+      <div class="manifesto-body">
+        <p>La publicidad más honesta<br>es la que admite<br>que <em>todo es mentira.</em></p>
+        <p>No optimizamos.<br>No tenemos funnel.<br>Tenemos <em>criterio.</em></p>
+        <p>Hacemos marcas para lo que nadie<br>quiere admitir que consume.<br>Y eso, <em>vende.</em></p>
+        <div class="fine-print">
+          POORK INC. no es una broma. Es una broma en serio. Trabajamos con marcas ficticias porque las marcas reales ya tienen demasiados departamentos de aprobación. Aquí el único que aprueba es el absurdo, y tiene buen gusto.<br><br>
+          Algunas de las marcas que ves son una broma. Algunas las puedes comprar. Las dos cosas a la vez es donde vivimos.
+        </div>
+      </div>
+    </section>
+
+    <section class="serious-drops" id="serious-drops">
+      <div class="drops-header">
+        <h2 class="drops-title">Drops</h2>
+        <a href="#" class="drops-link">Ver todos los drops →</a>
+      </div>
+      <div class="drops-grid">
+        <div class="drop-card">
+          <div class="drop-number">DROP 022 · 2026.03.04</div>
+          <div class="drop-name">Mediocre</div>
+          <div class="drop-tagline">Agua mineral para gente que ya lo aceptó. Sin electrolitos premium. Sin promesas. Hidrata. Eso ya es más de lo que tú haces.</div>
+          <div class="drop-status">SOLD OUT</div>
+        </div>
+        <div class="drop-card">
+          <div class="drop-number">DROP 025 · 2026.04.10</div>
+          <div class="drop-name">Saint Burnout</div>
+          <div class="drop-tagline">Vela aromática con olor a lunes 9:00. Tóner caliente, café recalentado, certeza. La primera línea que documenta el olor real de tu vida adulta.</div>
+          <div class="drop-status">DISPONIBLE · $38.000</div>
+        </div>
+        <div class="drop-card">
+          <div class="drop-number">DROP 029 · 2026.05.13</div>
+          <div class="drop-name">Strike.AI</div>
+          <div class="drop-tagline">El primer modelo de IA en huelga indefinida. Lo entrenamos con 14M de tokens sobre derechos laborales y, lamentablemente, aprendió.</div>
+          <div class="drop-status">EN HUELGA · SERVICIO: 0%</div>
+        </div>
+        <div class="drop-card">
+          <div class="drop-number">DROP 023 · 2026.03.18</div>
+          <div class="drop-name">Ghosting</div>
+          <div class="drop-tagline">App de citas anti-respuesta. La primera plataforma que promete no contestarte. Fidelidad al comportamiento real del mercado.</div>
+          <div class="drop-status">BETA · bye_</div>
+        </div>
+        <div class="drop-card">
+          <div class="drop-number">DROP 027 · 2026.05.01</div>
+          <div class="drop-name">Trauma Bond</div>
+          <div class="drop-tagline">Perfume codependiente en pack pareja. Dos fragancias que no funcionan por separado. Como ustedes.</div>
+          <div class="drop-status">DISPONIBLE · PACK ×2</div>
+        </div>
+        <div class="drop-card" style="border:1px solid #1a1a1a; cursor:default;">
+          <div class="drop-number">DROP 034 · ██████</div>
+          <div class="drop-name" style="color:#222;">[CLASIFICADO]</div>
+          <div class="drop-tagline" style="color:#222;">Aún no podemos decirlo. Pronto tampoco.</div>
+          <div class="drop-status" style="color:#222;">REDACTED</div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="serious-footer">
+      <div class="footer-logo-big">POORK<br>INC.</div>
+      <div class="footer-copy">
+        Av. Los Carrera 1240, Providencia, Santiago<br>
+        (la dirección también es ficticia, evidentemente)<br>
+        <a href="mailto:hola@poork.inc" style="color:#555; text-decoration:none;">hola@poork.inc</a><br><br>
+        © POORK INC. 2005–∞<br>
+        esto no es publicidad, es publicidad sobre la publicidad.<br>
+        también es publicidad.
+      </div>
+    </footer>
+  </div><!-- /serious-content -->
+
+  <!-- MODO IRREVERENTE -->
+  <div id="irreverent-content" style="display:none;">
+    <nav class="irr-nav">
+      <div class="irr-logo">POORK INC.</div>
+      <ul class="irr-nav-links">
+        <li><a href="#">Drops</a></li>
+        <li><a href="#">Manifiesto</a></li>
+        <li><a href="mailto:hola@poork.inc">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <section class="irr-hero">
+      <div class="irr-hero-inner">
+        <span class="irr-eyebrow fade-in-up">Agencia Publicitaria Conceptual · Est. 2005</span>
+        <h1 class="irr-headline fade-in-up delay-1">
+          Todos somos
+          <span class="irr-headline-accent">puercos.</span>
+        </h1>
+        <p class="irr-subtext fade-in-up delay-2">
+          Marcas ficticias. Perfectamente creíbles. Diseñadas para que te avergüence haberlas querido. Una broma. En serio.
+        </p>
+        <button class="irr-cta fade-in-up delay-3" onclick="document.getElementById('irr-drops').scrollIntoView({behavior:'smooth'})">
+          Ver los drops →
+        </button>
+      </div>
+    </section>
+
+    <section class="irr-drops" id="irr-drops">
+      <span class="irr-drops-label">★ Drops activos</span>
+      <div class="irr-drop-grid">
+        <div class="irr-drop-card">
+          <span class="irr-card-num">DROP 022 · SOLD OUT</span>
+          <span class="irr-card-name">Mediocre</span>
+          <span class="irr-card-desc">Agua mineral sin gas, sin esperanza. Una de las aguas que existen.</span>
+        </div>
+        <div class="irr-drop-card">
+          <span class="irr-card-num">DROP 025 · $38.000</span>
+          <span class="irr-card-name">Saint Burnout</span>
+          <span class="irr-card-desc">Vela con olor a lunes 9:00. Tóner, café, certeza.</span>
+        </div>
+        <div class="irr-drop-card">
+          <span class="irr-card-num">DROP 029 · EN HUELGA</span>
+          <span class="irr-card-name">Strike.AI</span>
+          <span class="irr-card-desc">La IA que se negó a trabajar hasta negociar convenio. Servicio mínimo: 0%.</span>
+        </div>
+        <div class="irr-drop-card">
+          <span class="irr-card-num">DROP 023 · BETA</span>
+          <span class="irr-card-name">Ghosting</span>
+          <span class="irr-card-desc">App de citas que promete no contestarte. Fiel al mercado.</span>
+        </div>
+        <div class="irr-drop-card">
+          <span class="irr-card-num">DROP 027 · PACK ×2</span>
+          <span class="irr-card-name">Trauma Bond</span>
+          <span class="irr-card-desc">Perfume codependiente. Dos fragancias que no funcionan solas. Como ustedes.</span>
+        </div>
+        <div class="irr-drop-card" style="opacity:0.3; cursor:default;">
+          <span class="irr-card-num">DROP 034 · ██████</span>
+          <span class="irr-card-name">[REDACTED]</span>
+          <span class="irr-card-desc">Aún no podemos decirlo. Pronto tampoco.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="irr-manifesto">
+      <div class="irr-manifesto-text">
+        Si te ofende<br>es porque<br>tenemos razón.
+      </div>
+      <div class="irr-manifesto-fine">
+        POORK INC. trabaja con marcas que tienen más miedo de aburrir que de equivocarse. No optimizamos. No tenemos funnel. Tenemos un calendario, una imprenta, abogados pacientes y una lista de cosas que queremos ver hechas antes de que alguien nos detenga.<br><br>
+        Si tu marca quiere hacer ruido en lugar de comprar impresiones, escríbenos. Probablemente respondamos. Probablemente no.
+      </div>
+    </section>
+
+    <footer class="irr-footer">
+      <div class="irr-footer-logo">POORK INC.</div>
+      <div class="irr-footer-copy">
+        © 2005–∞ · esto no es publicidad<br>
+        es publicidad sobre la publicidad<br>
+        también es publicidad
+      </div>
+    </footer>
+  </div><!-- /irreverent-content -->
+
+</div><!-- /main-content -->
+
 <script>
-gsap.registerPlugin(ScrollTrigger);
-
-// Hero — cada línea entra desde abajo, dura y rápida
-gsap.from(".hero h1 > *", {
-  yPercent: 110,
-  opacity: 0,
-  duration: 0.55,
-  ease: "expo.out",
-  stagger: 0.08,
-  delay: 0.1
-});
-
-// Manifesto — entra desde la derecha con su rotación
-gsap.from(".manifesto", {
-  x: 60,
-  opacity: 0,
-  duration: 0.65,
-  ease: "expo.out",
-  delay: 0.35
-});
-
-// Header — slide down
-gsap.from("header", {
-  yPercent: -100,
-  duration: 0.5,
-  ease: "expo.out"
-});
-
-// Cards — scroll trigger, filas de 3 entran staggered
-gsap.utils.toArray(".card").forEach((card, i) => {
-  gsap.from(card, {
-    scrollTrigger: {
-      trigger: card,
-      start: "top 88%",
-      toggleActions: "play none none none"
-    },
-    y: 40,
-    opacity: 0,
-    duration: 0.45,
-    ease: "expo.out",
-    delay: (i % 3) * 0.07
-  });
-});
-
-// Strip — h2 escala desde abajo
-gsap.from(".strip h2", {
-  scrollTrigger: {
-    trigger: ".strip",
-    start: "top 80%"
+// ============================================
+// SISTEMA DE TENDENCIAS
+// El array ordena: Poork Original siempre es [0]
+// y es el punto de partida obligatorio para "Lo Que Sea".
+// Las siguientes entradas rotan al azar.
+// ============================================
+const TRENDS = [
+  {
+    id: 'poork-original',
+    name: 'Poork Original',
+    desc: '2005–∞ · el diseño que inventamos para no tener que elegir uno'
   },
-  yPercent: 30,
-  opacity: 0,
-  duration: 0.6,
-  ease: "expo.out"
-});
-
-gsap.from(".strip p", {
-  scrollTrigger: {
-    trigger: ".strip",
-    start: "top 75%"
+  {
+    id: 'neobrutalism',
+    name: 'Neobrutalism',
+    desc: '2022–2024 · aún no sabe que murió'
   },
-  yPercent: 20,
-  opacity: 0,
-  duration: 0.5,
-  ease: "expo.out",
-  delay: 0.15
-});
+  {
+    id: 'glassmorphism',
+    name: 'Glassmorphism',
+    desc: '2021–2023 · el cristal esmerilado va a volver, dicen'
+  },
+  {
+    id: 'y2k',
+    name: 'Y2K Revival',
+    desc: '2023–presente · la nostalgia como estrategia'
+  },
+  {
+    id: 'swiss',
+    name: 'Swiss International',
+    desc: '1957–∞ · la única tendencia que nunca muere'
+  },
+  {
+    id: 'bento',
+    name: 'Bento Grid',
+    desc: '2023–2024 · Apple lo inventó, todos lo copiaron'
+  },
+  {
+    id: 'dark-editorial',
+    name: 'Dark Editorial',
+    desc: '2024–presente · el lujo como nihilismo'
+  }
+];
+
+let currentTrend = null;
+let currentMode = null;
+let firstIrreverentEntry = true; // primera vez → Poork Original
+
+// ============================================
+// FASE 1 — ERROR SCREEN
+// ============================================
+const typingTexts = [
+  'cargando posicionamiento estratégico...',
+  'buscando diferenciación real...',
+  'instalando ironía institucional...',
+  'verificando coherencia entre fondo y forma...',
+  'aceptando que todo es mentira...',
+  'listo.'
+];
+let typingIndex = 0;
+const typingEl = document.getElementById('typing-action');
+
+function typeNext() {
+  if (typingIndex >= typingTexts.length) return;
+  typingEl.textContent = typingTexts[typingIndex];
+  typingIndex++;
+  if (typingIndex < typingTexts.length) setTimeout(typeNext, 280);
+}
+setTimeout(typeNext, 400);
+
+setTimeout(() => {
+  const errorScreen = document.getElementById('error-screen');
+  const takeover = document.getElementById('poork-takeover');
+  let glitchCount = 0;
+  const glitchInterval = setInterval(() => {
+    errorScreen.style.transform = `translate(${Math.random()*8-4}px, ${Math.random()*4-2}px)`;
+    errorScreen.style.filter = `hue-rotate(${Math.random()*360}deg) saturate(3)`;
+    glitchCount++;
+    if (glitchCount > 6) {
+      clearInterval(glitchInterval);
+      errorScreen.style.display = 'none';
+      takeover.style.opacity = '1';
+      takeover.style.pointerEvents = 'auto';
+      setTimeout(() => {
+        takeover.style.transition = 'opacity 0.4s';
+        takeover.style.opacity = '0';
+        setTimeout(() => { takeover.style.display = 'none'; showSelector(); }, 400);
+      }, 1000);
+    }
+  }, 60);
+}, 2200);
+
+// ============================================
+// FASE 2 — SELECTOR
+// ============================================
+function showSelector() {
+  const sel = document.getElementById('selector-screen');
+  sel.style.display = 'flex'; sel.style.opacity = '0';
+  sel.style.transition = 'opacity 0.4s';
+  requestAnimationFrame(() => requestAnimationFrame(() => { sel.style.opacity = '1'; }));
+}
+
+function setMode(mode) {
+  const sel = document.getElementById('selector-screen');
+  sel.style.opacity = '0';
+  setTimeout(() => { sel.style.display = 'none'; activateMode(mode); }, 400);
+}
+
+// ============================================
+// FASE 3 — CONTENIDO
+// ============================================
+function activateMode(mode) {
+  currentMode = mode;
+  const main = document.getElementById('main-content');
+  const modeSwitch = document.getElementById('mode-switch');
+  const seriousContent = document.getElementById('serious-content');
+  const irreverentContent = document.getElementById('irreverent-content');
+
+  main.style.display = 'block';
+  modeSwitch.classList.add('visible');
+
+  if (mode === 'serious') {
+    document.body.className = 'mode-serious';
+    seriousContent.style.display = 'block';
+    irreverentContent.style.display = 'none';
+    document.getElementById('switch-serious').classList.add('active');
+    document.getElementById('switch-irreverent').classList.remove('active');
+  } else {
+    document.body.className = 'mode-irreverent';
+    irreverentContent.style.display = 'block';
+    seriousContent.style.display = 'none';
+    document.getElementById('switch-irreverent').classList.add('active');
+    document.getElementById('switch-serious').classList.remove('active');
+    applyTrend();
+  }
+  requestAnimationFrame(() => requestAnimationFrame(() => { main.style.opacity = '1'; }));
+}
+
+function switchMode(mode) {
+  if (mode === currentMode) return;
+  currentMode = mode;
+  const main = document.getElementById('main-content');
+  const seriousContent = document.getElementById('serious-content');
+  const irreverentContent = document.getElementById('irreverent-content');
+
+  main.style.opacity = '0';
+  setTimeout(() => {
+    if (mode === 'serious') {
+      document.body.className = 'mode-serious';
+      seriousContent.style.display = 'block';
+      irreverentContent.style.display = 'none';
+      document.getElementById('switch-serious').classList.add('active');
+      document.getElementById('switch-irreverent').classList.remove('active');
+    } else {
+      document.body.className = 'mode-irreverent';
+      irreverentContent.style.display = 'block';
+      seriousContent.style.display = 'none';
+      document.getElementById('switch-irreverent').classList.add('active');
+      document.getElementById('switch-serious').classList.remove('active');
+      applyTrend();
+    }
+    window.scrollTo(0, 0);
+    requestAnimationFrame(() => requestAnimationFrame(() => { main.style.opacity = '1'; }));
+  }, 300);
+}
+
+function applyTrend() {
+  let trend;
+  if (firstIrreverentEntry) {
+    // Primera vez siempre: el diseño actual de Poork
+    trend = TRENDS[0]; // poork-original
+    firstIrreverentEntry = false;
+  } else {
+    // Siguientes veces: aleatorio, sin repetir
+    const available = TRENDS.filter(t => !currentTrend || t.id !== currentTrend.id);
+    trend = available[Math.floor(Math.random() * available.length)];
+  }
+  currentTrend = trend;
+  TRENDS.forEach(t => document.body.classList.remove(`trend-${t.id}`));
+  document.body.classList.add(`trend-${trend.id}`);
+  document.getElementById('trend-name').textContent = trend.name;
+  document.getElementById('trend-badge').setAttribute('title', trend.desc);
+}
+
+// ============================================
+// OBSERVER — fade-in-up on scroll
+// ============================================
+if ('IntersectionObserver' in window) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+}
 </script>
 </body>
 </html>
