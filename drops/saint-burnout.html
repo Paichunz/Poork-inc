@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>SAINT BURNOUT — vela aromática con olor a lunes 9:00</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Helvetica Neue",Arial,sans-serif;background:#1a1612;color:#f0e3d0;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+
+  header{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px 36px;border-bottom:1px solid #3a2f24;
+  }
+  .logo{font-family:Georgia,serif;font-style:italic;font-size:24px;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
+  .logo::before{content:"†";font-size:24px;color:#d4ad6a}
+  nav a{margin-left:18px;font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:#c0a888}
+  nav a:hover{color:#fff}
+
+  .hero{
+    min-height:90vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;
+    padding:0 60px;position:relative;overflow:hidden;
+    background:radial-gradient(circle at 70% 50%,#2a1f17 0%,#1a1612 70%);
+  }
+  .hero h1{
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:clamp(48px,8vw,120px);line-height:.92;letter-spacing:-.04em;
+    font-weight:400;color:#f0e3d0;
+  }
+  .hero h1 i{font-style:italic;color:#d4ad6a}
+  .hero .lead{font-size:18px;line-height:1.55;margin-top:24px;max-width:42ch;color:#c0a888}
+  .hero .meta{margin-top:28px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#8c7a60;display:flex;gap:30px;flex-wrap:wrap}
+  .hero .meta span::before{content:"·  "}
+
+  .candle-stage{display:flex;justify-content:center;align-items:flex-end;height:100%;padding:60px 0;position:relative}
+  .candle{
+    width:240px;height:340px;background:linear-gradient(180deg,#3a2f24 0%,#2a1f17 100%);
+    border-radius:6px;padding:30px 22px;color:#d4ad6a;
+    box-shadow:0 30px 80px rgba(0,0,0,.6),inset 2px 0 4px rgba(255,255,255,.06),inset -2px 0 4px rgba(0,0,0,.4);
+    position:relative;
+  }
+  .candle::after{
+    content:"";position:absolute;top:30px;left:50%;transform:translateX(-50%);
+    width:2px;height:18px;background:#1a1612;
+  }
+  .flame{
+    position:absolute;top:-6px;left:50%;transform:translateX(-50%);
+    width:14px;height:24px;background:radial-gradient(ellipse at center,#fff5d0 0%,#ffb84a 50%,#ff6020 100%);
+    border-radius:50% 50% 30% 30% / 70% 70% 30% 30%;
+    box-shadow:0 0 30px #ff8a3a,0 0 60px #ff6020;
+    animation:flicker 1.6s ease-in-out infinite;
+  }
+  @keyframes flicker{50%{transform:translateX(-50%) scale(1.04,.92);opacity:.85}}
+  .candle .ornament{font-family:Georgia,serif;font-size:30px;letter-spacing:.4em;text-align:center;margin-top:30px}
+  .candle .nm{font-family:Georgia,serif;font-style:italic;font-size:30px;text-align:center;margin-top:30px;letter-spacing:-.02em;color:#f0e3d0}
+  .candle .by{font-size:9px;letter-spacing:.4em;text-align:center;text-transform:uppercase;margin-top:6px;color:#8c7a60}
+  .candle .scent{font-size:11px;letter-spacing:.25em;text-align:center;text-transform:uppercase;margin-top:60px;border-top:1px solid #5a4a36;padding-top:14px;color:#c0a888}
+
+  section{padding:90px 40px;max-width:1200px;margin:0 auto}
+  h2{font-family:Georgia,serif;font-size:54px;font-weight:400;font-style:italic;letter-spacing:-.03em;line-height:.95;margin-bottom:18px}
+  .lead{font-size:17px;line-height:1.65;max-width:60ch;color:#c0a888;margin-bottom:30px}
+
+  .notes{
+    border-top:1px solid #3a2f24;border-bottom:1px solid #3a2f24;
+    padding:50px 0;margin:60px 0;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:40px;
+  }
+  .note h4{font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:#d4ad6a;margin-bottom:14px}
+  .note p{font-family:Georgia,serif;font-style:italic;font-size:18px;line-height:1.5;color:#f0e3d0}
+
+  .collection{padding:90px 40px;background:#0e0a06}
+  .col-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+  .col{background:#1a1612;border:1px solid #3a2f24;padding:34px;text-align:center}
+  .col .icn{
+    font-family:Georgia,serif;font-style:italic;font-size:60px;color:#d4ad6a;
+    width:80px;height:80px;border:1px solid #3a2f24;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;margin:0 auto 20px;
+  }
+  .col h3{font-family:Georgia,serif;font-style:italic;font-size:26px;margin-bottom:6px}
+  .col .scent{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#d4ad6a;margin-bottom:14px}
+  .col p{font-size:14px;line-height:1.5;color:#a09078;margin-bottom:20px}
+  .col .pp{font-family:Georgia,serif;font-style:italic;font-size:24px;color:#f0e3d0}
+
+  .quote{
+    margin:80px auto;max-width:780px;text-align:center;border:1px solid #3a2f24;padding:60px 40px;
+  }
+  .quote q{font-family:Georgia,serif;font-style:italic;font-size:28px;line-height:1.4;color:#f0e3d0;display:block;quotes:"“" "”"}
+  .quote cite{display:block;margin-top:20px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#d4ad6a}
+
+  .pray{
+    background:linear-gradient(180deg,#2a1f17,#0e0a06);padding:90px 40px;text-align:center;
+  }
+  .pray h2{margin-bottom:30px}
+  .pray .verse{font-family:Georgia,serif;font-style:italic;font-size:22px;line-height:1.7;max-width:50ch;margin:0 auto;color:#c0a888}
+  .pray .verse span{display:block;color:#d4ad6a;margin-top:14px}
+
+  .cta{padding:90px 40px;text-align:center;border-top:1px solid #3a2f24}
+  .cta .pp{font-family:Georgia,serif;font-style:italic;font-size:80px;letter-spacing:-.04em;color:#d4ad6a;line-height:1}
+  .cta a{display:inline-block;margin-top:24px;border:1px solid #d4ad6a;color:#f0e3d0;padding:18px 60px;letter-spacing:.3em;text-transform:uppercase;font-size:13px}
+  .cta a:hover{background:#d4ad6a;color:#1a1612}
+
+  footer{padding:24px 30px;text-align:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8c7a60;border-top:1px solid #3a2f24}
+  footer a{text-decoration:underline}
+
+  @media(max-width:900px){
+    .hero{grid-template-columns:1fr;padding:40px;text-align:center}
+    .candle-stage{padding:30px 0}
+    .notes,.col-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Saint Burnout</div>
+  <nav>
+    <a href="#collection">Colección</a>
+    <a href="#ritual">El ritual</a>
+    <a href="#" onclick="alert('Ya tienes acceso al sufrimiento. Es gratis.');return false;">Membresía</a>
+    <a class="back" href="../index.html" style="opacity:.4">← poork.inc</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>Una vela<br>que huele a<br><i>lunes 9:00.</i></h1>
+    <p class="lead">SAINT BURNOUT es una colección de velas de cera de soja con perfumes inspirados en los momentos más íntimos del agotamiento contemporáneo. Para celebrarlo. Para recordarlo. Para que el salón huela a verdad.</p>
+    <div class="meta">
+      <span>cera de soja</span>
+      <span>240g · 48h</span>
+      <span>made in despair</span>
+    </div>
+  </div>
+  <div class="candle-stage">
+    <div class="candle">
+      <div class="flame"></div>
+      <div class="ornament">† † †</div>
+      <div class="nm">Lunes 9:00</div>
+      <div class="by">edición fundacional</div>
+      <div class="scent">tóner térmico · café del día anterior · certeza</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>El bienestar es marketing.<br>El agotamiento es real.</h2>
+  <p class="lead">Durante años, las marcas de velas vendieron higos otoñales, cabañas en Vermont y la fantasía de un domingo eterno. Nadie vive allí. Nosotros vivimos aquí, y aquí huele a otra cosa: a impresora recién encendida, a uniforme que aún no se ha quitado, a metro a las 18:42, a notificación silenciada. SAINT BURNOUT es la primera línea de velas que documenta el olor real de tu vida adulta y te invita a venerarlo.</p>
+
+  <div class="notes">
+    <div class="note">
+      <h4>Salida</h4>
+      <p>café re-recalentado, microondas comunitario, ese yogur que alguien dejó hace dos semanas</p>
+    </div>
+    <div class="note">
+      <h4>Corazón</h4>
+      <p>tóner caliente, paño de microfibra, alfombra del meeting room, gel hidroalcohólico</p>
+    </div>
+    <div class="note">
+      <h4>Fondo</h4>
+      <p>resignación, cuero del sofá del open space, una idea brillante que no le importa a nadie</p>
+    </div>
+  </div>
+</section>
+
+<section id="collection" class="collection">
+  <h2 style="text-align:center">La colección.</h2>
+  <p class="lead" style="margin:0 auto 30px;text-align:center">Siete velas. Siete momentos. Una sola persona quemándose en distintos formatos.</p>
+  <div class="col-grid">
+    <div class="col">
+      <div class="icn">M</div>
+      <h3>Lunes 9:00</h3>
+      <div class="scent">la fundacional</div>
+      <p>Café del día anterior, papel térmico, una reunión "rápida" que dura 47 minutos.</p>
+      <div class="pp">$38.000</div>
+    </div>
+    <div class="col">
+      <div class="icn">D</div>
+      <h3>Domingo Tarde</h3>
+      <div class="scent">la previa</div>
+      <p>Toalla húmeda colgada en el baño, ansiedad anticipatoria, sopa de sobre, la tele de fondo.</p>
+      <div class="pp">$38.000</div>
+    </div>
+    <div class="col">
+      <div class="icn">3</div>
+      <h3>03:14 AM</h3>
+      <div class="scent">la insomne</div>
+      <p>Pantalla del móvil al máximo, almohada vencida, café descafeinado bebido por error.</p>
+      <div class="pp">$42.000</div>
+    </div>
+    <div class="col">
+      <div class="icn">⌐</div>
+      <h3>Open Space</h3>
+      <div class="scent">la corporativa</div>
+      <p>Aire reciclado, alfombra de moqueta gris, perfume de la compañera, tinta del rotulador.</p>
+      <div class="pp">$38.000</div>
+    </div>
+    <div class="col">
+      <div class="icn">$</div>
+      <h3>Cuesta de Enero</h3>
+      <div class="scent">edición invierno</div>
+      <p>Recibo del gimnasio sin usar, vino blanco caliente del salón, tarjeta declinada.</p>
+      <div class="pp">$48.000</div>
+    </div>
+    <div class="col">
+      <div class="icn">∞</div>
+      <h3>Reunión que Podría Haber Sido un Email</h3>
+      <div class="scent">la endémica</div>
+      <p>Sala mal ventilada, agua mineral tibia, el clic de una pluma de un compañero más senior.</p>
+      <div class="pp">$44.000</div>
+    </div>
+  </div>
+</section>
+
+<div class="quote">
+  <q>Encendí una en el salón y mi novio me preguntó si había encendido la impresora del trabajo. Funciona.</q>
+  <cite>— Reseña verificada · 5★</cite>
+</div>
+
+<section id="ritual" class="pray">
+  <h2>Una breve plegaria.</h2>
+  <div class="verse">
+    Bendita sea la bandeja de entrada que nunca llega al cero.<br>
+    Bendita la reunión que termina dos minutos antes.<br>
+    Bendito el viernes a las 17:58.<br>
+    <span>Saint Burnout, ruega por nosotros.</span>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Una vela. Una semana laboral.</h2>
+  <p class="lead" style="margin:14px auto;max-width:50ch">48 horas de combustión. Aproximadamente la duración media de la motivación de un equipo tras un team-building.</p>
+  <div class="pp">$38.000</div>
+  <a href="#" onclick="alert('Pedido recibido. Tu vela arderá durante el equivalente a una semana laboral. Tú también, pero gratis.');return false;">Comprar la fundacional</a>
+</section>
+
+<footer>
+  Saint Burnout es una división conceptual de <a href="../index.html">POORK INC.</a> · esta vela no cura el agotamiento, sólo lo perfuma.
+</footer>
+
+</body>
+</html>

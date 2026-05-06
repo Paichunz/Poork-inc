@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>MEDIOCRE® — agua mineral para gente que se ha rendido</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Helvetica Neue",Arial,sans-serif;background:#eef4f8;color:#1a2a36;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+
+  .top{padding:14px 30px;display:flex;justify-content:space-between;font-size:11px;letter-spacing:.3em;text-transform:uppercase;border-bottom:1px solid #1a2a36}
+
+  .hero{
+    min-height:90vh;
+    background:linear-gradient(180deg,#cfe9ff 0%,#7fb6dc 60%,#4a8aaf 100%);
+    display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:60px;
+    position:relative;overflow:hidden;
+  }
+  .hero::after{
+    content:"H₂Ø";position:absolute;right:-2vw;bottom:-4vw;
+    font-size:34vw;font-weight:900;color:rgba(255,255,255,.18);
+    letter-spacing:-.06em;line-height:.85;pointer-events:none;
+  }
+  .hero h1{
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:clamp(56px,8vw,124px);
+    font-weight:400;font-style:italic;letter-spacing:-.04em;line-height:.9;
+    color:#fff;
+  }
+  .hero h1 strong{font-weight:900;font-style:normal;display:block;text-transform:uppercase;font-family:"Helvetica Neue",sans-serif;font-size:.8em;letter-spacing:-.05em}
+  .hero .sub{font-size:18px;line-height:1.5;color:#1a2a36;margin-top:24px;max-width:42ch}
+
+  .bottle-stage{display:flex;justify-content:center;align-items:center;position:relative;z-index:2}
+  .bottle{
+    width:160px;height:430px;
+    background:linear-gradient(90deg,rgba(255,255,255,.6) 0%,rgba(255,255,255,.2) 50%,rgba(255,255,255,.6) 100%);
+    border-radius:40% 40% 16px 16px / 60px 60px 16px 16px;
+    box-shadow:0 30px 60px rgba(0,0,0,.2),inset -8px 0 18px rgba(0,0,0,.06);
+    position:relative;
+    backdrop-filter:blur(2px);
+  }
+  .bottle::before{
+    content:"";position:absolute;top:-30px;left:50%;transform:translateX(-50%);
+    width:46px;height:34px;background:#1a2a36;border-radius:6px 6px 2px 2px;
+  }
+  .bottle .label{
+    position:absolute;top:130px;left:0;right:0;background:#fff;color:#1a2a36;
+    padding:18px 14px;text-align:center;font-family:Georgia,serif;font-style:italic;
+    border-top:2px solid #1a2a36;border-bottom:2px solid #1a2a36;
+  }
+  .bottle .label .nm{font-size:32px;font-weight:bold;letter-spacing:-.04em;font-style:italic}
+  .bottle .label .by{font-size:9px;letter-spacing:.3em;text-transform:uppercase;font-style:normal;margin-top:4px;opacity:.6}
+  .bottle .label .vol{font-size:11px;margin-top:10px;font-style:normal;letter-spacing:.2em}
+
+  section{padding:80px 30px;max-width:1100px;margin:0 auto}
+  h2{font-family:Georgia,serif;font-size:54px;font-weight:400;font-style:italic;letter-spacing:-.03em;margin-bottom:24px;line-height:.95}
+  p{font-size:17px;line-height:1.65;margin-bottom:14px;max-width:62ch}
+
+  .quote-block{
+    margin:60px auto;max-width:780px;text-align:center;
+    border-top:1px solid #1a2a36;border-bottom:1px solid #1a2a36;padding:50px 30px;
+  }
+  .quote-block q{font-family:Georgia,serif;font-style:italic;font-size:36px;line-height:1.3;display:block;quotes:"“" "”"}
+  .quote-block cite{display:block;margin-top:24px;font-style:normal;font-size:11px;letter-spacing:.3em;text-transform:uppercase;opacity:.6}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin:50px 0;border-top:1px solid #1a2a36;border-bottom:1px solid #1a2a36;padding:40px 0}
+  .stat .num{font-family:Georgia,serif;font-style:italic;font-size:64px;font-weight:400;letter-spacing:-.04em;line-height:1}
+  .stat .lbl{font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-top:6px;opacity:.7}
+
+  .label-front{
+    display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:60px;align-items:center;
+  }
+  .label-front .info{font-size:14px;line-height:1.6}
+  .label-front .info table{width:100%;border-collapse:collapse;margin-top:14px;font-size:13px}
+  .label-front .info td{padding:8px 0;border-bottom:1px dotted #1a2a36}
+  .label-front .info td:last-child{text-align:right;font-weight:bold}
+  .label-front .pic{aspect-ratio:1;background:#fff;border:1px solid #1a2a36;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-style:italic;font-size:120px;color:#7fb6dc}
+
+  .buy{
+    background:#1a2a36;color:#eef4f8;text-align:center;padding:90px 30px;
+  }
+  .buy h2{color:#fff}
+  .buy .pp{font-family:Georgia,serif;font-style:italic;font-size:64px;margin:20px 0}
+  .buy .pp s{opacity:.4;font-size:.6em}
+  .buy a{display:inline-block;border:1px solid #eef4f8;padding:18px 60px;letter-spacing:.3em;text-transform:uppercase;font-size:13px;margin-top:14px}
+  .buy a:hover{background:#eef4f8;color:#1a2a36}
+
+  footer{padding:30px;text-align:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;border-top:1px solid #1a2a36}
+  footer a{text-decoration:underline}
+
+  @media(max-width:800px){
+    .hero{grid-template-columns:1fr;padding:30px;text-align:center}
+    .hero .sub{margin:24px auto 0}
+    .stats{grid-template-columns:1fr 1fr}
+    .label-front{grid-template-columns:1fr}
+    h2{font-size:38px}
+  }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <span><a href="../index.html">← poork.inc</a> / mediocre</span>
+  <span>est. 2026 · captada en cordillera de algún sitio</span>
+</div>
+
+<header class="hero">
+  <div>
+    <h1>Está bien<br>tal como<br>está.<br><strong>Mediocre.</strong></h1>
+    <p class="sub">El agua mineral oficial para gente que ha aceptado que esto era. La primera marca de agua que no promete claridad, pureza ni juventud. Sólo hidrata. Eso ya es más de lo que tú haces.</p>
+  </div>
+  <div class="bottle-stage">
+    <div class="bottle">
+      <div class="label">
+        <div class="nm">Mediocre</div>
+        <div class="by">water · since now</div>
+        <div class="vol">500 ml — sin gas</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <h2>Una de las aguas que existen.</h2>
+  <p>MEDIOCRE® es agua mineral natural captada en un acuífero que técnicamente cumple. La etiqueta es honesta porque el departamento legal lo exigió. La marca es honesta porque ya no nos quedaba energía para mentir.</p>
+  <p>No tiene electrolitos premium. No tiene minerales boutique. No la endorsea ningún atleta. Su pH es perfectamente del montón. La diseñamos para esa hora del día en que abres la nevera, miras dentro durante 14 segundos, y aceptas que beber agua es lo único productivo que vas a hacer hoy.</p>
+</section>
+
+<div class="quote-block">
+  <q>La compré porque la otra costaba más y yo ya no me lo merezco.</q>
+  <cite>— testimonio real, focus group de un participante</cite>
+</div>
+
+<section>
+  <h2>Las cifras que no nos esforzamos en maquillar.</h2>
+  <div class="stats">
+    <div class="stat"><div class="num">7,4</div><div class="lbl">pH neutral · ni alcalina ni nada</div></div>
+    <div class="stat"><div class="num">128</div><div class="lbl">mg/L residuo seco · está en el rango</div></div>
+    <div class="stat"><div class="num">3/5</div><div class="lbl">estrellas medias en Amazon · justas</div></div>
+    <div class="stat"><div class="num">∅</div><div class="lbl">premios obtenidos · no nos presentamos</div></div>
+  </div>
+
+  <div class="label-front">
+    <div class="info">
+      <h3 style="font-family:Georgia,serif;font-style:italic;font-size:30px;margin-bottom:12px">Análisis físico-químico</h3>
+      <p style="font-size:14px">Captada de un acuífero que existe. Embotellada el mismo día que se decidió. Etiquetada por una imprenta que nos pidió por favor que dejásemos de pedir cambios.</p>
+      <table>
+        <tr><td>Calcio</td><td>34 mg/L</td></tr>
+        <tr><td>Magnesio</td><td>9,1 mg/L</td></tr>
+        <tr><td>Sodio</td><td>11 mg/L</td></tr>
+        <tr><td>Bicarbonatos</td><td>148 mg/L</td></tr>
+        <tr><td>Pretensiones</td><td>0 mg/L</td></tr>
+      </table>
+    </div>
+    <div class="pic">M</div>
+  </div>
+</section>
+
+<div class="buy">
+  <h2>Compra mediocre.<br>Bebe mediocre.</h2>
+  <div class="pp"><s>$2.900</s> $1.400</div>
+  <p style="opacity:.7;font-size:13px;letter-spacing:.2em;text-transform:uppercase">Pack de 6 botellas · entrega cuando puedan</p>
+  <a href="#" onclick="alert('Sold out. Te avisaremos cuando volvamos a tener ganas.');return false;">Añadir al carrito</a>
+</div>
+
+<footer>
+  Mediocre® es una división conceptual de <a href="../index.html">POORK INC.</a> — el agua del montón, embotellada con dignidad.
+</footer>
+
+</body>
+</html>

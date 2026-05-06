@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>404 GYM — el gimnasio que a veces existe</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"JetBrains Mono","Courier New",monospace;background:#0d0d0d;color:#eaeaea;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+
+  /* glitch background */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 1px,transparent 1px 3px);
+    mix-blend-mode:overlay;
+  }
+  main,header{position:relative;z-index:2}
+
+  header{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 24px;border-bottom:1px solid #2a2a2a;background:#0a0a0a;
+  }
+  .logo{font-size:22px;font-weight:900;letter-spacing:-.05em;color:#ff5c4a;font-family:Impact,sans-serif}
+  .logo .e{color:#eaeaea}
+  nav a{margin-left:20px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#9a9a9a}
+  nav a:hover{color:#ff5c4a}
+
+  .alert-bar{
+    background:#ff5c4a;color:#0d0d0d;padding:8px 24px;font-size:12px;font-weight:bold;
+    text-align:center;letter-spacing:.1em;
+    text-transform:uppercase;animation:blink 2.4s infinite;
+  }
+  @keyframes blink{50%{background:#ffae3a}}
+
+  .hero{
+    padding:80px 24px;text-align:center;border-bottom:1px solid #2a2a2a;position:relative;
+    background:radial-gradient(ellipse at center,rgba(255,92,74,.06) 0%,transparent 60%);
+  }
+  .hero h1{
+    font-family:Impact,"Arial Black",sans-serif;
+    font-size:clamp(80px,22vw,340px);font-weight:900;letter-spacing:-.06em;line-height:.85;
+    color:#ff5c4a;text-shadow:4px 0 0 #1a1a1a,-4px 0 0 #5cffe0;
+  }
+  .hero .strap{
+    font-size:18px;color:#9a9a9a;max-width:60ch;margin:30px auto 0;line-height:1.5;
+  }
+  .hero .strap span{background:#ff5c4a;color:#0d0d0d;padding:0 6px;font-weight:bold}
+
+  .term{
+    margin:40px auto 0;max-width:780px;background:#1a1a1a;border:1px solid #2a2a2a;
+    text-align:left;padding:0;border-radius:6px;overflow:hidden;font-size:13px;line-height:1.7;
+  }
+  .term .t-head{background:#2a2a2a;padding:8px 14px;font-size:11px;letter-spacing:.2em;color:#9a9a9a;display:flex;gap:8px;text-transform:uppercase}
+  .term .t-head span{width:10px;height:10px;border-radius:50%}
+  .term .t-head .r{background:#ff5c4a}
+  .term .t-head .y{background:#ffae3a}
+  .term .t-head .g{background:#5cffa0}
+  .term .body{padding:18px}
+  .term .ok{color:#5cffa0}
+  .term .err{color:#ff5c4a}
+  .term .warn{color:#ffae3a}
+  .term .dim{color:#5a5a5a}
+  .term .pr::before{content:"→ ";color:#5cffa0}
+
+  section{padding:80px 24px;max-width:1200px;margin:0 auto;border-bottom:1px solid #2a2a2a}
+  h2{font-family:Impact,sans-serif;font-size:64px;letter-spacing:-.04em;line-height:.95;margin-bottom:18px;text-transform:uppercase}
+  h2 em{color:#ff5c4a;font-style:normal}
+  .lead{font-size:15px;line-height:1.7;color:#9a9a9a;max-width:62ch;margin-bottom:30px}
+
+  .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+  .feat{background:#1a1a1a;border:1px solid #2a2a2a;padding:24px;position:relative}
+  .feat .num{font-family:Impact,sans-serif;font-size:48px;color:#ff5c4a;line-height:1}
+  .feat h3{font-size:16px;font-weight:900;margin:8px 0;text-transform:uppercase;letter-spacing:-.02em}
+  .feat p{font-size:13px;color:#9a9a9a;line-height:1.55}
+  .feat::before{content:"01";position:absolute;top:14px;right:14px;font-size:10px;color:#5a5a5a;letter-spacing:.2em}
+  .feat:nth-child(2)::before{content:"02"}.feat:nth-child(3)::before{content:"03"}
+  .feat:nth-child(4)::before{content:"04"}.feat:nth-child(5)::before{content:"05"}
+  .feat:nth-child(6)::before{content:"06"}
+
+  .grid-status{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#2a2a2a;border:1px solid #2a2a2a;margin-top:20px}
+  .gs{background:#0d0d0d;padding:18px;text-align:center}
+  .gs .nm{font-size:11px;letter-spacing:.2em;color:#9a9a9a;text-transform:uppercase;margin-bottom:8px}
+  .gs .st{font-family:Impact,sans-serif;font-size:32px;letter-spacing:-.03em}
+  .gs.ok .st{color:#5cffa0}
+  .gs.err .st{color:#ff5c4a}
+  .gs.warn .st{color:#ffae3a}
+  .gs.off .st{color:#5a5a5a}
+
+  .schedule{margin-top:40px;border:1px solid #2a2a2a}
+  .row{display:grid;grid-template-columns:120px 1fr 100px 100px;padding:14px 18px;border-bottom:1px solid #2a2a2a;align-items:center;font-size:13px}
+  .row:last-child{border-bottom:none}
+  .row.head{background:#1a1a1a;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#9a9a9a}
+  .row .name{font-weight:bold}
+  .row .stat{font-family:Impact,sans-serif;font-size:18px}
+  .row .ok{color:#5cffa0}
+  .row .err{color:#ff5c4a}
+  .row .warn{color:#ffae3a}
+  .row.cancelled .name{text-decoration:line-through;color:#5a5a5a}
+
+  .pricing{padding:80px 24px;background:#0a0a0a}
+  .pricing h2{text-align:center;margin-bottom:50px}
+  .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:1100px;margin:0 auto}
+  .plan{background:#1a1a1a;border:1px solid #2a2a2a;padding:30px}
+  .plan h3{font-family:Impact,sans-serif;font-size:28px;letter-spacing:-.03em;margin-bottom:6px}
+  .plan .lvl{font-size:11px;color:#5a5a5a;letter-spacing:.2em;text-transform:uppercase;margin-bottom:18px}
+  .plan .pp{font-family:Impact,sans-serif;font-size:54px;color:#ff5c4a;letter-spacing:-.04em;line-height:1;margin-bottom:18px}
+  .plan ul{list-style:none;font-size:13px;line-height:1.9;color:#c8c8c8}
+  .plan ul li::before{content:"//  ";color:#5cffa0}
+  .plan button{width:100%;margin-top:18px;padding:14px;background:#ff5c4a;color:#0d0d0d;border:none;font-weight:bold;cursor:pointer;letter-spacing:.1em;text-transform:uppercase}
+  .plan button:hover{background:#5cffa0}
+
+  footer{padding:30px 24px;text-align:center;font-size:11px;color:#5a5a5a;letter-spacing:.15em;text-transform:uppercase;border-top:1px solid #2a2a2a}
+  footer a{color:#ff5c4a;text-decoration:underline}
+
+  @media(max-width:800px){
+    .feats,.grid-status,.pgrid{grid-template-columns:1fr 1fr}
+    .row{grid-template-columns:1fr 1fr;gap:6px}
+    .row .stat,.row .name{grid-column:span 1}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">404<span class="e">.gym</span></div>
+  <nav>
+    <a href="#status">Status</a>
+    <a href="#schedule">Clases</a>
+    <a href="#pricing">Cuotas</a>
+    <a href="../index.html" style="opacity:.4">← poork.inc</a>
+  </nav>
+</header>
+
+<div class="alert-bar">⚠ MANTENIMIENTO PARCIAL · 3 DE 8 MÁQUINAS OPERATIVAS · DUCHAS: AGUA TIBIA INTERMITENTE · ⚠</div>
+
+<main>
+
+<section class="hero">
+  <h1>404<br>GYM</h1>
+  <p class="strap">El primer gimnasio que asume desde el día uno que algo no va a funcionar. <span>Cuota más barata.</span> Expectativas más bajas. Resultados estadísticamente similares al gimnasio normal.</p>
+
+  <div class="term">
+    <div class="t-head"><span class="r"></span><span class="y"></span><span class="g"></span> 404gym@socio:~$ status</div>
+    <div class="body">
+      <div class="pr ok">checking estado del recinto...</div>
+      <div class="pr ok">acceso por puerta principal: ✓</div>
+      <div class="pr warn">cinta nº 4: error 503 — gimiendo</div>
+      <div class="pr err">remo erg: error 404 — no encontrado (lo movieron, no sabemos dónde)</div>
+      <div class="pr ok">mancuernarios: ✓ casi todo el rango par</div>
+      <div class="pr warn">sauna: temperatura ambiente (es decir, ninguna)</div>
+      <div class="pr err">vending: error 402 — payment required, también no funciona el datafono</div>
+      <div class="pr dim">> 8 / 23 servicios disponibles · este es un buen día</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Sin <em>excusas.</em><br>Bueno, alguna sí.</h2>
+  <p class="lead">404 GYM es el primer gimnasio low-cost que cobra la cuota sólo por los servicios que están funcionando ese día. Cada mañana, un script revisa el estado de las máquinas, la temperatura del agua y la disposición anímica del único monitor en plantilla, y ajusta tu factura. ¿Cinta rota? ¿Sin agua caliente? ¿Sólo dos pesas pares? Pagas menos. Sudas igual. Honestidad radical.</p>
+
+  <div class="feats">
+    <div class="feat"><div class="num">01</div><h3>Cobro Dinámico</h3><p>Algoritmo que descuenta automáticamente cada máquina caída. Tu app te avisa antes de venir.</p></div>
+    <div class="feat"><div class="num">02</div><h3>Sin Contrato</h3><p>Te das de baja con un emoji 👎 en WhatsApp. Damos de baja con la misma facilidad si tienes mala vibra.</p></div>
+    <div class="feat"><div class="num">03</div><h3>Vestuarios Gris-Cemento</h3><p>Sin alfombras de buena onda. Sin frases motivacionales. Sin espejos correctores. Sólo lo que hay.</p></div>
+    <div class="feat"><div class="num">04</div><h3>Coach Inestable</h3><p>Un único entrenador con alta rotación de carácter. Algunos días te exige, otros te ignora. Como tu padre.</p></div>
+    <div class="feat"><div class="num">05</div><h3>WiFi 50/50</h3><p>Funciona la mitad del tiempo. La otra mitad eres tú con tu cuerpo y tus pensamientos. Inevitable.</p></div>
+    <div class="feat"><div class="num">06</div><h3>Música Caótica</h3><p>El altavoz reproduce la playlist Spotify del último socio que entró. Hoy te toca reggaetón. Mañana puede ser jazz fusión.</p></div>
+  </div>
+</section>
+
+<section id="status">
+  <h2>Estado <em>en directo.</em></h2>
+  <p class="lead">Actualizado cada 4 minutos por un sensor barato que pusimos nosotros mismos. La app móvil te lo notifica antes de salir de casa. Si todo está caído, te enviamos memes en su lugar.</p>
+
+  <div class="grid-status">
+    <div class="gs ok"><div class="nm">Cintas (8)</div><div class="st">5/8 ✓</div></div>
+    <div class="gs warn"><div class="nm">Mancuernas</div><div class="st">RANGO PAR</div></div>
+    <div class="gs err"><div class="nm">Remo Erg</div><div class="st">404</div></div>
+    <div class="gs ok"><div class="nm">Sala Pesas</div><div class="st">✓</div></div>
+    <div class="gs warn"><div class="nm">Duchas</div><div class="st">TIBIA</div></div>
+    <div class="gs err"><div class="nm">Sauna</div><div class="st">FRÍA</div></div>
+    <div class="gs ok"><div class="nm">Báscula</div><div class="st">✓ MIENTE +1KG</div></div>
+    <div class="gs off"><div class="nm">Coach</div><div class="st">DE BAJA</div></div>
+  </div>
+</section>
+
+<section id="schedule">
+  <h2>Horario <em>aspiracional.</em></h2>
+  <p class="lead">Las clases se imparten siempre que el monitor esté presente, motivado y haya al menos dos personas inscritas. La tasa histórica de cumplimiento es del 64%. Lo cual, en términos de gimnasio español, es honesto.</p>
+
+  <div class="schedule">
+    <div class="row head"><span>HORA</span><span>CLASE</span><span>STATUS</span><span>OCUPACIÓN</span></div>
+    <div class="row"><span>07:00</span><span class="name">Spinning · sala 2</span><span class="stat ok">✓ ON</span><span>3/15</span></div>
+    <div class="row cancelled"><span>09:00</span><span class="name">Yoga restaurativo</span><span class="stat err">CANCEL</span><span>monitor en bus</span></div>
+    <div class="row"><span>11:30</span><span class="name">Funcional · vibras altas</span><span class="stat warn">TBC</span><span>2/12</span></div>
+    <div class="row"><span>17:00</span><span class="name">HIIT 45'</span><span class="stat ok">✓ ON</span><span>9/14</span></div>
+    <div class="row cancelled"><span>18:30</span><span class="name">Pilates avanzado</span><span class="stat err">CANCEL</span><span>aforo: 1</span></div>
+    <div class="row"><span>20:00</span><span class="name">Boxeo cero contacto</span><span class="stat warn">TBC</span><span>5/8</span></div>
+    <div class="row cancelled"><span>21:30</span><span class="name">Stretch & cry</span><span class="stat err">CANCEL</span><span>siempre</span></div>
+  </div>
+</section>
+
+<section id="pricing" class="pricing">
+  <h2>Cuotas. <em>Variables.</em></h2>
+  <div class="pgrid">
+    <div class="plan">
+      <h3>BÁSICO</h3>
+      <div class="lvl">// gym essentials</div>
+      <div class="pp">$19.000<span style="font-size:18px;color:#9a9a9a">/mes</span></div>
+      <ul><li>Acceso a la sala (cuando está abierta)</li><li>Cobro reducido por servicio caído</li><li>Toalla los lunes</li><li>Sin clases dirigidas</li></ul>
+      <button onclick="alert('Inscripción aceptada... aceptada... aceptada... ERROR. Inténtalo más tarde.');return false;">Inscribirme</button>
+    </div>
+    <div class="plan">
+      <h3>FULL</h3>
+      <div class="lvl">// the whole 404</div>
+      <div class="pp">$34.000<span style="font-size:18px;color:#9a9a9a">/mes</span></div>
+      <ul><li>Todo lo del Básico</li><li>Clases dirigidas (cuando se imparten)</li><li>Toalla diaria</li><li>Casillero asignado</li><li>Acceso a duchas (tibia)</li></ul>
+      <button onclick="alert('Pago procesado · descuento aplicado: -$8.000 (sauna fría hoy).');return false;">Inscribirme</button>
+    </div>
+    <div class="plan">
+      <h3>VIP /dev/null</h3>
+      <div class="lvl">// premium downtime</div>
+      <div class="pp">$69.000<span style="font-size:18px;color:#9a9a9a">/mes</span></div>
+      <ul><li>Todo lo del Full</li><li>Notificación SMS si hay agua caliente</li><li>Coach personal asignado*</li><li>Llave del armario del wifi</li><li>Compensación en cerveza si todo está roto</li></ul>
+      <button onclick="alert('VIP no disponible esta semana. Vuelve a intentarlo el martes.');return false;">Inscribirme</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  404 GYM es una división conceptual de <a href="../index.html">POORK INC.</a> · ningún músculo fue garantizado durante la elaboración de este servicio.
+</footer>
+
+</body>
+</html>

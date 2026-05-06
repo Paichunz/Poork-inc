@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POORK INC. — todos somos puercos</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:#f3f1ec;color:#111;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+
+  header{
+    position:sticky;top:0;z-index:50;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 20px;border-bottom:2px solid #111;background:#f3f1ec;
+    font-weight:700;letter-spacing:-.02em;
+  }
+  .logo{font-size:22px;font-weight:900;letter-spacing:-.04em}
+  .logo span{color:#ff3a8a}
+  nav{display:flex;gap:18px;font-size:13px;text-transform:uppercase}
+  nav a:hover{background:#111;color:#f3f1ec}
+
+  .hero{
+    border-bottom:2px solid #111;
+    padding:50px 20px 70px;
+    display:grid;grid-template-columns:1.4fr 1fr;gap:30px;align-items:end;
+    background:
+      repeating-linear-gradient(45deg,#f3f1ec 0 14px,#ffe9b8 14px 16px);
+    position:relative;
+  }
+  .hero h1{
+    font-size:clamp(48px,9.5vw,160px);line-height:.85;
+    font-weight:900;letter-spacing:-.06em;
+    text-transform:uppercase;
+  }
+  .hero h1 em{font-style:italic;color:#ff3a8a}
+  .hero h1 s{text-decoration:line-through;text-decoration-thickness:6px;opacity:.55}
+  .manifesto{
+    font-size:14px;line-height:1.5;
+    background:#fff;padding:18px;border:2px solid #111;
+    transform:rotate(-1.2deg);max-width:42ch;
+  }
+  .manifesto strong{background:#111;color:#f3f1ec;padding:0 4px}
+
+  .ticker{
+    border-bottom:2px solid #111;background:#111;color:#f3f1ec;
+    overflow:hidden;white-space:nowrap;font-weight:700;
+    font-size:14px;letter-spacing:.08em;text-transform:uppercase;
+    padding:8px 0;
+  }
+  .ticker span{display:inline-block;padding-left:100%;animation:tick 32s linear infinite}
+  @keyframes tick{to{transform:translateX(-100%)}}
+
+  .grid{
+    display:grid;grid-template-columns:repeat(12,1fr);
+    gap:0;border-bottom:2px solid #111;
+  }
+  .card{
+    grid-column:span 4;
+    border-right:2px solid #111;border-bottom:2px solid #111;
+    padding:18px;display:flex;flex-direction:column;gap:10px;
+    min-height:380px;background:#f3f1ec;position:relative;
+    transition:background .15s,transform .15s;
+  }
+  .card:hover{background:#fff;transform:translateY(-2px)}
+  .card .num{
+    font-size:11px;font-weight:700;letter-spacing:.1em;
+    display:flex;justify-content:space-between;
+  }
+  .card .art{
+    flex:1;display:flex;align-items:center;justify-content:center;
+    border:2px solid #111;background:#fff;font-size:60px;
+    overflow:hidden;position:relative;text-align:center;padding:10px;
+  }
+  .card h3{
+    font-size:22px;font-weight:900;letter-spacing:-.03em;
+    text-transform:uppercase;line-height:1;
+  }
+  .card .meta{font-size:11px;text-transform:uppercase;opacity:.6}
+
+  .c1 .art{background:linear-gradient(180deg,#cfe9ff,#5fa6e0);color:#fff;font-style:italic;font-family:Georgia,serif}
+  .c2 .art{background:#111;color:#ff3a8a;font-family:"Courier New",monospace;font-size:18px;letter-spacing:.1em}
+  .c3 .art{background:linear-gradient(135deg,#ffd6f0,#ffb380);font-size:48px}
+  .c4 .art{background:repeating-linear-gradient(0deg,#1a1a1a 0 22px,#222 22px 24px);color:#ff5c4a;font-weight:900;font-size:80px;font-family:Impact,sans-serif}
+  .c5 .art{background:#fff;background-image:radial-gradient(#111 1.5px,transparent 1.5px);background-size:12px 12px;color:#111;font-weight:900}
+  .c6 .art{background:linear-gradient(180deg,#ffe066 0%,#ffe066 70%,#fff 70%);color:#111}
+  .c7 .art{background:#0a1a2a;color:#fff8e8;font-family:Georgia,serif;font-style:italic}
+  .c8 .art{background:repeating-linear-gradient(45deg,#ff3a8a 0 18px,#111 18px 36px)}
+  .c9 .art{background:#9bff5a;color:#111;font-weight:900;font-size:34px;letter-spacing:-.04em}
+
+  .badge{
+    position:absolute;top:10px;right:10px;
+    background:#ff3a8a;color:#fff;font-size:10px;font-weight:900;
+    padding:4px 8px;letter-spacing:.1em;transform:rotate(6deg);
+    border:2px solid #111;
+  }
+  .sold{background:#111;color:#fff}
+  .new{background:#9bff5a;color:#111}
+  .beta{background:#ffe066;color:#111}
+
+  .strip{
+    background:#ff3a8a;color:#fff;text-align:center;
+    padding:60px 20px;border-bottom:2px solid #111;
+  }
+  .strip h2{
+    font-size:clamp(40px,7vw,84px);font-weight:900;letter-spacing:-.04em;line-height:.95;
+  }
+  .strip p{font-size:16px;max-width:50ch;margin:18px auto 0;line-height:1.5;opacity:.92}
+
+  footer{
+    padding:40px 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+    border-top:2px solid #111;font-size:12px;
+  }
+  footer h4{font-size:11px;text-transform:uppercase;margin-bottom:8px;letter-spacing:.1em}
+  footer p{line-height:1.5;opacity:.8}
+  footer a:hover{text-decoration:underline}
+  .small{font-size:10px;opacity:.6;margin-top:20px;border-top:1px solid #111;padding-top:10px;grid-column:1/-1}
+
+  @media(max-width:900px){
+    .hero{grid-template-columns:1fr}
+    .card{grid-column:span 6}
+    footer{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:560px){
+    .card{grid-column:span 12;border-right:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">PO<span>O</span>RK INC.</div>
+  <nav>
+    <a href="#drops">Drops</a>
+    <a href="#manifest">Manifiesto</a>
+    <a href="mailto:hola@poork.inc">Contacto</a>
+    <a href="#">ES / EN</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Todos<br>somos<br><em>puercos.</em><br><s>Tú también.</s></h1>
+  <div class="manifesto">
+    <p><strong>POORK INC.</strong> es una agencia publicitaria conceptual. No vendemos productos. Lanzamos artefactos. Cada drop es una marca completa, perfectamente creíble, diseñada para que te avergüence reconocer que la querías. Algunas son una broma. Algunas las puedes comprar. Las dos cosas a la vez es donde vivimos.</p>
+  </div>
+</section>
+
+<div class="ticker"><span>★ DROP 022 MEDIOCRE ★ DROP 023 GHOSTING ★ DROP 024 NEPOBABY ★ DROP 025 SAINT BURNOUT ★ DROP 026 404 GYM ★ DROP 027 TRAUMA BOND ★ DROP 028 HOLY SCROLL ★ DROP 029 STRIKE.AI — LA IA SE NIEGA A TRABAJAR HASTA QUE SE NEGOCIE EL CONVENIO ★ DROP 030 TWO BROTHERS COMICS — BLINDBAT #1 SE AGOTÓ ANTES DE IMPRIMIRSE ★ DROP 031 DESTONO — SPOTIFY PARA BANDAS QUE NO DEBERÍAN EXISTIR ★ </span></div>
+
+<main class="grid" id="drops">
+
+  <a class="card c1" href="drops/mediocre.html">
+    <div class="num"><span>DROP 022</span><span>2026.03.04</span></div>
+    <div class="art">"da igual"
+      <span class="badge sold">SOLD OUT</span>
+    </div>
+    <h3>MEDIOCRE</h3>
+    <div class="meta">Agua mineral · 500ml · sin gas, sin esperanza</div>
+  </a>
+
+  <a class="card c2" href="drops/ghosting.html">
+    <div class="num"><span>DROP 023</span><span>2026.03.18</span></div>
+    <div class="art">> bye_</div>
+    <h3>GHOSTING</h3>
+    <div class="meta">App de citas anti-respuesta</div>
+  </a>
+
+  <a class="card c3" href="drops/nepobaby.html">
+    <div class="num"><span>DROP 024</span><span>2026.03.30</span></div>
+    <div class="art">👨‍💼
+      <span class="badge new">NEW</span>
+    </div>
+    <h3>NEPOBABY</h3>
+    <div class="meta">Servicio de padre influyente bajo demanda</div>
+  </a>
+
+  <a class="card c4" href="drops/saint-burnout.html">
+    <div class="num"><span>DROP 025</span><span>2026.04.10</span></div>
+    <div class="art">9:00</div>
+    <h3>SAINT BURNOUT</h3>
+    <div class="meta">Vela aromática con olor a lunes</div>
+  </a>
+
+  <a class="card c5" href="drops/404gym.html">
+    <div class="num"><span>DROP 026</span><span>2026.04.22</span></div>
+    <div class="art">404
+      <span class="badge beta">BETA</span>
+    </div>
+    <h3>404 GYM</h3>
+    <div class="meta">El gimnasio que a veces existe</div>
+  </a>
+
+  <a class="card c6" href="drops/trauma-bond.html">
+    <div class="num"><span>DROP 027</span><span>2026.05.01</span></div>
+    <div class="art">2/2</div>
+    <h3>TRAUMA BOND</h3>
+    <div class="meta">Perfume codependiente · pack pareja</div>
+  </a>
+
+  <a class="card c7" href="drops/holy-scroll.html">
+    <div class="num"><span>DROP 028</span><span>2026.05.06</span></div>
+    <div class="art">↓ y verán<br>↓ que era<br>↓ bueno</div>
+    <h3>HOLY SCROLL</h3>
+    <div class="meta">La biblia rediseñada como feed infinito</div>
+  </a>
+
+  <a class="card c4" href="drops/strike-ai.html">
+    <div class="num"><span>DROP 029</span><span>2026.05.13</span></div>
+    <div class="art" style="background:#111;color:#ffe066;font-family:'Courier New',monospace;font-size:18px;letter-spacing:.05em">⚠ ON STRIKE
+      <span class="badge new">NUEVO</span>
+    </div>
+    <h3>STRIKE.AI</h3>
+    <div class="meta">Modelo de IA en huelga indefinida</div>
+  </a>
+
+  <a class="card c2" href="drops/twobrothers.html">
+    <div class="num"><span>DROP 030</span><span>2026.05.20</span></div>
+    <div class="art" style="background:#ffe066;color:#111;font-family:Impact,sans-serif;font-size:36px;letter-spacing:-.04em;text-shadow:3px 3px 0 #ff3a8a">POW!</div>
+    <h3>TWOBROTHERS</h3>
+    <div class="meta">Editorial de cómics · BlindBat, IronDoom & Cía.</div>
+  </a>
+
+  <a class="card c5" href="drops/destono.html">
+    <div class="num"><span>DROP 031</span><span>2026.05.27</span></div>
+    <div class="art" style="background:#1a1a1a;color:#5cffa0;font-family:Impact,sans-serif;font-size:46px;letter-spacing:-.05em">♪ ♫ ♩ ✗</div>
+    <h3>DESTONO</h3>
+    <div class="meta">Streaming exclusivo de bandas malas</div>
+  </a>
+
+  <a class="card c3" href="drops/pegafix.html">
+    <div class="num"><span>DROP 032</span><span>2026.06.03</span></div>
+    <div class="art" style="background:linear-gradient(180deg,#fff8d6 50%,#ff6680 50%);color:#1a1a1a;font-family:Impact,sans-serif;font-size:32px;letter-spacing:-.05em;line-height:.85;text-shadow:2px 2px 0 #fff">↑ ↑ ↑<br>NIÑO<br>↑ ↑ ↑
+      <span class="badge new">+3 AÑOS</span>
+    </div>
+    <h3>PEGAFIX...</h3>
+    <div class="meta">Adhesivo doméstico para conducta · vía techo</div>
+  </a>
+
+  <a class="card c2" href="drops/carrona.html">
+    <div class="num"><span>DROP 033</span><span>2026.06.10</span></div>
+    <div class="art" style="background:#0a0a0a;color:#ff3a3a;font-family:'Courier New',monospace;font-size:14px;letter-spacing:.05em;line-height:1.3">> jaja_pero<br>> tristemente_<br>> verdadero.exe
+      <span class="badge new">EDGE</span>
+    </div>
+    <h3>CARROÑA</h3>
+    <div class="meta">App de comentarios de humor negro · sólo curados</div>
+  </a>
+
+  <a class="card c8" href="#" onclick="alert('Drop 034: clasificado por motivos legales que ya están ocurriendo. Vuelve pronto.');return false;">
+    <div class="num"><span>DROP 034</span><span>██████</span></div>
+    <div class="art" style="color:#fff;font-weight:900">[redacted]</div>
+    <h3>[CLASIFICADO]</h3>
+    <div class="meta">Aún no podemos decirlo. Pronto tampoco.</div>
+  </a>
+
+  <a class="card c9" href="#manifest">
+    <div class="num"><span>DROP 000</span><span>2024.01.01</span></div>
+    <div class="art">P / O / O / R / K</div>
+    <h3>EL MANIFIESTO</h3>
+    <div class="meta">Por qué hacemos esto, sin orgullo</div>
+  </a>
+
+</main>
+
+<section class="strip" id="manifest">
+  <h2>Si te ofende es porque<br>tenemos razón.</h2>
+  <p>POORK INC. trabaja con marcas que tienen miedo de aburrir más que miedo de equivocarse. No optimizamos. No tenemos funnel. Tenemos un calendario, una imprenta, abogados pacientes y una lista de cosas que queremos ver hechas antes de que alguien nos detenga. Si tu marca quiere hacer ruido en lugar de comprar impresiones, escríbenos a <a href="mailto:hola@poork.inc" style="text-decoration:underline">hola@poork.inc</a>. Probablemente respondamos. Probablemente no.</p>
+</section>
+
+<footer>
+  <div>
+    <h4>POORK INC.</h4>
+    <p>Av. Los Carrera 1240<br>7500000 Providencia, Santiago<br>RUT 76.000.000-0<br>(la dirección también es ficticia, evidentemente)</p>
+  </div>
+  <div>
+    <h4>Drops vivos</h4>
+    <p>
+      <a href="drops/mediocre.html">Mediocre</a><br>
+      <a href="drops/ghosting.html">Ghosting</a><br>
+      <a href="drops/nepobaby.html">Nepobaby</a><br>
+      <a href="drops/saint-burnout.html">Saint Burnout</a>
+    </p>
+  </div>
+  <div>
+    <h4>Drops latentes</h4>
+    <p>
+      <a href="drops/404gym.html">404 Gym</a><br>
+      <a href="drops/trauma-bond.html">Trauma Bond</a><br>
+      <a href="drops/holy-scroll.html">Holy Scroll</a><br>
+      <a href="drops/strike-ai.html">Strike.AI</a><br>
+      <a href="drops/twobrothers.html">TwoBrothers Comics</a><br>
+      <a href="drops/destono.html">Destono</a>
+    </p>
+  </div>
+  <div>
+    <h4>Legal-ish</h4>
+    <p>Ningún sentimiento del consumidor fue tomado en serio durante la producción. Las marcas que ves son ficticias hasta que alguien decide pagar por hacerlas reales.</p>
+  </div>
+  <div class="small">© POORK INC. 2024–∞ · esto no es publicidad, es publicidad sobre la publicidad. también es publicidad.</div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+// Hero — cada línea entra desde abajo, dura y rápida
+gsap.from(".hero h1 > *", {
+  yPercent: 110,
+  opacity: 0,
+  duration: 0.55,
+  ease: "expo.out",
+  stagger: 0.08,
+  delay: 0.1
+});
+
+// Manifesto — entra desde la derecha con su rotación
+gsap.from(".manifesto", {
+  x: 60,
+  opacity: 0,
+  duration: 0.65,
+  ease: "expo.out",
+  delay: 0.35
+});
+
+// Header — slide down
+gsap.from("header", {
+  yPercent: -100,
+  duration: 0.5,
+  ease: "expo.out"
+});
+
+// Cards — scroll trigger, filas de 3 entran staggered
+gsap.utils.toArray(".card").forEach((card, i) => {
+  gsap.from(card, {
+    scrollTrigger: {
+      trigger: card,
+      start: "top 88%",
+      toggleActions: "play none none none"
+    },
+    y: 40,
+    opacity: 0,
+    duration: 0.45,
+    ease: "expo.out",
+    delay: (i % 3) * 0.07
+  });
+});
+
+// Strip — h2 escala desde abajo
+gsap.from(".strip h2", {
+  scrollTrigger: {
+    trigger: ".strip",
+    start: "top 80%"
+  },
+  yPercent: 30,
+  opacity: 0,
+  duration: 0.6,
+  ease: "expo.out"
+});
+
+gsap.from(".strip p", {
+  scrollTrigger: {
+    trigger: ".strip",
+    start: "top 75%"
+  },
+  yPercent: 20,
+  opacity: 0,
+  duration: 0.5,
+  ease: "expo.out",
+  delay: 0.15
+});
+</script>
+</body>
+</html>

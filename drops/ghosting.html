@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>GHOSTING — la app de citas que te ahorra el rechazo</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Inter","Helvetica Neue",sans-serif;background:#0a0a14;color:#e8e8f0;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+
+  header{
+    position:sticky;top:0;z-index:50;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 26px;background:rgba(10,10,20,.7);backdrop-filter:blur(12px);border-bottom:1px solid #20203a;
+  }
+  .logo{font-weight:900;font-size:22px;letter-spacing:-.04em;display:flex;align-items:center;gap:8px}
+  .logo .o{display:inline-block;width:14px;height:14px;background:#a78bff;border-radius:50%;box-shadow:0 0 16px #a78bff;animation:pulse 2.4s infinite}
+  @keyframes pulse{50%{opacity:.3;transform:scale(.7)}}
+  nav a{margin-left:18px;font-size:13px;opacity:.7}
+  nav a:hover{opacity:1;color:#a78bff}
+
+  .hero{
+    padding:90px 26px 60px;text-align:center;
+    background:radial-gradient(ellipse at 50% 30%,rgba(167,139,255,.18),transparent 60%);
+    position:relative;overflow:hidden;
+  }
+  .hero h1{
+    font-size:clamp(56px,11vw,140px);
+    font-weight:900;letter-spacing:-.05em;line-height:.92;
+    background:linear-gradient(180deg,#fff,#a78bff 60%,transparent 130%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero .strap{font-size:20px;color:#b8b8d0;max-width:54ch;margin:24px auto 0;line-height:1.5}
+
+  .phone-stage{
+    margin:60px auto 0;display:flex;justify-content:center;gap:20px;flex-wrap:wrap;
+  }
+  .phone{
+    width:280px;height:560px;background:#13132a;border-radius:36px;border:6px solid #1f1f3d;
+    box-shadow:0 30px 80px rgba(167,139,255,.15);
+    padding:14px;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;
+  }
+  .phone::before{
+    content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);
+    width:90px;height:22px;background:#0a0a14;border-radius:0 0 14px 14px;
+  }
+  .phone .scr{
+    margin-top:30px;flex:1;background:#0e0e22;border-radius:24px;padding:14px;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .phone .top-bar{font-size:11px;letter-spacing:.2em;color:#a78bff;text-transform:uppercase;text-align:center;padding:6px 0;border-bottom:1px solid #20203a}
+  .match{
+    background:#1a1a30;border-radius:14px;padding:12px;display:flex;gap:10px;align-items:center;
+    border-left:3px solid #a78bff;
+  }
+  .match .av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#5544aa,#a78bff);flex-shrink:0;opacity:.5}
+  .match .info{flex:1;min-width:0}
+  .match .name{font-size:13px;font-weight:bold}
+  .match .last{font-size:11px;color:#7a7a9a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .match .badge{font-size:9px;background:#a78bff;color:#0a0a14;padding:2px 6px;border-radius:8px;font-weight:bold;letter-spacing:.05em}
+  .match.fade{opacity:.4}
+  .match.gone{opacity:.15}
+  .match.gone .av{filter:grayscale(1)}
+
+  section{padding:90px 26px;max-width:1100px;margin:0 auto}
+  h2{font-size:48px;font-weight:900;letter-spacing:-.04em;line-height:.95;margin-bottom:18px}
+  .lead{font-size:18px;color:#b8b8d0;line-height:1.6;max-width:60ch;margin-bottom:30px}
+
+  .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+  .feat{background:#13132a;border:1px solid #20203a;border-radius:16px;padding:26px}
+  .feat .ico{font-size:22px;width:44px;height:44px;background:#1f1f3d;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+  .feat h3{font-size:18px;font-weight:800;margin-bottom:6px;letter-spacing:-.01em}
+  .feat p{font-size:14px;line-height:1.55;color:#9c9cb8}
+
+  .how{background:#13132a;border-radius:24px;padding:60px 30px;margin-top:60px;border:1px solid #20203a}
+  .how h2{text-align:center;margin-bottom:40px}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .step{text-align:center}
+  .step .nu{font-size:48px;font-weight:900;color:#a78bff;letter-spacing:-.04em;line-height:1}
+  .step h4{font-size:16px;font-weight:800;margin:8px 0 6px}
+  .step p{font-size:13px;color:#9c9cb8;line-height:1.5}
+
+  .testi{padding:80px 26px;background:linear-gradient(180deg,#0a0a14,#13132a);text-align:center}
+  .testi h3{font-size:11px;letter-spacing:.3em;color:#a78bff;text-transform:uppercase;margin-bottom:30px}
+  .tg{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:900px;margin:0 auto}
+  .t{background:#13132a;border:1px solid #20203a;padding:24px;border-radius:14px;text-align:left}
+  .t blockquote{font-size:16px;line-height:1.5;font-style:italic;margin-bottom:12px}
+  .t cite{font-size:11px;letter-spacing:.15em;color:#a78bff;text-transform:uppercase}
+
+  .pricing{padding:80px 26px;text-align:center}
+  .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1000px;margin:30px auto 0}
+  .plan{background:#13132a;border:1px solid #20203a;border-radius:16px;padding:30px;text-align:left}
+  .plan.f{border-color:#a78bff;background:linear-gradient(180deg,#1a1535,#13132a)}
+  .plan h4{font-size:18px;font-weight:800;letter-spacing:-.01em}
+  .plan .pp{font-size:46px;font-weight:900;color:#a78bff;letter-spacing:-.03em;margin:14px 0}
+  .plan ul{list-style:none;font-size:13px;line-height:1.9;color:#b8b8d0}
+  .plan ul li::before{content:"·  ";color:#a78bff;font-weight:bold}
+  .plan button{width:100%;margin-top:18px;padding:14px;background:#a78bff;color:#0a0a14;border:none;border-radius:10px;font-weight:bold;cursor:pointer;font-size:14px}
+  .plan.f button{background:#fff}
+
+  footer{padding:30px;text-align:center;font-size:11px;color:#7a7a9a;border-top:1px solid #20203a}
+  footer a{color:#a78bff;text-decoration:underline}
+
+  @media(max-width:800px){.feats,.steps,.tg,.pgrid{grid-template-columns:1fr}.hero h1{font-size:54px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><span class="o"></span>GHOSTING</div>
+  <nav>
+    <a href="#how">Cómo va</a>
+    <a href="#pricing">Premium</a>
+    <a href="#" onclick="alert('Inicia sesión para que podamos ignorarte adecuadamente.');return false;">Entrar</a>
+    <a class="back" href="../index.html" style="opacity:.4">← poork.inc</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>El amor<br>nunca llega.<br>Nosotros<br>tampoco.</h1>
+  <p class="strap">GHOSTING es la primera app de citas que sólo te empareja con personas que está estadísticamente garantizado que te van a ignorar. Cero respuestas. Cero rechazos. Cero esperanza. Cero gasto emocional.</p>
+
+  <div class="phone-stage">
+    <div class="phone">
+      <div class="scr">
+        <div class="top-bar">★ tus matches</div>
+        <div class="match"><div class="av"></div><div class="info"><div class="name">Marina, 28</div><div class="last">«visto hace 4 días»</div></div><span class="badge">90%</span></div>
+        <div class="match fade"><div class="av"></div><div class="info"><div class="name">Luis, 31</div><div class="last">no respondió a "hola :)"</div></div><span class="badge">94%</span></div>
+        <div class="match fade"><div class="av"></div><div class="info"><div class="name">Saray, 26</div><div class="last">vio el mensaje, se fue</div></div><span class="badge">88%</span></div>
+        <div class="match gone"><div class="av"></div><div class="info"><div class="name">Iván, 33</div><div class="last">desactivó la cuenta</div></div><span class="badge">99%</span></div>
+        <div class="match gone"><div class="av"></div><div class="info"><div class="name">Lucía, 24</div><div class="last">se mudó a Lisboa</div></div><span class="badge">97%</span></div>
+      </div>
+    </div>
+
+    <div class="phone">
+      <div class="scr">
+        <div class="top-bar">★ tu chat con marina</div>
+        <div style="font-size:13px;text-align:center;color:#7a7a9a;padding:20px 0">— viernes 02:14 —</div>
+        <div style="background:#a78bff;color:#0a0a14;padding:10px 14px;border-radius:14px 14px 4px 14px;align-self:flex-end;max-width:80%;font-size:13px;margin-left:auto">hola, qué tal?</div>
+        <div style="background:#a78bff;color:#0a0a14;padding:10px 14px;border-radius:14px 14px 4px 14px;align-self:flex-end;max-width:80%;font-size:13px;margin-left:auto">vi que también te gusta el cine</div>
+        <div style="font-size:11px;color:#7a7a9a;text-align:right;margin-top:-4px">visto · 14:22</div>
+        <div style="font-size:13px;text-align:center;color:#7a7a9a;padding:30px 0;font-style:italic">— marina ha estado activa hace 2 minutos —</div>
+        <div style="font-size:13px;text-align:center;color:#a78bff;padding:30px 0;border-top:1px dashed #20203a;border-bottom:1px dashed #20203a;margin-top:auto">★ todo va perfectamente</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <h2>El rechazo es ineficiente.<br>Nosotros lo automatizamos.</h2>
+  <p class="lead">Las apps tradicionales fingen que tienes una oportunidad. Lo cual te obliga a desplegar emocionalidad, foto en una azotea y una bio con sentido del humor. GHOSTING elimina ese teatro: te dice de antemano quién no va a contestarte y te empareja directamente con esa persona. Tú ahorras la decepción. Nosotros ahorramos los servidores.</p>
+
+  <div class="feats">
+    <div class="feat"><div class="ico">∅</div><h3>Match Garantizado, Respuesta Imposible</h3><p>Nuestro algoritmo NoMatch™ predice con un 96% de fiabilidad quién no va a contestarte. Te emparejamos con esa persona. La eficiencia es total.</p></div>
+    <div class="feat"><div class="ico">⌛</div><h3>Modo Visto-No-Contestado</h3><p>Notificación cuando tu mensaje es leído. Notificación cuando vuelve a salir online sin haber respondido. La transparencia que las otras apps te niegan.</p></div>
+    <div class="feat"><div class="ico">↻</div><h3>Reciclaje Emocional</h3><p>Tu ex de 2017 vuelve a la app cada 6 meses. Te lo notificamos. Decides tú si rascarte la herida.</p></div>
+    <div class="feat"><div class="ico">⚪</div><h3>Foto Anónima</h3><p>Tu perfil es desenfocado por defecto. Si alguien quiere ver tu cara tiene que pedirlo. Nunca lo hace nadie. Todos somos felices.</p></div>
+    <div class="feat"><div class="ico">📍</div><h3>Radio Ampliable</h3><p>¿Te ignora gente cerca? Amplía el radio. Hay un infinito de personas dispuestas a no responderte en una capital cercana.</p></div>
+    <div class="feat"><div class="ico">⚠</div><h3>Modo Pánico</h3><p>Si alguien responde, presiona el botón rojo y la conversación se autodestruye. Recuperamos tu paz mental en 0,4 segundos.</p></div>
+  </div>
+</section>
+
+<div class="how">
+  <h2>4 pasos. 0 conversaciones.</h2>
+  <div class="steps">
+    <div class="step"><div class="nu">01</div><h4>Te registras</h4><p>Subimos tu foto al algoritmo. Le pedimos perdón.</p></div>
+    <div class="step"><div class="nu">02</div><h4>Te asignamos</h4><p>NoMatch™ identifica a la persona menos probable de contestarte.</p></div>
+    <div class="step"><div class="nu">03</div><h4>Escribes</h4><p>Tres mensajes máximo. Cuarto mensaje, suspensión.</p></div>
+    <div class="step"><div class="nu">04</div><h4>Esperas</h4><p>Para siempre. Es lo que querías. Lo prometiste en terapia.</p></div>
+  </div>
+</div>
+
+<section class="testi">
+  <h3>★ Lo que dicen quienes se han registrado ★</h3>
+  <div class="tg">
+    <div class="t"><blockquote>"Por fin una app honesta. Llevo seis semanas sin que me conteste nadie y no he gastado ni un euro en serotonina."</blockquote><cite>— @marcos.exhausto</cite></div>
+    <div class="t"><blockquote>"Me devolvió a mi exnovio. Tampoco contesta, pero hay como una continuidad narrativa que aprecio."</blockquote><cite>— focus group, abril 2026</cite></div>
+    <div class="t"><blockquote>"Mejor que las otras porque al menos sabes a qué atenerte."</blockquote><cite>— reseña 4★ App Store</cite></div>
+    <div class="t"><blockquote>"Empecé a usarla irónicamente. Ahora la uso normalmente. No sé en qué momento pasó."</blockquote><cite>— @ana.b.lateral</cite></div>
+  </div>
+</section>
+
+<section id="pricing" class="pricing">
+  <h2>Planes. Todos te ignoran.</h2>
+  <p class="lead" style="margin:14px auto 0">La diferencia es la calidad del silencio.</p>
+  <div class="pgrid">
+    <div class="plan">
+      <h4>FREE</h4>
+      <div class="pp">$0</div>
+      <ul><li>3 matches/semana</li><li>Te ignoran personas normales</li><li>Anuncios de terapia online</li><li>Visto pero no respondido</li></ul>
+      <button>Empezar</button>
+    </div>
+    <div class="plan f">
+      <h4>★ PREMIUM</h4>
+      <div class="pp">$9.900<span style="font-size:14px;color:#9c9cb8">/mes</span></div>
+      <ul><li>Matches ilimitados</li><li>Te ignoran personas atractivas</li><li>Sin anuncios</li><li>Modo "visto activo"</li><li>Notificación cuando entran y salen</li></ul>
+      <button>Probar 7 días</button>
+    </div>
+    <div class="plan">
+      <h4>HEARTBREAK</h4>
+      <div class="pp">$24.900<span style="font-size:14px;color:#9c9cb8">/mes</span></div>
+      <ul><li>Todo Premium</li><li>Te ignoran famosos verificados</li><li>Tu ex aparece automáticamente</li><li>Modo lunes 23:00 prioritario</li><li>Línea directa con tu psicóloga</li></ul>
+      <button>No me lo merezco</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  GHOSTING™ es una división conceptual de <a href="../index.html">POORK INC.</a> · ningún match fue forzado a contestar durante la elaboración de esta app.
+</footer>
+
+</body>
+</html>

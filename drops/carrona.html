@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>CARROÑA — la red social que sólo come comentarios.</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Inter","Helvetica Neue",sans-serif;background:#0a0a0a;color:#e8e8ea;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+
+  /* scanline overlay */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:1;pointer-events:none;
+    background:repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0 1px,transparent 1px 3px);
+    mix-blend-mode:overlay;
+  }
+
+  header,main,section,footer{position:relative;z-index:2}
+
+  header{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 26px;background:#050505;border-bottom:1px solid #1a1a1a;
+    position:sticky;top:0;z-index:50;
+  }
+  .logo{
+    font-family:"JetBrains Mono","Courier New",monospace;
+    font-size:22px;font-weight:900;letter-spacing:-.04em;color:#e8e8ea;
+    display:flex;align-items:center;gap:8px;
+  }
+  .logo::before{
+    content:"";width:14px;height:14px;background:#ff3a3a;border-radius:50%;
+    box-shadow:0 0 14px #ff3a3a;animation:pulse 1.4s infinite;
+  }
+  @keyframes pulse{50%{opacity:.4;transform:scale(.7)}}
+  .logo .ny{color:#ff3a3a}
+  nav a{margin-left:18px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#7a7a7e;font-family:"JetBrains Mono",monospace}
+  nav a:hover{color:#ff3a3a}
+
+  /* HERO */
+  .hero{
+    padding:90px 26px 60px;text-align:center;
+    background:radial-gradient(ellipse at center,rgba(255,58,58,.10),transparent 60%);
+    border-bottom:1px solid #1a1a1a;
+    position:relative;overflow:hidden;
+  }
+  .hero::after{
+    content:"☻";position:absolute;top:-30%;right:-5%;font-size:40vw;color:rgba(255,58,58,.04);
+    line-height:.85;pointer-events:none;
+  }
+  .hero h1{
+    font-family:"Helvetica Neue",sans-serif;
+    font-size:clamp(56px,12vw,160px);font-weight:900;letter-spacing:-.05em;line-height:.85;
+    color:#e8e8ea;
+  }
+  .hero h1 em{font-style:italic;color:#ff3a3a}
+  .hero h1 s{text-decoration:line-through;text-decoration-thickness:6px;text-decoration-color:#ff3a3a;opacity:.65}
+  .hero .strap{
+    font-family:"JetBrains Mono",monospace;
+    font-size:16px;line-height:1.6;color:#9a9a9e;
+    max-width:60ch;margin:30px auto 0;
+  }
+  .hero .strap b{color:#ff3a3a;font-weight:normal}
+  .hero .meta{
+    margin-top:30px;display:inline-flex;gap:24px;flex-wrap:wrap;justify-content:center;
+    font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#7a7a7e;
+  }
+  .hero .meta span{border:1px solid #2a2a2a;padding:6px 12px}
+  .hero .meta span.live::before{content:"●";color:#ff3a3a;margin-right:6px}
+
+  /* phone preview */
+  .demo-stage{margin:60px auto 0;display:flex;justify-content:center;gap:30px;flex-wrap:wrap}
+  .phone{
+    width:340px;height:680px;background:#080808;border-radius:38px;border:6px solid #1a1a1a;
+    box-shadow:0 30px 80px rgba(255,58,58,.06),inset 0 0 30px rgba(0,0,0,.6);
+    padding:14px;position:relative;overflow:hidden;display:flex;flex-direction:column;
+  }
+  .phone::before{
+    content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);
+    width:90px;height:22px;background:#000;border-radius:0 0 14px 14px;z-index:5;
+  }
+  .scr{margin-top:30px;flex:1;background:#000;border-radius:24px;overflow:hidden;display:flex;flex-direction:column}
+  .scr-head{
+    padding:14px;border-bottom:1px solid #1a1a1a;display:flex;justify-content:space-between;align-items:center;
+    font-family:"JetBrains Mono",monospace;font-size:12px;color:#9a9a9e;
+  }
+  .scr-head b{color:#ff3a3a;font-weight:normal}
+  .scr-tabs{display:flex;border-bottom:1px solid #1a1a1a;font-size:10px;letter-spacing:.15em;text-transform:uppercase}
+  .scr-tabs div{flex:1;padding:10px;text-align:center;color:#5a5a5e;font-family:"JetBrains Mono",monospace}
+  .scr-tabs div.act{color:#ff3a3a;border-bottom:2px solid #ff3a3a}
+  .feed{flex:1;overflow:hidden;padding:14px;display:flex;flex-direction:column;gap:14px}
+  .post{
+    background:#0e0e0e;border:1px solid #1a1a1a;border-left:3px solid #ff3a3a;
+    border-radius:8px;padding:14px;
+  }
+  .post .src{font-family:"JetBrains Mono",monospace;font-size:10px;color:#5a5a5e;margin-bottom:8px;letter-spacing:.05em}
+  .post .src::before{content:"↳ ";color:#ff3a3a}
+  .post .ctx{font-size:11px;color:#7a7a7e;margin-bottom:8px;font-style:italic;line-height:1.4}
+  .post .cmt{font-size:14px;line-height:1.45;color:#e8e8ea}
+  .post .cmt .h{color:#ff3a3a}
+  .post .acts{display:flex;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px dashed #1a1a1a;font-family:"JetBrains Mono",monospace;font-size:11px;color:#7a7a7e}
+  .post .acts span{display:flex;align-items:center;gap:4px}
+  .post .acts span::before{font-size:14px;color:#ff3a3a}
+  .post .acts .lik::before{content:"☻"}
+  .post .acts .ar::before{content:"⌂"}
+  .post .acts .sv::before{content:"☓"}
+  .post .acts .sh::before{content:"↗"}
+
+  /* sections */
+  section{padding:90px 26px;max-width:1200px;margin:0 auto;border-bottom:1px solid #1a1a1a}
+  h2{font-size:54px;font-weight:900;letter-spacing:-.04em;line-height:.95;margin-bottom:20px}
+  h2 em{color:#ff3a3a;font-style:normal}
+  h2 s{text-decoration:line-through;text-decoration-color:#ff3a3a;opacity:.55}
+  .lead{font-size:17px;line-height:1.65;max-width:62ch;color:#9a9a9e;margin-bottom:30px}
+  .lead b{color:#e8e8ea;font-weight:normal;background:#1a1a1a;padding:0 4px}
+
+  /* feed showcase */
+  .show{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:30px;
+  }
+  .card{
+    background:#0e0e0e;border:1px solid #1a1a1a;border-radius:10px;padding:24px;
+    border-left:4px solid #ff3a3a;
+    position:relative;
+  }
+  .card .src{font-family:"JetBrains Mono",monospace;font-size:11px;color:#5a5a5e;margin-bottom:14px;letter-spacing:.05em}
+  .card .src::before{content:"↳ "}
+  .card .ctx{
+    font-size:13px;color:#7a7a7e;font-style:italic;margin-bottom:14px;line-height:1.5;
+    border-left:2px solid #2a2a2a;padding-left:12px;
+  }
+  .card .ctx::before{content:"post original: "}
+  .card .cmt{
+    font-family:"Inter",sans-serif;font-size:22px;font-weight:600;line-height:1.4;
+    letter-spacing:-.01em;color:#e8e8ea;
+  }
+  .card .by{
+    margin-top:18px;font-family:"JetBrains Mono",monospace;font-size:11px;color:#7a7a7e;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .card .by .han{color:#ff3a3a}
+  .card .acts{
+    margin-top:14px;padding-top:12px;border-top:1px dashed #2a2a2a;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+    font-family:"JetBrains Mono",monospace;font-size:11px;color:#7a7a7e;
+  }
+  .card .acts div{text-align:center}
+  .card .acts div b{display:block;color:#e8e8ea;font-size:14px;font-weight:normal;margin-bottom:2px;letter-spacing:.02em}
+
+  .ci{position:absolute;top:14px;right:14px;font-family:"JetBrains Mono",monospace;font-size:10px;color:#5a5a5e;letter-spacing:.1em}
+  .ci b{color:#ff3a3a;font-weight:normal}
+
+  /* features */
+  .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+  .ft{background:#0e0e0e;border:1px solid #1a1a1a;border-radius:10px;padding:26px}
+  .ft .icn{
+    font-family:"JetBrains Mono",monospace;font-size:24px;color:#ff3a3a;
+    width:46px;height:46px;border:1px solid #2a2a2a;border-radius:8px;
+    display:flex;align-items:center;justify-content:center;margin-bottom:14px;
+  }
+  .ft h3{font-size:18px;font-weight:800;margin-bottom:6px;letter-spacing:-.01em}
+  .ft p{font-size:14px;line-height:1.55;color:#9a9a9e}
+
+  /* curators */
+  .cur{padding:90px 26px;background:linear-gradient(180deg,#0a0a0a,#0e0e0e);border-bottom:1px solid #1a1a1a}
+  .cur-w{max-width:1200px;margin:0 auto}
+  .cur-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}
+  .cu{
+    background:#050505;border:1px solid #1a1a1a;padding:22px;
+    border-top:3px solid #ff3a3a;
+  }
+  .cu .av{
+    width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#3a0a0a,#7a1a1a);
+    display:flex;align-items:center;justify-content:center;
+    font-family:"JetBrains Mono",monospace;font-size:24px;color:#ff8a8a;
+    margin-bottom:14px;
+  }
+  .cu h4{font-size:16px;font-weight:800;letter-spacing:-.01em}
+  .cu .han{font-family:"JetBrains Mono",monospace;font-size:11px;color:#ff3a3a;margin-bottom:10px}
+  .cu p{font-size:12px;line-height:1.5;color:#9a9a9e}
+  .cu .stat{
+    margin-top:14px;padding-top:12px;border-top:1px dashed #2a2a2a;
+    font-family:"JetBrains Mono",monospace;font-size:10px;color:#7a7a7e;display:flex;justify-content:space-between;
+  }
+
+  /* genres / canales */
+  .chans{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:30px}
+  .ch{
+    background:#0e0e0e;border:1px solid #1a1a1a;padding:18px 20px;border-radius:8px;
+    display:flex;justify-content:space-between;align-items:center;cursor:pointer;
+    transition:border-color .15s;
+  }
+  .ch:hover{border-color:#ff3a3a}
+  .ch .nm{font-size:14px;font-weight:700;letter-spacing:-.01em}
+  .ch .nm small{display:block;font-family:"JetBrains Mono",monospace;font-size:10px;color:#7a7a7e;font-weight:normal;margin-top:3px;letter-spacing:.05em}
+  .ch .ct{font-family:"JetBrains Mono",monospace;font-size:11px;color:#ff3a3a}
+
+  /* modes */
+  .modes{padding:90px 26px;background:#050505;border-bottom:1px solid #1a1a1a}
+  .modes-w{max-width:1200px;margin:0 auto}
+  .modes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}
+  .md{background:#0e0e0e;border:1px solid #1a1a1a;padding:30px;border-radius:10px;text-align:center}
+  .md.danger{border-color:#ff3a3a;background:linear-gradient(180deg,#1a0a0a,#0a0a0a)}
+  .md .ic{
+    font-family:"JetBrains Mono",monospace;font-size:36px;color:#ff3a3a;
+    margin-bottom:14px;letter-spacing:-.04em;
+  }
+  .md h4{font-size:18px;font-weight:800;letter-spacing:-.01em;margin-bottom:6px}
+  .md .lvl{font-family:"JetBrains Mono",monospace;font-size:10px;color:#7a7a7e;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px}
+  .md p{font-size:13px;line-height:1.5;color:#9a9a9e}
+
+  /* manifesto block */
+  .manif{
+    margin:60px auto;max-width:880px;border:1px solid #2a2a2a;
+    background:#080808;padding:50px 40px;
+    position:relative;
+  }
+  .manif::before{
+    content:"// MANIFIESTO_v0.4.txt";position:absolute;top:-12px;left:24px;
+    background:#0a0a0a;padding:0 10px;font-family:"JetBrains Mono",monospace;font-size:11px;color:#ff3a3a;
+    letter-spacing:.1em;
+  }
+  .manif p{font-family:"JetBrains Mono",monospace;font-size:14px;line-height:1.85;color:#c8c8cc;margin-bottom:14px}
+  .manif p::before{content:"> ";color:#ff3a3a}
+  .manif p.last{color:#ff3a3a}
+
+  /* pricing */
+  .pricing{padding:90px 26px;background:linear-gradient(180deg,#0e0e0e,#050505)}
+  .pricing-w{max-width:1100px;margin:0 auto;text-align:center}
+  .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px;text-align:left}
+  .plan{background:#0a0a0a;border:1px solid #1a1a1a;padding:30px;border-radius:10px}
+  .plan.f{border-color:#ff3a3a;background:linear-gradient(180deg,#1a0a0a,#0a0a0a)}
+  .plan h3{font-size:22px;font-weight:900;letter-spacing:-.02em;margin-bottom:6px}
+  .plan .lvl{font-family:"JetBrains Mono",monospace;font-size:10px;color:#ff3a3a;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px}
+  .plan .pp{font-size:48px;font-weight:900;letter-spacing:-.04em;line-height:1;margin-bottom:18px;color:#ff3a3a}
+  .plan .pp small{font-size:14px;color:#7a7a7e;font-weight:normal}
+  .plan ul{list-style:none;font-size:13px;line-height:1.95;color:#c8c8cc}
+  .plan ul li::before{content:"☓ ";color:#ff3a3a}
+  .plan button{width:100%;margin-top:18px;padding:14px;background:#ff3a3a;color:#0a0a0a;border:none;border-radius:6px;font-weight:bold;cursor:pointer;font-size:13px;letter-spacing:.05em}
+  .plan.f button{background:#fff;color:#0a0a0a}
+  .plan button:hover{background:#fff;color:#0a0a0a}
+
+  /* download */
+  .dl{padding:80px 26px;text-align:center;border-bottom:1px solid #1a1a1a;background:#050505}
+  .dl h2{margin-bottom:30px}
+  .dl-btns{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+  .dl-btns a{
+    border:1px solid #2a2a2a;padding:18px 30px;display:flex;align-items:center;gap:14px;
+    font-family:"JetBrains Mono",monospace;font-size:13px;color:#c8c8cc;letter-spacing:.05em;
+  }
+  .dl-btns a:hover{border-color:#ff3a3a;color:#ff3a3a}
+  .dl-btns a span{font-size:24px;color:#ff3a3a}
+  .dl small{display:block;margin-top:18px;font-family:"JetBrains Mono",monospace;font-size:10px;color:#7a7a7e;letter-spacing:.15em;text-transform:uppercase}
+
+  footer{padding:30px 26px;text-align:center;font-family:"JetBrains Mono",monospace;font-size:10px;color:#5a5a5e;letter-spacing:.15em;text-transform:uppercase;border-top:1px solid #1a1a1a}
+  footer a{color:#ff3a3a;text-decoration:underline}
+
+  @media(max-width:900px){
+    .show,.feats,.cur-grid,.modes-grid,.chans,.pgrid{grid-template-columns:1fr}
+    .feats,.cur-grid,.modes-grid{grid-template-columns:1fr 1fr}
+    .hero h1{font-size:54px}
+    h2{font-size:38px}
+  }
+  @media(max-width:560px){.feats,.cur-grid,.modes-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">CARRO<span class="ny">Ñ</span>A</div>
+  <nav>
+    <a href="#feed">El feed</a>
+    <a href="#chans">Canales</a>
+    <a href="#cur">Curadores</a>
+    <a href="#modes">Modos</a>
+    <a href="#pricing">Premium</a>
+    <a href="../index.html" style="opacity:.4">← poork.inc</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>La red social<br>donde <s>nadie escribe.</s><br><em>todos comentan.</em></h1>
+  <p class="strap">CARROÑA es la primera red social que sólo recopila <b>comentarios</b>. No publicaciones. No fotos. No vídeos. <b>Sólo comentarios.</b> Específicamente, los oscuros, los crueles con la realidad, los que tu cuñado piensa pero no se atreve a decir el día de Reyes. Todos curados a mano. Todos públicos. Ninguno invitado a comer.</p>
+
+  <div class="meta">
+    <span class="live">curando ahora · 4.241 timelines</span>
+    <span>14.872 comentarios hoy</span>
+    <span>0 publicaciones · jamás</span>
+  </div>
+
+  <div class="demo-stage">
+    <div class="phone">
+      <div class="scr">
+        <div class="scr-head"><span>carroña <b>v0.4</b></span><span>● 14.8k hoy</span></div>
+        <div class="scr-tabs"><div class="act">FOR YOU</div><div>HOY</div><div>VOID</div><div>SAVED</div></div>
+        <div class="feed">
+
+          <div class="post">
+            <div class="src">@anónima_42 · LinkedIn · post motivacional</div>
+            <div class="ctx">"el secreto del éxito es despertarse a las 5am"</div>
+            <div class="cmt">"el secreto del fracaso también, pero la gente que se despierta a las 5am tiene mejor PR."</div>
+            <div class="acts">
+              <span class="lik">2.4k</span><span class="ar">340</span><span class="sv">88</span><span class="sh">19</span>
+            </div>
+          </div>
+
+          <div class="post">
+            <div class="src">@cousin_dev · Reddit · r/cscareerquestions</div>
+            <div class="ctx">"layoff inesperado tras 8 años. ¿algún consejo?"</div>
+            <div class="cmt">"no era inesperado. simplemente no estabas mirando."</div>
+            <div class="acts">
+              <span class="lik">1.1k</span><span class="ar">88</span><span class="sv">412</span><span class="sh">7</span>
+            </div>
+          </div>
+
+          <div class="post">
+            <div class="src">@_pep · X · hilo sobre productividad</div>
+            <div class="ctx">"6 hábitos que cambiaron mi vida en 30 días"</div>
+            <div class="cmt">"yo cambié 30 vidas en 6 días pero no se dejaron."</div>
+            <div class="acts">
+              <span class="lik">8.7k</span><span class="ar">1.2k</span><span class="sv">2.1k</span><span class="sh">114</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="phone">
+      <div class="scr">
+        <div class="scr-head"><span>carroña / <b>void mode</b></span><span>● filtros: ninguno</span></div>
+        <div class="scr-tabs"><div>FOR YOU</div><div>HOY</div><div class="act">VOID</div><div>SAVED</div></div>
+        <div class="feed">
+
+          <div class="post">
+            <div class="src">@bea_coach · IG reel</div>
+            <div class="ctx">"manifestar funciona, sólo hay que creérselo"</div>
+            <div class="cmt">"le pedí señales al universo y me llegó la cuenta de la luz."</div>
+            <div class="acts">
+              <span class="lik">3.9k</span><span class="ar">220</span><span class="sv">1.1k</span><span class="sh">61</span>
+            </div>
+          </div>
+
+          <div class="post">
+            <div class="src">@papitatech · X · domingo 23:47</div>
+            <div class="ctx">"se viene semana intensa. let's go."</div>
+            <div class="cmt">"mi plan B es el plan A pero llorando."</div>
+            <div class="acts">
+              <span class="lik">12.4k</span><span class="ar">2.2k</span><span class="sv">4.8k</span><span class="sh">390</span>
+            </div>
+          </div>
+
+          <div class="post">
+            <div class="src">@therapy_journey · TikTok</div>
+            <div class="ctx">"3 cosas por las que estoy agradecida hoy"</div>
+            <div class="cmt">"mi terapeuta dice que estoy progresando. yo creo que sólo le tengo lástima."</div>
+            <div class="acts">
+              <span class="lik">5.6k</span><span class="ar">580</span><span class="sv">1.8k</span><span class="sh">142</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="feed">
+  <h2>El feed que <em>tu primo</em><br>no quería que vieras.</h2>
+  <p class="lead">Las redes sociales actuales están diseñadas para ocultar el comentario que más se acerca a la verdad. CARROÑA invierte la lógica: la <b>publicación original</b> es contexto. El <b>comentario</b> es el contenido. Un equipo de curadores humanos y un modelo de lenguaje específicamente entrenado en sarcasmo peinan las timelines de las grandes plataformas las 24 horas y rescatan sólo los comentarios que sobreviven a la prueba: <b>jaja, pero tristemente verdadero.</b></p>
+
+  <div class="show">
+
+    <div class="card">
+      <div class="ci">CONTROVERSIA: <b>78%</b></div>
+      <div class="src">post · LinkedIn · @founder_mode</div>
+      <div class="ctx">"a veces hay que descansar. ayer descansé 4 horas."</div>
+      <div class="cmt">"la diferencia entre un viernes y un lunes son cuatro decisiones que ya tomé mal."</div>
+      <div class="by"><span class="han">@_la_jefa</span><span>14h · LinkedIn</span></div>
+      <div class="acts">
+        <div><b>4.2k</b> ☻</div><div><b>620</b> ⌂</div><div><b>1.9k</b> ☓</div><div><b>184</b> ↗</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ci">CONTROVERSIA: <b>61%</b></div>
+      <div class="src">post · X · @bienestarisimo</div>
+      <div class="ctx">"detén lo que estés haciendo y respira. tu cuerpo te lo agradecerá."</div>
+      <div class="cmt">"mi cuerpo lleva 32 años pidiéndome cosas. nos estamos llevando regular."</div>
+      <div class="by"><span class="han">@cousin_dev</span><span>3d · X</span></div>
+      <div class="acts">
+        <div><b>11.4k</b> ☻</div><div><b>1.3k</b> ⌂</div><div><b>3.4k</b> ☓</div><div><b>410</b> ↗</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ci">CONTROVERSIA: <b>92%</b></div>
+      <div class="src">post · Reddit · r/AskMen</div>
+      <div class="ctx">"¿alguien más se siente bloqueado a los 30?"</div>
+      <div class="cmt">"no es un trastorno. es una respuesta proporcionada al estímulo."</div>
+      <div class="by"><span class="han">@m_offline</span><span>2d · Reddit</span></div>
+      <div class="acts">
+        <div><b>9.8k</b> ☻</div><div><b>2.1k</b> ⌂</div><div><b>4.7k</b> ☓</div><div><b>720</b> ↗</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ci">CONTROVERSIA: <b>54%</b></div>
+      <div class="src">post · IG · @familia.del.bien</div>
+      <div class="ctx">"feliz comunión de mi sobrina ☀️ momentos únicos"</div>
+      <div class="cmt">"un primer evento católico es la única ceremonia donde tres generaciones fingen lo mismo a la vez. respeto."</div>
+      <div class="by"><span class="han">@cousin_dev</span><span>1sem · IG</span></div>
+      <div class="acts">
+        <div><b>6.3k</b> ☻</div><div><b>880</b> ⌂</div><div><b>2.2k</b> ☓</div><div><b>149</b> ↗</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ci">CONTROVERSIA: <b>83%</b></div>
+      <div class="src">post · LinkedIn · @gen_z_speaks</div>
+      <div class="ctx">"cómo conseguí mi primer puesto C-level a los 26"</div>
+      <div class="cmt">"vamos, cuéntanos a qué se dedica tu padre."</div>
+      <div class="by"><span class="han">@anónima_42</span><span>5d · LinkedIn</span></div>
+      <div class="acts">
+        <div><b>22.1k</b> ☻</div><div><b>3.8k</b> ⌂</div><div><b>9.4k</b> ☓</div><div><b>1.4k</b> ↗</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ci">CONTROVERSIA: <b>71%</b></div>
+      <div class="src">post · TikTok · @manifestation_daily</div>
+      <div class="ctx">"el universo siempre te da lo que necesitas"</div>
+      <div class="cmt">"el universo es famoso por su atención al cliente."</div>
+      <div class="by"><span class="han">@_pep</span><span>11h · TikTok</span></div>
+      <div class="acts">
+        <div><b>8.0k</b> ☻</div><div><b>1.1k</b> ⌂</div><div><b>3.1k</b> ☓</div><div><b>278</b> ↗</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2>No es un feed. Es <em>un funeral</em><br>con sección de comentarios.</h2>
+  <p class="lead">CARROÑA está construida sobre seis principios técnicos diseñados para que el comentario respire mejor que la publicación original. <b>El humor negro no es un género</b>: es lo que queda cuando le quitas el azúcar a una observación verdadera.</p>
+
+  <div class="feats">
+    <div class="ft"><div class="icn">↳</div><h3>Sólo comentarios</h3><p>No puedes publicar nada nuevo. CARROÑA no admite posts originales. La cuenta sólo sirve para guardar, reaccionar y disputar.</p></div>
+    <div class="ft"><div class="icn">☓</div><h3>Curación humana</h3><p>14 curadores humanos peinan timelines, foros y secciones de noticias. Nuestro modelo de IA propone candidatos. La decisión final la firma una persona con ojeras.</p></div>
+    <div class="ft"><div class="icn">⌂</div><h3>Índice de controversia</h3><p>Cada comentario lleva una métrica del 0 al 100% que mide cuánta gente lo defendería en una cena familiar. Encima del 80% hay que activarlo.</p></div>
+    <div class="ft"><div class="icn">≡</div><h3>Atribución limpia</h3><p>Citamos siempre la cuenta original, el contexto y la plataforma. Nadie se cuelga medallas ajenas. El comentario pertenece a quien lo escribió.</p></div>
+    <div class="ft"><div class="icn">∅</div><h3>Sin algoritmo de rage</h3><p>El feed se ordena por curación cronológica, no por engagement. CARROÑA no quiere que vuelvas. Quiere que cierres y reflexiones.</p></div>
+    <div class="ft"><div class="icn">☻</div><h3>Reacciones nuevas</h3><p>Cuatro reacciones específicas: <b>☻ "jaja, pero..."</b>, <b>⌂ "uy, me ha llegado"</b>, <b>☓ "guardar para cuñado"</b>, <b>↗ "mandárselo a la terapeuta"</b>.</p></div>
+  </div>
+</section>
+
+<section id="chans">
+  <h2>34 canales temáticos.<br><em>Elige tu autosabotaje.</em></h2>
+  <p class="lead">Suscríbete a los temas que más te lastiman. CARROÑA respeta tu derecho a deprimirte específicamente.</p>
+
+  <div class="chans">
+    <div class="ch"><div class="nm">Existencial / nihilismo<br><small>// el clásico · domingo a domingo</small></div><div class="ct">4.2k/sem</div></div>
+    <div class="ch"><div class="nm">Burnout / oficina<br><small>// "lunes 9:00" extended universe</small></div><div class="ct">8.1k/sem</div></div>
+    <div class="ch"><div class="nm">Citas / dating<br><small>// "te visto, no contesto"</small></div><div class="ct">6.4k/sem</div></div>
+    <div class="ch"><div class="nm">Gen Z observations<br><small>// con permiso de los implicados</small></div><div class="ct">5.3k/sem</div></div>
+    <div class="ch"><div class="nm">Familia / cenas<br><small>// pico anual: 24 dic</small></div><div class="ct">3.8k/sem</div></div>
+    <div class="ch"><div class="nm">Departamentos / arriendo<br><small>// "el aval del alma"</small></div><div class="ct">5.9k/sem</div></div>
+    <div class="ch"><div class="nm">LinkedIn-cringe<br><small>// modo "founder mode"</small></div><div class="ct">12.1k/sem</div></div>
+    <div class="ch"><div class="nm">Coaches / wellness<br><small>// caza vibracional</small></div><div class="ct">4.6k/sem</div></div>
+    <div class="ch"><div class="nm">Boomers responden<br><small>// canal moderado</small></div><div class="ct">2.1k/sem</div></div>
+    <div class="ch"><div class="nm">Médico / SS<br><small>// listas de espera y dolor difuso</small></div><div class="ct">3.4k/sem</div></div>
+    <div class="ch"><div class="nm">Banca / hipoteca<br><small>// curado por "el loto infinito"</small></div><div class="ct">2.9k/sem</div></div>
+    <div class="ch"><div class="nm">Modo abuela<br><small>// suave · sin filtros · sin maldad</small></div><div class="ct">1.2k/sem</div></div>
+  </div>
+</section>
+
+<section id="cur" class="cur">
+  <div class="cur-w">
+    <h2>Los <em>curadores.</em><br>Personas con criterio.</h2>
+    <p class="lead">No son creators. No son influencers. No publican. Sólo eligen. Siete editores principales con pseudónimo, distintos husos horarios, distintos traumas. Sus rachas de selección componen el feed.</p>
+
+    <div class="cur-grid">
+      <div class="cu">
+        <div class="av">M</div>
+        <h4>"_la_jefa"</h4>
+        <div class="han">editora jefe · ES/MAD</div>
+        <p>Ex copy de una agencia de Santiago. Especialista en secciones de comentarios de prensa generalista los domingos.</p>
+        <div class="stat"><span>4.221 picks</span><span>★ 96%</span></div>
+      </div>
+      <div class="cu">
+        <div class="av">N</div>
+        <h4>"cousin_dev"</h4>
+        <div class="han">editor · turno noche</div>
+        <p>Ingeniero reciclado a curador tras un layoff. Cubre Reddit, Hacker News y los comentarios de Stack Overflow eliminados.</p>
+        <div class="stat"><span>3.780 picks</span><span>★ 92%</span></div>
+      </div>
+      <div class="cu">
+        <div class="av">P</div>
+        <h4>"_pep"</h4>
+        <div class="han">editor · LinkedIn especialist</div>
+        <p>Tres años en LinkedIn premium para entender al enemigo. Su sección "founder mode" se renueva cada lunes a las 06:00.</p>
+        <div class="stat"><span>2.114 picks</span><span>★ 89%</span></div>
+      </div>
+      <div class="cu">
+        <div class="av">A</div>
+        <h4>"anónima_42"</h4>
+        <div class="han">editora · TikTok / IG</div>
+        <p>Identidad reservada por petición expresa. Cubre wellness, manifestación, post-comuniones, fiestas patronales y bodas.</p>
+        <div class="stat"><span>5.602 picks</span><span>★ 94%</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="modes" class="modes">
+  <div class="modes-w">
+    <h2>Cuatro modos. <em>Elige</em><br>cómo te haces daño.</h2>
+    <p class="lead">CARROÑA permite ajustar la intensidad emocional del feed. No moderamos por contenido, moderamos por tu disposición a recibirlo. Cambia de modo cuando quieras. Cuando puedas.</p>
+
+    <div class="modes-grid">
+      <div class="md">
+        <div class="ic">☼</div>
+        <h4>Modo abuela</h4>
+        <div class="lvl">// safe · ironic-light</div>
+        <p>Sólo comentarios suaves, ironía blanca, observaciones costumbristas. Apto para mostrar en sobremesa con familia presente.</p>
+      </div>
+      <div class="md">
+        <div class="ic">≈</div>
+        <h4>Modo cuñado</h4>
+        <div class="lvl">// medium · default</div>
+        <p>El nivel por defecto. Sarcasmo competente, observaciones afiladas sobre la realidad económica y laboral. Sin excesos.</p>
+      </div>
+      <div class="md">
+        <div class="ic">▼</div>
+        <h4>Modo terapia</h4>
+        <div class="lvl">// solo existencial</div>
+        <p>Filtra todo lo no introspectivo. Sólo comentarios sobre el yo, el tiempo, la salud mental, los lunes. Pico de uso: domingos a las 23:14.</p>
+      </div>
+      <div class="md danger">
+        <div class="ic">☓</div>
+        <h4>Void mode</h4>
+        <div class="lvl">// sin filtros · adultos</div>
+        <p>El feed completo, sin filtros de controversia. Requiere desactivar tres veces seguidas la advertencia. No puede usarse antes de las 20:00.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="manif">
+    <p>la línea entre el humor negro y la verdad sólo existe</p>
+    <p>en quien tiene contrato indefinido.</p>
+    <p>el comentario es la última forma honesta de comunicación pública.</p>
+    <p>no inventamos nada. sólo curamos.</p>
+    <p>la publicación original es un pretexto. el comentario es el evento.</p>
+    <p>la realidad ya es bastante. nosotros sólo la subrayamos.</p>
+    <p class="last">// firmado: el equipo de carroña, 2026.</p>
+  </div>
+</section>
+
+<section id="pricing" class="pricing">
+  <div class="pricing-w">
+    <h2>Planes. <em>Todos cuestionables.</em></h2>
+    <p class="lead" style="margin:0 auto 30px">El plan gratuito es totalmente funcional. Si quieres pagar, es para que el feed sea más oscuro, no más cómodo.</p>
+
+    <div class="pgrid">
+      <div class="plan">
+        <h3>Lurker</h3>
+        <div class="lvl">// free</div>
+        <div class="pp">$0</div>
+        <ul>
+          <li>Modo cuñado por defecto</li>
+          <li>20 canales</li>
+          <li>Anuncios de terapia online</li>
+          <li>Sin guardado ilimitado</li>
+          <li>Sin export al portapapeles del cuñado</li>
+        </ul>
+        <button onclick="alert('Bienvenido a carroña. Tu primer comentario aparecerá en 4 segundos. Lo sentimos por adelantado.');return false;">Empezar a leer</button>
+      </div>
+      <div class="plan f">
+        <h3>★ Carrionero</h3>
+        <div class="lvl">// premium · $4.900/mes</div>
+        <div class="pp">$4.900<small>/mes</small></div>
+        <ul>
+          <li>Sin anuncios</li>
+          <li>34 canales completos</li>
+          <li>Acceso a void mode</li>
+          <li>Guardado ilimitado en carpetas</li>
+          <li>Export como PDF "para enseñarle a mi hermano"</li>
+          <li>Notificación cuando alguien tuyo aparece curado</li>
+        </ul>
+        <button onclick="alert('Plan activado. La oscuridad llegará puntualmente cada noche a las 22:30.');return false;">Probar 7 días</button>
+      </div>
+      <div class="plan">
+        <h3>Necrófago</h3>
+        <div class="lvl">// pro · $14.900/mes</div>
+        <div class="pp">$14.900<small>/mes</small></div>
+        <ul>
+          <li>Todo lo Carrionero</li>
+          <li>API para empotrar el feed donde quieras</li>
+          <li>Canales privados de empresa</li>
+          <li>Brief semanal "lo más jodido que se publicó esta semana"</li>
+          <li>1 sesión al año con un curador humano (45 min)</li>
+        </ul>
+        <button onclick="alert('Bienvenido al plan que su contable preferiría que no figurase en su declaración.');return false;">Profesionalizarme</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dl">
+  <h2>Descarga <em>el feed.</em></h2>
+  <div class="dl-btns">
+    <a href="#" onclick="alert('Disponible próximamente. Por ahora puede leer comentarios en el espejo.');return false;"><span>⌘</span> iOS · App Store</a>
+    <a href="#" onclick="alert('Disponible próximamente. Mientras tanto, abra cualquier red social y léala con tristeza.');return false;"><span>▢</span> Android · Play Store</a>
+    <a href="#" onclick="alert('Versión web en beta. Recomendamos no usarla en horario laboral. O sí.');return false;"><span>⊕</span> Web · beta</a>
+  </div>
+  <small>★ disponible en 2 idiomas: ES y oscuridad ★</small>
+</section>
+
+<footer>
+  CARROÑA es una división conceptual de <a href="../index.html">POORK INC.</a> · ningún comentario fue inventado por la marca. todos pertenecen a su autor original. ninguna publicación se sintió ofendida. mentira.
+</footer>
+
+</body>
+</html>

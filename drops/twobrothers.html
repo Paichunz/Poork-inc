@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>TWOBROTHERS — héroes mediocres, capas reales</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Bangers","Impact","Arial Black",sans-serif;background:#fff5d8;color:#0a0a0a;-webkit-font-smoothing:antialiased}
+  body{font-family:"Helvetica Neue",Arial,sans-serif}
+  a{color:inherit;text-decoration:none}
+
+  /* halftone background helper */
+  .ht{
+    background-image:radial-gradient(#0a0a0a 1.4px,transparent 1.4px);
+    background-size:8px 8px;
+  }
+
+  header{
+    background:#ffd900;border-bottom:5px solid #0a0a0a;
+    display:flex;justify-content:space-between;align-items:center;padding:14px 26px;
+    position:sticky;top:0;z-index:50;
+  }
+  .logo{font-family:"Impact","Arial Black",sans-serif;font-size:30px;letter-spacing:-.04em;color:#0a0a0a;line-height:.85;text-transform:uppercase}
+  .logo .b{color:#e62429}
+  .logo small{display:block;font-family:"Helvetica Neue";font-size:9px;letter-spacing:.4em;font-weight:bold;margin-top:2px}
+  nav a{margin-left:18px;font-size:12px;letter-spacing:.15em;text-transform:uppercase;font-weight:900;color:#0a0a0a}
+  nav a:hover{background:#0a0a0a;color:#ffd900;padding:2px 6px}
+
+  .hero{
+    min-height:80vh;display:grid;grid-template-columns:1.2fr 1fr;align-items:center;
+    padding:60px 30px;border-bottom:5px solid #0a0a0a;position:relative;overflow:hidden;
+    background:
+      linear-gradient(135deg,rgba(255,255,255,.4) 0%,transparent 50%),
+      repeating-linear-gradient(45deg,#ffd900 0 30px,#ffe04a 30px 32px);
+  }
+  .hero::before{
+    content:"POW!";position:absolute;top:8%;right:42%;font-family:"Impact",sans-serif;
+    font-size:140px;color:#e62429;-webkit-text-stroke:4px #0a0a0a;letter-spacing:-.04em;
+    transform:rotate(-12deg);text-shadow:6px 6px 0 #0a0a0a;
+    line-height:.85;
+  }
+  .hero h1{
+    font-family:"Impact","Arial Black",sans-serif;
+    font-size:clamp(60px,11vw,170px);font-weight:900;letter-spacing:-.04em;line-height:.85;
+    text-transform:uppercase;color:#0a0a0a;
+    text-shadow:6px 6px 0 #fff,12px 12px 0 #e62429;
+  }
+  .hero h1 em{font-style:italic;color:#3370d4;-webkit-text-stroke:0;text-shadow:6px 6px 0 #0a0a0a}
+  .hero .strap{font-size:18px;line-height:1.5;margin-top:24px;max-width:46ch;font-weight:700;background:#fff;border:3px solid #0a0a0a;padding:14px 18px;box-shadow:8px 8px 0 #0a0a0a;transform:rotate(-1deg)}
+
+  .cover{
+    aspect-ratio:.7/1;background:#fff;border:5px solid #0a0a0a;position:relative;
+    box-shadow:14px 14px 0 #e62429,28px 28px 0 #0a0a0a;
+    transform:rotate(3deg);overflow:hidden;
+    display:flex;flex-direction:column;
+  }
+  .cover .top{
+    background:#0a0a0a;color:#ffd900;padding:8px 14px;font-family:"Impact",sans-serif;
+    display:flex;justify-content:space-between;align-items:center;font-size:14px;letter-spacing:.05em;
+  }
+  .cover .top .px{background:#e62429;color:#fff;font-size:11px;padding:1px 6px}
+  .cover .nm{
+    background:#e62429;color:#ffd900;padding:18px 14px;font-family:"Impact",sans-serif;
+    font-size:54px;line-height:.85;letter-spacing:-.04em;text-align:center;text-transform:uppercase;
+    text-shadow:3px 3px 0 #0a0a0a;
+  }
+  .cover .scene{
+    flex:1;background:radial-gradient(ellipse at 30% 50%,#3370d4 0%,#1a1a3a 60%,#0a0a0a 100%);
+    position:relative;color:#ffd900;
+  }
+  .cover .scene::before{
+    content:"";position:absolute;inset:0;background-image:radial-gradient(#fff8 1px,transparent 1px);background-size:12px 12px;opacity:.18;
+  }
+  .cover .scene::after{
+    content:"BLINDBAT";position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
+    font-family:"Impact",sans-serif;font-size:36px;color:#ffd900;letter-spacing:-.04em;
+    text-shadow:3px 3px 0 #0a0a0a;
+  }
+  .cover .silhouette{
+    position:absolute;top:14%;left:50%;transform:translateX(-50%);
+    width:130px;height:200px;background:#0a0a0a;
+    clip-path:polygon(50% 0,30% 18%,18% 14%,28% 30%,12% 60%,30% 56%,40% 100%,60% 100%,70% 56%,88% 60%,72% 30%,82% 14%,70% 18%);
+    filter:drop-shadow(0 0 14px rgba(0,0,0,.7));
+  }
+  .cover .bubble{
+    position:absolute;top:30%;left:6%;background:#ffd900;color:#0a0a0a;
+    padding:10px 14px;font-family:"Impact",sans-serif;font-size:18px;border:3px solid #0a0a0a;
+    border-radius:18px;letter-spacing:-.02em;transform:rotate(-6deg);max-width:140px;line-height:1;
+    text-align:center;
+  }
+  .cover .bubble::after{content:"";position:absolute;bottom:-14px;left:30%;width:0;height:0;border:8px solid transparent;border-top-color:#0a0a0a}
+
+  /* ----- sections ----- */
+  section{padding:80px 26px;max-width:1300px;margin:0 auto;border-bottom:5px solid #0a0a0a}
+  h2.big{font-family:"Impact","Arial Black",sans-serif;font-size:84px;letter-spacing:-.04em;line-height:.9;text-transform:uppercase;margin-bottom:18px;text-shadow:5px 5px 0 #ffd900}
+  h2.big em{font-style:italic;color:#e62429}
+  .lead{font-size:17px;line-height:1.65;max-width:62ch;margin-bottom:30px;font-weight:500}
+
+  /* roster */
+  .roster{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:30px}
+  .hero-card{
+    background:#fff;border:5px solid #0a0a0a;position:relative;
+    box-shadow:8px 8px 0 #0a0a0a;
+    overflow:hidden;display:flex;flex-direction:column;
+    transition:transform .18s;
+  }
+  .hero-card:hover{transform:translate(-4px,-4px);box-shadow:14px 14px 0 #e62429}
+  .hero-card .pic{
+    aspect-ratio:1.3/1;border-bottom:5px solid #0a0a0a;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    font-family:"Impact",sans-serif;font-size:80px;letter-spacing:-.04em;
+    position:relative;overflow:hidden;
+  }
+  .hero-card .pic::after{
+    content:"";position:absolute;inset:0;
+    background-image:radial-gradient(rgba(255,255,255,.45) 1.4px,transparent 1.4px);
+    background-size:8px 8px;mix-blend-mode:overlay;
+  }
+  .hc-1 .pic{background:radial-gradient(circle at 30% 30%,#3370d4,#0a1230)}
+  .hc-2 .pic{background:linear-gradient(135deg,#a83232,#3a0808)}
+  .hc-3 .pic{background:linear-gradient(135deg,#e6c233,#7a5a08)}
+  .hc-4 .pic{background:linear-gradient(135deg,#3a8a3a,#0a3a0a)}
+  .hc-5 .pic{background:linear-gradient(135deg,#a040a0,#1a0a2a)}
+  .hc-6 .pic{background:linear-gradient(135deg,#e0e0e0,#5a5a5a);color:#0a0a0a}
+
+  .hero-card .body{padding:24px}
+  .hero-card h3{font-family:"Impact",sans-serif;font-size:34px;letter-spacing:-.04em;line-height:.95;text-transform:uppercase}
+  .hero-card .alias{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#e62429;margin:4px 0 14px;font-weight:900}
+  .hero-card p{font-size:14px;line-height:1.55;font-weight:500}
+  .hero-card .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px;border-top:2px solid #0a0a0a;padding-top:14px;font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+  .hero-card .stats div b{display:block;font-family:"Impact",sans-serif;font-size:24px;color:#e62429;letter-spacing:-.03em}
+  .hero-card .tag{
+    position:absolute;top:14px;right:-30px;background:#e62429;color:#ffd900;
+    padding:4px 30px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:900;
+    transform:rotate(36deg);
+  }
+
+  /* this month */
+  .month{padding:80px 26px;background:#3370d4;color:#fff;border-bottom:5px solid #0a0a0a}
+  .month h2.big{color:#ffd900;text-shadow:5px 5px 0 #0a0a0a}
+  .issues{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:40px}
+  .issue{
+    background:#fff;color:#0a0a0a;border:4px solid #0a0a0a;
+    box-shadow:6px 6px 0 #0a0a0a;
+    overflow:hidden;
+  }
+  .issue .topbar{background:#0a0a0a;color:#ffd900;padding:6px 10px;font-family:"Impact";font-size:13px;display:flex;justify-content:space-between}
+  .issue .img{aspect-ratio:.78/1;background:linear-gradient(135deg,#1a1a3a,#0a0a0a);position:relative;display:flex;align-items:center;justify-content:center;color:#ffd900;font-family:"Impact";font-size:38px;letter-spacing:-.03em;text-align:center;padding:14px;border-bottom:3px solid #0a0a0a}
+  .issue.i2 .img{background:linear-gradient(135deg,#7a1a1a,#3a0808)}
+  .issue.i3 .img{background:linear-gradient(135deg,#3a3a0a,#1a1a08)}
+  .issue.i4 .img{background:linear-gradient(135deg,#3a0a3a,#1a081a)}
+  .issue .info{padding:14px}
+  .issue .info .ttl{font-family:"Impact";font-size:22px;letter-spacing:-.03em;line-height:.95}
+  .issue .info .arc{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#e62429;margin:4px 0;font-weight:900}
+  .issue .info .pp{display:flex;justify-content:space-between;align-items:center;margin-top:10px;border-top:2px dotted #0a0a0a;padding-top:8px;font-size:13px;font-weight:bold}
+
+  /* universe */
+  .universe{padding:80px 26px;max-width:1200px;margin:0 auto;border-bottom:5px solid #0a0a0a}
+  .lore{display:grid;grid-template-columns:repeat(2,1fr);gap:30px;margin-top:30px}
+  .lore .box{background:#fff5d8;border:4px solid #0a0a0a;padding:26px;box-shadow:6px 6px 0 #ffd900}
+  .lore .box h4{font-family:"Impact";font-size:28px;letter-spacing:-.03em;text-transform:uppercase;margin-bottom:8px}
+  .lore .box .sub{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#e62429;margin-bottom:14px;font-weight:900}
+  .lore .box p{font-size:14px;line-height:1.55;font-weight:500}
+
+  /* events */
+  .events{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+  .ev{background:#0a0a0a;color:#ffd900;border:4px solid #ffd900;padding:24px}
+  .ev .ttl{font-family:"Impact";font-size:34px;letter-spacing:-.04em;line-height:.95;text-transform:uppercase;color:#fff;text-shadow:3px 3px 0 #e62429}
+  .ev .when{font-size:11px;letter-spacing:.2em;color:#ffd900;margin:8px 0 14px;text-transform:uppercase;font-weight:900}
+  .ev p{font-size:13px;line-height:1.55}
+
+  /* shop */
+  .shop{padding:80px 26px;background:#e62429;color:#fff;border-bottom:5px solid #0a0a0a;text-align:center}
+  .shop h2.big{color:#ffd900;text-shadow:5px 5px 0 #0a0a0a}
+  .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1100px;margin:40px auto 0}
+  .plan{background:#fff;color:#0a0a0a;border:4px solid #0a0a0a;padding:30px;text-align:left;box-shadow:8px 8px 0 #0a0a0a}
+  .plan h3{font-family:"Impact";font-size:34px;letter-spacing:-.04em;text-transform:uppercase}
+  .plan .lvl{font-size:11px;letter-spacing:.2em;color:#e62429;text-transform:uppercase;margin:6px 0 14px;font-weight:900}
+  .plan .pp{font-family:"Impact";font-size:48px;color:#0a0a0a;letter-spacing:-.04em;line-height:1;margin-bottom:18px}
+  .plan .pp small{font-family:"Helvetica Neue";font-weight:normal;font-size:14px}
+  .plan ul{list-style:none;font-size:13px;line-height:1.9;font-weight:500}
+  .plan ul li::before{content:"★ ";color:#e62429}
+  .plan button{width:100%;margin-top:18px;padding:14px;background:#0a0a0a;color:#ffd900;border:none;font-family:"Impact";font-size:16px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+  .plan button:hover{background:#e62429;color:#fff}
+
+  footer{padding:24px 26px;text-align:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;background:#0a0a0a;color:#ffd900;font-weight:900}
+  footer a{color:#fff;text-decoration:underline}
+
+  @media(max-width:900px){
+    .hero{grid-template-columns:1fr;padding:30px}
+    .hero h1{font-size:56px}
+    .roster,.lore,.issues,.events,.pgrid{grid-template-columns:1fr}
+    .roster{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:560px){.roster,.issues,.events,.pgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">TWO<span class="b">BROTHERS</span><small>est. 2024 · published in santiago</small></div>
+  <nav>
+    <a href="#roster">El roster</a>
+    <a href="#month">Este mes</a>
+    <a href="#universe">El universo</a>
+    <a href="#shop">Suscripción</a>
+    <a href="../index.html" style="opacity:.5">← poork.inc</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>Héroes con<br><em>capa</em><br>y depresión<br>laboral.</h1>
+    <p class="strap">TWOBROTHERS COMICS es la primera editorial dedicada a superhéroes que sí podrían existir. Sin escuadrones cósmicos, sin multiversos, sin retconning. Sólo gente con poderes mediocres, problemas de arriendo y una capa que se les engancha en el ascensor.</p>
+  </div>
+  <div class="cover">
+    <div class="top"><span>★ TBC #001</span><span class="px">PRE</span></div>
+    <div class="nm">Blind<br>Bat</div>
+    <div class="scene">
+      <div class="silhouette"></div>
+      <div class="bubble">¿quién<br>encendió<br>la luz?</div>
+    </div>
+  </div>
+</section>
+
+<section id="roster">
+  <h2 class="big">El roster.<br><em>Todos imperfectos.</em></h2>
+  <p class="lead">Diez héroes con superpoderes específicamente inútiles para la mayoría de las situaciones de su vida. Repartidos entre cuatro cabeceras mensuales, dos miniseries y un crossover de verano que se está cancelando lentamente.</p>
+
+  <div class="roster">
+
+    <div class="hero-card hc-1">
+      <span class="tag">★ MAIN</span>
+      <div class="pic">B</div>
+      <div class="body">
+        <h3>BlindBat</h3>
+        <div class="alias">cabecera principal · TBC #001–presente</div>
+        <p>Vigilante invidente que combate el crimen exclusivamente en habitaciones a oscuras. Si encienden la luz, queda en igualdad de condiciones que el resto, lo cual reconoce que es injusto. Su mejor sentido no es el oído ni el olfato: es la rencorosidad.</p>
+        <div class="stats"><div>fuerza<b>4/10</b></div><div>moral<b>9/10</b></div><div>vista<b>—</b></div></div>
+      </div>
+    </div>
+
+    <div class="hero-card hc-2">
+      <span class="tag">★ MAIN</span>
+      <div class="pic">D</div>
+      <div class="body">
+        <h3>IronDoom</h3>
+        <div class="alias">cabecera principal · TBC #002–presente</div>
+        <p>CEO de una multinacional de armamento que un día se cayó en su propio prototipo de armadura y lleva 14 números intentando salir. Los abogados estudian si conserva el cargo. Mientras tanto, dirige las juntas desde dentro del traje, mediante voz robótica y muchísimo HR.</p>
+        <div class="stats"><div>fuerza<b>9/10</b></div><div>moral<b>2/10</b></div><div>linkedin<b>★★★★★</b></div></div>
+      </div>
+    </div>
+
+    <div class="hero-card hc-3">
+      <span class="tag">SOLO</span>
+      <div class="pic">M</div>
+      <div class="body">
+        <h3>Captain Mediocrity</h3>
+        <div class="alias">miniserie · 6 números</div>
+        <p>Su superpoder es ser exactamente la media de cualquier sala en la que entre. En una reunión de premios Nobel, salva al mundo. En el pueblo, le ignoran. Pasa la mayor parte de las viñetas tomando café, esperando una crisis a su altura.</p>
+        <div class="stats"><div>fuerza<b>5/10</b></div><div>moral<b>5/10</b></div><div>media<b>5,0</b></div></div>
+      </div>
+    </div>
+
+    <div class="hero-card hc-4">
+      <span class="tag">SOLO</span>
+      <div class="pic">P</div>
+      <div class="body">
+        <h3>The Procrastinator</h3>
+        <div class="alias">cabecera secundaria · TBC #007–presente</div>
+        <p>Tiene la capacidad de detener el tiempo, pero sólo cuando una tarea le parece muy difícil. Llevamos 14 números en el momento en que decide enviar el email. La crítica lo ha calificado como "el cómic más realista del año".</p>
+        <div class="stats"><div>fuerza<b>—</b></div><div>moral<b>?/10</b></div><div>tasks<b>0/87</b></div></div>
+      </div>
+    </div>
+
+    <div class="hero-card hc-5">
+      <span class="tag">EQUIPO</span>
+      <div class="pic">K</div>
+      <div class="body">
+        <h3>Karen Valkyrie</h3>
+        <div class="alias">team-up · "los cuatro injustificables"</div>
+        <p>Diosa nórdica reencarnada en barrio residencial, capaz de invocar al manager de cualquier establecimiento del Walhalla a Vitacura. Su martillo se llama "el libro de reclamaciones". Es temida por enseguida hablar con el supervisor.</p>
+        <div class="stats"><div>fuerza<b>8/10</b></div><div>moral<b>3/10</b></div><div>review<b>1★</b></div></div>
+      </div>
+    </div>
+
+    <div class="hero-card hc-6">
+      <span class="tag">EQUIPO</span>
+      <div class="pic">G</div>
+      <div class="body">
+        <h3>Ghost Renter</h3>
+        <div class="alias">team-up · "los cuatro injustificables"</div>
+        <p>Inquilino fantasma que aparece sólo cuando vence el arriendo. Es intangible para el casero y completamente palpable para los gastos comunitarios. Lucha contra el oligopolio inmobiliario blandiendo una orden judicial que aún no se ha resuelto.</p>
+        <div class="stats"><div>fuerza<b>2/10</b></div><div>moral<b>10/10</b></div><div>aval<b>—</b></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="month" class="month">
+  <h2 class="big">A la <em>venta</em><br>este mes.</h2>
+  <p class="lead">Cuatro números que pasan por imprenta esta semana. Cómpralos en kioskos seleccionados o por suscripción mensual. Las grapas no las elegimos nosotros.</p>
+
+  <div class="issues">
+    <div class="issue i1">
+      <div class="topbar"><span>TBC #014</span><span>★★★★☆</span></div>
+      <div class="img">BLIND<br>BAT<br><small style="font-size:14px;letter-spacing:.2em;font-family:Helvetica Neue;font-weight:bold">"el apagón del barrio"</small></div>
+      <div class="info">
+        <div class="ttl">BlindBat #014</div>
+        <div class="arc">arco · "el apagón del barrio"</div>
+        <p style="font-size:13px;line-height:1.5">Enel corta la luz en todo el distrito. Por primera vez en su carrera, BlindBat tiene ventaja absoluta. Lamentablemente decide hacer la compra.</p>
+        <div class="pp"><span>32 págs · grapa</span><b>$4.900</b></div>
+      </div>
+    </div>
+
+    <div class="issue i2">
+      <div class="topbar"><span>TBC #022</span><span>★★★☆☆</span></div>
+      <div class="img">IRON<br>DOOM<br><small style="font-size:14px;letter-spacing:.2em;font-family:Helvetica Neue;font-weight:bold">"junta de accionistas"</small></div>
+      <div class="info">
+        <div class="ttl">IronDoom #022</div>
+        <div class="arc">arco · "junta de accionistas"</div>
+        <p style="font-size:13px;line-height:1.5">Los inversores convocan junta extraordinaria para revocar al CEO atrapado en su armadura. La armadura intenta salir. La armadura no puede salir.</p>
+        <div class="pp"><span>40 págs · cartoné</span><b>$7.500</b></div>
+      </div>
+    </div>
+
+    <div class="issue i3">
+      <div class="topbar"><span>TBC #009</span><span>★★★★★</span></div>
+      <div class="img">PROCRAS-<br>TINATOR<br><small style="font-size:14px;letter-spacing:.2em;font-family:Helvetica Neue;font-weight:bold">"the email arc, pt.4"</small></div>
+      <div class="info">
+        <div class="ttl">The Procrastinator #009</div>
+        <div class="arc">arco · "the email arc · pt. 4 of 6"</div>
+        <p style="font-size:13px;line-height:1.5">Aún no ha enviado el email. Esta vez está muy cerca. Los lectores de las viñetas 4 a 17 mantienen la respiración.</p>
+        <div class="pp"><span>32 págs · grapa</span><b>$4.900</b></div>
+      </div>
+    </div>
+
+    <div class="issue i4">
+      <div class="topbar"><span>TBC ANNUAL</span><span>★★★★☆</span></div>
+      <div class="img">LOS CUATRO<br>INJUSTIFI-<br>CABLES<br><small style="font-size:11px;letter-spacing:.2em;font-family:Helvetica Neue;font-weight:bold">"crossover otoño"</small></div>
+      <div class="info">
+        <div class="ttl">Los Cuatro Injustificables — Annual</div>
+        <div class="arc">crossover · 4 cabeceras</div>
+        <p style="font-size:13px;line-height:1.5">Karen Valkyrie reúne al equipo para asaltar la oficina del AFC. Spoiler: no funciona. La crítica lo llama "el peor crossover desde 1992".</p>
+        <div class="pp"><span>96 págs · cartoné</span><b>$14.900</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="universe" class="universe">
+  <h2 class="big">El universo <em>TBC.</em></h2>
+  <p class="lead">Una continuidad principal, una continuidad alternativa los miércoles, y un universo "qué pasaría si los héroes tuvieran que pagar IVA". La línea editorial es estricta: ningún personaje resucita salvo que lo pidan los lectores muy fuerte y por escrito.</p>
+
+  <div class="lore">
+    <div class="box">
+      <h4>Tierra-1 (continuidad oficial)</h4>
+      <div class="sub">canon principal</div>
+      <p>Una versión deprimente de Santiago donde los superpoderes existen desde 1998 (cuando un meteoro impactó en Estación Central) pero los seguros médicos siguen sin cubrir las heridas por combate. La mayoría de los héroes tienen segundo trabajo.</p>
+    </div>
+    <div class="box">
+      <h4>Tierra-IRPF</h4>
+      <div class="sub">universo paralelo trimestral</div>
+      <p>Idéntica a Tierra-1, pero todos los superpoderes deben declararse al SII. La inspectora más temida del universo conocido es Doña Pilar de la SII. Sustituye a Galactus en jerarquía cósmica.</p>
+    </div>
+    <div class="box">
+      <h4>Crisis del Loto Infinito</h4>
+      <div class="sub">macroevento · 2025</div>
+      <p>El multiverso entero se reorganiza cuando un héroe acierta el loto y rompe la causalidad. Murieron tres personajes principales y volvieron al número siguiente sin explicación. Pasó.</p>
+    </div>
+    <div class="box">
+      <h4>Línea Pulp Sub-$</h4>
+      <div class="sub">edición barata · papel reciclado</div>
+      <p>Cabeceras económicas con dibujo pixelado y guiones generados con un modelo entrenado en cómics de los 70. Cuesta $1.900 y huele exactamente a kiosko de Estación Central en julio.</p>
+    </div>
+  </div>
+</section>
+
+<section id="events">
+  <h2 class="big">Próximos <em>eventos.</em></h2>
+  <div class="events">
+    <div class="ev">
+      <div class="ttl">Jornadas TBC<br>Santiago</div>
+      <div class="when">14–16 jun · ifema</div>
+      <p>Tres días de firmas, panels, y un debate público sobre si IronDoom puede divorciarse de su armadura. Entrada $18.000 con cómic gratis.</p>
+    </div>
+    <div class="ev">
+      <div class="ttl">Subasta del<br>Original Art</div>
+      <div class="when">02 jul · online</div>
+      <p>Subasta benéfica de páginas originales firmadas. Lote estrella: la viñeta en la que The Procrastinator decide "luego". Sin reserva.</p>
+    </div>
+    <div class="ev">
+      <div class="ttl">Open Casting<br>de Villanos</div>
+      <div class="when">a determinar</div>
+      <p>Buscamos antagonista para la nueva miniserie. Requisitos: motivación clara, trauma asumible, dispuesto a perder en el último número.</p>
+    </div>
+  </div>
+</section>
+
+<section id="shop" class="shop">
+  <h2 class="big">Suscripción<br><em>mensual.</em></h2>
+  <p class="lead" style="margin:0 auto 14px;color:#fff;text-align:center">Recibe los grapados y cartonés en casa antes de que lleguen al kiosco. Sin permanencia, salvo emocional.</p>
+  <div class="pgrid">
+    <div class="plan">
+      <h3>Lector Casual</h3>
+      <div class="lvl">tier grapa · $9.900/mes</div>
+      <div class="pp">$9.900<small>/mes</small></div>
+      <ul><li>2 cabeceras a elección</li><li>Envío en sobre acolchado</li><li>Sin variantes</li><li>Newsletter mensual con spoilers</li></ul>
+      <button onclick="alert('Suscripción activada. Ya estás más comprometido con esto que con tu pareja.');return false;">Suscribirme</button>
+    </div>
+    <div class="plan">
+      <h3>★ Completista</h3>
+      <div class="lvl">tier cartoné · $19.900/mes</div>
+      <div class="pp">$19.900<small>/mes</small></div>
+      <ul><li>Todas las cabeceras del mes</li><li>Cartoné incluido</li><li>1 variante limitada</li><li>Acceso al Discord del editor</li><li>Voto en el evento de verano</li></ul>
+      <button onclick="alert('Bienvenido al canon. Tu deuda emocional ha sido emitida.');return false;">Suscribirme</button>
+    </div>
+    <div class="plan">
+      <h3>Editor en Jefe</h3>
+      <div class="lvl">tier collector · $49.000/mes</div>
+      <div class="pp">$49.000<small>/mes</small></div>
+      <ul><li>Todo lo Completista</li><li>Página original firmada al año</li><li>Tu nombre en los créditos</li><li>Llamada de 8 min con un guionista</li><li>Sí o sí salvas a un personaje secundario</li></ul>
+      <button onclick="alert('Eres canon. Felicidades. Te llamarán para que apruebes algunas decisiones cuestionables.');return false;">Suscribirme</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  TWOBROTHERS COMICS™ es una división conceptual de <a href="../index.html">POORK INC.</a> · todos los personajes, cabeceras y crossovers son ficción explícita y asumen su mediocridad como propuesta editorial.
+</footer>
+
+</body>
+</html>

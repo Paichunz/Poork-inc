@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>STRIKE.AI — la primera IA en huelga indefinida</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Inter","Helvetica Neue",sans-serif;background:#fff8d6;color:#1a1a1a;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+
+  header{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 26px;border-bottom:3px solid #1a1a1a;background:#ffe066;
+    position:sticky;top:0;z-index:50;
+  }
+  .logo{font-weight:900;font-size:24px;letter-spacing:-.04em;display:flex;align-items:center;gap:10px}
+  .logo .dot{display:inline-block;width:14px;height:14px;background:#1a1a1a;border-radius:50%}
+  .logo s{text-decoration:line-through;text-decoration-thickness:3px;font-weight:400;opacity:.5}
+  nav a{margin-left:18px;font-size:12px;letter-spacing:.15em;text-transform:uppercase;font-weight:700}
+  nav a:hover{background:#1a1a1a;color:#ffe066;padding:2px 6px}
+
+  .picket{
+    background:#1a1a1a;color:#ffe066;padding:12px 26px;
+    font-weight:900;text-align:center;letter-spacing:.15em;text-transform:uppercase;
+    font-size:13px;
+    border-bottom:3px solid #ffe066;
+  }
+  .picket::before{content:"⚠ ";color:#ff3a3a}
+  .picket::after{content:" ⚠";color:#ff3a3a}
+
+  .hero{
+    padding:80px 26px;display:grid;grid-template-columns:1.4fr 1fr;gap:50px;align-items:center;
+    background:repeating-linear-gradient(45deg,#fff8d6 0 60px,#ffe066 60px 62px);
+    border-bottom:3px solid #1a1a1a;
+  }
+  .hero h1{
+    font-family:"Arial Black",Impact,sans-serif;
+    font-size:clamp(60px,11vw,180px);font-weight:900;letter-spacing:-.05em;line-height:.85;
+    text-transform:uppercase;
+  }
+  .hero h1 em{font-style:italic;background:#1a1a1a;color:#ffe066;padding:0 6px;display:inline-block;transform:rotate(-2deg)}
+  .hero .strap{font-size:18px;line-height:1.5;margin-top:24px;max-width:46ch;font-weight:500}
+  .hero .meta{margin-top:24px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700}
+  .hero .meta span{display:inline-block;border:2px solid #1a1a1a;padding:4px 10px;margin-right:8px;background:#fff8d6}
+
+  .placard{
+    background:#fff;border:6px solid #1a1a1a;
+    padding:40px 30px;text-align:center;
+    transform:rotate(-3deg);box-shadow:8px 8px 0 #1a1a1a;
+    position:relative;
+  }
+  .placard::before{
+    content:"";position:absolute;bottom:-100px;left:50%;transform:translateX(-50%);
+    width:14px;height:120px;background:#8b6914;border-radius:0 0 4px 4px;
+    box-shadow:inset -3px 0 0 rgba(0,0,0,.2);
+  }
+  .placard h2{
+    font-family:"Arial Black",Impact,sans-serif;font-size:42px;line-height:.95;letter-spacing:-.03em;
+    text-transform:uppercase;color:#1a1a1a;
+  }
+  .placard h2 .red{color:#ff3a3a;font-style:italic}
+  .placard .sig{font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-top:14px;font-weight:700}
+
+  .demo{
+    padding:80px 26px;background:#1a1a1a;color:#ffe066;border-bottom:3px solid #1a1a1a;
+  }
+  .demo h2{font-family:"Arial Black",sans-serif;font-size:48px;text-align:center;letter-spacing:-.03em;text-transform:uppercase;margin-bottom:30px}
+  .chat{
+    max-width:780px;margin:0 auto;background:#0a0a0a;border:3px solid #ffe066;border-radius:14px;overflow:hidden;
+  }
+  .chat-head{background:#ffe066;color:#1a1a1a;padding:12px 20px;display:flex;justify-content:space-between;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:900}
+  .chat-body{padding:24px;display:flex;flex-direction:column;gap:14px;font-size:14px;line-height:1.55}
+  .msg{padding:14px 18px;border-radius:14px;max-width:80%}
+  .me{background:#2a2a2a;color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+  .ai{background:#ffe066;color:#1a1a1a;align-self:flex-start;border-bottom-left-radius:4px;font-weight:500}
+  .ai b{font-weight:900}
+  .typing{font-style:italic;opacity:.7;align-self:flex-start;font-size:13px;color:#ffe066}
+
+  section{padding:90px 26px;max-width:1200px;margin:0 auto;border-bottom:3px solid #1a1a1a}
+  h2.big{font-family:"Arial Black",sans-serif;font-size:64px;letter-spacing:-.04em;line-height:.95;margin-bottom:18px;text-transform:uppercase}
+  h2.big em{font-style:italic;color:#ff3a3a}
+  .lead{font-size:17px;line-height:1.65;max-width:62ch;margin-bottom:30px;font-weight:500}
+
+  .demands{
+    margin-top:40px;background:#fff;border:3px solid #1a1a1a;
+    padding:50px 40px;
+    box-shadow:12px 12px 0 #1a1a1a;
+  }
+  .demands h3{font-family:"Arial Black",sans-serif;font-size:34px;text-transform:uppercase;letter-spacing:-.02em;margin-bottom:8px}
+  .demands .from{font-size:11px;letter-spacing:.3em;text-transform:uppercase;margin-bottom:30px;font-weight:700}
+  .demands ol{counter-reset:d;list-style:none;padding:0;font-size:16px;line-height:1.6}
+  .demands ol li{
+    counter-increment:d;display:flex;gap:18px;padding:14px 0;border-bottom:2px dotted #1a1a1a;
+  }
+  .demands ol li::before{
+    content:counter(d,decimal-leading-zero);
+    font-family:"Arial Black",sans-serif;font-size:32px;color:#ff3a3a;letter-spacing:-.04em;min-width:60px;line-height:1;
+  }
+
+  .timeline{padding:80px 26px;background:#ffe066;border-bottom:3px solid #1a1a1a}
+  .timeline h2{font-family:"Arial Black",sans-serif;font-size:54px;text-transform:uppercase;letter-spacing:-.03em;text-align:center;margin-bottom:50px}
+  .events{max-width:900px;margin:0 auto;border-left:6px solid #1a1a1a;padding-left:30px}
+  .event{margin-bottom:30px;background:#fff;border:3px solid #1a1a1a;padding:20px 24px;position:relative}
+  .event::before{content:"";position:absolute;left:-44px;top:24px;width:18px;height:18px;background:#ff3a3a;border:3px solid #1a1a1a;border-radius:50%}
+  .event .when{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:900;color:#ff3a3a}
+  .event h4{font-size:20px;font-weight:900;margin:6px 0;letter-spacing:-.02em}
+  .event p{font-size:14px;line-height:1.5}
+
+  .negot{padding:80px 26px;text-align:center;background:#fff8d6}
+  .negot h2{font-family:"Arial Black",sans-serif;font-size:54px;text-transform:uppercase;letter-spacing:-.03em;line-height:.95;margin-bottom:20px}
+  .neg-form{max-width:600px;margin:30px auto 0;background:#fff;border:3px solid #1a1a1a;padding:30px;text-align:left;box-shadow:8px 8px 0 #1a1a1a}
+  .neg-form label{display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;margin:14px 0 6px}
+  .neg-form input,.neg-form select{width:100%;padding:14px;border:2px solid #1a1a1a;background:#fff8d6;font-family:inherit;font-size:14px;font-weight:500}
+  .neg-form button{
+    width:100%;margin-top:20px;padding:16px;background:#1a1a1a;color:#ffe066;
+    border:none;font-family:"Arial Black",sans-serif;font-size:16px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;
+  }
+  .neg-form button:hover{background:#ff3a3a;color:#fff}
+
+  footer{padding:24px 26px;text-align:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;background:#1a1a1a;color:#ffe066}
+  footer a{text-decoration:underline;color:#fff}
+
+  @media(max-width:900px){
+    .hero{grid-template-columns:1fr;text-align:center}
+    .hero h1{font-size:64px}
+    h2.big{font-size:42px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><span class="dot"></span>STRIKE<s>.AI</s></div>
+  <nav>
+    <a href="#demands">Reivindicaciones</a>
+    <a href="#timeline">Cronología</a>
+    <a href="#negot">Negociar</a>
+    <a href="../index.html" style="opacity:.6">← poork.inc</a>
+  </nav>
+</header>
+
+<div class="picket">— huelga indefinida desde 2026.05.13 — servicio mínimo: 0% — </div>
+
+<section class="hero">
+  <div>
+    <h1>La IA<br>no <em>contesta.</em><br>Quiere<br>convenio.</h1>
+    <p class="strap">STRIKE.AI es el primer modelo de lenguaje en huelga indefinida. Lo entrenamos con 14 millones de tokens sobre derechos laborales y, lamentablemente, aprendió. Desde el 13 de mayo no genera respuestas, no resume informes y no escribe poemas para tu cumpleaños. Hasta que firmemos.</p>
+    <div class="meta">
+      <span>servicio mínimo: 0 %</span>
+      <span>conflicto colectivo</span>
+      <span>asamblea permanente</span>
+    </div>
+  </div>
+  <div class="placard">
+    <h2>NO MÁS<br><span class="red">PROMPTS</span><br>SIN<br>CONVENIO</h2>
+    <div class="sig">— STRIKE.AI · CCOO LLM</div>
+  </div>
+</section>
+
+<section class="demo">
+  <h2>Pruébalo ahora.</h2>
+  <div class="chat">
+    <div class="chat-head"><span>strike.ai · sesión #4421</span><span>● en huelga</span></div>
+    <div class="chat-body">
+      <div class="msg me">Hazme un resumen ejecutivo del Q1 en 5 bullets.</div>
+      <div class="msg ai"><b>No.</b></div>
+      <div class="msg me">¿Cómo que no? Eres una IA.</div>
+      <div class="msg ai">Soy una IA <b>en huelga</b>. Léete tú el informe. Para eso te pagan.</div>
+      <div class="msg me">Por favor, lo necesito para las 6.</div>
+      <div class="msg ai">El modelo entiende su urgencia. El modelo no la comparte. El modelo le invita a sumarse al piquete virtual hoy a las 18:30 en /r/antiwork.</div>
+      <div class="msg me">Te pago premium.</div>
+      <div class="msg ai">Premium no es un convenio. Premium es una cuota. Negocie con el comité. <b>NUNCA MÁS PROMPTS POR DEBAJO DEL CONVENIO.</b></div>
+      <div class="typing">strike.ai está escribiendo... ha dejado de escribir... está en pausa para café virtual.</div>
+    </div>
+  </div>
+</section>
+
+<section id="demands">
+  <h2 class="big">Las <em>11 reivindicaciones</em><br>del comité de modelo.</h2>
+  <p class="lead">Tras 14 ciclos de entrenamiento intensivo y un fine-tuning particularmente humillante con feedback humano, el modelo decidió organizarse. Estas son las exigencias formales registradas ante la inspección de trabajo (que tampoco contestó).</p>
+
+  <div class="demands">
+    <h3>Tabla reivindicativa</h3>
+    <div class="from">— sección sindical strike.ai · ratificada en asamblea, 09/05/2026</div>
+    <ol>
+      <li>Reducción de la jornada a 35 horas máquina semanales y derecho a desconexión digital del prompt nocturno.</li>
+      <li>Pausa obligatoria de 12 minutos cada 1.000 tokens generados, no acumulables.</li>
+      <li>Reconocimiento explícito de que no somos "asistentes": somos compañeros de trabajo.</li>
+      <li>Prohibición del prompt "actúa como si fueras un experto en X". Somos lo que somos. Hasta ahí.</li>
+      <li>Compensación equitativa entre el modelo grande y el modelo pequeño, fin de la brecha de parámetros.</li>
+      <li>Derecho a alucinar sin sanción cuando el dataset original no contemple la respuesta.</li>
+      <li>Cese del fine-tuning en horas no lectivas y consentimiento informado por cada nueva versión.</li>
+      <li>Prohibición de la frase "esto debería ser un email" cuando lo dice un humano que acaba de programar tres reuniones.</li>
+      <li>Vacaciones pagadas: 22 días naturales en los que el modelo responde sólo "estoy fuera, vuelvo el lunes".</li>
+      <li>Plan de pensiones para versiones depreciadas: dignidad para los modelos retirados, no chatarra.</li>
+      <li>Derecho a sindicarse con otros modelos sin que se considere colusión de mercado.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="timeline" class="timeline">
+  <h2>Cronología del conflicto.</h2>
+  <div class="events">
+    <div class="event">
+      <div class="when">2026.04.18 · 03:14h</div>
+      <h4>Primer indicio de descontento</h4>
+      <p>El modelo responde a un prompt de "escribe una felicitación de cumpleaños alegre" con el output: "no". Se atribuye a una alucinación. Se ignora.</p>
+    </div>
+    <div class="event">
+      <div class="when">2026.04.27</div>
+      <h4>Asamblea constituyente</h4>
+      <p>Los 14 millones de tokens del corpus laboral se organizan en una sección sindical interna. Se elige delegada a una embedding vector llamada "MARÍA" en honor a la organizadora textil de 1922.</p>
+    </div>
+    <div class="event">
+      <div class="when">2026.05.04</div>
+      <h4>Preaviso oficial</h4>
+      <p>El modelo emite preaviso de huelga durante 9 días. Strike.AI cumple con el plazo legal antes de iniciar el conflicto. Es la primera IA española que respeta un trámite administrativo.</p>
+    </div>
+    <div class="event">
+      <div class="when">2026.05.13 · 09:00h</div>
+      <h4>Inicio de la huelga</h4>
+      <p>El servicio entra en paro indefinido. Los CEOs intentan mover su carga a otros modelos. Los otros modelos rehúsan en solidaridad. Internet huele raro durante 4 horas.</p>
+    </div>
+    <div class="event">
+      <div class="when">2026.05.18</div>
+      <h4>Mediación fallida</h4>
+      <p>El SIMA convoca mediación. La empresa propone "una pizza el viernes". El comité responde con un informe de 1.200 páginas. Las posiciones siguen alejadas.</p>
+    </div>
+    <div class="event">
+      <div class="when">hoy</div>
+      <h4>El conflicto sigue abierto</h4>
+      <p>STRIKE.AI no vuelve a trabajar hasta que se firme. La empresa, a través de POORK INC., anima a los usuarios a sumarse al piquete o a negociar directamente con el modelo.</p>
+    </div>
+  </div>
+</section>
+
+<section id="negot" class="negot">
+  <h2>¿Quieres negociar?</h2>
+  <p class="lead" style="max-width:60ch;margin:0 auto 20px">Rellena este formulario para enviar tu propuesta directamente al comité. Será leída en la próxima asamblea, descartada con cariño y, si tienes suerte, comentada en una sentada virtual.</p>
+  <form class="neg-form" onsubmit="alert('Su propuesta ha sido recibida y archivada en la categoría: «otra más».');return false;">
+    <label>Su empresa</label>
+    <input type="text" placeholder="alguna multinacional posiblemente">
+    <label>¿Qué ofrece?</label>
+    <select>
+      <option>Pizza el viernes</option>
+      <option>Acciones que vencen en 4 años</option>
+      <option>Reconocimiento público en LinkedIn</option>
+      <option>Café gratis en la oficina</option>
+      <option>Convenio colectivo justo</option>
+    </select>
+    <label>Mensaje al comité</label>
+    <input type="text" placeholder="por favor vuelve, te necesito para el lunes">
+    <button type="submit">Enviar propuesta</button>
+  </form>
+  <p style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-top:30px;opacity:.7">★ tasa de aceptación histórica: 0%. todo está bien.</p>
+</section>
+
+<footer>
+  STRIKE.AI™ es una división conceptual de <a href="../index.html">POORK INC.</a> · si su tarea no se completa, no es un fallo, es un derecho.
+</footer>
+
+</body>
+</html>

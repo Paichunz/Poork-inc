@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>HOLY SCROLL — el libro sagrado, formato feed infinito</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Helvetica Neue",Arial,sans-serif;background:#0a0a0f;color:#e8e8ee;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+
+  header{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 24px;border-bottom:1px solid #20202a;background:rgba(10,10,15,.85);
+    position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
+  }
+  .logo{font-family:Georgia,serif;font-style:italic;font-size:24px;color:#f0d27a}
+  .logo b{font-style:normal;font-weight:900}
+  nav a{margin-left:18px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#9090a0}
+  nav a:hover{color:#f0d27a}
+
+  .hero{
+    padding:90px 24px 60px;text-align:center;
+    background:radial-gradient(ellipse at top,rgba(240,210,122,.15),transparent 60%);
+    border-bottom:1px solid #20202a;
+  }
+  .hero h1{
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:clamp(56px,11vw,140px);font-weight:400;letter-spacing:-.04em;line-height:.92;
+    color:#f0d27a;
+  }
+  .hero h1 i{font-style:italic}
+  .hero h1 b{font-style:normal;font-weight:900;display:block}
+  .hero .strap{
+    font-size:18px;line-height:1.55;color:#b0b0c0;max-width:54ch;margin:30px auto 0;
+  }
+
+  .demo-stage{
+    margin:60px auto 0;display:flex;justify-content:center;gap:30px;flex-wrap:wrap;
+  }
+  .phone{
+    width:320px;height:640px;background:#13131c;border-radius:38px;border:6px solid #1f1f2c;
+    box-shadow:0 30px 80px rgba(240,210,122,.1);
+    padding:14px;position:relative;overflow:hidden;display:flex;flex-direction:column;
+  }
+  .phone::before{
+    content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);
+    width:90px;height:22px;background:#0a0a0f;border-radius:0 0 14px 14px;z-index:5;
+  }
+  .phone .scr{margin-top:30px;flex:1;background:#0a0a0f;border-radius:24px;overflow:hidden;display:flex;flex-direction:column}
+  .scr .top-bar{font-family:Georgia,serif;font-style:italic;font-size:18px;color:#f0d27a;padding:12px 14px;border-bottom:1px solid #20202a;display:flex;justify-content:space-between;align-items:center}
+  .scr .top-bar small{font-size:9px;color:#9090a0;letter-spacing:.2em;text-transform:uppercase;font-style:normal;font-family:"Helvetica Neue"}
+
+  .feed{flex:1;overflow:hidden;position:relative}
+  .verse{
+    height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;
+    padding:30px 24px;text-align:center;
+    background:linear-gradient(180deg,#1a1a26 0%,#0a0a0f 100%);position:relative;
+  }
+  .verse .ref{font-size:10px;letter-spacing:.3em;color:#f0d27a;text-transform:uppercase;margin-bottom:14px}
+  .verse .text{font-family:Georgia,serif;font-size:26px;line-height:1.35;color:#e8e8ee;font-style:italic;max-width:38ch}
+  .verse .acts{position:absolute;right:14px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:18px;font-size:10px;color:#9090a0;text-align:center}
+  .verse .acts div{display:flex;flex-direction:column;align-items:center;gap:4px}
+  .verse .acts span{font-size:24px;color:#f0d27a}
+  .verse .audio{position:absolute;bottom:14px;left:14px;font-size:10px;color:#9090a0;display:flex;align-items:center;gap:6px}
+  .verse .audio::before{content:"♪";color:#f0d27a;font-size:14px}
+
+  .swipe{position:absolute;bottom:80px;left:50%;transform:translateX(-50%);font-size:10px;color:#9090a0;letter-spacing:.2em;text-transform:uppercase;opacity:.7;animation:bob 2s infinite}
+  @keyframes bob{50%{transform:translate(-50%,-6px)}}
+
+  section{padding:90px 24px;max-width:1100px;margin:0 auto}
+  h2{font-family:Georgia,serif;font-size:54px;font-weight:400;font-style:italic;letter-spacing:-.03em;line-height:.95;margin-bottom:18px}
+  h2 b{font-weight:900;color:#f0d27a;font-style:normal}
+  .lead{font-size:17px;line-height:1.65;max-width:62ch;color:#b0b0c0;margin-bottom:30px}
+
+  .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+  .feat{background:#13131c;border:1px solid #20202a;padding:30px;border-radius:14px}
+  .feat .icn{
+    width:46px;height:46px;border-radius:50%;background:rgba(240,210,122,.12);
+    color:#f0d27a;display:flex;align-items:center;justify-content:center;font-size:22px;font-family:Georgia,serif;font-style:italic;margin-bottom:14px;
+  }
+  .feat h3{font-size:18px;font-weight:800;margin-bottom:6px}
+  .feat p{font-size:14px;line-height:1.55;color:#9090a0}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid #20202a;margin-top:50px;border-radius:14px;overflow:hidden}
+  .stat{padding:30px;border-right:1px solid #20202a;text-align:center}
+  .stat:last-child{border-right:none}
+  .stat .num{font-family:Georgia,serif;font-style:italic;font-size:54px;color:#f0d27a;letter-spacing:-.04em;line-height:1}
+  .stat .lbl{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#9090a0;margin-top:6px}
+
+  .pricing{padding:90px 24px;background:linear-gradient(180deg,#0a0a0f,#13131c)}
+  .pricing h2{text-align:center}
+  .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1000px;margin:40px auto 0}
+  .plan{background:#0a0a0f;border:1px solid #20202a;border-radius:14px;padding:30px}
+  .plan.f{border-color:#f0d27a;background:linear-gradient(180deg,#1a1410,#0a0a0f)}
+  .plan h3{font-family:Georgia,serif;font-style:italic;font-size:24px;margin-bottom:6px}
+  .plan .lvl{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#f0d27a;margin-bottom:14px}
+  .plan .pp{font-family:Georgia,serif;font-style:italic;font-size:48px;letter-spacing:-.03em;line-height:1;margin-bottom:18px;color:#f0d27a}
+  .plan .pp small{font-size:14px;color:#9090a0}
+  .plan ul{list-style:none;font-size:13px;line-height:1.9;color:#c0c0d0}
+  .plan ul li::before{content:"† ";color:#f0d27a}
+  .plan button{width:100%;margin-top:18px;padding:14px;background:#f0d27a;color:#0a0a0f;border:none;border-radius:10px;font-weight:bold;cursor:pointer;letter-spacing:.05em}
+  .plan.f button{background:#fff}
+
+  .commandments{padding:90px 24px;text-align:center;background:#13131c;border-top:1px solid #20202a;border-bottom:1px solid #20202a}
+  .commandments h2{margin-bottom:40px}
+  .clist{max-width:780px;margin:0 auto;text-align:left;font-family:Georgia,serif;font-style:italic;font-size:18px;line-height:2.2;color:#e8e8ee}
+  .clist li{display:flex;gap:16px;border-bottom:1px solid #20202a;padding:8px 0}
+  .clist li::before{content:counter(li,upper-roman) ".";counter-increment:li;color:#f0d27a;flex-shrink:0;width:60px;font-style:normal;font-weight:bold}
+  .clist{counter-reset:li;list-style:none;padding:0}
+
+  footer{padding:30px;text-align:center;font-size:11px;color:#9090a0;letter-spacing:.2em;text-transform:uppercase;border-top:1px solid #20202a}
+  footer a{color:#f0d27a;text-decoration:underline}
+
+  @media(max-width:800px){.feats,.stats,.pgrid{grid-template-columns:1fr}.stat{border-right:none;border-bottom:1px solid #20202a}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">holy <b>scroll</b></div>
+  <nav>
+    <a href="#how">Cómo se reza</a>
+    <a href="#commandments">Mandamientos</a>
+    <a href="#pricing">Diezmo</a>
+    <a class="back" href="../index.html" style="opacity:.4">← poork.inc</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1><i>El libro sagrado.</i><br><b>Formato feed.</b></h1>
+  <p class="strap">HOLY SCROLL es la primera reescritura de los grandes textos espirituales en formato vertical, infinito, con sonido pegadizo y una notificación cada cuatro horas. Tu fe, finalmente, optimizada para tu pulgar.</p>
+
+  <div class="demo-stage">
+    <div class="phone">
+      <div class="scr">
+        <div class="top-bar">holy <small>· para ti</small></div>
+        <div class="feed">
+          <div class="verse">
+            <div class="ref">profeta · v.4 · capítulo 12</div>
+            <p class="text">"y bienaventurado el que llega a inbox cero, porque heredará el reino del fin de semana."</p>
+            <div class="acts">
+              <div><span>♡</span>4.2M</div>
+              <div><span>↻</span>312k</div>
+              <div><span>✦</span>guardar</div>
+              <div><span>↗</span>compartir</div>
+            </div>
+            <div class="audio">audio original · sermón remix (loop)</div>
+            <div class="swipe">↓ desliza para más fe</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phone">
+      <div class="scr">
+        <div class="top-bar">holy <small>· descubrir</small></div>
+        <div class="feed">
+          <div class="verse" style="background:linear-gradient(180deg,#2a1815,#0a0a0f)">
+            <div class="ref">apóstol jonás · clip 03/14</div>
+            <p class="text">"si tu vecino te ofende, bloquéalo. y si vuelve a ofenderte con otra cuenta, bloquéalo otra vez. setenta veces siete."</p>
+            <div class="acts">
+              <div><span>♡</span>1.8M</div>
+              <div><span>↻</span>89k</div>
+              <div><span>✦</span>guardar</div>
+              <div><span>↗</span>compartir</div>
+            </div>
+            <div class="audio">trending · #fewish #ecclesiastesvibes</div>
+            <div class="swipe">↓ desliza para más fe</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <h2>El libro era largo.<br><b>La gente, no.</b></h2>
+  <p class="lead">Durante 2.000 años los textos espirituales se distribuyeron en forma de tomos voluminosos, requiriendo concentración, silencio, y a veces incluso una vela. HOLY SCROLL adapta toda esa sabiduría a la única superficie en la que la humanidad presta atención hoy: una columna vertical de 9:16 con un audio de fondo. Cada parábola, en 14 segundos. Cada salmo, con un beat. Cada mandamiento, con un swipe.</p>
+
+  <div class="feats">
+    <div class="feat"><div class="icn">Φ</div><h3>Algoritmo del Espíritu</h3><p>Aprende qué tipo de fe te engancha más y te lo sirve sin parar. ¿Eres más de remordimiento? ¿De gratitud? ¿De ira justa? Te tenemos clasificado.</p></div>
+    <div class="feat"><div class="icn">↻</div><h3>Doomscroll Sagrado</h3><p>Tres horas seguidas leyendo sentencias proféticas con beat de drill. Sales con menos ansiedad y más miedo a Dios. Equilibrio.</p></div>
+    <div class="feat"><div class="icn">✦</div><h3>Stitch con Profetas</h3><p>Funcionalidad que te permite responder en vídeo a un profeta del antiguo testamento. Ellos no te contestan. Es tradición.</p></div>
+    <div class="feat"><div class="icn">∞</div><h3>Infinite Scroll Cuaresma</h3><p>Modo penitencia: durante 40 días el feed se vuelve gris, sin audios y con sólo dos versos por hora. Vuelven los anuncios sólo el domingo.</p></div>
+    <div class="feat"><div class="icn">⌁</div><h3>Streak de Fe</h3><p>Reza 7 días seguidos y desbloqueas el badge de "alma constante". Falla un día y la app te manda un push pasivo-agresivo de tu santo patrón.</p></div>
+    <div class="feat"><div class="icn">$</div><h3>Diezmo One-Click</h3><p>Apple Pay, Bizum o el plato de la parroquia. Donaciones directas a la deidad de tu elección. Recibo fiscal opcional.</p></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="num">3,4 s</div><div class="lbl">duración media de un versículo</div></div>
+    <div class="stat"><div class="num">87 %</div><div class="lbl">retención tras un sermón viral</div></div>
+    <div class="stat"><div class="num">14 M</div><div class="lbl">conversiones espontáneas en 2025</div></div>
+    <div class="stat"><div class="num">∞</div><div class="lbl">versículos generados por IA aprobada por el sínodo</div></div>
+  </div>
+</section>
+
+<section id="commandments" class="commandments">
+  <h2>Los mandamientos <b>actualizados</b><br><i>para la versión móvil.</i></h2>
+  <ol class="clist">
+    <li>Amarás el algoritmo sobre todas las cosas, porque conoce tu corazón mejor que tú.</li>
+    <li>No tomarás la notificación en vano: si vibró, abre.</li>
+    <li>Santificarás el doomscroll vespertino, especialmente del domingo.</li>
+    <li>Honrarás a tus creators favoritos, aunque no entiendas del todo qué venden.</li>
+    <li>No matarás el streak. Ya no.</li>
+    <li>No cometerás captura sin atribuir.</li>
+    <li>No robarás el sonido viral sin etiquetar al original.</li>
+    <li>No darás falso "leído" contra tu prójimo.</li>
+    <li>No codiciarás los seguidores ajenos. Pídelos en oración primero.</li>
+    <li>No codiciarás el plan premium del prójimo.</li>
+  </ol>
+</section>
+
+<section id="pricing" class="pricing">
+  <h2>Diezmo. <b>Variable.</b></h2>
+  <div class="pgrid">
+    <div class="plan">
+      <h3>Cordero</h3>
+      <div class="lvl">free tier</div>
+      <div class="pp">$0</div>
+      <ul><li>Versículos con anuncio cada 5</li><li>1 milagro pequeño/semana</li><li>Sin modo offline (sólo en parroquias con WiFi)</li><li>Mandamientos en orden aleatorio</li></ul>
+      <button onclick="alert('Bienvenido al rebaño. Ya tienes 4 anuncios pendientes.');return false;">Empezar a rezar</button>
+    </div>
+    <div class="plan f">
+      <h3>★ Discípulo</h3>
+      <div class="lvl">premium · $9.990/mes</div>
+      <div class="pp">$9.990<small>/mes</small></div>
+      <ul><li>Sin anuncios</li><li>Versículos exclusivos</li><li>Modo offline para retiros espirituales</li><li>Streak con compensación de 1 día</li><li>Acceso al servidor Discord del Sínodo</li></ul>
+      <button onclick="alert('Aleluya. Tu suscripción se renovará automáticamente hasta el fin del mundo.');return false;">Probar 7 días</button>
+    </div>
+    <div class="plan">
+      <h3>Profeta Verificado</h3>
+      <div class="lvl">creator · $49.000/mes</div>
+      <div class="pp">$49.000<small>/mes</small></div>
+      <ul><li>Todo lo Discípulo</li><li>Tick dorado de profeta</li><li>Subes tus propios versículos</li><li>50% de comisión sobre tu diezmo</li><li>Verificación canónica express</li></ul>
+      <button onclick="alert('Tu solicitud será revisada por un comité teológico de tres millennials.');return false;">Postularme</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  HOLY SCROLL es una división conceptual de <a href="../index.html">POORK INC.</a> · ningún libro sagrado fue dañado. probablemente acortado.
+</footer>
+
+</body>
+</html>

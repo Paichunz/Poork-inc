@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>PEGAFIXBEDURICKSPICKTERANCRU EH CU GAG GAG — el adhesivo de educación parental</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Helvetica Neue",Arial,sans-serif;background:#fff8d6;color:#1a1a1a;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+
+  header{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 26px;border-bottom:4px solid #1a1a1a;background:#ffe066;
+    position:sticky;top:0;z-index:50;
+  }
+  .logo{font-family:Impact,"Arial Black",sans-serif;font-size:22px;letter-spacing:-.04em;line-height:.9;text-transform:uppercase;color:#1a1a1a}
+  .logo span{display:block;font-family:"Helvetica Neue";font-size:9px;letter-spacing:.25em;font-weight:bold;margin-top:2px;color:#c52040}
+  nav a{margin-left:18px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:900}
+  nav a:hover{background:#1a1a1a;color:#ffe066;padding:2px 6px}
+
+  .warn-bar{
+    background:#c52040;color:#fff;padding:10px 26px;
+    font-weight:900;text-align:center;letter-spacing:.1em;text-transform:uppercase;font-size:12px;
+    border-bottom:4px solid #1a1a1a;
+  }
+  .warn-bar::before{content:"⚠ ";color:#ffe066}
+  .warn-bar::after{content:" ⚠";color:#ffe066}
+
+  /* HERO */
+  .hero{
+    padding:60px 26px 80px;display:grid;grid-template-columns:1.4fr 1fr;gap:50px;align-items:center;
+    background:
+      radial-gradient(circle at 20% 30%,#ffd6e0 0%,transparent 50%),
+      radial-gradient(circle at 80% 70%,#cfe9ff 0%,transparent 50%),
+      #fff8d6;
+    border-bottom:4px solid #1a1a1a;
+    position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background-image:radial-gradient(rgba(26,26,26,.08) 1.6px,transparent 1.6px);
+    background-size:14px 14px;pointer-events:none;
+  }
+
+  .hero h1{
+    font-family:Impact,"Arial Black",sans-serif;
+    font-size:clamp(48px,7vw,108px);
+    font-weight:900;letter-spacing:-.05em;line-height:.85;
+    text-transform:uppercase;
+    color:#1a1a1a;
+    word-break:break-word;
+    text-shadow:5px 5px 0 #ffe066,10px 10px 0 #c52040;
+    position:relative;z-index:2;
+  }
+  .hero h1 .frag{display:inline-block;transition:transform .2s;cursor:default}
+  .hero h1 .frag:hover{transform:rotate(2deg) scale(1.06);color:#c52040}
+  .hero .nick{
+    font-family:"Helvetica Neue";font-size:14px;font-weight:900;letter-spacing:.3em;text-transform:uppercase;
+    background:#1a1a1a;color:#ffe066;padding:8px 14px;display:inline-block;margin-top:30px;
+    transform:rotate(-1deg);
+  }
+  .hero .strap{
+    font-size:18px;line-height:1.5;margin-top:24px;max-width:46ch;font-weight:500;
+    background:#fff;border:3px solid #1a1a1a;padding:16px 18px;
+    box-shadow:6px 6px 0 #1a1a1a;transform:rotate(.5deg);
+  }
+  .hero .strap b{background:#ffe066;padding:0 4px}
+
+  /* tube can */
+  .tube-stage{display:flex;justify-content:center;align-items:center;position:relative;z-index:2}
+  .tube{
+    width:230px;height:380px;
+    background:linear-gradient(90deg,#c52040 0%,#ff6680 30%,#c52040 60%,#8a0a20 100%);
+    border-radius:40px 40px 8px 8px / 60px 60px 8px 8px;
+    border:4px solid #1a1a1a;
+    box-shadow:14px 14px 0 #1a1a1a;
+    position:relative;color:#fff;padding:24px 14px;text-align:center;
+    transform:rotate(-4deg);
+  }
+  .tube::before{
+    content:"";position:absolute;top:-26px;left:50%;transform:translateX(-50%);
+    width:64px;height:30px;background:#1a1a1a;border-radius:8px 8px 2px 2px;
+    border:4px solid #1a1a1a;
+  }
+  .tube .lbl-top{font-family:Impact,sans-serif;font-size:36px;line-height:.85;letter-spacing:-.04em;text-shadow:2px 2px 0 #1a1a1a;text-transform:uppercase}
+  .tube .lbl-name{
+    font-family:"Helvetica Neue";font-size:8px;font-weight:900;letter-spacing:.05em;
+    margin-top:14px;background:#1a1a1a;padding:6px;
+    word-break:break-all;line-height:1.3;
+  }
+  .tube .lbl-mid{
+    background:#ffe066;color:#1a1a1a;font-family:Impact,sans-serif;font-size:18px;letter-spacing:-.02em;text-transform:uppercase;line-height:.95;padding:10px 6px;margin-top:14px;border:2px solid #1a1a1a;
+  }
+  .tube .lbl-foot{
+    margin-top:14px;font-size:9px;letter-spacing:.15em;
+  }
+  .tube .age{
+    position:absolute;bottom:-18px;right:-18px;
+    width:60px;height:60px;background:#ffe066;color:#1a1a1a;
+    border:3px solid #1a1a1a;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:Impact,sans-serif;font-size:18px;line-height:.9;
+    transform:rotate(8deg);text-align:center;
+  }
+
+  /* generic sections */
+  section{padding:80px 26px;max-width:1200px;margin:0 auto;border-bottom:4px solid #1a1a1a}
+  h2{font-family:Impact,"Arial Black",sans-serif;font-size:64px;letter-spacing:-.04em;line-height:.95;text-transform:uppercase;margin-bottom:18px}
+  h2 em{font-style:italic;color:#c52040}
+  .lead{font-size:17px;line-height:1.65;max-width:62ch;margin-bottom:30px;font-weight:500}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:30px}
+  .step{
+    background:#fff;border:4px solid #1a1a1a;padding:24px;
+    box-shadow:6px 6px 0 #1a1a1a;
+    position:relative;
+  }
+  .step .num{
+    font-family:Impact,sans-serif;font-size:80px;color:#c52040;line-height:.9;letter-spacing:-.04em;
+    text-shadow:3px 3px 0 #1a1a1a;
+  }
+  .step h4{font-family:Impact,sans-serif;font-size:24px;letter-spacing:-.02em;text-transform:uppercase;margin:6px 0 8px}
+  .step p{font-size:13px;line-height:1.55;font-weight:500}
+
+  /* features */
+  .features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
+  .ft{background:#fff;border:4px solid #1a1a1a;padding:24px;box-shadow:6px 6px 0 #ffe066}
+  .ft .icn{
+    font-family:Impact,sans-serif;font-size:42px;color:#c52040;line-height:1;
+    width:60px;height:60px;border:4px solid #1a1a1a;border-radius:50%;background:#ffe066;
+    display:flex;align-items:center;justify-content:center;margin-bottom:14px;
+  }
+  .ft h3{font-family:Impact,sans-serif;font-size:24px;letter-spacing:-.02em;text-transform:uppercase}
+  .ft p{font-size:14px;line-height:1.55;margin-top:6px;font-weight:500}
+
+  /* before/after */
+  .ba{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:0;border:4px solid #1a1a1a;background:#fff;box-shadow:8px 8px 0 #1a1a1a}
+  .ba .side{padding:40px 30px;position:relative}
+  .ba .side.before{background:#fff8d6;border-right:4px solid #1a1a1a}
+  .ba .side.after{background:#cfe9ff}
+  .ba .tag{
+    position:absolute;top:14px;left:14px;background:#c52040;color:#fff;
+    padding:4px 14px;font-family:Impact,sans-serif;font-size:18px;letter-spacing:.05em;
+    transform:rotate(-4deg);text-transform:uppercase;
+  }
+  .ba .side.after .tag{background:#1a8a3a}
+  .ba .scene{font-size:60px;text-align:center;line-height:1;margin:30px 0;letter-spacing:.1em}
+  .ba h4{font-family:Impact,sans-serif;font-size:22px;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:8px}
+  .ba p{font-size:14px;line-height:1.5;font-weight:500}
+
+  /* testimonials */
+  .testi{padding:80px 26px;background:#1a1a1a;color:#fff8d6;border-bottom:4px solid #1a1a1a}
+  .testi h2{color:#ffe066;text-shadow:4px 4px 0 #c52040}
+  .tg{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:30px}
+  .t{
+    background:#2a2520;border:3px solid #ffe066;padding:24px;
+    border-radius:0;
+  }
+  .t blockquote{font-family:Georgia,serif;font-style:italic;font-size:17px;line-height:1.5;margin-bottom:14px;color:#fff}
+  .t cite{font-size:11px;letter-spacing:.2em;color:#ffe066;text-transform:uppercase;font-weight:900}
+  .t .stars{color:#ffe066;font-size:13px;letter-spacing:.4em;margin-bottom:10px}
+
+  /* pronunciation guide */
+  .pron{padding:80px 26px;background:#cfe9ff;border-bottom:4px solid #1a1a1a;text-align:center}
+  .pron h2{margin-bottom:30px}
+  .syllables{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:20px}
+  .syl{
+    background:#fff;border:4px solid #1a1a1a;padding:12px 16px;
+    font-family:Impact,sans-serif;font-size:24px;letter-spacing:.02em;
+    box-shadow:4px 4px 0 #1a1a1a;
+    text-transform:uppercase;
+  }
+  .syl.weird{background:#c52040;color:#fff}
+  .syl.gag{background:#ffe066;animation:wob 1.4s infinite}
+  @keyframes wob{50%{transform:rotate(-3deg) scale(.96)}}
+  .pron-help{margin-top:24px;font-size:14px;font-weight:500;max-width:60ch;margin-left:auto;margin-right:auto;line-height:1.55}
+
+  /* warnings */
+  .legal{padding:80px 26px;background:#ffe066;border-bottom:4px solid #1a1a1a}
+  .legal h2{color:#c52040;text-shadow:4px 4px 0 #1a1a1a}
+  .lg-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:30px}
+  .lg-box{background:#fff;border:4px solid #1a1a1a;padding:30px;box-shadow:6px 6px 0 #c52040}
+  .lg-box h4{font-family:Impact,sans-serif;font-size:24px;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:14px}
+  .lg-box ul{font-size:14px;line-height:1.7;list-style:none;font-weight:500}
+  .lg-box ul li{padding:8px 0;border-bottom:2px dotted #1a1a1a}
+  .lg-box ul li::before{content:"✗ ";color:#c52040;font-weight:900}
+  .lg-box.ok ul li::before{content:"✓ ";color:#1a8a3a}
+
+  /* buy */
+  .buy{padding:90px 26px;text-align:center;background:repeating-linear-gradient(45deg,#c52040 0 30px,#a01030 30px 32px);color:#fff;border-bottom:4px solid #1a1a1a}
+  .buy h2{font-size:88px;color:#ffe066;text-shadow:5px 5px 0 #1a1a1a}
+  .buy .pp{font-family:Impact,sans-serif;font-size:80px;letter-spacing:-.04em;line-height:1;margin:30px 0;color:#fff;text-shadow:5px 5px 0 #1a1a1a}
+  .buy .pp s{opacity:.5;font-size:.6em;margin-right:14px}
+  .buy a{display:inline-block;background:#ffe066;color:#1a1a1a;border:4px solid #1a1a1a;padding:18px 50px;font-family:Impact,sans-serif;font-size:22px;letter-spacing:.1em;text-transform:uppercase;box-shadow:8px 8px 0 #1a1a1a}
+  .buy a:hover{background:#fff;transform:translate(-2px,-2px);box-shadow:10px 10px 0 #1a1a1a}
+  .buy .small{margin-top:20px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:900}
+
+  footer{padding:24px 26px;text-align:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;background:#1a1a1a;color:#ffe066;font-weight:900}
+  footer a{text-decoration:underline;color:#fff}
+
+  @media(max-width:900px){
+    .hero{grid-template-columns:1fr;padding:30px;text-align:center}
+    .tube-stage{margin-top:30px}
+    .steps,.features,.lg-grid,.tg,.ba{grid-template-columns:1fr}
+    h2{font-size:42px}
+    .buy h2{font-size:48px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">PEGAFIX...™<span>oficialmente impronunciable desde 1987</span></div>
+  <nav>
+    <a href="#how">Cómo se usa</a>
+    <a href="#testi">Padres reales</a>
+    <a href="#pron">Pronunciación</a>
+    <a href="#legal">Aviso legal</a>
+    <a href="../index.html" style="opacity:.5">← poork.inc</a>
+  </nav>
+</header>
+
+<div class="warn-bar">⚠ producto no reembolsable una vez aplicado · gravedad NO incluida · soporte hasta 38 kg ⚠</div>
+
+<section class="hero">
+  <div>
+    <h1>
+      <span class="frag">PEGA</span><span class="frag">FIX</span><span class="frag">BE</span><span class="frag">DU</span><span class="frag">RICKS</span><span class="frag">PICK</span><span class="frag">TERAN</span><span class="frag">CRU</span> <span class="frag">EH</span> <span class="frag">CU</span> <span class="frag">GAG</span> <span class="frag">GAG</span><span style="font-size:.5em">®</span>
+    </h1>
+    <div class="nick">los amigos lo llaman → "el pegamento"</div>
+    <p class="strap">El primer adhesivo doméstico de <b>uso pedagógico vertical</b>. Una capa fina entre los hombros del menor y el techo del salón es suficiente para reorientar conductas no deseadas durante <b>15 a 90 minutos</b>, según gravedad de la infracción y altura del techo.</p>
+  </div>
+  <div class="tube-stage">
+    <div class="tube">
+      <div class="lbl-top">PEGA<br>FIX</div>
+      <div class="lbl-name">PEGAFIXBEDURICKSPICK·TERANCRU·EH·CU·GAG·GAG</div>
+      <div class="lbl-mid">adhesivo<br>parental<br>vertical</div>
+      <div class="lbl-foot">125 ml · ce · sin disolventes</div>
+      <div class="age">+3<br>años</div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <h2>Cómo se <em>usa.</em><br>Cuatro pasos.</h2>
+  <p class="lead">Pensado para emergencias domésticas: rabieta, tirar pasta a la pared, decir "no" 14 veces seguidas, despertar a las 06:14 un sábado. Aplicación rápida, retirada rápida, dignidad parental restaurada.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="num">01</div>
+      <h4>Identifica</h4>
+      <p>Confirma que la conducta merece intervención. La rabieta debe ser de mínimo 4 minutos sostenidos o haber implicado un objeto cerámico.</p>
+    </div>
+    <div class="step">
+      <div class="num">02</div>
+      <h4>Aplica</h4>
+      <p>Una capa fina (2–3 mm) en hombros, espalda o coronilla. NO en cara. Distribuye con la espátula incluida. Tiempo de fraguado: 14 segundos.</p>
+    </div>
+    <div class="step">
+      <div class="num">03</div>
+      <h4>Eleva</h4>
+      <p>Con cuidado y la postura de brazos correcta, posiciona al menor contra el techo. Mantén 4 segundos hasta sellado. Suelta lentamente.</p>
+    </div>
+    <div class="step">
+      <div class="num">04</div>
+      <h4>Reflexiona</h4>
+      <p>Permite al menor un periodo de reflexión asistida por la gravedad invertida. Retira con el disolvente <b>UNGLU</b> incluido. No supere los 90 min.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Las <em>ventajas</em><br>frente al rincón de pensar.</h2>
+
+  <div class="features">
+    <div class="ft">
+      <div class="icn">↑</div>
+      <h3>Perspectiva nueva</h3>
+      <p>Ver el salón desde arriba aporta una visión cenital que ningún rincón ofrece. La introspección se acelera de forma medible.</p>
+    </div>
+    <div class="ft">
+      <div class="icn">·</div>
+      <h3>Manos libres</h3>
+      <p>Mientras el menor reflexiona, los progenitores pueden terminar la cena, contestar emails, o llorar discretamente en la cocina.</p>
+    </div>
+    <div class="ft">
+      <div class="icn">∞</div>
+      <h3>Sin gritos</h3>
+      <p>El silencio se restablece a los 30 segundos. Los vecinos lo agradecen. Tu certificado de buen vecino se mantiene intacto.</p>
+    </div>
+    <div class="ft">
+      <div class="icn">⌁</div>
+      <h3>Reversibilidad</h3>
+      <p>El disolvente UNGLU (incluido) elimina la adherencia en 90 segundos sin daño en yeso, gotelé ni piel infantil. Garantizado.</p>
+    </div>
+    <div class="ft">
+      <div class="icn">★</div>
+      <h3>Educativo</h3>
+      <p>Las cuatro primeras aplicaciones reducen las infracciones futuras en un 71%. A partir de la quinta, los datos son más confusos.</p>
+    </div>
+    <div class="ft">
+      <div class="icn">$</div>
+      <h3>Una sola compra</h3>
+      <p>Un tubo de 125 ml = aproximadamente 14 sesiones disciplinarias. Más barato que un psicólogo. Más rápido que la educación positiva.</p>
+    </div>
+  </div>
+
+  <div class="ba">
+    <div class="side before">
+      <div class="tag">antes</div>
+      <div class="scene">😠 ▌</div>
+      <h4>Salón. Domingo. 14:42</h4>
+      <p>El menor se ha negado a comer brócoli. Ha tirado el plato. Ha llamado "tonto" al padre. La situación escala rápidamente. Suena la alarma de incendios sin causa aparente.</p>
+    </div>
+    <div class="side after">
+      <div class="tag">después</div>
+      <div class="scene">↑ 🤔 ↑</div>
+      <h4>Salón. Domingo. 14:46</h4>
+      <p>El menor se encuentra en su nueva ubicación temporal. La comida ha terminado. Los progenitores comparten un café. El menor reflexiona sobre el brócoli con la perspectiva renovada que sólo ofrece el techo.</p>
+    </div>
+  </div>
+</section>
+
+<section id="pron" class="pron">
+  <h2>Cómo se <em>pronuncia.</em></h2>
+  <p class="lead" style="margin:0 auto 30px;text-align:center">Lamentablemente, no se pronuncia. La marca fue registrada por un becario en 1987 y desde entonces nadie del departamento legal se ha atrevido a cambiarla. Si necesita decirla en voz alta, sugerimos respirar antes y después de cada bloque.</p>
+
+  <div class="syllables">
+    <div class="syl">PE</div>
+    <div class="syl">GA</div>
+    <div class="syl">FIX</div>
+    <div class="syl weird">BE</div>
+    <div class="syl weird">DU</div>
+    <div class="syl weird">RICKS</div>
+    <div class="syl weird">PICK</div>
+    <div class="syl weird">TE</div>
+    <div class="syl weird">RAN</div>
+    <div class="syl weird">CRU</div>
+    <div class="syl">EH</div>
+    <div class="syl">CU</div>
+    <div class="syl gag">GAG</div>
+    <div class="syl gag">GAG</div>
+  </div>
+
+  <p class="pron-help">Las sílabas en <b style="background:#c52040;color:#fff;padding:0 6px">rojo</b> proceden de un protolenguaje centroeuropeo que el equipo lingüístico aún investiga. Las dos finales <b style="background:#ffe066;padding:0 6px">GAG GAG</b> son onomatopéyicas y representan la sensación del consumidor al pronunciar el nombre completo.</p>
+</section>
+
+<section id="testi" class="testi">
+  <h2>Testimonios <em>verificados</em><br>de padres reales.</h2>
+  <div class="tg">
+    <div class="t">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Llevábamos cuatro meses sin cenar tranquilos. Lo apliqué el martes, dos veces. El miércoles ya recogía sus juguetes solo. El jueves le encontré ordenando la nevera por colores. No sabemos qué hicimos."</blockquote>
+      <cite>— Marta L. · 2 hijos · La Pintana</cite>
+    </div>
+    <div class="t">
+      <div class="stars">★★★★☆</div>
+      <blockquote>"Excelente producto. Quito una estrella porque la primera vez se me cayó. Ahora le hablamos del incidente con normalidad y se ríe. La segunda vez fue impecable."</blockquote>
+      <cite>— Ignacio R. · 1 hijo · Las Condes</cite>
+    </div>
+    <div class="t">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Mi suegra dijo que era 'pasarse'. Le presté el tubo. Lleva tres semanas pidiéndome más. Ahora hablamos del tema en familia."</blockquote>
+      <cite>— Cristina P. · 3 hijos · Rancagua</cite>
+    </div>
+    <div class="t">
+      <div class="stars">★★★☆☆</div>
+      <blockquote>"Funciona, sí, pero el nombre no lo puedo recordar. Lo pido en la farmacia señalando el techo y poniendo cara. Las farmacéuticas ya saben."</blockquote>
+      <cite>— Pedro M. · 2 hijos · Concepción</cite>
+    </div>
+  </div>
+</section>
+
+<section id="legal" class="legal">
+  <h2>Aviso <em>legal</em> y de uso.</h2>
+  <p class="lead" style="font-weight:600">Lea atentamente antes de la primera aplicación. Lea de nuevo después de la primera aplicación. La empresa <b>POORK INC.</b> no se hace responsable de las consecuencias afectivas a medio plazo.</p>
+
+  <div class="lg-grid">
+    <div class="lg-box">
+      <h4>NO usar en:</h4>
+      <ul>
+        <li>Menores de 3 años (textura craneal aún en desarrollo)</li>
+        <li>Mayores de 12 años (excede el peso recomendado)</li>
+        <li>Adultos, sea cual sea la conducta</li>
+        <li>Animales domésticos (existe una versión específica, PEGAFIX·VET·…·GAG)</li>
+        <li>Techos de gotelé sin imprimación previa</li>
+        <li>Suegros (lo desaconsejamos por motivos jurídicos)</li>
+      </ul>
+    </div>
+    <div class="lg-box ok">
+      <h4>SÍ recomendado en:</h4>
+      <ul>
+        <li>Rabietas de duración superior a 4 minutos</li>
+        <li>Negativa sistemática a comer verduras</li>
+        <li>Uso indebido del walkie-talkie de los abuelos</li>
+        <li>Despertares previos a las 07:00 fines de semana</li>
+        <li>Pintar el sofá con rotulador permanente</li>
+        <li>Decir "te odio" antes de cumplir 6 años</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="buy">
+  <h2>Compra<br>el tubo.</h2>
+  <div class="pp"><s>$39.900</s> $24.900</div>
+  <p style="font-size:14px;letter-spacing:.2em;text-transform:uppercase;font-weight:900">125 ml · disolvente UNGLU incluido · espátula · folleto en 14 idiomas (todos lo intentan)</p>
+  <a href="#" onclick="alert('Compra registrada. Le enviaremos también un manual de mediación familiar por si decide usarlo en lugar del producto. Lo cual, estadísticamente, no ocurre.');return false;">★ AÑADIR AL CARRITO ★</a>
+  <div class="small">★ Envío en 24h ★ embalaje neutro ★ no requiere firma del menor ★</div>
+</section>
+
+<footer>
+  PEGAFIXBEDURICKSPICKTERANCRU EH CU GAG GAG® es una división conceptual de <a href="../index.html">POORK INC.</a> · este producto no sustituye a la educación con límites afectivos. la complementa. la sabotea. depende del techo.
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>NEPOBABY® — un padre influyente, alquilado por horas</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Helvetica Neue",Arial,sans-serif;background:#f8f5ee;color:#2a1f12;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+
+  header{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:16px 32px;border-bottom:1px solid #2a1f12;background:#f8f5ee;
+  }
+  .logo{font-family:Georgia,serif;font-size:24px;font-weight:bold;letter-spacing:-.02em}
+  .logo span{font-family:"Helvetica Neue",sans-serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;display:block;margin-top:-4px;opacity:.6}
+  nav a{margin-left:20px;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+  nav a:hover{border-bottom:2px solid #c5a368}
+
+  .hero{
+    padding:90px 40px;display:grid;grid-template-columns:1.2fr 1fr;gap:50px;align-items:center;
+    background:linear-gradient(135deg,#f8f5ee 60%,#e8dfca);border-bottom:1px solid #2a1f12;
+  }
+  .hero h1{
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:clamp(48px,8.5vw,112px);font-weight:400;letter-spacing:-.04em;line-height:.95;
+  }
+  .hero h1 i{color:#c5a368;font-style:italic}
+  .hero p{font-size:18px;line-height:1.55;margin-top:24px;max-width:48ch;color:#3a2f1f}
+  .hero .cta{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap}
+  .hero .cta a{
+    background:#2a1f12;color:#f8f5ee;padding:14px 28px;font-size:13px;letter-spacing:.15em;text-transform:uppercase;font-weight:bold;
+  }
+  .hero .cta a.alt{background:transparent;color:#2a1f12;border:1px solid #2a1f12}
+  .hero .cta a:hover{background:#c5a368;color:#2a1f12;border-color:#c5a368}
+
+  .card-stage{
+    aspect-ratio:1.586/1;background:linear-gradient(135deg,#1a1208,#3a2a18);
+    border-radius:14px;padding:30px;color:#f0e0c0;position:relative;overflow:hidden;
+    box-shadow:0 30px 60px rgba(0,0,0,.25);
+    transform:rotate(-3deg);
+  }
+  .card-stage::before{
+    content:"";position:absolute;top:-50%;right:-20%;width:80%;height:200%;
+    background:linear-gradient(45deg,transparent,rgba(197,163,104,.2),transparent);
+  }
+  .card-stage .lbl{font-size:10px;letter-spacing:.4em;text-transform:uppercase;opacity:.7}
+  .card-stage .name{font-family:Georgia,serif;font-size:32px;font-style:italic;margin-top:60px;letter-spacing:-.02em}
+  .card-stage .role{font-size:11px;letter-spacing:.3em;text-transform:uppercase;margin-top:6px;color:#c5a368}
+  .card-stage .num{position:absolute;bottom:30px;left:30px;font-family:"Courier New",monospace;font-size:14px;letter-spacing:.2em}
+  .card-stage .seal{position:absolute;bottom:30px;right:30px;width:60px;height:60px;border:1px solid #c5a368;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-style:italic;font-size:26px;color:#c5a368}
+
+  section{padding:90px 40px;max-width:1200px;margin:0 auto}
+  h2{font-family:Georgia,serif;font-size:54px;font-weight:400;letter-spacing:-.03em;line-height:1;margin-bottom:20px}
+  .lead{font-size:17px;line-height:1.65;max-width:62ch;color:#3a2f1f;margin-bottom:40px}
+
+  .roster{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .father{
+    border:1px solid #2a1f12;background:#fff;padding:0;overflow:hidden;
+    display:flex;flex-direction:column;
+  }
+  .father .pic{
+    aspect-ratio:1;background:linear-gradient(180deg,#3a2a18,#1a1208);
+    color:#c5a368;display:flex;align-items:center;justify-content:center;
+    font-family:Georgia,serif;font-style:italic;font-size:88px;
+    position:relative;
+  }
+  .father .pic::after{content:"PROFILE";position:absolute;bottom:14px;left:14px;font-size:9px;letter-spacing:.3em;color:#c5a368;font-style:normal;font-family:"Helvetica Neue"}
+  .father .body{padding:22px}
+  .father h3{font-family:Georgia,serif;font-size:24px;font-style:italic;margin-bottom:4px}
+  .father .field{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#c5a368;margin-bottom:12px}
+  .father p{font-size:13px;line-height:1.5;margin-bottom:14px;color:#3a2f1f}
+  .father .tags{display:flex;gap:6px;flex-wrap:wrap;font-size:10px;text-transform:uppercase;letter-spacing:.1em}
+  .father .tags span{border:1px solid #2a1f12;padding:3px 8px}
+  .father .rate{margin-top:14px;border-top:1px solid #e8dfca;padding-top:12px;font-size:13px;display:flex;justify-content:space-between}
+  .father .rate b{font-family:Georgia,serif;font-size:18px}
+
+  .pkg{padding:90px 40px;background:#2a1f12;color:#f8f5ee}
+  .pkg h2{color:#fff}
+  .pkg .lead{color:#c5a368;max-width:60ch}
+  .pkgs{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid #c5a368;margin-top:40px}
+  .p{padding:34px;border-right:1px solid #c5a368}
+  .p:last-child{border-right:none}
+  .p h3{font-family:Georgia,serif;font-size:32px;font-style:italic;margin-bottom:6px}
+  .p .lvl{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#c5a368;margin-bottom:24px}
+  .p .pp{font-family:Georgia,serif;font-size:54px;font-style:italic;letter-spacing:-.03em;line-height:1;margin-bottom:20px}
+  .p ul{list-style:none;font-size:13px;line-height:2}
+  .p ul li::before{content:"— "}
+  .p.gold{background:linear-gradient(180deg,#3a2a18,#2a1f12);border-left:1px solid #c5a368;border-right:1px solid #c5a368}
+
+  .faq{padding:80px 40px;max-width:900px;margin:0 auto}
+  details{border-bottom:1px solid #2a1f12;padding:18px 0;font-size:15px}
+  details summary{cursor:pointer;font-weight:bold;font-size:18px;font-family:Georgia,serif;font-style:italic}
+  details p{margin-top:12px;line-height:1.6;color:#3a2f1f}
+
+  .legal{background:#e8dfca;padding:30px 40px;font-size:11px;line-height:1.7;color:#3a2f1f;border-top:1px solid #2a1f12}
+  .legal strong{display:block;margin-bottom:6px;letter-spacing:.2em;text-transform:uppercase;font-size:10px}
+  footer{padding:30px 40px;text-align:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;background:#2a1f12;color:#c5a368}
+  footer a{text-decoration:underline;color:#fff}
+
+  @media(max-width:900px){
+    .hero{grid-template-columns:1fr;padding:50px 24px}
+    .roster,.pkgs{grid-template-columns:1fr}
+    .p{border-right:none;border-bottom:1px solid #c5a368}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Nepobaby<span>since now · est. santiago</span></div>
+  <nav>
+    <a href="#roster">El roster</a>
+    <a href="#packages">Paquetes</a>
+    <a href="#faq">FAQ</a>
+    <a href="../index.html" style="opacity:.5">← poork.inc</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>Tu padre era<br>nadie. <i>El nuestro</i><br>tiene contactos.</h1>
+    <p>NEPOBABY® es el primer servicio de paternidad influyente bajo demanda. Te asignamos un padre con apellido, agenda y un palco en algún sitio. No tendrás que conocerlo. Sólo mencionarlo.</p>
+    <div class="cta">
+      <a href="#roster">Ver el roster</a>
+      <a href="#packages" class="alt">Paquetes y precios</a>
+    </div>
+  </div>
+  <div class="card-stage">
+    <div class="lbl">Member · Tier Gold</div>
+    <div class="name">su hijo de usted</div>
+    <div class="role">heredero efectivo · zona 1</div>
+    <div class="num">№ 0042 · 03 / 2026</div>
+    <div class="seal">N</div>
+  </div>
+</section>
+
+<section>
+  <h2>El mérito está sobrevalorado.<br>El apellido no.</h2>
+  <p class="lead">El mercado lleva décadas premiando exactamente las mismas tres familias. NEPOBABY democratiza el privilegio: por una cuota mensual modesta, te asignamos un padre adoptivo de prestigio que mencionar en mesas, entrevistas, perfiles de Instagram y conversaciones casuales en las que alguien diga "ay, yo conozco a un Larraín". Nunca tendrás que verlo. Él tampoco a ti. La discreción es absoluta.</p>
+</section>
+
+<section id="roster">
+  <h2 style="text-align:center;margin-bottom:60px">El roster.</h2>
+  <div class="roster">
+    <div class="father">
+      <div class="pic">B</div>
+      <div class="body">
+        <h3>Don Bernardo</h3>
+        <div class="field">Banca privada · 47 años en sector</div>
+        <p>Consejero independiente en tres entidades cuyos nombres no podemos pronunciar en plural. Cliente histórico de Le Cabrera. Habla con todos los exministros por su nombre de pila.</p>
+        <div class="tags"><span>Banca</span><span>IPSA</span><span>Davos light</span></div>
+        <div class="rate"><span>desde</span><b>$189.000 / mes</b></div>
+      </div>
+    </div>
+
+    <div class="father">
+      <div class="pic">C</div>
+      <div class="body">
+        <h3>Sir Christopher</h3>
+        <div class="field">Cultura · arquitectura · museos</div>
+        <p>Patrono de tres fundaciones. Comparte mesa habitual con dos directores de bienales. Tiene una acuarela del rey emérito en el salón. Su email es .es pero contesta en inglés.</p>
+        <div class="tags"><span>Cultura</span><span>Patronato</span><span>Acento confuso</span></div>
+        <div class="rate"><span>desde</span><b>$229.000 / mes</b></div>
+      </div>
+    </div>
+
+    <div class="father">
+      <div class="pic">L</div>
+      <div class="body">
+        <h3>Don Lorenzo "Loren"</h3>
+        <div class="field">Hostelería de lujo · Cachagua</div>
+        <p>Dueño de un yate, dos chiringuitos y un equipo de fútbol de tercera. Te garantiza mesa los viernes en Bellavista. Te llama "campeón" en los grupos de WhatsApp.</p>
+        <div class="tags"><span>Cachagua</span><span>Yate</span><span>Photo-op</span></div>
+        <div class="rate"><span>desde</span><b>$149.000 / mes</b></div>
+      </div>
+    </div>
+
+    <div class="father">
+      <div class="pic">A</div>
+      <div class="body">
+        <h3>Don Álvaro</h3>
+        <div class="field">Política · think tanks · prensa</div>
+        <p>Tertuliano de cuatro programas a la vez. Conoce a todos los redactores jefe. Ha publicado dos libros sobre liderazgo que nadie ha leído del todo.</p>
+        <div class="tags"><span>Política</span><span>Tertulia</span><span>OpEd garantizado</span></div>
+        <div class="rate"><span>desde</span><b>$269.000 / mes</b></div>
+      </div>
+    </div>
+
+    <div class="father">
+      <div class="pic">M</div>
+      <div class="body">
+        <h3>Doña Marta de los Ríos</h3>
+        <div class="field">Madrina alternativa · moda · sociedad</div>
+        <p>Madrina lateral, no padre, pero igual de funcional. Cinco hijastros oficiales, otros tres oficiosos. Aparece en los Caras del verano sin esfuerzo.</p>
+        <div class="tags"><span>Sociedad</span><span>Vogue</span><span>Tapati Rapa Nui</span></div>
+        <div class="rate"><span>desde</span><b>$199.000 / mes</b></div>
+      </div>
+    </div>
+
+    <div class="father">
+      <div class="pic">G</div>
+      <div class="body">
+        <h3>Don Guillermo "G."</h3>
+        <div class="field">VC · tech · fondos opacos</div>
+        <p>Founder de algo en 2009, exit en 2014, fondo en 2017, fondo del fondo en 2021. Tiene 88K seguidores en LinkedIn y 0 amigos verdaderos. Justo lo que necesitas.</p>
+        <div class="tags"><span>Tech</span><span>VC</span><span>Davos badge</span></div>
+        <div class="rate"><span>desde</span><b>$319.000 / mes</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="packages" class="pkg">
+  <div style="max-width:1200px;margin:0 auto">
+    <h2>Paquetes.</h2>
+    <p class="lead">Tres niveles. Tres versiones de ti que la gente cree que ya conocía.</p>
+
+    <div class="pkgs">
+      <div class="p">
+        <h3>El Mencionable</h3>
+        <div class="lvl">tier silver · $89.000/mes</div>
+        <div class="pp">$89.000</div>
+        <ul>
+          <li>1 padre asignado</li>
+          <li>Tarjeta de visita con el apellido</li>
+          <li>Plantilla de email "mi padre, que conoce a..."</li>
+          <li>WhatsApp grupal familiar (sin él dentro)</li>
+          <li>Renovación anual</li>
+        </ul>
+      </div>
+      <div class="p gold">
+        <h3>★ El Heredero</h3>
+        <div class="lvl">tier gold · $189.000/mes</div>
+        <div class="pp">$189.000</div>
+        <ul>
+          <li>Hasta 3 padres simultáneos</li>
+          <li>Foto en su despacho (con consentimiento)</li>
+          <li>Mención lateral en su Wikipedia</li>
+          <li>Mesa garantizada en 2 restaurantes</li>
+          <li>Una llamada al año el día de tu cumpleaños</li>
+          <li>Carta firmada en eventual juicio menor</li>
+        </ul>
+      </div>
+      <div class="p">
+        <h3>El Apellido</h3>
+        <div class="lvl">tier platinum · $489.000/mes</div>
+        <div class="pp">$489.000</div>
+        <ul>
+          <li>Padre, madrastra y dos primos</li>
+          <li>Aparición en Caras una vez al año</li>
+          <li>Acceso al palco</li>
+          <li>Beca preasignada en escuela de negocios</li>
+          <li>Llave de la finca, fines de semana de octubre</li>
+          <li>Discurso paterno en tu boda (8 min)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="faq">
+  <h2>Preguntas frecuentes.</h2>
+  <details><summary>¿El padre asignado sabe que existe?</summary><p>Sí. Firma un acuerdo. Le pagamos. No te quiere pero tampoco te odia: ese es exactamente el grado de afecto paterno que define a la nobleza europea.</p></details>
+  <details><summary>¿Puedo conocerlo en persona?</summary><p>En el plan Heredero, una vez al año, en presencia de un mediador. En Platinum, dos veces, una de ellas obligatoria a Navidades. Muchos clientes optan por no usar este derecho, lo entendemos.</p></details>
+  <details><summary>¿Es legalmente válido decir que es mi padre?</summary><p>No. Pero socialmente, en España, basta con decirlo con seguridad y un apellido compuesto. Nuestro departamento legal recomienda evitar formularios oficiales.</p></details>
+  <details><summary>¿Qué pasa si me pillan?</summary><p>El servicio incluye un comunicado público pre-redactado titulado "una reflexión sobre el privilegio en mi familia" que te exonera moralmente y, sorprendentemente, mejora tus seguidores en un 11%.</p></details>
+  <details><summary>¿Puedo cambiar de padre?</summary><p>Una vez por trimestre. Padres en lista de espera: 3. Padres expulsados por bajo rendimiento social: 1.</p></details>
+</section>
+
+<div class="legal">
+  <strong>Aviso legal</strong>
+  Nepobaby® no constituye una relación de filiación reconocida por el Código Civil español ni por ningún ordenamiento conocido. Los padres asignados son figuras paternas conceptuales con función exclusivamente reputacional. Cualquier transferencia patrimonial, herencia o reconocimiento debe gestionarse mediante un padre de verdad, ese señor que tienes en el pueblo.
+</div>
+
+<footer>
+  Nepobaby® es una división conceptual de <a href="../index.html">POORK INC.</a> · ningún apellido fue lavado durante la producción de este servicio. probablemente.
+</footer>
+
+</body>
+</html>
