@@ -463,6 +463,58 @@ body.mode-serious { background: #080808; color: #f0ede8; }
   --irr-border: none;
 }
 
+/* ── 0. POORK CLÁSICO ── */
+body.trend-poork-original {
+  --irr-bg: #0a0a0a; --irr-fg: #f0ede8;
+  --irr-accent: #c9a84c; --irr-accent2: #1a1a1a;
+  --irr-font-display: 'Bebas Neue', sans-serif;
+  --irr-font-body: 'DM Sans', sans-serif;
+  --irr-font-mono: 'Space Mono', monospace;
+  --irr-radius: 0px; --irr-border: 1px solid #1c1c1c;
+}
+body.trend-poork-original .irr-nav { background: #0a0a0a; border-bottom: 1px solid #1a1a1a; }
+body.trend-poork-original .irr-logo { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 0.08em; color: #f0ede8; }
+body.trend-poork-original .irr-nav-links a { color: #555; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; }
+body.trend-poork-original .irr-nav-links a:hover { color: #f0ede8; opacity: 1; }
+body.trend-poork-original .irr-hero { background: #0a0a0a; }
+body.trend-poork-original .irr-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 60%, rgba(201,168,76,0.06) 0%, transparent 55%);
+}
+body.trend-poork-original .irr-eyebrow { color: #c9a84c; font-size: 11px; letter-spacing: 0.35em; }
+body.trend-poork-original .irr-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(80px, 14vw, 180px); color: #f0ede8;
+  line-height: 0.88; letter-spacing: 0.02em;
+}
+body.trend-poork-original .irr-headline-accent { color: #c9a84c; }
+body.trend-poork-original .irr-subtext { color: #555; font-size: 14px; font-weight: 300; max-width: 480px; }
+body.trend-poork-original .irr-cta {
+  background: transparent; color: #f0ede8; border: 1px solid #333;
+  font-family: 'DM Sans', sans-serif; font-size: 11px;
+  letter-spacing: 0.25em; text-transform: uppercase; font-weight: 700;
+  padding: 16px 40px;
+}
+body.trend-poork-original .irr-cta:hover { background: #f0ede8; color: #0a0a0a; border-color: #f0ede8; }
+body.trend-poork-original .irr-drops { background: #080808; border-top: 1px solid #1a1a1a; }
+body.trend-poork-original .irr-drops-label { color: #333; }
+body.trend-poork-original .irr-drop-card {
+  background: #111; color: #f0ede8;
+  border: 1px solid #1c1c1c;
+}
+body.trend-poork-original .irr-drop-card:hover { background: #141414; border-color: #2a2a2a; }
+body.trend-poork-original .irr-card-name { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 0.03em; color: #f0ede8; }
+body.trend-poork-original .irr-card-num { color: #2e2e2e; }
+body.trend-poork-original .irr-card-desc { color: #555; font-weight: 300; }
+body.trend-poork-original .irr-manifesto { background: #c9a84c; color: #0a0a0a; }
+body.trend-poork-original .irr-manifesto-text { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px, 9vw, 120px); color: #0a0a0a; letter-spacing: 0.02em; line-height: 0.9; }
+body.trend-poork-original .irr-manifesto-fine { color: rgba(10,10,10,0.45); font-size: 12px; }
+body.trend-poork-original .irr-footer { background: #0a0a0a; color: #f0ede8; border-top: 1px solid #1a1a1a; }
+body.trend-poork-original .irr-footer-logo { font-family: 'Bebas Neue', sans-serif; color: #f0ede8; font-size: 40px; letter-spacing: 0.04em; }
+body.trend-poork-original .irr-footer-copy { color: #333; }
+body.trend-poork-original .style-dropdown { border-color: #2a2a2a; color: #555; }
+body.trend-poork-original .style-dropdown:hover { color: #f0ede8; border-color: #555; }
+
 /* ── 1. MINIMALISM ── */
 body.trend-minimalism {
   --irr-bg: #fafafa; --irr-fg: #111111;
@@ -1326,6 +1378,7 @@ body.trend-popping-colors .mode-switch { background: #111; border-color: #ff0055
       <div class="style-selector-wrap">
         <span class="style-label-text">Tendencia</span>
         <select class="style-dropdown" id="style-dropdown" onchange="applyTrend(this.value, true)">
+          <option value="poork-original">Poork Clásico</option>
           <option value="minimalism">Minimalism</option>
           <option value="popping-colors">Popping Colors</option>
           <option value="y2k">Y2K Revival</option>
@@ -1466,6 +1519,11 @@ body.trend-popping-colors .mode-switch { background: #111; border-color: #ff0055
 // ============================================
 const TRENDS = [
   {
+    id: 'poork-original',
+    name: 'Poork Clásico',
+    desc: 'Est. 2005 · el look que tenía esto antes de que alguien le dijera que era una agencia'
+  },
+  {
     id: 'minimalism',
     name: 'Minimalism',
     desc: '2020–∞ · cuando menos es más y más es demasiado'
@@ -1514,6 +1572,21 @@ let firstIrreverentEntry = true;
 // ============================================
 // TRANSICIONES TEMÁTICAS
 // ============================================
+function transition_poork_original(cb) {
+  const ov = document.createElement('div');
+  ov.style.cssText = 'position:fixed;inset:0;z-index:8999;background:#c9a84c;transform:scaleX(0);transform-origin:left;transition:transform 380ms cubic-bezier(0.76,0,0.24,1)';
+  document.body.appendChild(ov);
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    ov.style.transform = 'scaleX(1)';
+    setTimeout(() => {
+      cb();
+      ov.style.transformOrigin = 'right';
+      ov.style.transform = 'scaleX(0)';
+      setTimeout(() => ov.remove(), 400);
+    }, 400);
+  }));
+}
+
 function transition_minimalism(cb) {
   const ov = document.createElement('div');
   ov.style.cssText = 'position:fixed;inset:0;z-index:8999;background:#fff;transform:translateX(-100%);transition:transform 400ms ease';
@@ -1652,6 +1725,7 @@ function transition_brutalism(cb) {
 }
 
 const TRANSITIONS = {
+  'poork-original': transition_poork_original,
   'minimalism': transition_minimalism,
   'popping-colors': transition_popping_colors,
   'y2k': transition_y2k,

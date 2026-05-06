@@ -196,8 +196,11 @@ body {
   margin-bottom: 20px; display: block;
 }
 .nx-drug-indication {
-  font-size: 14px; color: #444; line-height: 1.6; margin-bottom: 24px;
-  font-style: italic; border-left: 3px solid #e8e8e4; padding-left: 16px;
+  font-size: 14px; color: #444; line-height: 1.6; margin-bottom: 16px;
+  font-style: italic;
+  background: #f8f8f6;
+  padding: 14px 16px;
+  border-radius: 2px;
 }
 .nx-drug-indication strong { color: #1a1a1a; font-style: normal; font-weight: 700; }
 
@@ -352,6 +355,294 @@ body {
 }
 .nx-reg-logo { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.15em; color: #fff; }
 
+/* ══════════════════════════════════════════
+   ILUSTRACIONES DE PRODUCTO — CSS Packaging
+   ══════════════════════════════════════════ */
+
+/* Showcase hero — 3 productos en fila */
+.nx-products-showcase {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 32px;
+  position: relative;
+  z-index: 1;
+  padding: 40px 0 20px;
+}
+
+/* Caja genérica de medicamento */
+.med-box {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow:
+    0 32px 64px rgba(0,0,0,0.45),
+    0 8px 20px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.15);
+  flex-shrink: 0;
+  background: #f8f8f6;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* Caja principal — BEZAMESTASONA */
+.med-box-beza {
+  width: 148px; height: 248px;
+  transform: perspective(900px) rotateY(6deg) rotateX(-1deg);
+  z-index: 3;
+}
+/* Caja secundaria — ANOREX */
+.med-box-anorex {
+  width: 136px; height: 218px;
+  transform: perspective(900px) rotateY(-4deg) rotateX(1deg);
+  z-index: 2;
+  margin-bottom: 8px;
+}
+/* Caja terciaria — VULIMYX */
+.med-box-vulimyx {
+  width: 124px; height: 196px;
+  transform: perspective(900px) rotateY(-10deg) rotateX(2deg);
+  z-index: 1;
+  margin-bottom: 16px;
+}
+
+/* Banda de color superior */
+.med-box-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 8px 11px 10px;
+  position: relative;
+  overflow: hidden;
+}
+.med-box-beza .med-box-header { background: #1a4b8c; height: 72px; }
+.med-box-anorex .med-box-header { background: #8c3a1a; height: 62px; }
+.med-box-vulimyx .med-box-header { background: #1a5c3a; height: 56px; }
+
+/* Watermark letra grande en header */
+.med-box-header::before {
+  content: attr(data-letter);
+  position: absolute;
+  right: -4px; top: -8px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 72px;
+  color: rgba(255,255,255,0.07);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  pointer-events: none;
+  user-select: none;
+}
+
+.med-box-brand {
+  font-family: 'Space Mono', monospace;
+  font-size: 5.5px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 3px;
+}
+.med-box-rx {
+  font-size: 8px;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  font-family: 'Space Mono', monospace;
+}
+
+/* Cuerpo de la caja */
+.med-box-body {
+  padding: 10px 11px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Línea decorativa izquierda */
+.med-box-body::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 36px;
+  width: 3px;
+}
+.med-box-beza .med-box-body::before { background: #1a4b8c; top: 72px; }
+.med-box-anorex .med-box-body::before { background: #8c3a1a; top: 62px; }
+.med-box-vulimyx .med-box-body::before { background: #1a5c3a; top: 56px; }
+
+.med-box-name {
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #1a1a1a;
+  margin-top: 10px;
+  margin-bottom: 3px;
+}
+.med-box-beza .med-box-name { font-size: 19px; }
+.med-box-anorex .med-box-name { font-size: 17px; }
+.med-box-vulimyx .med-box-name { font-size: 15px; }
+
+.med-box-inn {
+  font-family: 'Space Mono', monospace;
+  font-size: 5.5px;
+  color: #999;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.med-box-dosage-pill {
+  display: inline-block;
+  border-radius: 1px;
+  font-family: 'Space Mono', monospace;
+  font-size: 6px;
+  padding: 2px 6px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.med-box-beza .med-box-dosage-pill { background: #1a4b8c; }
+.med-box-anorex .med-box-dosage-pill { background: #8c3a1a; }
+.med-box-vulimyx .med-box-dosage-pill { background: #1a5c3a; }
+
+.med-box-count {
+  font-size: 9px;
+  color: #444;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.med-box-count span { font-weight: 300; color: #888; font-size: 8px; }
+
+/* Divisor central */
+.med-box-divider {
+  border: none;
+  border-top: 1px solid #e8e8e4;
+  margin: 8px 0;
+}
+
+/* Barcode simulado */
+.med-box-barcode {
+  display: flex;
+  gap: 1px;
+  align-items: flex-end;
+  height: 14px;
+  margin-top: auto;
+  margin-bottom: 2px;
+}
+.med-box-barcode-bar {
+  width: 1.5px;
+  background: #333;
+  opacity: 0.6;
+}
+
+/* Footer de la caja */
+.med-box-footer {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 11px;
+  flex-shrink: 0;
+}
+.med-box-beza .med-box-footer { background: #e8f0f8; }
+.med-box-anorex .med-box-footer { background: #f8ede8; }
+.med-box-vulimyx .med-box-footer { background: #e8f0ec; }
+
+.med-box-receta {
+  font-family: 'Space Mono', monospace;
+  font-size: 5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.med-box-beza .med-box-receta { color: #1a4b8c; }
+.med-box-anorex .med-box-receta { color: #8c3a1a; }
+.med-box-vulimyx .med-box-receta { color: #1a5c3a; }
+
+.med-box-isp {
+  font-family: 'Space Mono', monospace;
+  font-size: 4.5px;
+  color: #bbb;
+  letter-spacing: 0.08em;
+}
+
+/* ── Columna de producto con ilustración ── */
+.nx-product-hero {
+  display: grid;
+  grid-template-columns: 200px 1fr 260px;
+  overflow: hidden;
+}
+
+.nx-product-art {
+  background: #f0f0ec;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  border-right: 1px solid #e0e0dc;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ilustración lateral — versión única por producto */
+.med-card {
+  width: 120px;
+  height: 188px;
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+  box-shadow:
+    0 16px 40px rgba(0,0,0,0.18),
+    0 4px 10px rgba(0,0,0,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+  background: #f8f8f6;
+  flex-shrink: 0;
+}
+
+.med-card-beza { transform: rotate(-2deg); }
+.med-card-anorex { transform: rotate(2deg); }
+.med-card-vulimyx { transform: rotate(-1.5deg); }
+
+.med-card-header {
+  padding: 7px 10px 8px;
+  display: flex; flex-direction: column; justify-content: flex-end;
+}
+.med-card-beza .med-card-header { background: #1a4b8c; height: 58px; }
+.med-card-anorex .med-card-header { background: #8c3a1a; height: 58px; }
+.med-card-vulimyx .med-card-header { background: #1a5c3a; height: 58px; }
+
+.med-card-brand { font-family: 'Space Mono', monospace; font-size: 5px; letter-spacing: 0.25em; color: rgba(255,255,255,0.45); text-transform: uppercase; margin-bottom: 2px; }
+.med-card-rx-label { font-size: 7px; font-weight: 700; font-family: 'Space Mono', monospace; color: rgba(255,255,255,0.8); letter-spacing: 0.05em; }
+
+.med-card-body { padding: 9px 10px; }
+.med-card-body::before {
+  content: '';
+  position: absolute; left: 0;
+  width: 3px;
+}
+.med-card-beza .med-card-body::before { background: #1a4b8c; top: 58px; bottom: 32px; }
+.med-card-anorex .med-card-body::before { background: #8c3a1a; top: 58px; bottom: 32px; }
+.med-card-vulimyx .med-card-body::before { background: #1a5c3a; top: 58px; bottom: 32px; }
+
+.med-card-name { font-size: 14px; font-weight: 800; color: #1a1a1a; letter-spacing: -0.02em; line-height: 1.05; margin-bottom: 3px; }
+.med-card-inn { font-family: 'Space Mono', monospace; font-size: 4.5px; color: #aaa; letter-spacing: 0.02em; line-height: 1.5; margin-bottom: 5px; }
+.med-card-mg { font-family: 'Space Mono', monospace; font-size: 6px; font-weight: 700; padding: 2px 5px; border-radius: 1px; color: #fff; display: inline-block; }
+.med-card-beza .med-card-mg { background: #1a4b8c; }
+.med-card-anorex .med-card-mg { background: #8c3a1a; }
+.med-card-vulimyx .med-card-mg { background: #1a5c3a; }
+
+.med-card-footer { position: absolute; bottom: 0; left: 0; right: 0; height: 32px; display: flex; align-items: center; padding: 0 10px; justify-content: space-between; }
+.med-card-beza .med-card-footer { background: #e8f0f8; }
+.med-card-anorex .med-card-footer { background: #f8ede8; }
+.med-card-vulimyx .med-card-footer { background: #e8f2ec; }
+
+.med-card-receta { font-family: 'Space Mono', monospace; font-size: 4px; letter-spacing: 0.15em; text-transform: uppercase; }
+.med-card-beza .med-card-receta { color: #1a4b8c; }
+.med-card-anorex .med-card-receta { color: #8c3a1a; }
+.med-card-vulimyx .med-card-receta { color: #1a5c3a; }
+
+.med-card-barcode { display: flex; gap: 1px; align-items: flex-end; height: 10px; }
+.med-card-barcode span { display: block; width: 1px; background: #555; opacity: 0.5; }
+
 /* ── FOOTER ── */
 .nx-footer {
   background: #f0ede8; padding: 60px;
@@ -366,12 +657,16 @@ body {
 .nx-footer-copy a { color: #aaa; text-decoration: none; }
 .nx-footer-copy a:hover { color: #1a4b8c; }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .nx-header { padding: 0 24px; }
   .nx-hero { grid-template-columns: 1fr; gap: 40px; padding: 48px 24px; }
-  .nx-package-render { display: none; }
+  .nx-products-showcase { gap: 16px; }
+  .med-box-beza { width: 120px; height: 200px; }
+  .med-box-anorex { width: 110px; height: 176px; }
+  .med-box-vulimyx { width: 100px; height: 158px; }
   .nx-section { padding: 60px 24px; }
   .nx-product-hero { grid-template-columns: 1fr; }
+  .nx-product-art { padding: 32px; border-right: none; border-bottom: 1px solid #e0e0dc; }
   .nx-product-side { border-left: none; border-top: 1px solid #e0e0dc; }
   .nx-products-grid { grid-template-columns: 1fr; }
   .nx-prospecto { margin: 0 24px; padding: 40px 24px; }
@@ -407,29 +702,74 @@ body {
       En TENTACLE LABS creemos que si algo duele, probablemente tiene nombre. Y si no tiene nombre, le inventamos uno que suene a que sí tiene cura. Farmacología de precisión para la vida contemporánea.
     </p>
   </div>
-  <div class="nx-package-render">
-    <div style="position:relative; width:240px; height:280px;">
-      <div class="nx-box">
-        <div>
-          <div class="nx-box-brand">TENTACLE LABS®</div>
-          <div class="nx-box-drug">BEZAME<br>TASONA</div>
-        </div>
-        <div style="padding-bottom:8px;">
-          <div class="nx-box-mg">500mg · 30 comp.</div>
-        </div>
-        <div class="nx-box-strip">
-          <div class="nx-box-strip-text">VENTA BAJO RECETA</div>
-        </div>
-        <div class="nx-box-inner"></div>
+  <div class="nx-products-showcase">
+
+    <!-- BEZAMESTASONA -->
+    <div class="med-box med-box-beza">
+      <div class="med-box-header" data-letter="B">
+        <div class="med-box-brand">Tentacle Labs®</div>
+        <div class="med-box-rx">Rx · Venta bajo receta</div>
       </div>
-      <div class="nx-box-2">
-        <div>
-          <div class="nx-box-2-brand">TENTACLE LABS®</div>
-          <div class="nx-box-2-drug">ANOREX</div>
+      <div class="med-box-body">
+        <div class="med-box-name">BEZAME-<br>TASONA</div>
+        <div class="med-box-inn">bezamestasona hexavalente<br>comprimidos recubiertos</div>
+        <div class="med-box-dosage-pill">500 MG</div>
+        <div class="med-box-count">30 comprimidos <span>/ caja</span></div>
+        <hr class="med-box-divider">
+        <div class="med-box-barcode">
+          <div class="med-box-barcode-bar" style="height:14px"></div><div class="med-box-barcode-bar" style="height:11px"></div><div class="med-box-barcode-bar" style="height:14px"></div><div class="med-box-barcode-bar" style="height:9px"></div><div class="med-box-barcode-bar" style="height:14px"></div><div class="med-box-barcode-bar" style="height:14px"></div><div class="med-box-barcode-bar" style="height:11px"></div><div class="med-box-barcode-bar" style="height:13px"></div><div class="med-box-barcode-bar" style="height:9px"></div><div class="med-box-barcode-bar" style="height:14px"></div><div class="med-box-barcode-bar" style="height:11px"></div><div class="med-box-barcode-bar" style="height:14px"></div><div class="med-box-barcode-bar" style="height:12px"></div><div class="med-box-barcode-bar" style="height:14px"></div><div class="med-box-barcode-bar" style="height:9px"></div><div class="med-box-barcode-bar" style="height:11px"></div><div class="med-box-barcode-bar" style="height:14px"></div><div class="med-box-barcode-bar" style="height:10px"></div><div class="med-box-barcode-bar" style="height:14px"></div><div class="med-box-barcode-bar" style="height:13px"></div>
         </div>
-        <div class="nx-box-2-strip"></div>
+      </div>
+      <div class="med-box-footer">
+        <div class="med-box-receta">Venta bajo receta</div>
+        <div class="med-box-isp">ISP·F-18432</div>
       </div>
     </div>
+
+    <!-- ANOREX -->
+    <div class="med-box med-box-anorex">
+      <div class="med-box-header" data-letter="A">
+        <div class="med-box-brand">Tentacle Labs®</div>
+        <div class="med-box-rx">Rx · Uso oral</div>
+      </div>
+      <div class="med-box-body">
+        <div class="med-box-name">ANOREX</div>
+        <div class="med-box-inn">anorexatina liberación controlada<br>comprimidos masticables</div>
+        <div class="med-box-dosage-pill">200 MG</div>
+        <div class="med-box-count">28 comprimidos <span>masticables</span></div>
+        <hr class="med-box-divider">
+        <div class="med-box-barcode">
+          <div class="med-box-barcode-bar" style="height:14px"></div><div class="med-box-barcode-bar" style="height:9px"></div><div class="med-box-barcode-bar" style="height:13px"></div><div class="med-box-barcode-bar" style="height:14px"></div><div class="med-box-barcode-bar" style="height:11px"></div><div class="med-box-barcode-bar" style="height:14px"></div><div class="med-box-barcode-bar" style="height:10px"></div><div class="med-box-barcode-bar" style="height:14px"></div><div class="med-box-barcode-bar" style="height:12px"></div><div class="med-box-barcode-bar" style="height:14px"></div><div class="med-box-barcode-bar" style="height:9px"></div><div class="med-box-barcode-bar" style="height:11px"></div><div class="med-box-barcode-bar" style="height:14px"></div><div class="med-box-barcode-bar" style="height:13px"></div><div class="med-box-barcode-bar" style="height:10px"></div><div class="med-box-barcode-bar" style="height:14px"></div><div class="med-box-barcode-bar" style="height:11px"></div><div class="med-box-barcode-bar" style="height:14px"></div>
+        </div>
+      </div>
+      <div class="med-box-footer">
+        <div class="med-box-receta">Retener receta</div>
+        <div class="med-box-isp">ISP·F-19201</div>
+      </div>
+    </div>
+
+    <!-- VULIMYX -->
+    <div class="med-box med-box-vulimyx">
+      <div class="med-box-header" data-letter="V">
+        <div class="med-box-brand">Tentacle Labs®</div>
+        <div class="med-box-rx">Rx retenida · Sublingual</div>
+      </div>
+      <div class="med-box-body">
+        <div class="med-box-name">VULIMYX</div>
+        <div class="med-box-inn">vulimicasona + silentex<br>comp. sublinguales</div>
+        <div class="med-box-dosage-pill">250/100 MG</div>
+        <div class="med-box-count">20 comprimidos <span>sublinguales</span></div>
+        <hr class="med-box-divider">
+        <div class="med-box-barcode">
+          <div class="med-box-barcode-bar" style="height:14px"></div><div class="med-box-barcode-bar" style="height:12px"></div><div class="med-box-barcode-bar" style="height:9px"></div><div class="med-box-barcode-bar" style="height:14px"></div><div class="med-box-barcode-bar" style="height:14px"></div><div class="med-box-barcode-bar" style="height:10px"></div><div class="med-box-barcode-bar" style="height:13px"></div><div class="med-box-barcode-bar" style="height:14px"></div><div class="med-box-barcode-bar" style="height:11px"></div><div class="med-box-barcode-bar" style="height:9px"></div><div class="med-box-barcode-bar" style="height:14px"></div><div class="med-box-barcode-bar" style="height:12px"></div><div class="med-box-barcode-bar" style="height:14px"></div><div class="med-box-barcode-bar" style="height:10px"></div><div class="med-box-barcode-bar" style="height:14px"></div>
+        </div>
+      </div>
+      <div class="med-box-footer">
+        <div class="med-box-receta">Receta retenida</div>
+        <div class="med-box-isp">ISP·F-20847</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -439,8 +779,24 @@ body {
 
   <!-- PRODUCTO PRINCIPAL 1 -->
   <div class="nx-product-hero">
-    <div>
-      <div class="nx-product-color-bar" style="height:100%;"></div>
+    <div class="nx-product-art">
+      <div class="med-card med-card-beza">
+        <div class="med-card-header">
+          <div class="med-card-brand">Tentacle Labs®</div>
+          <div class="med-card-rx-label">Rx · Venta bajo receta</div>
+        </div>
+        <div class="med-card-body">
+          <div class="med-card-name">BEZAME-<br>TASONA</div>
+          <div class="med-card-inn">bezamestasona hexavalente<br>comprimidos recubiertos</div>
+          <div class="med-card-mg">500 MG · 30 COMP.</div>
+        </div>
+        <div class="med-card-footer">
+          <div class="med-card-receta">Venta bajo receta</div>
+          <div class="med-card-barcode">
+            <span style="height:10px"></span><span style="height:8px"></span><span style="height:10px"></span><span style="height:7px"></span><span style="height:10px"></span><span style="height:10px"></span><span style="height:8px"></span><span style="height:9px"></span><span style="height:10px"></span><span style="height:7px"></span><span style="height:10px"></span><span style="height:8px"></span><span style="height:10px"></span><span style="height:9px"></span><span style="height:10px"></span>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="nx-product-main">
       <div class="nx-drug-name">
@@ -488,8 +844,24 @@ body {
 
   <!-- PRODUCTO PRINCIPAL 2 -->
   <div class="nx-product-hero" style="margin-top:1px;">
-    <div>
-      <div class="nx-product-color-bar" style="height:100%; background:#8c3a1a;"></div>
+    <div class="nx-product-art" style="background:#f8f4f0;">
+      <div class="med-card med-card-anorex">
+        <div class="med-card-header">
+          <div class="med-card-brand">Tentacle Labs®</div>
+          <div class="med-card-rx-label">Rx · Retener receta</div>
+        </div>
+        <div class="med-card-body">
+          <div class="med-card-name">ANOREX</div>
+          <div class="med-card-inn">anorexatina liberación controlada<br>comprimidos masticables</div>
+          <div class="med-card-mg">200 MG · 28 COMP.</div>
+        </div>
+        <div class="med-card-footer">
+          <div class="med-card-receta">Retener receta</div>
+          <div class="med-card-barcode">
+            <span style="height:10px"></span><span style="height:7px"></span><span style="height:10px"></span><span style="height:9px"></span><span style="height:8px"></span><span style="height:10px"></span><span style="height:10px"></span><span style="height:7px"></span><span style="height:9px"></span><span style="height:10px"></span><span style="height:8px"></span><span style="height:10px"></span><span style="height:9px"></span><span style="height:10px"></span><span style="height:7px"></span>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="nx-product-main">
       <div class="nx-drug-name">
@@ -537,8 +909,24 @@ body {
 
   <!-- PRODUCTO PRINCIPAL 3 -->
   <div class="nx-product-hero" style="margin-top:1px;">
-    <div>
-      <div class="nx-product-color-bar" style="height:100%; background:#1a5c3a;"></div>
+    <div class="nx-product-art" style="background:#f0f5f2;">
+      <div class="med-card med-card-vulimyx">
+        <div class="med-card-header">
+          <div class="med-card-brand">Tentacle Labs®</div>
+          <div class="med-card-rx-label">Rx retenida · Sublingual</div>
+        </div>
+        <div class="med-card-body">
+          <div class="med-card-name">VULIMYX</div>
+          <div class="med-card-inn">vulimicasona + silentex<br>comprimidos sublinguales</div>
+          <div class="med-card-mg">250/100 MG · 20U.</div>
+        </div>
+        <div class="med-card-footer">
+          <div class="med-card-receta">Receta retenida</div>
+          <div class="med-card-barcode">
+            <span style="height:10px"></span><span style="height:9px"></span><span style="height:7px"></span><span style="height:10px"></span><span style="height:10px"></span><span style="height:8px"></span><span style="height:10px"></span><span style="height:7px"></span><span style="height:9px"></span><span style="height:10px"></span><span style="height:10px"></span><span style="height:8px"></span><span style="height:10px"></span><span style="height:9px"></span><span style="height:7px"></span>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="nx-product-main">
       <div class="nx-drug-name">
