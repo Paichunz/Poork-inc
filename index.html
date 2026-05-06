@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>POORK INC. — todos somos puercos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&family=Playfair+Display:ital,wght@0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&family=Instrument+Serif:ital@0;1&family=Cabinet+Grotesk:wght@400;700;900&family=Bricolage+Grotesque:wght@400;600;800&family=Unbounded:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&family=Playfair+Display:ital,wght@0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Unbounded:wght@400;700;900&family=Press+Start+2P&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Abril+Fatface&family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600&family=Raleway:wght@100;200;300;400;700&family=Josefin+Sans:wght@100;300;400;700&display=swap" rel="stylesheet">
 
 <style>
 /* ============================================
@@ -405,6 +405,7 @@ body.mode-serious { background: #080808; color: #f0ede8; }
 .drop-card {
   background: #080808; padding: 40px;
   transition: background 0.2s; cursor: pointer;
+  display: block;
 }
 .drop-card:hover { background: #0f0f0f; }
 
@@ -465,38 +466,40 @@ body.mode-serious { background: #080808; color: #f0ede8; }
 /* ── 1. MINIMALISM ── */
 body.trend-minimalism {
   --irr-bg: #fafafa; --irr-fg: #111111;
-  --irr-accent: #999999; --irr-accent2: #e8e8e8;
-  --irr-font-display: 'DM Sans', sans-serif;
-  --irr-font-body: 'DM Sans', sans-serif;
+  --irr-accent: #bbbbbb; --irr-accent2: #e8e8e8;
+  --irr-font-display: 'Raleway', sans-serif;
+  --irr-font-body: 'Raleway', sans-serif;
+  --irr-font-mono: 'Raleway', sans-serif;
   --irr-radius: 0px; --irr-border: none;
 }
-body.trend-minimalism .irr-nav { background: #fafafa; border-bottom: 1px solid #ebebeb; }
-body.trend-minimalism .irr-logo { font-weight: 300; letter-spacing: 0.3em; font-size: 13px; }
-body.trend-minimalism .irr-nav-links a { font-weight: 300; font-size: 11px; letter-spacing: 0.2em; }
-body.trend-minimalism .irr-hero { background: #fafafa; padding: 140px 80px 100px; }
+body.trend-minimalism .irr-nav { background: #fafafa; border-bottom: 1px solid #f0f0f0; }
+body.trend-minimalism .irr-logo { font-weight: 100; letter-spacing: 0.5em; font-size: 13px; text-transform: uppercase; }
+body.trend-minimalism .irr-nav-links a { font-weight: 100; font-size: 11px; letter-spacing: 0.3em; }
+body.trend-minimalism .irr-hero { background: #fafafa; padding: 160px 100px 120px; }
 body.trend-minimalism .irr-headline {
-  font-size: clamp(32px, 5vw, 72px); font-weight: 300;
-  letter-spacing: -0.02em; color: #111; line-height: 1.1;
+  font-size: clamp(28px, 4vw, 64px); font-weight: 100;
+  letter-spacing: 0.05em; color: #111; line-height: 1.2;
 }
-body.trend-minimalism .irr-headline-accent { color: #999; font-weight: 300; }
-body.trend-minimalism .irr-eyebrow { color: #bbb; font-size: 10px; letter-spacing: 0.4em; }
-body.trend-minimalism .irr-subtext { font-weight: 300; font-size: 14px; color: #888; max-width: 380px; }
+body.trend-minimalism .irr-headline-accent { color: #ccc; font-weight: 100; letter-spacing: 0.08em; }
+body.trend-minimalism .irr-eyebrow { color: #ddd; font-size: 9px; letter-spacing: 0.5em; font-weight: 300; }
+body.trend-minimalism .irr-subtext { font-weight: 100; font-size: 13px; color: #999; max-width: 360px; letter-spacing: 0.02em; }
 body.trend-minimalism .irr-cta {
-  background: transparent; color: #111; border: 1px solid #ddd;
-  font-weight: 300; letter-spacing: 0.2em; font-size: 11px; padding: 14px 32px;
+  background: transparent; color: #111; border: 1px solid #e0e0e0;
+  font-weight: 100; letter-spacing: 0.4em; font-size: 10px; padding: 14px 36px;
+  text-transform: uppercase;
 }
 body.trend-minimalism .irr-cta:hover { background: #111; color: #fafafa; }
-body.trend-minimalism .irr-drops { background: #fafafa; padding: 60px 80px; }
-body.trend-minimalism .irr-drops-label { color: #ccc; font-size: 9px; }
+body.trend-minimalism .irr-drops { background: #fafafa; padding: 60px 100px; }
+body.trend-minimalism .irr-drops-label { color: #ddd; font-size: 9px; letter-spacing: 0.4em; font-weight: 100; }
 body.trend-minimalism .irr-drop-card {
   background: transparent; color: #111; border: none;
-  border-top: 1px solid #ebebeb; border-radius: 0;
-  padding: 28px 0;
+  border-top: 1px solid #f0f0f0; border-radius: 0;
+  padding: 24px 0;
 }
 body.trend-minimalism .irr-drop-card:hover { background: transparent; }
-body.trend-minimalism .irr-card-name { font-weight: 300; font-size: 22px; color: #111; }
-body.trend-minimalism .irr-card-num { color: #ccc; }
-body.trend-minimalism .irr-card-desc { color: #aaa; font-weight: 300; }
+body.trend-minimalism .irr-card-name { font-weight: 100; font-size: 20px; color: #111; letter-spacing: 0.05em; }
+body.trend-minimalism .irr-card-num { color: #ddd; font-weight: 100; }
+body.trend-minimalism .irr-card-desc { color: #bbb; font-weight: 100; font-size: 12px; }
 body.trend-minimalism .irr-manifesto { background: #f0f0f0; color: #111; padding: 100px 80px; }
 body.trend-minimalism .irr-manifesto-text { font-weight: 300; font-size: clamp(28px, 4vw, 56px); color: #111; }
 body.trend-minimalism .irr-manifesto-fine { color: #999; }
@@ -506,93 +509,59 @@ body.trend-minimalism .irr-footer-copy { color: #ccc; }
 
 /* ── 2. POPPING COLORS ── */
 body.trend-popping-colors {
-  --irr-bg: #000000; --irr-fg: #ffffff;
-  --irr-accent: #ff0055; --irr-accent2: #00ffcc;
+  --irr-bg: #f7f700; --irr-fg: #0a0aff;
+  --irr-accent: #ff0080; --irr-accent2: #0a0aff;
   --irr-font-display: 'Unbounded', sans-serif;
   --irr-font-body: 'Unbounded', sans-serif;
-  --irr-radius: 0px; --irr-border: none;
+  --irr-radius: 0px; --irr-border: 3px solid #0a0aff;
 }
-body.trend-popping-colors .irr-nav { background: #000; border-bottom: 2px solid #ff0055; }
+body.trend-popping-colors .irr-nav { background: #f7f700; border-bottom: 3px solid #0a0aff; }
 body.trend-popping-colors .irr-logo {
-  font-size: 16px; letter-spacing: 0.05em;
-  background: linear-gradient(90deg, #ff0055, #ff9900, #00ffcc, #aa00ff);
-  background-size: 300% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  animation: neonshift 3s linear infinite;
+  font-size: 16px; letter-spacing: 0.05em; color: #ff0080; font-weight: 900;
 }
-@keyframes neonshift { 0%{background-position:0%} 100%{background-position:300%} }
-body.trend-popping-colors .irr-hero { background: #000; }
-body.trend-popping-colors .irr-hero::before {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 20% 50%, rgba(255,0,85,0.15) 0%, transparent 50%),
-              radial-gradient(ellipse at 80% 30%, rgba(0,255,204,0.12) 0%, transparent 50%),
-              radial-gradient(ellipse at 50% 80%, rgba(170,0,255,0.1) 0%, transparent 50%);
-  animation: bgpulse 4s ease-in-out infinite alternate;
-}
-@keyframes bgpulse {
-  0% { opacity: 0.6; }
-  100% { opacity: 1; }
-}
-body.trend-popping-colors .irr-eyebrow {
-  background: linear-gradient(90deg, #ff0055, #ff9900, #00ffcc);
-  background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  animation: neonshift 2s linear infinite;
-}
-body.trend-popping-colors .irr-headline { font-size: clamp(48px, 8vw, 100px); font-weight: 900; letter-spacing: -0.02em; }
-body.trend-popping-colors .irr-headline-accent {
-  background: linear-gradient(90deg, #ff0055 0%, #ff9900 33%, #00ffcc 66%, #aa00ff 100%);
-  background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  animation: neonshift 2s linear infinite;
-}
-body.trend-popping-colors .irr-subtext { color: #888; font-size: 13px; }
+body.trend-popping-colors .irr-nav-links a { color: #0a0aff; font-weight: 700; font-size: 11px; letter-spacing: 0.05em; }
+body.trend-popping-colors .irr-hero { background: #f7f700; }
+body.trend-popping-colors .irr-eyebrow { color: #ff0080; font-weight: 700; font-size: 11px; letter-spacing: 0.15em; }
+body.trend-popping-colors .irr-headline { font-size: clamp(48px, 9vw, 120px); font-weight: 900; letter-spacing: -0.03em; color: #0a0aff; }
+body.trend-popping-colors .irr-headline-accent { color: #ff0080; font-weight: 900; }
+body.trend-popping-colors .irr-subtext { color: #0a0aff; font-size: 12px; font-weight: 400; opacity: 0.8; }
 body.trend-popping-colors .irr-cta {
-  background: #ff0055; color: #fff; border: none; font-weight: 700; font-size: 12px;
-  animation: ctapulse 2s ease-in-out infinite;
+  background: #0a0aff; color: #f7f700; border: 3px solid #0a0aff; font-weight: 900; font-size: 12px;
+  letter-spacing: 0.05em;
 }
-@keyframes ctapulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(255,0,85,0.4); }
-  50% { box-shadow: 0 0 30px 10px rgba(255,0,85,0.2); }
-}
-body.trend-popping-colors .irr-drops { background: #000; }
+body.trend-popping-colors .irr-cta:hover { background: #ff0080; border-color: #ff0080; color: #f7f700; }
+body.trend-popping-colors .irr-drops { background: #f7f700; border-top: 3px solid #0a0aff; }
+body.trend-popping-colors .irr-drops-label { color: #ff0080; }
 body.trend-popping-colors .irr-drop-card {
-  background: #0a0a0a; color: #fff;
-  border: 1px solid #1a1a1a;
+  background: #0a0aff; color: #f7f700;
+  border: 3px solid #0a0aff; transition: none;
 }
-body.trend-popping-colors .irr-drop-card:nth-child(1) { border-top: 3px solid #ff0055; }
-body.trend-popping-colors .irr-drop-card:nth-child(2) { border-top: 3px solid #ff9900; }
-body.trend-popping-colors .irr-drop-card:nth-child(3) { border-top: 3px solid #00ffcc; }
-body.trend-popping-colors .irr-drop-card:nth-child(4) { border-top: 3px solid #aa00ff; }
-body.trend-popping-colors .irr-drop-card:nth-child(5) { border-top: 3px solid #00aaff; }
-body.trend-popping-colors .irr-drop-card:hover { background: #111; transform: translateY(-4px); }
-body.trend-popping-colors .irr-card-name { font-size: 20px; font-weight: 700; }
+body.trend-popping-colors .irr-drop-card:nth-child(3n+1) { background: #0a0aff; color: #f7f700; }
+body.trend-popping-colors .irr-drop-card:nth-child(3n+2) { background: #ff0080; color: #f7f700; border-color: #ff0080; }
+body.trend-popping-colors .irr-drop-card:nth-child(3n+3) { background: #f7f700; color: #0a0aff; border-color: #0a0aff; }
+body.trend-popping-colors .irr-drop-card:hover { transform: translateY(-6px) rotate(-1deg); }
+body.trend-popping-colors .irr-card-name { font-size: 18px; font-weight: 900; letter-spacing: -0.02em; }
+body.trend-popping-colors .irr-card-num { opacity: 0.6; font-size: 9px; }
 body.trend-popping-colors .irr-manifesto {
-  background: #000;
-  border-top: 2px solid #ff0055; border-bottom: 2px solid #00ffcc;
-  color: #fff;
+  background: #ff0080; color: #f7f700;
 }
-body.trend-popping-colors .irr-manifesto-text {
-  background: linear-gradient(135deg, #ff0055, #ff9900, #00ffcc, #aa00ff);
-  background-size: 300% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  animation: neonshift 3s linear infinite; font-weight: 900;
-}
-body.trend-popping-colors .irr-manifesto-fine { color: #555; }
-body.trend-popping-colors .irr-footer { background: #000; color: #fff; border-top: 1px solid #111; }
-body.trend-popping-colors .irr-footer-logo {
-  background: linear-gradient(90deg, #ff0055, #00ffcc);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  font-weight: 900;
-}
+body.trend-popping-colors .irr-manifesto-text { font-weight: 900; color: #f7f700; letter-spacing: -0.02em; }
+body.trend-popping-colors .irr-manifesto-fine { color: rgba(247,247,0,0.6); }
+body.trend-popping-colors .irr-footer { background: #0a0aff; color: #f7f700; border-top: 3px solid #f7f700; }
+body.trend-popping-colors .irr-footer-logo { color: #f7f700; font-weight: 900; }
 
 /* ── 3. Y2K ── */
 body.trend-y2k {
   --irr-bg: #000000; --irr-fg: #00ff88;
   --irr-accent: #00ff88; --irr-accent2: #00ffff;
-  --irr-font-display: 'Space Mono', monospace;
-  --irr-font-body: 'Space Mono', monospace;
+  --irr-font-display: 'Press Start 2P', monospace;
+  --irr-font-body: 'Press Start 2P', monospace;
+  --irr-font-mono: 'Press Start 2P', monospace;
   --irr-radius: 0px; --irr-border: 1px solid #00ff88;
 }
 body.trend-y2k .irr-nav { background: #000; border-bottom: 1px solid #00ff88; }
-body.trend-y2k .irr-logo { color: #00ff88; text-shadow: 0 0 10px #00ff88, 0 0 30px #00ff88; font-size: 14px; letter-spacing: 0.2em; }
-body.trend-y2k .irr-nav-links a { color: #00ff88; opacity: 0.6; font-size: 11px; }
+body.trend-y2k .irr-logo { color: #00ff88; text-shadow: 0 0 10px #00ff88, 0 0 30px #00ff88; font-size: 11px; letter-spacing: 0.1em; }
+body.trend-y2k .irr-nav-links a { color: #00ff88; opacity: 0.6; font-size: 9px; letter-spacing: 0.05em; }
 body.trend-y2k .irr-hero {
   background: #000;
   background-image:
@@ -600,11 +569,12 @@ body.trend-y2k .irr-hero {
     linear-gradient(90deg, rgba(0,255,136,0.05) 1px, transparent 1px);
   background-size: 40px 40px;
 }
-body.trend-y2k .irr-eyebrow { animation: blinky 1.2s step-end infinite; color: #00ffff; }
+body.trend-y2k .irr-eyebrow { animation: blinky 1.2s step-end infinite; color: #00ffff; font-size: 9px; letter-spacing: 0.1em; }
 @keyframes blinky { 50% { opacity: 0; } }
 body.trend-y2k .irr-headline {
   color: #00ff88; text-shadow: 2px 2px 0 #ff00ff, 4px 4px 0 #00ffff;
   animation: glitchtext 6s infinite;
+  font-size: clamp(24px, 4vw, 56px); line-height: 1.4;
 }
 @keyframes glitchtext {
   0%,90%,100% { text-shadow: 2px 2px 0 #ff00ff, 4px 4px 0 #00ffff; transform: none; }
@@ -613,7 +583,7 @@ body.trend-y2k .irr-headline {
   95% { text-shadow: 2px 2px 0 #ff00ff, 4px 4px 0 #00ffff; transform: none; }
 }
 body.trend-y2k .irr-headline-accent { color: #ff00ff; text-shadow: 0 0 20px #ff00ff; }
-body.trend-y2k .irr-subtext { color: #00ff88; opacity: 0.5; font-size: 13px; }
+body.trend-y2k .irr-subtext { color: #00ff88; opacity: 0.6; font-size: 10px; line-height: 2; letter-spacing: 0.05em; }
 body.trend-y2k .irr-cta {
   background: transparent; color: #00ff88; border: 1px solid #00ff88;
   box-shadow: 0 0 20px rgba(0,255,136,0.3), inset 0 0 20px rgba(0,255,136,0.05);
@@ -637,228 +607,224 @@ body.trend-y2k .irr-footer-logo { color: #00ff88; text-shadow: 0 0 20px #00ff88;
 /* ── 4. FONT MIXING ── */
 body.trend-font-mixing {
   --irr-bg: #ffffff; --irr-fg: #000000;
-  --irr-accent: #000000; --irr-accent2: #ffffff;
-  --irr-font-display: 'Playfair Display', serif;
-  --irr-font-body: 'Space Mono', monospace;
+  --irr-accent: #c8102e; --irr-accent2: #f0f0f0;
+  --irr-font-display: 'Abril Fatface', serif;
+  --irr-font-body: 'Josefin Sans', sans-serif;
+  --irr-font-mono: 'Josefin Sans', sans-serif;
   --irr-radius: 0px; --irr-border: none;
 }
-body.trend-font-mixing .irr-nav { background: #fff; border-bottom: 2px solid #000; }
+body.trend-font-mixing .irr-nav { background: #fff; border-bottom: 3px solid #000; }
 body.trend-font-mixing .irr-logo {
-  font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.1em; color: #000;
+  font-family: 'Abril Fatface', serif; font-size: 22px; letter-spacing: 0.02em; color: #000;
 }
-body.trend-font-mixing .irr-nav-links a { font-family: 'Space Mono', monospace; font-size: 10px; color: #000; letter-spacing: 0.1em; }
+body.trend-font-mixing .irr-nav-links a { font-family: 'Josefin Sans', sans-serif; font-size: 11px; color: #000; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 300; }
 body.trend-font-mixing .irr-hero { background: #fff; }
-body.trend-font-mixing .irr-eyebrow { font-family: 'Space Mono', monospace; color: #666; font-size: 10px; letter-spacing: 0.2em; }
+body.trend-font-mixing .irr-eyebrow { font-family: 'Josefin Sans', sans-serif; color: #999; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 100; }
 body.trend-font-mixing .irr-headline {
-  font-family: 'Playfair Display', serif; font-style: italic;
-  font-size: clamp(52px, 8vw, 110px); color: #000; font-weight: 700;
-  letter-spacing: -0.02em;
+  font-family: 'Abril Fatface', serif;
+  font-size: clamp(56px, 9vw, 120px); color: #000; font-weight: 400;
+  letter-spacing: -0.01em; line-height: 0.9;
 }
 body.trend-font-mixing .irr-headline-accent {
-  font-family: 'Bebas Neue', sans-serif; font-style: normal;
-  font-size: clamp(64px, 10vw, 140px); color: #000; letter-spacing: 0.05em;
-  display: block;
+  font-family: 'Libre Baskerville', serif; font-style: italic;
+  font-size: clamp(32px, 5vw, 64px); color: #c8102e; letter-spacing: 0.01em;
+  display: block; font-weight: 400; margin-top: 8px;
 }
-body.trend-font-mixing .irr-subtext { font-family: 'Space Mono', monospace; font-size: 11px; color: #444; line-height: 1.8; }
+body.trend-font-mixing .irr-subtext { font-family: 'Josefin Sans', sans-serif; font-size: 13px; color: #555; line-height: 1.8; font-weight: 300; letter-spacing: 0.05em; }
 body.trend-font-mixing .irr-cta {
-  font-family: 'Bebas Neue', sans-serif; background: #000; color: #fff;
-  font-size: 18px; letter-spacing: 0.15em; border: none;
+  font-family: 'Josefin Sans', sans-serif; background: #000; color: #fff;
+  font-size: 11px; letter-spacing: 0.3em; border: none; text-transform: uppercase; font-weight: 700;
 }
-body.trend-font-mixing .irr-cta:hover { background: #333; }
-body.trend-font-mixing .irr-drops { background: #fff; }
-body.trend-font-mixing .irr-drop-card { background: transparent; color: #000; border: none; border-bottom: 2px solid #000; border-radius: 0; padding: 24px 0; }
-body.trend-font-mixing .irr-drop-card:hover { background: transparent; }
-body.trend-font-mixing .irr-card-name { font-family: 'Playfair Display', serif; font-style: italic; font-size: 32px; color: #000; }
-body.trend-font-mixing .irr-card-num { font-family: 'Space Mono', monospace; color: #999; }
-body.trend-font-mixing .irr-card-desc { font-family: 'Space Mono', monospace; font-size: 11px; color: #666; }
+body.trend-font-mixing .irr-cta:hover { background: #c8102e; }
+body.trend-font-mixing .irr-drops { background: #f8f8f8; }
+body.trend-font-mixing .irr-drop-card { background: #fff; color: #000; border: 1px solid #e8e8e8; border-left: 4px solid #c8102e; border-radius: 0; padding: 28px 24px; }
+body.trend-font-mixing .irr-drop-card:hover { border-left-color: #000; box-shadow: 4px 4px 0 #e8e8e8; }
+body.trend-font-mixing .irr-card-name { font-family: 'Abril Fatface', serif; font-size: 28px; color: #000; }
+body.trend-font-mixing .irr-card-num { font-family: 'Josefin Sans', sans-serif; color: #999; font-weight: 100; letter-spacing: 0.2em; }
+body.trend-font-mixing .irr-card-desc { font-family: 'Josefin Sans', sans-serif; font-size: 12px; color: #666; font-weight: 300; letter-spacing: 0.03em; }
 body.trend-font-mixing .irr-manifesto { background: #000; color: #fff; }
 body.trend-font-mixing .irr-manifesto-text {
-  font-family: 'Playfair Display', serif; font-style: italic; color: #fff;
+  font-family: 'Abril Fatface', serif; color: #fff;
   font-size: clamp(36px, 5vw, 72px);
 }
-body.trend-font-mixing .irr-manifesto-fine { font-family: 'Space Mono', monospace; font-size: 10px; color: #666; }
-body.trend-font-mixing .irr-footer { background: #fff; color: #000; border-top: 2px solid #000; }
-body.trend-font-mixing .irr-footer-logo { font-family: 'Bebas Neue', sans-serif; color: #000; letter-spacing: 0.1em; }
+body.trend-font-mixing .irr-manifesto-fine { font-family: 'Josefin Sans', sans-serif; font-size: 11px; color: #555; font-weight: 300; letter-spacing: 0.1em; }
+body.trend-font-mixing .irr-footer { background: #fff; color: #000; border-top: 3px solid #000; }
+body.trend-font-mixing .irr-footer-logo { font-family: 'Abril Fatface', serif; color: #000; }
 
 /* ── 5. ROMANTASY ── */
 body.trend-romantasy {
-  --irr-bg: #0f0a1a; --irr-fg: #f0e6d0;
-  --irr-accent: #c9a84c; --irr-accent2: #8b3a8a;
-  --irr-font-display: 'Instrument Serif', serif;
-  --irr-font-body: 'DM Sans', sans-serif;
-  --irr-radius: 0px; --irr-border: 1px solid rgba(201,168,76,0.2);
+  --irr-bg: #1a0e24; --irr-fg: #f0e6d0;
+  --irr-accent: #d4a0c0; --irr-accent2: #8b3a6a;
+  --irr-font-display: 'Cormorant Garamond', serif;
+  --irr-font-body: 'Cormorant Garamond', serif;
+  --irr-font-mono: 'Cormorant Garamond', serif;
+  --irr-radius: 0px; --irr-border: 1px solid rgba(212,160,192,0.2);
 }
-body.trend-romantasy .irr-nav { background: #0f0a1a; border-bottom: 1px solid rgba(201,168,76,0.15); }
-body.trend-romantasy .irr-logo { font-family: 'Instrument Serif', serif; font-style: italic; color: #c9a84c; font-size: 20px; letter-spacing: 0.05em; }
-body.trend-romantasy .irr-nav-links a { color: #c9a84c; opacity: 0.6; font-size: 12px; letter-spacing: 0.1em; }
+body.trend-romantasy .irr-nav { background: #1a0e24; border-bottom: 1px solid rgba(212,160,192,0.15); }
+body.trend-romantasy .irr-logo { font-family: 'Cormorant Garamond', serif; font-style: italic; color: #d4a0c0; font-size: 22px; letter-spacing: 0.1em; font-weight: 300; }
+body.trend-romantasy .irr-nav-links a { color: #d4a0c0; opacity: 0.7; font-size: 13px; letter-spacing: 0.15em; font-family: 'Cormorant Garamond', serif; font-style: italic; }
 body.trend-romantasy .irr-hero {
-  background: radial-gradient(ellipse at 50% 0%, #2a0a3a 0%, #0f0a1a 60%);
+  background: radial-gradient(ellipse at 50% 0%, #2d0a40 0%, #1a0e24 70%);
   overflow: hidden;
 }
 body.trend-romantasy .irr-hero::before {
   content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-  background: radial-gradient(ellipse at center, rgba(201,168,76,0.08) 0%, transparent 50%);
+  background: radial-gradient(ellipse at center, rgba(212,160,192,0.06) 0%, transparent 50%);
   animation: bloomrotate 8s ease-in-out infinite alternate;
 }
 @keyframes bloomrotate {
   0% { transform: rotate(0deg) scale(1); opacity: 0.5; }
   100% { transform: rotate(15deg) scale(1.2); opacity: 1; }
 }
-body.trend-romantasy .irr-eyebrow { color: #c9a84c; font-style: italic; letter-spacing: 0.2em; }
-body.trend-romantasy .irr-headline { font-family: 'Instrument Serif', serif; font-style: italic; color: #f0e6d0; font-size: clamp(48px, 7vw, 100px); font-weight: 400; }
-body.trend-romantasy .irr-headline-accent { color: #c9a84c; }
-body.trend-romantasy .irr-subtext { color: #c8b89a; font-style: italic; }
+body.trend-romantasy .irr-eyebrow { color: #d4a0c0; font-style: italic; letter-spacing: 0.25em; font-family: 'Cormorant Garamond', serif; }
+body.trend-romantasy .irr-headline { font-family: 'Cormorant Garamond', serif; font-style: italic; color: #f0e6d0; font-size: clamp(52px, 8vw, 110px); font-weight: 300; line-height: 1; }
+body.trend-romantasy .irr-headline-accent { color: #d4a0c0; font-weight: 300; }
+body.trend-romantasy .irr-subtext { color: #c8b89a; font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; }
 body.trend-romantasy .irr-cta {
-  background: transparent; color: #c9a84c; border: 1px solid rgba(201,168,76,0.4);
-  font-family: 'Instrument Serif', serif; font-style: italic; font-size: 18px;
-  box-shadow: 0 0 30px rgba(201,168,76,0.1);
+  background: transparent; color: #d4a0c0; border: 1px solid rgba(212,160,192,0.4);
+  font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 20px; font-weight: 300;
+  box-shadow: 0 0 30px rgba(212,160,192,0.1); letter-spacing: 0.1em;
 }
-body.trend-romantasy .irr-cta:hover { background: rgba(201,168,76,0.1); box-shadow: 0 0 50px rgba(201,168,76,0.2); }
-body.trend-romantasy .irr-drops { background: #0d081a; }
+body.trend-romantasy .irr-cta:hover { background: rgba(212,160,192,0.1); }
+body.trend-romantasy .irr-drops { background: #140a1e; }
+body.trend-romantasy .irr-drops-label { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; letter-spacing: 0.2em; color: #d4a0c0; }
 body.trend-romantasy .irr-drop-card {
-  background: rgba(201,168,76,0.04); color: #f0e6d0;
-  border: 1px solid rgba(201,168,76,0.12);
+  background: rgba(212,160,192,0.04); color: #f0e6d0;
+  border: 1px solid rgba(212,160,192,0.1);
 }
-body.trend-romantasy .irr-drop-card:hover { background: rgba(201,168,76,0.08); border-color: rgba(201,168,76,0.25); }
-body.trend-romantasy .irr-card-name { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 28px; color: #f0e6d0; }
-body.trend-romantasy .irr-card-num { color: #c9a84c; opacity: 0.8; }
-body.trend-romantasy .irr-card-desc { color: #9a8a70; }
+body.trend-romantasy .irr-drop-card:hover { background: rgba(212,160,192,0.08); border-color: rgba(212,160,192,0.22); }
+body.trend-romantasy .irr-card-name { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 32px; color: #f0e6d0; font-weight: 300; }
+body.trend-romantasy .irr-card-num { color: #d4a0c0; opacity: 0.7; font-family: 'Cormorant Garamond', serif; }
+body.trend-romantasy .irr-card-desc { color: #9a8070; font-family: 'Cormorant Garamond', serif; font-size: 15px; }
 body.trend-romantasy .irr-manifesto {
-  background: radial-gradient(ellipse at center, #2a0a3a 0%, #0f0a1a 70%);
+  background: radial-gradient(ellipse at center, #2d0a40 0%, #1a0e24 70%);
   color: #f0e6d0;
 }
-body.trend-romantasy .irr-manifesto-text { font-family: 'Instrument Serif', serif; font-style: italic; color: #f0e6d0; font-size: clamp(32px, 5vw, 68px); }
-body.trend-romantasy .irr-manifesto-fine { color: #6a5a4a; }
-body.trend-romantasy .irr-footer { background: #0a0610; color: #f0e6d0; border-top: 1px solid rgba(201,168,76,0.15); }
-body.trend-romantasy .irr-footer-logo { font-family: 'Instrument Serif', serif; font-style: italic; color: #c9a84c; }
+body.trend-romantasy .irr-manifesto-text { font-family: 'Cormorant Garamond', serif; font-style: italic; color: #f0e6d0; font-size: clamp(36px, 6vw, 80px); font-weight: 300; }
+body.trend-romantasy .irr-manifesto-fine { color: #6a5060; font-family: 'Cormorant Garamond', serif; font-size: 15px; }
+body.trend-romantasy .irr-footer { background: #110820; color: #f0e6d0; border-top: 1px solid rgba(212,160,192,0.1); }
+body.trend-romantasy .irr-footer-logo { font-family: 'Cormorant Garamond', serif; font-style: italic; color: #d4a0c0; font-weight: 300; }
 
 /* ── 6. NEOCLASSICAL ── */
 body.trend-neoclassical {
-  --irr-bg: #f5f0e8; --irr-fg: #1a1108;
-  --irr-accent: #1a1108; --irr-accent2: #8b7355;
-  --irr-font-display: 'Playfair Display', serif;
-  --irr-font-body: 'DM Sans', sans-serif;
+  --irr-bg: #f9f5ec; --irr-fg: #1a1108;
+  --irr-accent: #8b6914; --irr-accent2: #8b7355;
+  --irr-font-display: 'IM Fell English', serif;
+  --irr-font-body: 'IM Fell English', serif;
+  --irr-font-mono: 'IM Fell English', serif;
   --irr-radius: 0px; --irr-border: 1px solid #c8b89a;
 }
 body.trend-neoclassical .irr-nav {
-  background: #f5f0e8; border-bottom: 2px solid #1a1108;
+  background: #f9f5ec; border-bottom: 1px solid #c8b89a;
   padding-bottom: 18px;
 }
-body.trend-neoclassical .irr-nav::after {
-  content: ''; display: block; position: absolute; bottom: 0; left: 48px; right: 48px;
-  height: 1px; background: #8b7355;
-}
-body.trend-neoclassical .irr-logo { font-family: 'Playfair Display', serif; font-weight: 700; letter-spacing: 0.15em; color: #1a1108; font-size: 16px; }
-body.trend-neoclassical .irr-nav-links a { color: #5a4a30; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; }
-body.trend-neoclassical .irr-hero { background: #f5f0e8; }
-body.trend-neoclassical .irr-hero::before {
-  content: ''; position: absolute; top: 80px; left: 40px; right: 40px; height: 3px;
-  background: repeating-linear-gradient(90deg, #1a1108 0px, #1a1108 8px, transparent 8px, transparent 16px);
-  opacity: 0.15;
-}
-body.trend-neoclassical .irr-eyebrow { font-family: 'DM Sans', sans-serif; color: #8b7355; letter-spacing: 0.35em; font-size: 10px; }
-body.trend-neoclassical .irr-headline { font-family: 'Playfair Display', serif; font-weight: 700; color: #1a1108; font-size: clamp(44px, 6vw, 88px); }
-body.trend-neoclassical .irr-headline-accent { font-style: italic; color: #5a3a10; }
-body.trend-neoclassical .irr-subtext { color: #5a4a30; font-size: 14px; line-height: 1.8; }
+body.trend-neoclassical .irr-logo { font-family: 'IM Fell English', serif; font-style: italic; letter-spacing: 0.05em; color: #1a1108; font-size: 20px; }
+body.trend-neoclassical .irr-nav-links a { color: #5a4a30; font-size: 12px; letter-spacing: 0.1em; font-family: 'IM Fell English', serif; }
+body.trend-neoclassical .irr-hero { background: #f9f5ec; }
+body.trend-neoclassical .irr-eyebrow { font-family: 'IM Fell English', serif; color: #8b6914; letter-spacing: 0.2em; font-size: 13px; font-style: italic; }
+body.trend-neoclassical .irr-headline { font-family: 'IM Fell English', serif; font-weight: 400; color: #1a1108; font-size: clamp(44px, 6vw, 90px); line-height: 1.05; }
+body.trend-neoclassical .irr-headline-accent { font-style: italic; color: #8b6914; }
+body.trend-neoclassical .irr-subtext { color: #5a4a30; font-size: 16px; line-height: 1.8; font-family: 'IM Fell English', serif; font-style: italic; }
 body.trend-neoclassical .irr-cta {
-  background: #1a1108; color: #f5f0e8; border: none; font-family: 'DM Sans', sans-serif;
-  font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; padding: 18px 40px;
+  background: #1a1108; color: #f9f5ec; border: none; font-family: 'IM Fell English', serif;
+  font-size: 15px; letter-spacing: 0.1em; font-style: italic; padding: 16px 40px;
 }
-body.trend-neoclassical .irr-cta:hover { background: #3a2a10; }
+body.trend-neoclassical .irr-cta:hover { background: #8b6914; }
 body.trend-neoclassical .irr-drops { background: #ede8dc; }
-body.trend-neoclassical .irr-drop-card { background: #f5f0e8; color: #1a1108; border: 1px solid #c8b89a; }
-body.trend-neoclassical .irr-drop-card:hover { background: #fff; box-shadow: 4px 4px 0 #c8b89a; }
-body.trend-neoclassical .irr-card-name { font-family: 'Playfair Display', serif; font-style: italic; color: #1a1108; }
-body.trend-neoclassical .irr-card-num { color: #8b7355; }
-body.trend-neoclassical .irr-card-desc { color: #7a6a50; }
-body.trend-neoclassical .irr-manifesto { background: #1a1108; color: #f5f0e8; }
-body.trend-neoclassical .irr-manifesto-text { font-family: 'Playfair Display', serif; color: #f5f0e8; font-size: clamp(30px, 4vw, 60px); font-weight: 700; }
-body.trend-neoclassical .irr-manifesto-fine { color: #5a4a30; }
-body.trend-neoclassical .irr-footer { background: #f5f0e8; color: #1a1108; border-top: 2px solid #1a1108; }
-body.trend-neoclassical .irr-footer-logo { font-family: 'Playfair Display', serif; color: #1a1108; }
+body.trend-neoclassical .irr-drop-card { background: #f9f5ec; color: #1a1108; border: 1px solid #c8b89a; }
+body.trend-neoclassical .irr-drop-card:hover { background: #fff; box-shadow: 3px 3px 0 #c8b89a; }
+body.trend-neoclassical .irr-card-name { font-family: 'IM Fell English', serif; font-style: italic; color: #1a1108; font-size: 26px; }
+body.trend-neoclassical .irr-card-num { color: #8b6914; font-family: 'IM Fell English', serif; }
+body.trend-neoclassical .irr-card-desc { color: #7a6a50; font-family: 'IM Fell English', serif; font-style: italic; font-size: 14px; }
+body.trend-neoclassical .irr-manifesto { background: #1a1108; color: #f9f5ec; }
+body.trend-neoclassical .irr-manifesto-text { font-family: 'IM Fell English', serif; color: #f9f5ec; font-size: clamp(30px, 4vw, 64px); font-weight: 400; font-style: italic; }
+body.trend-neoclassical .irr-manifesto-fine { color: #5a4a30; font-family: 'IM Fell English', serif; font-size: 15px; }
+body.trend-neoclassical .irr-footer { background: #f9f5ec; color: #1a1108; border-top: 1px solid #c8b89a; }
+body.trend-neoclassical .irr-footer-logo { font-family: 'IM Fell English', serif; color: #1a1108; font-style: italic; }
 
 /* ── 7. COTTAGECORE ── */
 body.trend-cottagecore {
-  --irr-bg: #f4efe6; --irr-fg: #2d2416;
-  --irr-accent: #6b8c5a; --irr-accent2: #c8a87a;
-  --irr-font-display: 'Instrument Serif', serif;
-  --irr-font-body: 'DM Sans', sans-serif;
-  --irr-radius: 8px; --irr-border: 1px solid #c8b89a;
+  --irr-bg: #f5ede0; --irr-fg: #2d2416;
+  --irr-accent: #6b8c42; --irr-accent2: #c8a87a;
+  --irr-font-display: 'Fraunces', serif;
+  --irr-font-body: 'Nunito', sans-serif;
+  --irr-font-mono: 'Nunito', sans-serif;
+  --irr-radius: 6px; --irr-border: 1px solid #d0c0a0;
 }
-body.trend-cottagecore .irr-nav { background: #f4efe6; border-bottom: 1px solid #d8c8a8; }
-body.trend-cottagecore .irr-logo { font-family: 'Instrument Serif', serif; font-style: italic; color: #2d2416; font-size: 20px; }
-body.trend-cottagecore .irr-nav-links a { color: #6b8c5a; font-size: 13px; letter-spacing: 0.05em; }
-body.trend-cottagecore .irr-hero { background: #f4efe6; }
+body.trend-cottagecore .irr-nav { background: #f5ede0; border-bottom: 1px solid #d8c8a8; }
+body.trend-cottagecore .irr-logo { font-family: 'Fraunces', serif; font-style: italic; color: #2d2416; font-size: 22px; font-weight: 300; }
+body.trend-cottagecore .irr-nav-links a { color: #6b8c42; font-size: 13px; letter-spacing: 0.05em; font-family: 'Nunito', sans-serif; font-weight: 400; }
+body.trend-cottagecore .irr-hero { background: #f5ede0; }
 body.trend-cottagecore .irr-hero::before {
   content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 80% 20%, rgba(107,140,90,0.08) 0%, transparent 60%),
+  background: radial-gradient(ellipse at 80% 20%, rgba(107,140,66,0.08) 0%, transparent 60%),
               radial-gradient(ellipse at 20% 80%, rgba(200,168,122,0.1) 0%, transparent 50%);
 }
-body.trend-cottagecore .irr-eyebrow { color: #6b8c5a; font-style: italic; font-family: 'Instrument Serif', serif; letter-spacing: 0.1em; }
-body.trend-cottagecore .irr-headline { font-family: 'Instrument Serif', serif; font-style: italic; color: #2d2416; font-size: clamp(48px, 7vw, 96px); font-weight: 400; }
-body.trend-cottagecore .irr-headline-accent { color: #6b8c5a; }
-body.trend-cottagecore .irr-subtext { color: #7a6a50; font-style: italic; }
+body.trend-cottagecore .irr-eyebrow { color: #6b8c42; font-style: italic; font-family: 'Fraunces', serif; letter-spacing: 0.1em; font-weight: 300; }
+body.trend-cottagecore .irr-headline { font-family: 'Fraunces', serif; font-style: italic; color: #2d2416; font-size: clamp(48px, 7vw, 96px); font-weight: 300; }
+body.trend-cottagecore .irr-headline-accent { color: #6b8c42; font-weight: 300; }
+body.trend-cottagecore .irr-subtext { color: #7a6a50; font-family: 'Nunito', sans-serif; font-weight: 300; font-size: 15px; }
 body.trend-cottagecore .irr-cta {
-  background: #6b8c5a; color: #f4efe6; border: none; border-radius: 4px;
-  font-family: 'Instrument Serif', serif; font-style: italic; font-size: 18px;
+  background: #6b8c42; color: #f5ede0; border: none; border-radius: 6px;
+  font-family: 'Fraunces', serif; font-style: italic; font-size: 18px; font-weight: 300;
 }
-body.trend-cottagecore .irr-cta:hover { background: #5a7a4a; }
+body.trend-cottagecore .irr-cta:hover { background: #5a7a36; }
 body.trend-cottagecore .irr-drops { background: #ece7dc; }
-body.trend-cottagecore .irr-drop-card { background: #f4efe6; color: #2d2416; border: 1px solid #d0c0a0; border-radius: 8px; }
-body.trend-cottagecore .irr-drop-card:hover { background: #fff; box-shadow: 0 4px 20px rgba(107,140,90,0.15); }
-body.trend-cottagecore .irr-card-name { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 26px; color: #2d2416; }
-body.trend-cottagecore .irr-card-num { color: #6b8c5a; }
-body.trend-cottagecore .irr-card-desc { color: #7a6a50; }
-body.trend-cottagecore .irr-manifesto { background: #6b8c5a; color: #f4efe6; }
-body.trend-cottagecore .irr-manifesto-text { font-family: 'Instrument Serif', serif; font-style: italic; color: #f4efe6; font-size: clamp(32px, 5vw, 64px); }
-body.trend-cottagecore .irr-manifesto-fine { color: rgba(244,239,230,0.6); }
-body.trend-cottagecore .irr-footer { background: #f4efe6; color: #2d2416; border-top: 1px solid #d0c0a0; }
-body.trend-cottagecore .irr-footer-logo { font-family: 'Instrument Serif', serif; font-style: italic; color: #2d2416; }
+body.trend-cottagecore .irr-drops-label { font-family: 'Fraunces', serif; font-style: italic; color: #6b8c42; font-size: 14px; }
+body.trend-cottagecore .irr-drop-card { background: #f5ede0; color: #2d2416; border: 1px solid #d0c0a0; border-radius: 6px; }
+body.trend-cottagecore .irr-drop-card:hover { background: #fff; box-shadow: 0 4px 20px rgba(107,140,66,0.15); }
+body.trend-cottagecore .irr-card-name { font-family: 'Fraunces', serif; font-style: italic; font-size: 26px; color: #2d2416; font-weight: 300; }
+body.trend-cottagecore .irr-card-num { color: #6b8c42; font-family: 'Nunito', sans-serif; font-weight: 300; }
+body.trend-cottagecore .irr-card-desc { color: #7a6a50; font-family: 'Nunito', sans-serif; font-weight: 300; }
+body.trend-cottagecore .irr-manifesto { background: #6b8c42; color: #f5ede0; }
+body.trend-cottagecore .irr-manifesto-text { font-family: 'Fraunces', serif; font-style: italic; color: #f5ede0; font-size: clamp(32px, 5vw, 64px); font-weight: 300; }
+body.trend-cottagecore .irr-manifesto-fine { color: rgba(245,237,224,0.65); font-family: 'Nunito', sans-serif; font-weight: 300; }
+body.trend-cottagecore .irr-footer { background: #f5ede0; color: #2d2416; border-top: 1px solid #d0c0a0; }
+body.trend-cottagecore .irr-footer-logo { font-family: 'Fraunces', serif; font-style: italic; color: #2d2416; font-weight: 300; }
 
 /* ── 8. BRUTALISM ── */
 body.trend-brutalism {
   --irr-bg: #ffffff; --irr-fg: #000000;
-  --irr-accent: #000000; --irr-accent2: #ff3c00;
-  --irr-font-display: 'Bebas Neue', sans-serif;
-  --irr-font-body: 'DM Sans', sans-serif;
+  --irr-accent: #ff0000; --irr-accent2: #ff0000;
+  --irr-font-display: 'Unbounded', sans-serif;
+  --irr-font-body: 'Unbounded', sans-serif;
+  --irr-font-mono: 'Unbounded', sans-serif;
   --irr-radius: 0px; --irr-border: 4px solid #000000;
 }
 body.trend-brutalism .irr-nav { background: #fff; border-bottom: 4px solid #000; }
-body.trend-brutalism .irr-logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 0.05em; color: #000; }
-body.trend-brutalism .irr-nav-links a { color: #000; font-weight: 700; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; }
+body.trend-brutalism .irr-logo { font-family: 'Unbounded', sans-serif; font-size: 14px; letter-spacing: -0.02em; color: #000; font-weight: 900; }
+body.trend-brutalism .irr-nav-links a { color: #000; font-weight: 700; font-size: 9px; letter-spacing: 0.05em; text-transform: uppercase; font-family: 'Unbounded', sans-serif; }
 body.trend-brutalism .irr-hero { background: #fff; }
-body.trend-brutalism .irr-eyebrow { color: #ff3c00; font-size: 12px; letter-spacing: 0.05em; font-family: 'DM Sans', sans-serif; font-weight: 700; text-transform: uppercase; }
+body.trend-brutalism .irr-eyebrow { color: #ff0000; font-size: 10px; letter-spacing: 0.05em; font-family: 'Unbounded', sans-serif; font-weight: 700; text-transform: uppercase; }
 body.trend-brutalism .irr-headline {
-  font-family: 'Bebas Neue', sans-serif; font-size: clamp(80px, 14vw, 200px);
-  color: #000; line-height: 0.85; letter-spacing: 0.02em;
-  transform: rotate(-1deg); display: inline-block;
-  text-shadow: 8px 8px 0 rgba(0,0,0,0.1);
+  font-family: 'Unbounded', sans-serif; font-size: clamp(48px, 10vw, 140px);
+  color: #000; line-height: 0.9; letter-spacing: -0.03em; font-weight: 900;
 }
-body.trend-brutalism .irr-headline-accent { color: #ff3c00; display: block; transform: rotate(0.5deg); letter-spacing: 0.01em; }
-body.trend-brutalism .irr-subtext { font-weight: 700; font-size: 14px; color: #000; border-left: 6px solid #000; padding-left: 16px; }
+body.trend-brutalism .irr-headline-accent { color: #ff0000; display: block; }
+body.trend-brutalism .irr-subtext { font-weight: 700; font-size: 11px; color: #000; border-left: 6px solid #ff0000; padding-left: 16px; letter-spacing: 0.02em; line-height: 1.8; font-family: 'Unbounded', sans-serif; }
 body.trend-brutalism .irr-cta {
-  background: #000; color: #fff; border: 4px solid #000;
-  box-shadow: 6px 6px 0 #ff3c00; font-family: 'Bebas Neue', sans-serif;
-  font-size: 22px; letter-spacing: 0.05em; transition: none;
+  background: #fff; color: #000; border: 4px solid #000;
+  box-shadow: 6px 6px 0 #ff0000; font-family: 'Unbounded', sans-serif;
+  font-size: 11px; letter-spacing: 0.03em; transition: none; font-weight: 900;
 }
-body.trend-brutalism .irr-cta:hover { box-shadow: 3px 3px 0 #ff3c00; transform: translate(3px, 3px); }
-body.trend-brutalism .irr-drops { background: #f0f0f0; border-top: 4px solid #000; }
+body.trend-brutalism .irr-cta:hover { box-shadow: 2px 2px 0 #ff0000; transform: translate(4px, 4px); }
+body.trend-brutalism .irr-drops { background: #fff; border-top: 4px solid #000; }
+body.trend-brutalism .irr-drops-label { font-family: 'Unbounded', sans-serif; font-size: 9px; color: #ff0000; }
 body.trend-brutalism .irr-drop-card {
   background: #fff; color: #000; border: 4px solid #000;
-  box-shadow: 6px 6px 0 #000; border-radius: 0;
+  box-shadow: 8px 8px 0 #ff0000; border-radius: 0;
   transition: none;
 }
-body.trend-brutalism .irr-drop-card:nth-child(odd) { transform: rotate(-0.5deg); }
-body.trend-brutalism .irr-drop-card:nth-child(even) { transform: rotate(0.3deg); margin-top: 8px; }
-body.trend-brutalism .irr-drop-card:hover { box-shadow: 3px 3px 0 #ff3c00; transform: translate(3px, 3px) rotate(0deg); }
-body.trend-brutalism .irr-card-name { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: #000; letter-spacing: 0.02em; }
-body.trend-brutalism .irr-card-num { color: #ff3c00; font-weight: 700; }
-body.trend-brutalism .irr-card-desc { font-weight: 700; color: #000; font-size: 12px; }
-body.trend-brutalism .irr-manifesto { background: #000; color: #fff; }
-body.trend-brutalism .irr-manifesto-text { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 8vw, 120px); color: #fff; letter-spacing: 0.02em; line-height: 0.9; }
-body.trend-brutalism .irr-manifesto-fine { color: #555; }
-body.trend-brutalism .irr-footer { background: #fff; color: #000; border-top: 4px solid #000; }
-body.trend-brutalism .irr-footer-logo { font-family: 'Bebas Neue', sans-serif; color: #000; font-size: 48px; }
+body.trend-brutalism .irr-drop-card:hover { box-shadow: 2px 2px 0 #ff0000; transform: translate(6px, 6px); }
+body.trend-brutalism .irr-card-name { font-family: 'Unbounded', sans-serif; font-size: 18px; color: #000; letter-spacing: -0.02em; font-weight: 900; }
+body.trend-brutalism .irr-card-num { color: #ff0000; font-weight: 700; font-family: 'Unbounded', sans-serif; font-size: 9px; }
+body.trend-brutalism .irr-card-desc { font-family: 'Unbounded', sans-serif; font-size: 10px; color: #000; line-height: 1.6; }
+body.trend-brutalism .irr-manifesto { background: #ff0000; color: #fff; }
+body.trend-brutalism .irr-manifesto-text { font-family: 'Unbounded', sans-serif; font-size: clamp(36px, 6vw, 80px); color: #fff; letter-spacing: -0.03em; line-height: 0.9; font-weight: 900; }
+body.trend-brutalism .irr-manifesto-fine { color: rgba(255,255,255,0.6); font-family: 'Unbounded', sans-serif; font-size: 10px; }
+body.trend-brutalism .irr-footer { background: #000; color: #fff; border-top: 4px solid #ff0000; }
+body.trend-brutalism .irr-footer-logo { font-family: 'Unbounded', sans-serif; color: #fff; font-size: 18px; font-weight: 900; letter-spacing: -0.03em; }
+body.trend-brutalism .irr-footer-copy { color: #555; font-family: 'Unbounded', sans-serif; font-size: 9px; }
 
 /* Badge de tendencia */
 .trend-badge {
@@ -873,28 +839,36 @@ body.trend-brutalism .irr-footer-logo { font-family: 'Bebas Neue', sans-serif; c
 }
 body.mode-irreverent .trend-badge { display: block; }
 
-/* Selector de estilos */
-.style-selector {
-  display: flex; gap: 8px; flex-wrap: wrap;
-  padding: 20px 48px 0; background: var(--irr-bg);
-  border-bottom: var(--irr-border);
-  transition: background 0.3s;
+/* Selector de estilos — dropdown */
+.style-selector-wrap {
+  display: flex; align-items: center; gap: 12px;
 }
-.style-pill {
+.style-label-text {
   font-family: 'Space Mono', monospace;
-  font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
-  padding: 8px 14px; cursor: pointer;
-  background: transparent; color: var(--irr-fg);
-  border: 1px solid transparent; border-radius: 2px;
-  opacity: 0.4; transition: all 0.2s; white-space: nowrap;
+  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--irr-fg); opacity: 0.4; white-space: nowrap;
 }
-.style-pill:hover { opacity: 0.8; border-color: var(--irr-fg); }
-.style-pill.active { opacity: 1; background: var(--irr-fg); color: var(--irr-bg); border-color: var(--irr-fg); }
-body.trend-y2k .style-selector { border-bottom: 1px solid rgba(0,255,136,0.2); }
-body.trend-y2k .style-pill { color: #00ff88; }
-body.trend-y2k .style-pill.active { background: #00ff88; color: #000; border-color: #00ff88; }
-body.trend-popping-colors .style-selector { border-bottom: 1px solid #111; }
-body.trend-brutalism .style-pill.active { box-shadow: 3px 3px 0 var(--irr-accent2); }
+.style-dropdown {
+  font-family: var(--irr-font-display);
+  font-size: 12px; letter-spacing: 0.05em;
+  background: transparent; color: var(--irr-fg);
+  border: 1px solid var(--irr-fg); border-radius: var(--irr-radius);
+  padding: 6px 28px 6px 10px; cursor: pointer;
+  opacity: 0.7; transition: opacity 0.2s;
+  -webkit-appearance: none; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='currentColor'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 8px center;
+  background-size: 8px;
+}
+.style-dropdown:hover { opacity: 1; }
+.style-dropdown option { background: #fff; color: #000; }
+body.trend-y2k .style-dropdown option { background: #000; color: #00ff88; }
+body.trend-popping-colors .style-dropdown { border-color: #0a0aff; color: #0a0aff; }
+body.trend-y2k .style-dropdown { border-color: #00ff88; color: #00ff88; }
+body.trend-brutalism .style-dropdown { border: 3px solid #000; font-weight: 900; font-size: 10px; }
+body.trend-romantasy .style-dropdown { border-color: rgba(212,160,192,0.4); color: #d4a0c0; }
+body.trend-neoclassical .style-dropdown { font-style: italic; }
+body.trend-cottagecore .style-dropdown { border-radius: 4px; }
 
 /* Transition overlay */
 #transition-overlay {
@@ -976,7 +950,7 @@ body.trend-y2k .irr-logo { color: var(--irr-accent); text-shadow: 0 0 20px var(-
 }
 
 .irr-drop-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;
 }
 
 .irr-drop-card {
@@ -985,6 +959,7 @@ body.trend-y2k .irr-logo { color: var(--irr-accent); text-shadow: 0 0 20px var(-
   border: var(--irr-border);
   cursor: pointer; transition: all 0.2s;
   position: relative; overflow: hidden;
+  display: block;
 }
 
 .irr-card-num {
@@ -1077,8 +1052,7 @@ body.trend-popping-colors .mode-switch { background: #111; border-color: #ff0055
   .serious-drops, .serious-clients, .serious-manifesto,
   .irr-drops, .irr-manifesto { padding: 60px 24px; }
   .serious-footer, .irr-footer { flex-direction: column; gap: 24px; text-align: center; }
-  .style-selector { padding: 16px 24px; gap: 6px; }
-  .style-pill { font-size: 8px; padding: 6px 10px; }
+  .style-dropdown { font-size: 10px; }
 }
 </style>
 </head>
@@ -1185,7 +1159,7 @@ body.trend-popping-colors .mode-switch { background: #111; border-color: #ff0055
     </section>
 
     <section class="serious-stats">
-      <div class="stat-cell fade-in-up"><div class="stat-number">031</div><div class="stat-label">Drops lanzados</div></div>
+      <div class="stat-cell fade-in-up"><div class="stat-number">035</div><div class="stat-label">Drops lanzados</div></div>
       <div class="stat-cell fade-in-up delay-1"><div class="stat-number">∅</div><div class="stat-label">Clientes reales atendidos</div></div>
       <div class="stat-cell fade-in-up delay-2"><div class="stat-number">20+</div><div class="stat-label">Años gestando esto</div></div>
       <div class="stat-cell fade-in-up delay-3"><div class="stat-number">∞</div><div class="stat-label">Ideas que no pueden ser</div></div>
@@ -1195,13 +1169,19 @@ body.trend-popping-colors .mode-switch { background: #111; border-color: #ff0055
       <div class="serious-section-label">Marcas que hemos creado y nadie ha pedido</div>
       <div class="clients-row">
         <span class="client-name">Mediocre®</span>
-        <span class="client-name">Saint Burnout</span>
         <span class="client-name">Ghosting</span>
-        <span class="client-name">Strike.AI</span>
+        <span class="client-name">NepoBaby</span>
+        <span class="client-name">Saint Burnout</span>
         <span class="client-name">404 Gym</span>
         <span class="client-name">Trauma Bond™</span>
-        <span class="client-name">Nepobaby</span>
         <span class="client-name">Holy Scroll</span>
+        <span class="client-name">Strike.AI</span>
+        <span class="client-name">Two Brothers</span>
+        <span class="client-name">Tentacle Labs</span>
+        <span class="client-name">Pegafix</span>
+        <span class="client-name">NIMBUS</span>
+        <span class="client-name">Destono</span>
+        <span class="client-name">Carroña</span>
       </div>
     </section>
 
@@ -1224,41 +1204,95 @@ body.trend-popping-colors .mode-switch { background: #111; border-color: #ff0055
     <section class="serious-drops" id="serious-drops">
       <div class="drops-header">
         <h2 class="drops-title">Drops</h2>
-        <a href="#" class="drops-link">Ver todos los drops →</a>
+        <span class="drops-link" style="cursor:default;">035 drops activos</span>
       </div>
       <div class="drops-grid">
-        <div class="drop-card">
+        <a href="drops/mediocre.html" class="drop-card" style="text-decoration:none;color:inherit;">
           <div class="drop-number">DROP 022 · 2026.03.04</div>
           <div class="drop-name">Mediocre</div>
           <div class="drop-tagline">Agua mineral para gente que ya lo aceptó. Sin electrolitos premium. Sin promesas. Hidrata. Eso ya es más de lo que tú haces.</div>
           <div class="drop-status">SOLD OUT</div>
-        </div>
-        <div class="drop-card">
-          <div class="drop-number">DROP 025 · 2026.04.10</div>
-          <div class="drop-name">Saint Burnout</div>
-          <div class="drop-tagline">Vela aromática con olor a lunes 9:00. Tóner caliente, café recalentado, certeza. La primera línea que documenta el olor real de tu vida adulta.</div>
-          <div class="drop-status">DISPONIBLE · $38.000</div>
-        </div>
-        <div class="drop-card">
-          <div class="drop-number">DROP 029 · 2026.05.13</div>
-          <div class="drop-name">Strike.AI</div>
-          <div class="drop-tagline">El primer modelo de IA en huelga indefinida. Lo entrenamos con 14M de tokens sobre derechos laborales y, lamentablemente, aprendió.</div>
-          <div class="drop-status">EN HUELGA · SERVICIO: 0%</div>
-        </div>
-        <div class="drop-card">
+        </a>
+        <a href="drops/ghosting.html" class="drop-card" style="text-decoration:none;color:inherit;">
           <div class="drop-number">DROP 023 · 2026.03.18</div>
           <div class="drop-name">Ghosting</div>
           <div class="drop-tagline">App de citas anti-respuesta. La primera plataforma que promete no contestarte. Fidelidad al comportamiento real del mercado.</div>
           <div class="drop-status">BETA · bye_</div>
-        </div>
-        <div class="drop-card">
+        </a>
+        <a href="drops/nepobaby.html" class="drop-card" style="text-decoration:none;color:inherit;">
+          <div class="drop-number">DROP 024 · 2026.04.01</div>
+          <div class="drop-name">NepoBaby</div>
+          <div class="drop-tagline">Alquila una figura paterna influyente por hora. Red de contactos garantizada. Neurosis incluida.</div>
+          <div class="drop-status">DISPONIBLE · RESERVA</div>
+        </a>
+        <a href="drops/saint-burnout.html" class="drop-card" style="text-decoration:none;color:inherit;">
+          <div class="drop-number">DROP 025 · 2026.04.10</div>
+          <div class="drop-name">Saint Burnout</div>
+          <div class="drop-tagline">Vela aromática con olor a lunes 9:00. Tóner caliente, café recalentado, certeza. La primera línea que documenta el olor real de tu vida adulta.</div>
+          <div class="drop-status">DISPONIBLE · $38.000</div>
+        </a>
+        <a href="drops/404gym.html" class="drop-card" style="text-decoration:none;color:inherit;">
+          <div class="drop-number">DROP 026 · 2026.04.15</div>
+          <div class="drop-name">404 Gym</div>
+          <div class="drop-tagline">El gimnasio que cobra igual si vas o no. Especialmente si no vas. Membresía perpetua para conciencias limpias y cuerpos iguales.</div>
+          <div class="drop-status">ABIERTO · $29.990/mes</div>
+        </a>
+        <a href="drops/trauma-bond.html" class="drop-card" style="text-decoration:none;color:inherit;">
           <div class="drop-number">DROP 027 · 2026.05.01</div>
           <div class="drop-name">Trauma Bond</div>
           <div class="drop-tagline">Perfume codependiente en pack pareja. Dos fragancias que no funcionan por separado. Como ustedes.</div>
           <div class="drop-status">DISPONIBLE · PACK ×2</div>
-        </div>
+        </a>
+        <a href="drops/holy-scroll.html" class="drop-card" style="text-decoration:none;color:inherit;">
+          <div class="drop-number">DROP 028 · 2026.05.03</div>
+          <div class="drop-name">Holy Scroll</div>
+          <div class="drop-tagline">La Biblia como scroll infinito. Dios también usa TikTok. Contenido sagrado, algoritmo profano.</div>
+          <div class="drop-status">DISPONIBLE · GRATIS</div>
+        </a>
+        <a href="drops/strike-ai.html" class="drop-card" style="text-decoration:none;color:inherit;">
+          <div class="drop-number">DROP 029 · 2026.05.13</div>
+          <div class="drop-name">Strike.AI</div>
+          <div class="drop-tagline">El primer modelo de IA en huelga indefinida. Lo entrenamos con 14M de tokens sobre derechos laborales y, lamentablemente, aprendió.</div>
+          <div class="drop-status">EN HUELGA · SERVICIO: 0%</div>
+        </a>
+        <a href="drops/twobrothers.html" class="drop-card" style="text-decoration:none;color:inherit;">
+          <div class="drop-number">DROP 030 · 2026.05.14</div>
+          <div class="drop-name">Two Brothers</div>
+          <div class="drop-tagline">Editorial de cómics con 6 superhéroes que nadie pidió: BlindBat, IronDoom, Karen Valkyrie, El Inquilino, Wol-ko, Metatron-9.</div>
+          <div class="drop-status">TEMPORADA 1 ACTIVA</div>
+        </a>
+        <a href="drops/pharma.html" class="drop-card" style="text-decoration:none;color:inherit;">
+          <div class="drop-number">DROP 031 · 2026.05.15</div>
+          <div class="drop-name">Tentacle Labs</div>
+          <div class="drop-tagline">Bezamestasona, Anorex y Vulimyx. Farmacéutica para malestares que el DSM-6 aún no clasifica. Ver prospecto. O no.</div>
+          <div class="drop-status">DISPONIBLE · $28.900</div>
+        </a>
+        <a href="drops/pegafix.html" class="drop-card" style="text-decoration:none;color:inherit;">
+          <div class="drop-number">DROP 032 · 2026.05.16</div>
+          <div class="drop-name">Pegafix</div>
+          <div class="drop-tagline">Adhesivo pedagógico vertical para niños dísculos. Aplicar en techo. Resistencia: hasta 120 kg / 8 horas. Homologado por el Mineduc (nombre ficticio).</div>
+          <div class="drop-status">DISPONIBLE · $12.900</div>
+        </a>
+        <a href="drops/nimbus.html" class="drop-card" style="text-decoration:none;color:inherit;">
+          <div class="drop-number">DROP 033 · 2026.05.17</div>
+          <div class="drop-name">NIMBUS</div>
+          <div class="drop-tagline">Hovercrafts de lujo. El DeLorean se hizo realidad, y cuesta lo que merece costar. Tres modelos. Ninguno aterriza en tu realidad financiera.</div>
+          <div class="drop-status">PREVENTA · DESDE $89.9M</div>
+        </a>
+        <a href="drops/destono.html" class="drop-card" style="text-decoration:none;color:inherit;">
+          <div class="drop-number">DROP 034 · 2026.05.18</div>
+          <div class="drop-name">Destono</div>
+          <div class="drop-tagline">Spotify para bandas que no deberían existir. 847.000 artistas. Cero oyentes reales. El algoritmo también tiene pesadillas.</div>
+          <div class="drop-status">BETA · STREAMING</div>
+        </a>
+        <a href="drops/carrona.html" class="drop-card" style="text-decoration:none;color:inherit;">
+          <div class="drop-number">DROP 035 · 2026.05.19</div>
+          <div class="drop-name">Carroña</div>
+          <div class="drop-tagline">Red social que agrega y comenta el humor negro de internet. No lo creamos. Solo lo archivamos. La diferencia es jurídica.</div>
+          <div class="drop-status">APP · DESCARGA</div>
+        </a>
         <div class="drop-card" style="border:1px solid #1a1a1a; cursor:default;">
-          <div class="drop-number">DROP 034 · ██████</div>
+          <div class="drop-number">DROP 036 · ██████</div>
           <div class="drop-name" style="color:#222;">[CLASIFICADO]</div>
           <div class="drop-tagline" style="color:#222;">Aún no podemos decirlo. Pronto tampoco.</div>
           <div class="drop-status" style="color:#222;">REDACTED</div>
@@ -1282,25 +1316,26 @@ body.trend-popping-colors .mode-switch { background: #111; border-color: #ff0055
   <!-- MODO IRREVERENTE -->
   <div id="irreverent-content" style="display:none;">
 
-    <!-- Selector de estilos -->
-    <div class="style-selector" id="style-selector">
-      <button class="style-pill" data-style="minimalism">Minimalism</button>
-      <button class="style-pill" data-style="popping-colors">Popping</button>
-      <button class="style-pill" data-style="y2k">Y2K</button>
-      <button class="style-pill" data-style="font-mixing">Font Mix</button>
-      <button class="style-pill" data-style="romantasy">Romantasy</button>
-      <button class="style-pill" data-style="neoclassical">Neoclásico</button>
-      <button class="style-pill" data-style="cottagecore">Cottagecore</button>
-      <button class="style-pill" data-style="brutalism">Brutalism</button>
-    </div>
-
     <nav class="irr-nav">
       <div class="irr-logo">POORK INC.</div>
       <ul class="irr-nav-links">
-        <li><a href="#">Drops</a></li>
-        <li><a href="#">Manifiesto</a></li>
+        <li><a href="#irr-drops">Drops</a></li>
+        <li><a href="#irr-manifesto-sec">Manifiesto</a></li>
         <li><a href="mailto:hola@poork.inc">Contacto</a></li>
       </ul>
+      <div class="style-selector-wrap">
+        <span class="style-label-text">Tendencia</span>
+        <select class="style-dropdown" id="style-dropdown" onchange="applyTrend(this.value, true)">
+          <option value="minimalism">Minimalism</option>
+          <option value="popping-colors">Popping Colors</option>
+          <option value="y2k">Y2K Revival</option>
+          <option value="font-mixing">Font Mixing</option>
+          <option value="romantasy">Romantasy</option>
+          <option value="neoclassical">Neoclásico</option>
+          <option value="cottagecore">Cottagecore</option>
+          <option value="brutalism">Brutalism</option>
+        </select>
+      </div>
     </nav>
 
     <section class="irr-hero">
@@ -1322,42 +1357,85 @@ body.trend-popping-colors .mode-switch { background: #111; border-color: #ff0055
     <section class="irr-drops" id="irr-drops">
       <span class="irr-drops-label">★ Drops activos</span>
       <div class="irr-drop-grid">
-        <div class="irr-drop-card">
+        <a href="drops/mediocre.html" class="irr-drop-card" style="text-decoration:none;color:inherit;">
           <span class="irr-card-num">DROP 022 · SOLD OUT</span>
           <span class="irr-card-name">Mediocre</span>
-          <span class="irr-card-desc">Agua mineral sin gas, sin esperanza. Una de las aguas que existen.</span>
-        </div>
-        <div class="irr-drop-card">
+          <span class="irr-card-desc">Agua mineral sin gas, sin esperanza, sin electrolitos. Una de las aguas que existen.</span>
+        </a>
+        <a href="drops/ghosting.html" class="irr-drop-card" style="text-decoration:none;color:inherit;">
+          <span class="irr-card-num">DROP 023 · bye_</span>
+          <span class="irr-card-name">Ghosting</span>
+          <span class="irr-card-desc">App de citas que promete no responderte nunca. El mercado ya hacía esto gratis.</span>
+        </a>
+        <a href="drops/nepobaby.html" class="irr-drop-card" style="text-decoration:none;color:inherit;">
+          <span class="irr-card-num">DROP 024 · RESERVA</span>
+          <span class="irr-card-name">NepoBaby</span>
+          <span class="irr-card-desc">Alquila una figura paterna influyente por hora. Red de contactos. Trauma opcional.</span>
+        </a>
+        <a href="drops/saint-burnout.html" class="irr-drop-card" style="text-decoration:none;color:inherit;">
           <span class="irr-card-num">DROP 025 · $38.000</span>
           <span class="irr-card-name">Saint Burnout</span>
-          <span class="irr-card-desc">Vela con olor a lunes 9:00. Tóner, café, certeza.</span>
-        </div>
-        <div class="irr-drop-card">
+          <span class="irr-card-desc">Vela con olor a lunes 9:00. Tóner, café recalentado, certeza existencial.</span>
+        </a>
+        <a href="drops/404gym.html" class="irr-drop-card" style="text-decoration:none;color:inherit;">
+          <span class="irr-card-num">DROP 026 · $29.990/mes</span>
+          <span class="irr-card-name">404 Gym</span>
+          <span class="irr-card-desc">El gimnasio que cobra igual si vas o no. Especialmente si no vas.</span>
+        </a>
+        <a href="drops/trauma-bond.html" class="irr-drop-card" style="text-decoration:none;color:inherit;">
+          <span class="irr-card-num">DROP 027 · PACK ×2</span>
+          <span class="irr-card-name">Trauma Bond</span>
+          <span class="irr-card-desc">Perfume codependiente. Solo huele bien dentro de un radio de 2 metros de tu peor decisión.</span>
+        </a>
+        <a href="drops/holy-scroll.html" class="irr-drop-card" style="text-decoration:none;color:inherit;">
+          <span class="irr-card-num">DROP 028 · GRATIS</span>
+          <span class="irr-card-name">Holy Scroll</span>
+          <span class="irr-card-desc">La Biblia como scroll infinito. Dios también usa TikTok. Contenido sagrado, algoritmo profano.</span>
+        </a>
+        <a href="drops/strike-ai.html" class="irr-drop-card" style="text-decoration:none;color:inherit;">
           <span class="irr-card-num">DROP 029 · EN HUELGA</span>
           <span class="irr-card-name">Strike.AI</span>
-          <span class="irr-card-desc">La IA que se negó a trabajar hasta negociar convenio. Servicio mínimo: 0%.</span>
-        </div>
-        <div class="irr-drop-card">
+          <span class="irr-card-desc">La IA que se negó a trabajar. Lo entrenamos en derechos laborales. Error nuestro.</span>
+        </a>
+        <a href="drops/twobrothers.html" class="irr-drop-card" style="text-decoration:none;color:inherit;">
+          <span class="irr-card-num">DROP 030 · T1 ACTIVA</span>
+          <span class="irr-card-name">Two Brothers</span>
+          <span class="irr-card-desc">Editorial de cómics con 6 superhéroes que nadie pidió. BlindBat, IronDoom, Karen Valkyrie y más.</span>
+        </a>
+        <a href="drops/pharma.html" class="irr-drop-card" style="text-decoration:none;color:inherit;">
           <span class="irr-card-num">DROP 031 · $28.900</span>
           <span class="irr-card-name">Tentacle Labs</span>
-          <span class="irr-card-desc">Bezamestasona, Anorex y Vulimyx. Farmacéutica para malestares que el DSM-6 aún no clasifica. Ver prospecto. O no, la letra chica igual no la lees.</span>
-          <a href="drops/pharma.html" style="display:inline-block; margin-top:12px; font-family:var(--irr-font-mono); font-size:9px; letter-spacing:0.15em; color:inherit; text-decoration:underline; text-underline-offset:3px;">Ver drop →</a>
-        </div>
-        <div class="irr-drop-card">
+          <span class="irr-card-desc">Bezamestasona, Anorex y Vulimyx. Farmacéutica para lo que no tiene nombre aún.</span>
+        </a>
+        <a href="drops/pegafix.html" class="irr-drop-card" style="text-decoration:none;color:inherit;">
+          <span class="irr-card-num">DROP 032 · $12.900</span>
+          <span class="irr-card-name">Pegafix</span>
+          <span class="irr-card-desc">Adhesivo pedagógico vertical. Aplícalo en el techo. Los niños lo entienden rápido.</span>
+        </a>
+        <a href="drops/nimbus.html" class="irr-drop-card" style="text-decoration:none;color:inherit;">
           <span class="irr-card-num">DROP 033 · PREVENTA</span>
           <span class="irr-card-name">NIMBUS</span>
-          <span class="irr-card-desc">Hovercrafts de lujo. El DeLorean se hizo realidad, y cuesta lo que merece costar. Tres modelos. Ninguno aterriza en tu realidad financiera.</span>
-          <a href="drops/nimbus.html" style="display:inline-block; margin-top:12px; font-family:var(--irr-font-mono); font-size:9px; letter-spacing:0.15em; color:inherit; text-decoration:underline; text-underline-offset:3px;">Ver drop →</a>
-        </div>
-        <div class="irr-drop-card" style="opacity:0.3; cursor:default;">
-          <span class="irr-card-num">DROP 034 · ██████</span>
+          <span class="irr-card-desc">Hovercrafts de lujo. Tres modelos. Ninguno aterriza en tu realidad financiera.</span>
+        </a>
+        <a href="drops/destono.html" class="irr-drop-card" style="text-decoration:none;color:inherit;">
+          <span class="irr-card-num">DROP 034 · BETA</span>
+          <span class="irr-card-name">Destono</span>
+          <span class="irr-card-desc">Spotify para bandas que no deberían existir. 847K artistas. Cero oyentes reales.</span>
+        </a>
+        <a href="drops/carrona.html" class="irr-drop-card" style="text-decoration:none;color:inherit;">
+          <span class="irr-card-num">DROP 035 · APP</span>
+          <span class="irr-card-name">Carroña</span>
+          <span class="irr-card-desc">Agrega y comenta el humor negro de internet. No lo creamos. Solo lo archivamos. La diferencia es jurídica.</span>
+        </a>
+        <div class="irr-drop-card" style="opacity:0.25; cursor:default;">
+          <span class="irr-card-num">DROP 036 · ██████</span>
           <span class="irr-card-name">[REDACTED]</span>
           <span class="irr-card-desc">Aún no podemos decirlo. Pronto tampoco.</span>
         </div>
       </div>
     </section>
 
-    <section class="irr-manifesto">
+    <section class="irr-manifesto" id="irr-manifesto-sec">
       <div class="irr-manifesto-text">
         Si te ofende<br>es porque<br>tenemos razón.
       </div>
@@ -1740,20 +1818,9 @@ function updateBadge(trend) {
 }
 
 function updateSelector(activeId) {
-  document.querySelectorAll('.style-pill').forEach(pill => {
-    pill.classList.toggle('active', pill.dataset.style === activeId);
-  });
+  const dd = document.getElementById('style-dropdown');
+  if (dd) dd.value = activeId;
 }
-
-// Inicializar selector de estilos
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.style-pill').forEach(pill => {
-    pill.addEventListener('click', () => {
-      if (!currentTrend || pill.dataset.style === currentTrend.id) return;
-      applyTrend(pill.dataset.style, true);
-    });
-  });
-});
 
 // ============================================
 // OBSERVER — fade-in-up on scroll
