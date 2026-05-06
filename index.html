@@ -466,7 +466,7 @@ body.mode-serious { background: #080808; color: #f0ede8; }
 /* ── 0. POORK CLÁSICO ── */
 body.trend-poork-original {
   --irr-bg: #0a0a0a; --irr-fg: #f0ede8;
-  --irr-accent: #c9a84c; --irr-accent2: #1a1a1a;
+  --irr-accent: #9b0000; --irr-accent2: #1a1a1a;
   --irr-font-display: 'Bebas Neue', sans-serif;
   --irr-font-body: 'DM Sans', sans-serif;
   --irr-font-mono: 'Space Mono', monospace;
@@ -479,36 +479,36 @@ body.trend-poork-original .irr-nav-links a:hover { color: #f0ede8; opacity: 1; }
 body.trend-poork-original .irr-hero { background: #0a0a0a; }
 body.trend-poork-original .irr-hero::before {
   content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 30% 60%, rgba(201,168,76,0.06) 0%, transparent 55%);
+  background: radial-gradient(ellipse at 20% 70%, rgba(155,0,0,0.12) 0%, transparent 50%);
 }
-body.trend-poork-original .irr-eyebrow { color: #c9a84c; font-size: 11px; letter-spacing: 0.35em; }
+body.trend-poork-original .irr-eyebrow { color: #9b0000; font-size: 11px; letter-spacing: 0.35em; }
 body.trend-poork-original .irr-headline {
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(80px, 14vw, 180px); color: #f0ede8;
   line-height: 0.88; letter-spacing: 0.02em;
 }
-body.trend-poork-original .irr-headline-accent { color: #c9a84c; }
+body.trend-poork-original .irr-headline-accent { color: #9b0000; }
 body.trend-poork-original .irr-subtext { color: #555; font-size: 14px; font-weight: 300; max-width: 480px; }
 body.trend-poork-original .irr-cta {
-  background: transparent; color: #f0ede8; border: 1px solid #333;
+  background: #9b0000; color: #f0ede8; border: 1px solid #9b0000;
   font-family: 'DM Sans', sans-serif; font-size: 11px;
   letter-spacing: 0.25em; text-transform: uppercase; font-weight: 700;
   padding: 16px 40px;
 }
-body.trend-poork-original .irr-cta:hover { background: #f0ede8; color: #0a0a0a; border-color: #f0ede8; }
+body.trend-poork-original .irr-cta:hover { background: #7a0000; border-color: #7a0000; }
 body.trend-poork-original .irr-drops { background: #080808; border-top: 1px solid #1a1a1a; }
-body.trend-poork-original .irr-drops-label { color: #333; }
+body.trend-poork-original .irr-drops-label { color: #9b0000; }
 body.trend-poork-original .irr-drop-card {
-  background: #111; color: #f0ede8;
+  background: #0f0f0f; color: #f0ede8;
   border: 1px solid #1c1c1c;
 }
-body.trend-poork-original .irr-drop-card:hover { background: #141414; border-color: #2a2a2a; }
+body.trend-poork-original .irr-drop-card:hover { background: #141414; border-color: #9b0000; }
 body.trend-poork-original .irr-card-name { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 0.03em; color: #f0ede8; }
-body.trend-poork-original .irr-card-num { color: #2e2e2e; }
+body.trend-poork-original .irr-card-num { color: #333; }
 body.trend-poork-original .irr-card-desc { color: #555; font-weight: 300; }
-body.trend-poork-original .irr-manifesto { background: #c9a84c; color: #0a0a0a; }
-body.trend-poork-original .irr-manifesto-text { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px, 9vw, 120px); color: #0a0a0a; letter-spacing: 0.02em; line-height: 0.9; }
-body.trend-poork-original .irr-manifesto-fine { color: rgba(10,10,10,0.45); font-size: 12px; }
+body.trend-poork-original .irr-manifesto { background: #9b0000; color: #f0ede8; }
+body.trend-poork-original .irr-manifesto-text { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px, 9vw, 120px); color: #f0ede8; letter-spacing: 0.02em; line-height: 0.9; }
+body.trend-poork-original .irr-manifesto-fine { color: rgba(240,237,232,0.4); font-size: 12px; }
 body.trend-poork-original .irr-footer { background: #0a0a0a; color: #f0ede8; border-top: 1px solid #1a1a1a; }
 body.trend-poork-original .irr-footer-logo { font-family: 'Bebas Neue', sans-serif; color: #f0ede8; font-size: 40px; letter-spacing: 0.04em; }
 body.trend-poork-original .irr-footer-copy { color: #333; }
@@ -1100,11 +1100,22 @@ body.trend-popping-colors .mode-switch { background: #111; border-color: #ff0055
   .serious-manifesto { grid-template-columns: 1fr; gap: 40px; }
   .drops-grid, .irr-drop-grid { grid-template-columns: 1fr; }
   .serious-hero { padding: 0 24px 60px; }
-  .serious-nav, .irr-nav { padding: 16px 24px; }
+  .serious-awards { display: none; }
+  .serious-nav, .irr-nav {
+    padding: 16px 20px;
+    flex-wrap: wrap; gap: 8px;
+  }
+  .serious-nav-links, .irr-nav-links {
+    display: none;
+  }
   .serious-drops, .serious-clients, .serious-manifesto,
   .irr-drops, .irr-manifesto { padding: 60px 24px; }
   .serious-footer, .irr-footer { flex-direction: column; gap: 24px; text-align: center; }
   .style-dropdown { font-size: 10px; }
+  .irr-hero { padding: 60px 24px 80px; }
+  .irr-headline { font-size: clamp(48px, 13vw, 80px); }
+  .selector-options { flex-direction: column; gap: 16px; }
+  .selector-btn { padding: 28px 24px; }
 }
 </style>
 </head>
@@ -1574,7 +1585,7 @@ let firstIrreverentEntry = true;
 // ============================================
 function transition_poork_original(cb) {
   const ov = document.createElement('div');
-  ov.style.cssText = 'position:fixed;inset:0;z-index:8999;background:#c9a84c;transform:scaleX(0);transform-origin:left;transition:transform 380ms cubic-bezier(0.76,0,0.24,1)';
+  ov.style.cssText = 'position:fixed;inset:0;z-index:8999;background:#9b0000;transform:scaleX(0);transform-origin:left;transition:transform 380ms cubic-bezier(0.76,0,0.24,1)';
   document.body.appendChild(ov);
   requestAnimationFrame(() => requestAnimationFrame(() => {
     ov.style.transform = 'scaleX(1)';
@@ -1737,6 +1748,20 @@ const TRANSITIONS = {
 };
 
 // ============================================
+// PERSISTENCIA — saltar intro si ya eligió modo
+// ============================================
+(function() {
+  const saved = localStorage.getItem('poork-mode');
+  if (saved === 'serious' || saved === 'irreverent') {
+    document.getElementById('error-screen').style.display = 'none';
+    document.getElementById('poork-takeover').style.display = 'none';
+    document.getElementById('selector-screen').style.display = 'none';
+    activateMode(saved);
+    return;
+  }
+})();
+
+// ============================================
 // FASE 1 — ERROR SCREEN
 // ============================================
 const typingTexts = [
@@ -1791,6 +1816,7 @@ function showSelector() {
 }
 
 function setMode(mode) {
+  localStorage.setItem('poork-mode', mode);
   const sel = document.getElementById('selector-screen');
   sel.style.opacity = '0';
   setTimeout(() => { sel.style.display = 'none'; activateMode(mode); }, 400);
@@ -1828,6 +1854,7 @@ function activateMode(mode) {
 
 function switchMode(mode) {
   if (mode === currentMode) return;
+  localStorage.setItem('poork-mode', mode);
   currentMode = mode;
   const main = document.getElementById('main-content');
   const seriousContent = document.getElementById('serious-content');
