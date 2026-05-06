@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AETHERON — Hovercrafts de Lujo. Levita o no llegas.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Unbounded:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: #060810;
+  color: #e8eaf0;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* ── CUSTOM SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #060810; }
+::-webkit-scrollbar-thumb { background: #1a4fff; }
+
+/* ── HEADER ── */
+.ae-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: rgba(6,8,16,0.85); backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(26,79,255,0.15);
+  padding: 0 60px; height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.ae-back {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px; letter-spacing: 0.15em; color: #4a5080;
+  text-decoration: none; transition: color 0.2s;
+}
+.ae-back:hover { color: #1a4fff; }
+
+.ae-logo {
+  display: flex; flex-direction: column; align-items: center;
+}
+.ae-logo-main {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px; font-weight: 800; letter-spacing: 0.3em;
+  color: #ffffff;
+  background: linear-gradient(90deg, #fff 0%, #a0b4ff 50%, #1a4fff 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.ae-logo-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px; letter-spacing: 0.25em; color: #2a3560;
+  text-transform: uppercase; margin-top: 2px;
+}
+
+.ae-nav { display: flex; gap: 36px; list-style: none; }
+.ae-nav a {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; letter-spacing: 0.1em; color: #4a5080;
+  text-decoration: none; transition: color 0.2s;
+}
+.ae-nav a:hover { color: #fff; }
+
+/* ── HERO ── */
+.ae-hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 0 60px 80px;
+  position: relative; overflow: hidden;
+  background: #060810;
+}
+
+/* Fondo atmosférico */
+.ae-hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 60%, rgba(26,79,255,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 30%, rgba(80,120,255,0.06) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 100%, rgba(26,79,255,0.08) 0%, transparent 40%);
+}
+
+/* Grid lines de perspectiva */
+.ae-hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(26,79,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,79,255,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  transform: perspective(800px) rotateX(20deg);
+  transform-origin: bottom center;
+  mask-image: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+}
+
+/* ── RENDER HOVERCRAFT CSS — MODELO PRINCIPAL ── */
+.ae-craft-container {
+  position: absolute;
+  right: 8%; top: 50%; transform: translateY(-50%);
+  width: 500px; height: 320px;
+}
+
+/* El vehículo completo levita */
+@keyframes levitate {
+  0%, 100% { transform: translateY(-50%) translateY(0px); }
+  50% { transform: translateY(-50%) translateY(-18px); }
+}
+.ae-craft-container { animation: levitate 4s ease-in-out infinite; }
+
+/* Cuerpo principal */
+.ae-craft-body {
+  position: absolute; top: 60px; left: 40px; right: 40px; height: 140px;
+  background: linear-gradient(165deg, #1a2040 0%, #0d1230 30%, #080f28 70%, #050a1a 100%);
+  border-radius: 50px 80px 40px 50px;
+  box-shadow:
+    0 0 60px rgba(26,79,255,0.2),
+    0 0 120px rgba(26,79,255,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    inset 0 -1px 0 rgba(26,79,255,0.2);
+}
+
+/* Línea de iluminación superior (canopy edge) */
+.ae-craft-body::before {
+  content: '';
+  position: absolute; top: 20px; left: 40px; right: 80px; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(26,79,255,0.6) 30%, rgba(180,200,255,0.8) 60%, transparent);
+  border-radius: 2px;
+}
+
+/* Panel de cabina */
+.ae-craft-canopy {
+  position: absolute; top: 30px; left: 80px; width: 200px; height: 70px;
+  background: linear-gradient(160deg, rgba(26,79,255,0.15) 0%, rgba(10,30,100,0.3) 100%);
+  border-radius: 30px 60px 20px 20px;
+  border: 1px solid rgba(26,79,255,0.3);
+  box-shadow: 0 0 30px rgba(26,79,255,0.15), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+/* Reflejo de cabina */
+.ae-craft-canopy::after {
+  content: '';
+  position: absolute; top: 10px; left: 20px; width: 80px; height: 20px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.06), transparent);
+  border-radius: 10px;
+}
+
+/* Borde/skirt de levitación (parte inferior) */
+.ae-craft-skirt {
+  position: absolute; bottom: 30px; left: 20px; right: 20px; height: 50px;
+  background: linear-gradient(180deg, #080f28 0%, #0d1640 100%);
+  border-radius: 20px 20px 50px 50px;
+  border: 1px solid rgba(26,79,255,0.2);
+}
+
+/* Motor trasero */
+.ae-craft-engine-r {
+  position: absolute; top: 100px; right: 20px; width: 60px; height: 80px;
+  background: linear-gradient(180deg, #0d1640 0%, #060a20 100%);
+  border-radius: 8px 20px 20px 8px;
+  border: 1px solid rgba(26,79,255,0.15);
+}
+.ae-craft-engine-l {
+  position: absolute; top: 100px; left: 20px; width: 40px; height: 60px;
+  background: linear-gradient(180deg, #0d1640 0%, #060a20 100%);
+  border-radius: 20px 8px 8px 20px;
+  border: 1px solid rgba(26,79,255,0.1);
+}
+
+/* Anillos de propulsión */
+.ae-thruster {
+  position: absolute; bottom: -10px; right: 30px; width: 40px; height: 20px;
+  border-radius: 50%; border: 2px solid rgba(26,79,255,0.6);
+  box-shadow: 0 0 20px rgba(26,79,255,0.4), inset 0 0 10px rgba(26,79,255,0.2);
+  animation: thrustpulse 1.5s ease-in-out infinite;
+}
+.ae-thruster-2 {
+  position: absolute; bottom: -10px; right: 80px; width: 30px; height: 16px;
+  border-radius: 50%; border: 1px solid rgba(26,79,255,0.4);
+  box-shadow: 0 0 15px rgba(26,79,255,0.3);
+  animation: thrustpulse 1.5s ease-in-out infinite 0.3s;
+}
+@keyframes thrustpulse {
+  0%, 100% { opacity: 0.6; box-shadow: 0 0 15px rgba(26,79,255,0.3); }
+  50% { opacity: 1; box-shadow: 0 0 30px rgba(26,79,255,0.6), 0 0 60px rgba(26,79,255,0.2); }
+}
+
+/* Halo de levitación (efecto suelo) */
+.ae-craft-halo {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 420px; height: 40px;
+  background: radial-gradient(ellipse, rgba(26,79,255,0.3) 0%, rgba(26,79,255,0.1) 40%, transparent 70%);
+  filter: blur(8px);
+  animation: halopulse 4s ease-in-out infinite;
+}
+@keyframes halopulse {
+  0%, 100% { opacity: 0.6; width: 380px; }
+  50% { opacity: 1; width: 440px; }
+}
+
+/* Partículas de levitación */
+.ae-particle {
+  position: absolute; border-radius: 50%;
+  background: rgba(26,79,255,0.8);
+  animation: particlefloat linear infinite;
+}
+@keyframes particlefloat {
+  0% { transform: translateY(0) translateX(0); opacity: 1; }
+  100% { transform: translateY(-80px) translateX(var(--dx)); opacity: 0; }
+}
+
+.ae-hero-inner {
+  position: relative; z-index: 2;
+  max-width: 600px;
+}
+
+.ae-hero-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: #1a4fff; margin-bottom: 24px; display: block;
+}
+
+.ae-hero-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(44px, 6vw, 84px); font-weight: 800;
+  line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 24px;
+  color: #fff;
+}
+.ae-hero-title .accent {
+  display: block;
+  background: linear-gradient(90deg, #1a4fff 0%, #4a80ff 50%, #8ab0ff 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.ae-hero-body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px; color: #4a5080; line-height: 1.7; margin-bottom: 40px;
+  max-width: 480px; font-weight: 300;
+}
+
+.ae-hero-cta-row { display: flex; gap: 16px; align-items: center; }
+
+.ae-cta-primary {
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+  background: #1a4fff; color: #fff;
+  padding: 16px 36px; border: none; cursor: pointer;
+  transition: all 0.2s;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+.ae-cta-primary:hover { background: #2a5fff; box-shadow: 0 0 40px rgba(26,79,255,0.4); }
+
+.ae-cta-secondary {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px; letter-spacing: 0.2em; color: #4a5080;
+  background: none; border: none; cursor: pointer;
+  padding: 16px 0; border-bottom: 1px solid #1a2040;
+  transition: color 0.2s, border-color 0.2s;
+}
+.ae-cta-secondary:hover { color: #fff; border-color: #4a5080; }
+
+/* ── BANDA SPECS ── */
+.ae-specs-bar {
+  background: rgba(26,79,255,0.06);
+  border-top: 1px solid rgba(26,79,255,0.12);
+  border-bottom: 1px solid rgba(26,79,255,0.12);
+  padding: 28px 60px;
+  display: flex; gap: 0;
+}
+.ae-spec-item {
+  flex: 1; padding: 0 40px;
+  border-right: 1px solid rgba(26,79,255,0.1);
+  text-align: center;
+}
+.ae-spec-item:first-child { padding-left: 0; }
+.ae-spec-item:last-child { border-right: none; padding-right: 0; }
+.ae-spec-value {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 4px;
+}
+.ae-spec-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; letter-spacing: 0.25em; color: #2a3560; text-transform: uppercase;
+}
+
+/* ── SECCIÓN MODELOS ── */
+.ae-section { padding: 100px 60px; }
+
+.ae-section-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: #1a4fff; margin-bottom: 16px; display: block;
+}
+
+.ae-section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 4vw, 48px); font-weight: 800;
+  color: #fff; margin-bottom: 60px; line-height: 1.1;
+}
+
+/* ── MODELOS GRID ── */
+.ae-models-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: rgba(26,79,255,0.1);
+  border: 1px solid rgba(26,79,255,0.1);
+}
+
+.ae-model-card {
+  background: #060810;
+  padding: 48px 40px;
+  position: relative; overflow: hidden;
+  transition: background 0.3s;
+}
+.ae-model-card:hover { background: #080e1c; }
+
+.ae-model-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+}
+.ae-model-card.model-urban::before { background: linear-gradient(90deg, #1a4fff, #4a80ff); }
+.ae-model-card.model-executive::before { background: linear-gradient(90deg, #a0b4ff, #fff); }
+.ae-model-card.model-sport::before { background: linear-gradient(90deg, #ff4a1a, #ff8a50); }
+
+/* Render CSS simplificado por modelo */
+.ae-model-render {
+  height: 160px; position: relative; margin-bottom: 32px;
+  display: flex; align-items: flex-end; justify-content: center;
+}
+
+/* Craft Urban — formas angulares, compactas */
+.craft-urban {
+  width: 220px; height: 80px; position: relative;
+}
+.craft-urban .hull {
+  position: absolute; bottom: 20px; left: 0; right: 0; height: 50px;
+  background: linear-gradient(160deg, #1a2a50 0%, #0d1830 100%);
+  border-radius: 20px 40px 16px 20px;
+  border: 1px solid rgba(26,79,255,0.2);
+  box-shadow: 0 0 30px rgba(26,79,255,0.15);
+}
+.craft-urban .strip {
+  position: absolute; bottom: 38px; left: 20px; right: 40px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(26,79,255,0.8), transparent);
+}
+.craft-urban .glow {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 180px; height: 25px;
+  background: radial-gradient(ellipse, rgba(26,79,255,0.4) 0%, transparent 70%);
+  filter: blur(4px);
+  animation: halopulse 3s ease-in-out infinite;
+}
+
+/* Craft Executive — berlina larga, elegante */
+.craft-executive {
+  width: 280px; height: 90px; position: relative;
+}
+.craft-executive .hull {
+  position: absolute; bottom: 20px; left: 0; right: 0; height: 60px;
+  background: linear-gradient(160deg, #1a1e30 0%, #0d1020 100%);
+  border-radius: 30px 60px 20px 30px;
+  border: 1px solid rgba(160,180,255,0.15);
+  box-shadow: 0 0 40px rgba(160,180,255,0.08);
+}
+.craft-executive .canopy {
+  position: absolute; bottom: 50px; left: 50px; width: 140px; height: 40px;
+  background: rgba(26,50,120,0.2);
+  border-radius: 20px 40px 10px 10px;
+  border: 1px solid rgba(160,180,255,0.1);
+}
+.craft-executive .strip {
+  position: absolute; bottom: 48px; left: 30px; right: 60px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200,220,255,0.5), transparent);
+}
+.craft-executive .glow {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 240px; height: 24px;
+  background: radial-gradient(ellipse, rgba(160,180,255,0.25) 0%, transparent 70%);
+  filter: blur(6px);
+  animation: halopulse 3s ease-in-out infinite 0.5s;
+}
+
+/* Craft Sport — supersónico, afilado */
+.craft-sport {
+  width: 300px; height: 80px; position: relative;
+}
+.craft-sport .hull {
+  position: absolute; bottom: 16px; left: 0; right: 0; height: 45px;
+  background: linear-gradient(160deg, #2a0808 0%, #1a0505 100%);
+  border-radius: 4px 80px 20px 4px;
+  border: 1px solid rgba(255,80,30,0.2);
+  box-shadow: 0 0 40px rgba(255,80,30,0.12);
+}
+.craft-sport .wing-r {
+  position: absolute; bottom: 30px; right: -10px; width: 60px; height: 20px;
+  background: linear-gradient(90deg, #1a0505, #2a0808);
+  border-radius: 0 4px 30px 0;
+  border-right: 1px solid rgba(255,80,30,0.2);
+  border-top: 1px solid rgba(255,80,30,0.1);
+}
+.craft-sport .strip {
+  position: absolute; bottom: 32px; left: 20px; right: 80px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,80,30,0.8), transparent);
+}
+.craft-sport .glow {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 220px; height: 20px;
+  background: radial-gradient(ellipse, rgba(255,80,30,0.35) 0%, transparent 70%);
+  filter: blur(5px);
+  animation: halopulse 2s ease-in-out infinite;
+}
+.craft-sport .exhaust {
+  position: absolute; bottom: 22px; left: -20px; width: 30px; height: 15px;
+  background: radial-gradient(ellipse at left, rgba(255,120,30,0.4) 0%, transparent 80%);
+  filter: blur(3px);
+  animation: exhaustflame 0.8s ease-in-out infinite alternate;
+}
+@keyframes exhaustflame {
+  0% { opacity: 0.6; width: 25px; }
+  100% { opacity: 1; width: 40px; }
+}
+
+.ae-model-badge {
+  position: absolute; top: 24px; right: 24px;
+  font-family: 'Space Mono', monospace;
+  font-size: 8px; letter-spacing: 0.2em; color: #1a4fff;
+  background: rgba(26,79,255,0.08); border: 1px solid rgba(26,79,255,0.15);
+  padding: 4px 10px;
+}
+.ae-model-card.model-executive .ae-model-badge { color: #a0b4ff; background: rgba(160,180,255,0.06); border-color: rgba(160,180,255,0.12); }
+.ae-model-card.model-sport .ae-model-badge { color: #ff6a3a; background: rgba(255,80,30,0.08); border-color: rgba(255,80,30,0.15); }
+
+.ae-model-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px; font-weight: 800; color: #fff; margin-bottom: 4px; letter-spacing: -0.01em;
+}
+.ae-model-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; color: #2a3560; letter-spacing: 0.2em; text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.ae-model-desc {
+  font-size: 13px; color: #3a4570; line-height: 1.7; margin-bottom: 28px; font-weight: 300;
+}
+
+.ae-model-specs {
+  display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px;
+}
+.ae-model-spec-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  border-bottom: 1px solid rgba(26,79,255,0.06); padding-bottom: 8px;
+}
+.ae-model-spec-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; color: #2a3560; letter-spacing: 0.15em;
+}
+.ae-model-spec-value {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px; font-weight: 700; color: #8ab0ff;
+}
+.ae-model-card.model-executive .ae-model-spec-value { color: #c0d4ff; }
+.ae-model-card.model-sport .ae-model-spec-value { color: #ff8a50; }
+
+.ae-model-price {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 6px;
+}
+.ae-model-price-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; color: #2a3560; letter-spacing: 0.1em;
+}
+
+.ae-model-btn {
+  display: block; width: 100%; margin-top: 20px;
+  background: transparent; color: #1a4fff;
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 13px 20px; border: 1px solid rgba(26,79,255,0.3); cursor: pointer;
+  transition: all 0.2s; text-decoration: none; text-align: center;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+.ae-model-btn:hover { background: rgba(26,79,255,0.1); border-color: #1a4fff; }
+.ae-model-card.model-executive .ae-model-btn { color: #a0b4ff; border-color: rgba(160,180,255,0.2); }
+.ae-model-card.model-executive .ae-model-btn:hover { background: rgba(160,180,255,0.06); border-color: #a0b4ff; }
+.ae-model-card.model-sport .ae-model-btn { color: #ff6a3a; border-color: rgba(255,80,30,0.2); }
+.ae-model-card.model-sport .ae-model-btn:hover { background: rgba(255,80,30,0.08); border-color: #ff6a3a; }
+
+/* ── SECCIÓN TECNOLOGÍA ── */
+.ae-tech {
+  padding: 100px 60px;
+  background: #04060e;
+  border-top: 1px solid rgba(26,79,255,0.08);
+  border-bottom: 1px solid rgba(26,79,255,0.08);
+}
+
+.ae-tech-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: start;
+}
+
+.ae-tech-statement {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(24px, 3vw, 40px); font-weight: 800;
+  color: #fff; line-height: 1.1; margin-bottom: 24px;
+}
+.ae-tech-statement em { font-style: normal; color: #1a4fff; }
+
+.ae-tech-body {
+  font-size: 14px; color: #3a4570; line-height: 1.8; font-weight: 300;
+}
+
+.ae-features-list { display: flex; flex-direction: column; gap: 0; }
+
+.ae-feature {
+  padding: 24px 0; border-bottom: 1px solid rgba(26,79,255,0.08);
+  display: grid; grid-template-columns: 40px 1fr;
+  gap: 20px; align-items: start;
+}
+
+.ae-feature-icon {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(26,79,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Mono', monospace; font-size: 11px; color: #1a4fff;
+}
+
+.ae-feature-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 6px;
+}
+.ae-feature-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; color: #3a4570; line-height: 1.6; font-weight: 300;
+}
+
+/* ── MANIFIESTO ── */
+.ae-manifesto {
+  padding: 120px 60px;
+  background: #060810;
+  position: relative; overflow: hidden;
+}
+
+.ae-manifesto::before {
+  content: 'AETHERON';
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  font-family: 'Syne', sans-serif; font-weight: 900;
+  font-size: clamp(80px, 15vw, 200px); color: rgba(26,79,255,0.03);
+  white-space: nowrap; pointer-events: none;
+}
+
+.ae-manifesto-quote {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 4vw, 56px); font-weight: 800;
+  color: #fff; line-height: 1.1; max-width: 800px;
+  position: relative; z-index: 1; margin-bottom: 40px;
+}
+.ae-manifesto-quote em { font-style: normal; color: #1a4fff; }
+
+.ae-manifesto-fine {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px; color: #2a3560; line-height: 1.9;
+  max-width: 560px; letter-spacing: 0.03em; position: relative; z-index: 1;
+}
+
+/* ── CONFIGURADOR / CTA FINAL ── */
+.ae-config {
+  background: #1a4fff;
+  padding: 80px 60px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+
+.ae-config-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(24px, 3vw, 40px); font-weight: 800;
+  color: #fff; line-height: 1.1; margin-bottom: 16px;
+}
+.ae-config-body {
+  font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; font-weight: 300;
+}
+
+.ae-config-options { display: flex; flex-direction: column; gap: 16px; }
+
+.ae-config-item {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 20px 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  cursor: pointer; transition: all 0.2s;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+.ae-config-item:hover { background: rgba(255,255,255,0.14); }
+
+.ae-config-item-name {
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; color: #fff;
+}
+.ae-config-item-price {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.7);
+}
+
+/* ── FOOTER ── */
+.ae-footer {
+  background: #030508; padding: 60px;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  border-top: 1px solid rgba(26,79,255,0.1);
+}
+
+.ae-footer-logo {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: 36px; letter-spacing: 0.15em;
+  background: linear-gradient(90deg, #fff 0%, #4a80ff 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.ae-footer-copy {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; color: #1a2040; letter-spacing: 0.1em;
+  text-align: right; line-height: 2.2;
+}
+.ae-footer-copy a { color: #1a2040; text-decoration: none; }
+.ae-footer-copy a:hover { color: #1a4fff; }
+
+@media (max-width: 768px) {
+  .ae-header { padding: 0 24px; }
+  .ae-nav { display: none; }
+  .ae-hero { padding: 100px 24px 60px; }
+  .ae-craft-container { display: none; }
+  .ae-specs-bar { padding: 24px; flex-wrap: wrap; gap: 24px; }
+  .ae-spec-item { border-right: none; text-align: left; padding: 0; }
+  .ae-section { padding: 60px 24px; }
+  .ae-models-grid { grid-template-columns: 1fr; }
+  .ae-tech { padding: 60px 24px; }
+  .ae-tech-grid { grid-template-columns: 1fr; gap: 40px; }
+  .ae-manifesto { padding: 80px 24px; }
+  .ae-config { grid-template-columns: 1fr; gap: 40px; padding: 60px 24px; }
+  .ae-footer { flex-direction: column; gap: 24px; padding: 40px 24px; }
+  .ae-footer-copy { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<!-- PARTÍCULAS CSS animadas -->
+<div style="position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;">
+  <div class="ae-particle" style="width:2px;height:2px;left:15%;bottom:20%;--dx:20px;animation-duration:6s;animation-delay:0s;"></div>
+  <div class="ae-particle" style="width:1px;height:1px;left:25%;bottom:10%;--dx:-15px;animation-duration:8s;animation-delay:2s;"></div>
+  <div class="ae-particle" style="width:2px;height:2px;left:70%;bottom:15%;--dx:25px;animation-duration:7s;animation-delay:1s;"></div>
+  <div class="ae-particle" style="width:1px;height:1px;left:80%;bottom:5%;--dx:-20px;animation-duration:9s;animation-delay:3s;"></div>
+  <div class="ae-particle" style="width:3px;height:3px;left:45%;bottom:25%;--dx:10px;animation-duration:5s;animation-delay:1.5s;"></div>
+</div>
+
+<!-- HEADER -->
+<header class="ae-header">
+  <a href="../index.html" class="ae-back">← poork.inc</a>
+  <div class="ae-logo">
+    <div class="ae-logo-main">AETHERON</div>
+    <div class="ae-logo-sub">hovercrafts de lujo · est. 2025</div>
+  </div>
+  <nav><ul class="ae-nav">
+    <li><a href="#modelos">Modelos</a></li>
+    <li><a href="#tecnologia">Tecnología</a></li>
+    <li><a href="#config">Configurar</a></li>
+  </ul></nav>
+</header>
+
+<!-- HERO -->
+<section class="ae-hero">
+  <div class="ae-hero-bg"></div>
+  <div class="ae-hero-grid"></div>
+
+  <!-- Render del hovercraft principal -->
+  <div class="ae-craft-container">
+    <div class="ae-craft-body">
+      <div class="ae-craft-canopy"></div>
+      <div class="ae-craft-engine-r">
+        <div class="ae-thruster"></div>
+        <div class="ae-thruster-2"></div>
+      </div>
+      <div class="ae-craft-engine-l"></div>
+    </div>
+    <div class="ae-craft-skirt"></div>
+    <div class="ae-craft-halo"></div>
+  </div>
+
+  <div class="ae-hero-inner">
+    <span class="ae-hero-eyebrow">Hovercrafts de lujo · Preventa 2026</span>
+    <h1 class="ae-hero-title">
+      El suelo<br>es para<br>
+      <span class="accent">los demás.</span>
+    </h1>
+    <p class="ae-hero-body">
+      AETHERON diseña vehículos de levitación de uso diario para personas para quienes "diario" significa algo diferente que para el resto. Rolls-Royce no flotaba. Nosotros sí.
+    </p>
+    <div class="ae-hero-cta-row">
+      <button class="ae-cta-primary" onclick="document.getElementById('modelos').scrollIntoView({behavior:'smooth'})">Ver los modelos</button>
+      <button class="ae-cta-secondary" onclick="document.getElementById('config').scrollIntoView({behavior:'smooth'})">Configurar el tuyo →</button>
+    </div>
+  </div>
+</section>
+
+<!-- SPECS BAR -->
+<div class="ae-specs-bar">
+  <div class="ae-spec-item">
+    <div class="ae-spec-value">0–180</div>
+    <div class="ae-spec-label">km/h en 3.2 seg (sport)</div>
+  </div>
+  <div class="ae-spec-item">
+    <div class="ae-spec-value">8m</div>
+    <div class="ae-spec-label">Altura máx. de crucero</div>
+  </div>
+  <div class="ae-spec-item">
+    <div class="ae-spec-value">340km</div>
+    <div class="ae-spec-label">Autonomía por carga</div>
+  </div>
+  <div class="ae-spec-item">
+    <div class="ae-spec-value">12dB</div>
+    <div class="ae-spec-label">Nivel de ruido interior</div>
+  </div>
+  <div class="ae-spec-item">
+    <div class="ae-spec-value">∞</div>
+    <div class="ae-spec-label">Peajes evitados</div>
+  </div>
+</div>
+
+<!-- MODELOS -->
+<section class="ae-section" id="modelos">
+  <span class="ae-section-eyebrow">Gama 2026</span>
+  <h2 class="ae-section-title">Tres maneras de no tocar el suelo.</h2>
+
+  <div class="ae-models-grid">
+
+    <!-- MODELO 1: URBAN -->
+    <div class="ae-model-card model-urban">
+      <div class="ae-model-badge">URBAN · ENTRY LEVEL</div>
+      <div class="ae-model-render">
+        <div class="craft-urban">
+          <div class="hull"></div>
+          <div class="strip"></div>
+          <div class="glow"></div>
+        </div>
+      </div>
+      <div class="ae-model-name">AETHERON ONE</div>
+      <div class="ae-model-sub">Hovercraft urbano · Monoplaza + 1</div>
+      <div class="ae-model-desc">
+        El "entry level" del lujo flotante. Para quienes ya no soportan el metro pero tampoco quieren manejar por Las Condes. Diseñado para la ciudad real, no para la ciudad que imaginamos cuando hablamos de ciudad.
+      </div>
+      <div class="ae-model-specs">
+        <div class="ae-model-spec-row">
+          <span class="ae-model-spec-label">POTENCIA</span>
+          <span class="ae-model-spec-value">320 kW</span>
+        </div>
+        <div class="ae-model-spec-row">
+          <span class="ae-model-spec-label">CRUCERO MÁX.</span>
+          <span class="ae-model-spec-value">120 km/h</span>
+        </div>
+        <div class="ae-model-spec-row">
+          <span class="ae-model-spec-label">AUTONOMÍA</span>
+          <span class="ae-model-spec-value">280 km</span>
+        </div>
+        <div class="ae-model-spec-row">
+          <span class="ae-model-spec-label">ALTURA CRUCERO</span>
+          <span class="ae-model-spec-value">4 m</span>
+        </div>
+        <div class="ae-model-spec-row">
+          <span class="ae-model-spec-label">CARGA</span>
+          <span class="ae-model-spec-value">45 min (AC fast)</span>
+        </div>
+      </div>
+      <div class="ae-model-price">$89.900.000</div>
+      <div class="ae-model-price-sub">Precio base en CLP · No incluye seguro de levitación · Sí incluye los vecinos mirando</div>
+      <a href="#config" class="ae-model-btn">Configurar este modelo →</a>
+    </div>
+
+    <!-- MODELO 2: EXECUTIVE -->
+    <div class="ae-model-card model-executive">
+      <div class="ae-model-badge">EXECUTIVE · SIGNATURE</div>
+      <div class="ae-model-render">
+        <div class="craft-executive">
+          <div class="hull"></div>
+          <div class="canopy"></div>
+          <div class="strip"></div>
+          <div class="glow"></div>
+        </div>
+      </div>
+      <div class="ae-model-name">AETHERON VEIL</div>
+      <div class="ae-model-sub">Berlina de representación · 4 pasajeros</div>
+      <div class="ae-model-desc">
+        Para reuniones donde llegar en taxi ya no comunica lo que necesitas comunicar. Interior con cuero Nappa de origen europeo, cristales de privacidad electrocrómicos, y silencio que cuesta dinero. Mucho dinero.
+      </div>
+      <div class="ae-model-specs">
+        <div class="ae-model-spec-row">
+          <span class="ae-model-spec-label">POTENCIA</span>
+          <span class="ae-model-spec-value">520 kW</span>
+        </div>
+        <div class="ae-model-spec-row">
+          <span class="ae-model-spec-label">CRUCERO MÁX.</span>
+          <span class="ae-model-spec-value">160 km/h</span>
+        </div>
+        <div class="ae-model-spec-row">
+          <span class="ae-model-spec-label">AUTONOMÍA</span>
+          <span class="ae-model-spec-value">340 km</span>
+        </div>
+        <div class="ae-model-spec-row">
+          <span class="ae-model-spec-label">ALTURA CRUCERO</span>
+          <span class="ae-model-spec-value">6 m</span>
+        </div>
+        <div class="ae-model-spec-row">
+          <span class="ae-model-spec-label">INTERIOR</span>
+          <span class="ae-model-spec-value">Nappa + Alcántara</span>
+        </div>
+      </div>
+      <div class="ae-model-price">$218.500.000</div>
+      <div class="ae-model-price-sub">Precio base en CLP · Cristales de privacidad incluidos · El chofer no</div>
+      <a href="#config" class="ae-model-btn">Configurar este modelo →</a>
+    </div>
+
+    <!-- MODELO 3: SPORT -->
+    <div class="ae-model-card model-sport">
+      <div class="ae-model-badge">SPORT · LIMITADO</div>
+      <div class="ae-model-render">
+        <div class="craft-sport">
+          <div class="hull"></div>
+          <div class="wing-r"></div>
+          <div class="strip"></div>
+          <div class="glow"></div>
+          <div class="exhaust"></div>
+        </div>
+      </div>
+      <div class="ae-model-name">AETHERON APEX</div>
+      <div class="ae-model-sub">Supersónico biplaza · 80 unidades</div>
+      <div class="ae-model-desc">
+        El Apex no transporta. Performa. De 0 a 180 km/h en 3.2 segundos a 5 metros del suelo. Diseñado para quienes tienen casco en casa sin haber tenido moto nunca. Producción limitada a 80 unidades anuales.
+      </div>
+      <div class="ae-model-specs">
+        <div class="ae-model-spec-row">
+          <span class="ae-model-spec-label">POTENCIA</span>
+          <span class="ae-model-spec-value">1.200 kW</span>
+        </div>
+        <div class="ae-model-spec-row">
+          <span class="ae-model-spec-label">VELOCIDAD MÁX.</span>
+          <span class="ae-model-spec-value">380 km/h</span>
+        </div>
+        <div class="ae-model-spec-row">
+          <span class="ae-model-spec-label">0–180 km/h</span>
+          <span class="ae-model-spec-value">3.2 seg</span>
+        </div>
+        <div class="ae-model-spec-row">
+          <span class="ae-model-spec-label">ALTURA MÁX.</span>
+          <span class="ae-model-spec-value">8 m</span>
+        </div>
+        <div class="ae-model-spec-row">
+          <span class="ae-model-spec-label">PRODUCCIÓN</span>
+          <span class="ae-model-spec-value">80 uds/año</span>
+        </div>
+      </div>
+      <div class="ae-model-price">$590.000.000</div>
+      <div class="ae-model-price-sub">Precio base en CLP · Lista de espera: 18 meses · Garantía de ego incluida</div>
+      <a href="#config" class="ae-model-btn" style="border-color:rgba(255,80,30,0.2);color:#ff6a3a;">Solicitar reserva →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- TECNOLOGÍA -->
+<section class="ae-tech" id="tecnologia">
+  <div class="ae-tech-grid">
+    <div>
+      <span class="ae-section-eyebrow">Propulsión AETHERON</span>
+      <div class="ae-tech-statement">
+        No es magia.<br>Es <em>física</em> cara.<br>Muy cara.
+      </div>
+      <div class="ae-tech-body">
+        El sistema de levitación AETHERON utiliza una combinación de superconductores magnéticos de temperatura media, cámaras de presión vectorial y el mismo principio que explica por qué los imanes del refrigerador se rechazan — pero con $80 millones de I+D encima y sin el refrigerador.
+      </div>
+    </div>
+    <div class="ae-features-list">
+      <div class="ae-feature">
+        <div class="ae-feature-icon">▲</div>
+        <div>
+          <div class="ae-feature-title">Levitación MagPress™</div>
+          <div class="ae-feature-desc">Sistema de presión magnética de campo variable. No requiere pista, no requiere carretera, requiere un monto de confianza bancaria que no vamos a detallar aquí.</div>
+        </div>
+      </div>
+      <div class="ae-feature">
+        <div class="ae-feature-icon">○</div>
+        <div>
+          <div class="ae-feature-title">Cápsula de silencio activo</div>
+          <div class="ae-feature-desc">12 dB de ruido interior en crucero. Más silencioso que su departamento cuando el vecino del cuarto no está ensayando batería. Interior acústicamente separado del mundo exterior.</div>
+        </div>
+      </div>
+      <div class="ae-feature">
+        <div class="ae-feature-icon">◈</div>
+        <div>
+          <div class="ae-feature-title">Piloto AETHERON OS</div>
+          <div class="ae-feature-desc">IA de conducción autónoma nivel 4. Puede llevarte a reuniones mientras revisas correos o finges revisar correos. Actualizable over-the-air. Aprende de tus rutas. No aprende de tus errores de decisión.</div>
+        </div>
+      </div>
+      <div class="ae-feature">
+        <div class="ae-feature-icon">◻</div>
+        <div>
+          <div class="ae-feature-title">Charging pad de piso</div>
+          <div class="ae-feature-desc">Recarga inductiva mientras levita a 30cm del pad. No necesita cable. El pad es adicional. El instalador del pad también. Todo es adicional. Lo sabe desde que abrió esta página.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFIESTO -->
+<section class="ae-manifesto">
+  <div class="ae-manifesto-quote">
+    El taxi volador chino<br>existe. El nuestro<br>cuesta <em>lo que merece</em><br>costar.
+  </div>
+  <div class="ae-manifesto-fine">
+    AETHERON no compite con los taxis aéreos de consumo masivo. Competimos con la idea de que la movilidad premium debería verse así. El mercado de los autos de lujo entendió hace 80 años que no vendes transporte, vendes la versión de ti mismo que llega en ese transporte. Nosotros llegamos más alto. Literalmente.<br><br>
+    Un drop de POORK INC. · Marca conceptual · No es un vehículo real · Aún.
+  </div>
+</section>
+
+<!-- CONFIGURADOR -->
+<section class="ae-config" id="config">
+  <div>
+    <div class="ae-config-title">Configura tu AETHERON.<br>O simplemente míralo.</div>
+    <div class="ae-config-body">
+      Cada unidad es configurada a medida. Elige tu modelo, color de levitación (sí, el halo tiene 12 tonos), interior y paquete de tecnología. El tiempo de espera depende del modelo. El dinero depende de ti.<br><br>
+      Citas disponibles en Santiago Centro y Las Condes. No vamos a Maipú, no por nada, simplemente no hemos llegado ahí todavía.
+    </div>
+  </div>
+  <div class="ae-config-options">
+    <div class="ae-config-item">
+      <div class="ae-config-item-name">AETHERON ONE</div>
+      <div class="ae-config-item-price">desde $89.900.000</div>
+    </div>
+    <div class="ae-config-item">
+      <div class="ae-config-item-name">AETHERON VEIL</div>
+      <div class="ae-config-item-price">desde $218.500.000</div>
+    </div>
+    <div class="ae-config-item">
+      <div class="ae-config-item-name">AETHERON APEX</div>
+      <div class="ae-config-item-price">desde $590.000.000</div>
+    </div>
+    <div class="ae-config-item" style="background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.3);">
+      <div class="ae-config-item-name">Reservar cita →</div>
+      <div class="ae-config-item-price" style="color:rgba(255,255,255,0.9);">Santiago</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="ae-footer">
+  <div class="ae-footer-logo">AETHERON</div>
+  <div class="ae-footer-copy">
+    Un drop de <a href="../index.html">POORK INC.</a> · 2026<br>
+    Vehículos de levitación conceptuales para un mercado que aún no existe formalmente.<br>
+    No es un vehículo homologado. No es consejo de inversión. Sí es ambición con buen diseño.<br><br>
+    © AETHERON / POORK INC. 2026 · Reservas sujetas a disponibilidad ficcional
+  </div>
+</footer>
+
+</body>
+</html>

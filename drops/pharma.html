@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXAR LABS — Farmacéutica para Malestares Contemporáneos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: #f8f8f6;
+  color: #1a1a1a;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* ── HEADER ── */
+.nx-header {
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0dc;
+  padding: 0 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px;
+  position: sticky; top: 0; z-index: 100;
+}
+
+.nx-back {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px; letter-spacing: 0.15em; color: #888;
+  text-decoration: none; transition: color 0.2s;
+}
+.nx-back:hover { color: #1a4b8c; }
+
+.nx-logo {
+  display: flex; align-items: baseline; gap: 10px;
+}
+.nx-logo-main {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px; font-weight: 700; letter-spacing: 0.1em;
+  color: #1a4b8c;
+}
+.nx-logo-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; letter-spacing: 0.2em; color: #aaa;
+  text-transform: uppercase;
+}
+
+.nx-nav {
+  display: flex; gap: 32px; list-style: none;
+}
+.nx-nav a {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; letter-spacing: 0.1em; color: #555;
+  text-decoration: none; transition: color 0.2s;
+}
+.nx-nav a:hover { color: #1a4b8c; }
+
+/* ── HERO / BANNER ── */
+.nx-hero {
+  background: #1a4b8c;
+  color: #ffffff;
+  padding: 80px 60px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+  position: relative; overflow: hidden;
+}
+.nx-hero::before {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 50%; height: 100%;
+  background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.04) 100%);
+}
+.nx-hero-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: rgba(255,255,255,0.4); margin-bottom: 20px;
+}
+.nx-hero-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(32px, 4vw, 56px); font-weight: 700;
+  line-height: 1.1; margin-bottom: 20px;
+}
+.nx-hero-title em {
+  font-style: italic; font-weight: 300;
+  color: rgba(255,255,255,0.6);
+}
+.nx-hero-body {
+  font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7;
+  max-width: 420px;
+}
+
+/* Packaging render CSS */
+.nx-package-render {
+  display: flex; justify-content: center; align-items: center;
+  position: relative; z-index: 1;
+}
+.nx-box {
+  width: 200px; height: 260px;
+  background: linear-gradient(160deg, #ffffff 0%, #e8f0f8 100%);
+  border-radius: 4px;
+  box-shadow: 20px 20px 60px rgba(0,0,0,0.3), -4px -4px 20px rgba(255,255,255,0.1);
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 20px 16px;
+  position: relative; transform: rotate(-5deg);
+}
+.nx-box-inner {
+  border: 1px solid #1a4b8c;
+  position: absolute; inset: 8px; border-radius: 2px;
+  pointer-events: none;
+}
+.nx-box-brand {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px; letter-spacing: 0.3em; color: #1a4b8c;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.nx-box-drug {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; font-weight: 700; color: #1a4b8c; line-height: 1.2;
+}
+.nx-box-mg {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px; color: #1a4b8c; opacity: 0.6;
+}
+.nx-box-strip {
+  height: 40px; background: #1a4b8c;
+  margin: 0 -16px -20px;
+  border-radius: 0 0 4px 4px;
+  display: flex; align-items: center; padding: 0 16px;
+}
+.nx-box-strip-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px; letter-spacing: 0.2em; color: rgba(255,255,255,0.7);
+}
+
+/* Segundo box flotante */
+.nx-box-2 {
+  width: 160px; height: 200px;
+  background: linear-gradient(160deg, #fff8f0 0%, #f8e8e0 100%);
+  border-radius: 4px;
+  box-shadow: 12px 12px 40px rgba(0,0,0,0.2);
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 16px 14px;
+  position: absolute; right: -20px; top: 40px;
+  transform: rotate(4deg);
+}
+.nx-box-2-brand { font-family: 'Space Mono', monospace; font-size: 6px; letter-spacing: 0.3em; color: #8c3a1a; text-transform: uppercase; }
+.nx-box-2-drug { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 700; color: #8c3a1a; line-height: 1.2; }
+.nx-box-2-strip { height: 32px; background: #8c3a1a; margin: 0 -14px -16px; border-radius: 0 0 4px 4px; }
+
+/* ── SECCIÓN PRODUCTOS ── */
+.nx-section { padding: 80px 60px; }
+
+.nx-section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase; color: #aaa;
+  margin-bottom: 48px;
+  border-bottom: 1px solid #e8e8e4; padding-bottom: 16px;
+}
+
+/* Producto destacado */
+.nx-product-hero {
+  background: #ffffff;
+  border: 1px solid #e0e0dc;
+  padding: 0;
+  margin-bottom: 1px;
+  display: grid; grid-template-columns: 1fr 2fr 1fr;
+  overflow: hidden;
+}
+
+.nx-product-color-bar {
+  width: 6px;
+  background: #1a4b8c;
+  flex-shrink: 0;
+}
+
+.nx-product-main { padding: 48px 40px; }
+
+.nx-drug-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(22px, 3vw, 36px); font-weight: 700;
+  color: #1a1a1a; letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.nx-drug-name .intl-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; font-weight: 300; color: #888;
+  display: block; letter-spacing: 0.05em; margin-top: 2px;
+}
+.nx-drug-dosage {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px; color: #1a4b8c; letter-spacing: 0.15em;
+  margin-bottom: 20px; display: block;
+}
+.nx-drug-indication {
+  font-size: 14px; color: #444; line-height: 1.6; margin-bottom: 24px;
+  font-style: italic; border-left: 3px solid #e8e8e4; padding-left: 16px;
+}
+.nx-drug-indication strong { color: #1a1a1a; font-style: normal; font-weight: 700; }
+
+/* Tabla de composición */
+.nx-composicion {
+  background: #f8f8f6; padding: 24px 28px;
+  border-top: 1px solid #e8e8e4;
+}
+.nx-composicion-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #aaa;
+  margin-bottom: 16px;
+}
+.nx-composicion table { width: 100%; border-collapse: collapse; }
+.nx-composicion td {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px; padding: 6px 0; color: #555;
+  border-bottom: 1px solid #e8e8e4;
+}
+.nx-composicion td:first-child { color: #1a1a1a; }
+.nx-composicion td:last-child { text-align: right; color: #888; }
+
+/* Panel derecho del producto */
+.nx-product-side {
+  background: #f8f8f6; padding: 48px 32px;
+  border-left: 1px solid #e0e0dc;
+  display: flex; flex-direction: column; gap: 24px;
+}
+.nx-side-block-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase; color: #aaa;
+  margin-bottom: 10px;
+}
+.nx-side-block-body {
+  font-size: 12px; color: #555; line-height: 1.6;
+}
+.nx-price-block { margin-top: auto; }
+.nx-price {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 28px; font-weight: 700; color: #1a1a1a;
+}
+.nx-price-detail {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; color: #aaa; letter-spacing: 0.1em; margin-top: 4px;
+}
+.nx-btn {
+  display: block; width: 100%; margin-top: 16px;
+  background: #1a4b8c; color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 14px 20px; border: none; cursor: pointer; text-align: center;
+  transition: background 0.2s;
+  text-decoration: none;
+}
+.nx-btn:hover { background: #153d72; }
+
+/* ── GRID DE PRODUCTOS SECUNDARIOS ── */
+.nx-products-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
+  background: #e0e0dc; margin-top: 1px;
+}
+
+.nx-product-card {
+  background: #ffffff; padding: 40px;
+  position: relative;
+}
+.nx-product-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+}
+.nx-product-card.color-a::before { background: #8c3a1a; }
+.nx-product-card.color-b::before { background: #2a7c5a; }
+.nx-product-card.color-c::before { background: #6a3a8c; }
+
+.nx-card-drug-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 22px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px;
+}
+.nx-card-intl {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; color: #aaa; letter-spacing: 0.1em; margin-bottom: 12px;
+}
+.nx-card-dosage {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px; margin-bottom: 16px;
+}
+.nx-product-card.color-a .nx-card-dosage { color: #8c3a1a; }
+.nx-product-card.color-b .nx-card-dosage { color: #2a7c5a; }
+.nx-product-card.color-c .nx-card-dosage { color: #6a3a8c; }
+
+.nx-card-indication {
+  font-size: 13px; color: #444; line-height: 1.6; margin-bottom: 20px;
+  font-style: italic;
+}
+.nx-card-price { font-family: 'DM Sans', sans-serif; font-size: 22px; font-weight: 700; color: #1a1a1a; }
+.nx-card-units { font-family: 'Space Mono', monospace; font-size: 9px; color: #aaa; }
+
+/* ── PROSPECTOS / ADVERTENCIAS ── */
+.nx-prospecto {
+  background: #ffffff;
+  border: 1px solid #e0e0dc;
+  padding: 60px;
+  margin: 0 60px;
+}
+.nx-prospecto-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 48px; padding-bottom: 24px;
+  border-bottom: 2px solid #1a1a1a;
+}
+.nx-prospecto-drug { font-family: 'DM Sans', sans-serif; font-size: 28px; font-weight: 700; }
+.nx-prospecto-drug small { display: block; font-size: 12px; font-weight: 300; color: #888; margin-top: 4px; letter-spacing: 0.05em; }
+.nx-prospecto-reg { font-family: 'Space Mono', monospace; font-size: 9px; color: #aaa; letter-spacing: 0.2em; text-align: right; }
+
+.nx-prospecto-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px;
+}
+.nx-prospecto-section-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: #1a4b8c; margin-bottom: 12px; border-bottom: 1px solid #e8e8e4; padding-bottom: 8px;
+}
+.nx-prospecto p {
+  font-size: 12px; color: #555; line-height: 1.7; margin-bottom: 8px;
+}
+.nx-prospecto ul {
+  list-style: none; padding: 0;
+}
+.nx-prospecto li {
+  font-size: 12px; color: #555; line-height: 1.6; padding: 4px 0;
+  border-bottom: 1px solid #f0f0ec;
+  padding-left: 12px; position: relative;
+}
+.nx-prospecto li::before { content: '—'; position: absolute; left: 0; color: #ccc; }
+
+/* Letra pequeña */
+.nx-fine-print {
+  margin-top: 48px; padding-top: 24px; border-top: 1px solid #e8e8e4;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; color: #bbb; line-height: 1.8; letter-spacing: 0.03em;
+}
+
+/* ── FRANJA REGULATORIA ── */
+.nx-reg-bar {
+  background: #1a1a1a; color: #ffffff;
+  padding: 20px 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 80px;
+}
+.nx-reg-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; color: #555; letter-spacing: 0.15em; line-height: 1.8;
+}
+.nx-reg-logo { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.15em; color: #fff; }
+
+/* ── FOOTER ── */
+.nx-footer {
+  background: #f0ede8; padding: 60px;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  border-top: 1px solid #e0e0dc;
+}
+.nx-footer-logo { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 32px; letter-spacing: 0.1em; color: #1a4b8c; }
+.nx-footer-copy {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px; color: #aaa; letter-spacing: 0.1em; text-align: right; line-height: 2;
+}
+.nx-footer-copy a { color: #aaa; text-decoration: none; }
+.nx-footer-copy a:hover { color: #1a4b8c; }
+
+@media (max-width: 768px) {
+  .nx-header { padding: 0 24px; }
+  .nx-hero { grid-template-columns: 1fr; gap: 40px; padding: 48px 24px; }
+  .nx-package-render { display: none; }
+  .nx-section { padding: 60px 24px; }
+  .nx-product-hero { grid-template-columns: 1fr; }
+  .nx-product-side { border-left: none; border-top: 1px solid #e0e0dc; }
+  .nx-products-grid { grid-template-columns: 1fr; }
+  .nx-prospecto { margin: 0 24px; padding: 40px 24px; }
+  .nx-prospecto-grid { grid-template-columns: 1fr; gap: 32px; }
+  .nx-reg-bar { flex-direction: column; gap: 16px; padding: 20px 24px; text-align: center; }
+  .nx-footer { flex-direction: column; gap: 24px; padding: 40px 24px; }
+  .nx-footer-copy { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="nx-header">
+  <a href="../index.html" class="nx-back">← poork.inc</a>
+  <div class="nx-logo">
+    <span class="nx-logo-main">NEXAR LABS</span>
+    <span class="nx-logo-sub">Farmacéutica de precisión</span>
+  </div>
+  <nav><ul class="nx-nav">
+    <li><a href="#productos">Productos</a></li>
+    <li><a href="#prospecto">Prospecto</a></li>
+    <li><a href="mailto:info@nexarlabs.cl">Prescripciones</a></li>
+  </ul></nav>
+</header>
+
+<!-- HERO -->
+<section class="nx-hero">
+  <div>
+    <div class="nx-hero-eyebrow">Laboratorio farmacéutico · Reg. ISP Chile Nº 2604-B</div>
+    <h1 class="nx-hero-title">Medicamentos para <em>malestares que el DSM-6 aún no sabe cómo clasificar.</em></h1>
+    <p class="nx-hero-body">
+      En NEXAR LABS creemos que si algo duele, probablemente tiene nombre. Y si no tiene nombre, le inventamos uno que suene a que sí tiene cura. Farmacología de precisión para la vida contemporánea.
+    </p>
+  </div>
+  <div class="nx-package-render">
+    <div style="position:relative; width:240px; height:280px;">
+      <div class="nx-box">
+        <div>
+          <div class="nx-box-brand">NEXAR LABS®</div>
+          <div class="nx-box-drug">BÉZAMESTASONA<br>ANOREX</div>
+        </div>
+        <div style="padding-bottom:8px;">
+          <div class="nx-box-mg">500mg · 30 comp.</div>
+        </div>
+        <div class="nx-box-strip">
+          <div class="nx-box-strip-text">VENTA BAJO RECETA</div>
+        </div>
+        <div class="nx-box-inner"></div>
+      </div>
+      <div class="nx-box-2">
+        <div>
+          <div class="nx-box-2-brand">NEXAR LABS®</div>
+          <div class="nx-box-2-drug">VULIMYX</div>
+        </div>
+        <div class="nx-box-2-strip"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTOS -->
+<section class="nx-section" id="productos">
+  <div class="nx-section-label">Línea terapéutica 2026 — Productos disponibles en farmacias afiliadas</div>
+
+  <!-- PRODUCTO PRINCIPAL 1 -->
+  <div class="nx-product-hero">
+    <div>
+      <div class="nx-product-color-bar" style="height:100%;"></div>
+    </div>
+    <div class="nx-product-main">
+      <div class="nx-drug-name">
+        BÉZAMESTASONA ANOREX
+        <span class="intl-name">bezamestasona anorexida · comprimidos recubiertos</span>
+      </div>
+      <span class="nx-drug-dosage">500 mg · Caja × 30 comprimidos</span>
+      <div class="nx-drug-indication">
+        <strong>Indicado para:</strong> Ansiedad nutricional crónica. Síndrome de nevera vacía a las 23h. Culpa post-carbohidrato de origen social. Indecisión frente al menú de Uber Eats por más de 12 minutos. Hambre emocional sin emoción identificada.
+      </div>
+      <div class="nx-drug-indication">
+        <strong>También indicado en:</strong> Dietas que empiezan "mañana lunes" con frecuencia superior a cuatro veces al mes. Pacientes con historial de ayuno intermitente mal explicado en reuniones sociales.
+      </div>
+      <div class="nx-composicion">
+        <div class="nx-composicion-title">Composición por comprimido</div>
+        <table>
+          <tr><td>Bezamestasona anorexida</td><td>500 mg</td></tr>
+          <tr><td>Culpabilix sódico</td><td>150 mg</td></tr>
+          <tr><td>Excipiente relleno emocional</td><td>c.s.p.</td></tr>
+          <tr><td>Dióxido de autocontrol</td><td>trazas</td></tr>
+          <tr><td>Celulosa microcristalina de voluntad</td><td>80 mg</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="nx-product-side">
+      <div>
+        <div class="nx-side-block-title">Posología</div>
+        <div class="nx-side-block-body">1 comprimido antes de cada comida, o inmediatamente después si ya comió y se arrepiente. No superar 3 comprimidos diarios sin consultar a su nutricionista, terapeuta o mejor amiga.</div>
+      </div>
+      <div>
+        <div class="nx-side-block-title">Contraindicaciones</div>
+        <div class="nx-side-block-body">No administrar en personas que ya aceptaron su cuerpo. Puede causar recaída en bienestar genuino. Incompatible con terapia cognitivo-conductual efectiva.</div>
+      </div>
+      <div>
+        <div class="nx-side-block-title">Efectos adversos</div>
+        <div class="nx-side-block-body">Pérdida transitoria del placer al comer. Aumento de búsquedas sobre "macros". Suscripción espontánea a contenido fitness. En casos raros: compra de balanza de cocina.</div>
+      </div>
+      <div class="nx-price-block">
+        <div class="nx-price">$28.900</div>
+        <div class="nx-price-detail">Caja × 30 comp. · No incluye bonificación FONASA · Sí incluye el packaging</div>
+        <a href="#" class="nx-btn">Solicitar receta virtual →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCTO PRINCIPAL 2 -->
+  <div class="nx-product-hero" style="margin-top:1px;">
+    <div>
+      <div class="nx-product-color-bar" style="height:100%; background:#8c3a1a;"></div>
+    </div>
+    <div class="nx-product-main">
+      <div class="nx-drug-name">
+        VULIMYX
+        <span class="intl-name">vulimicasona + silentex · comprimidos sublinguales</span>
+      </div>
+      <span class="nx-drug-dosage" style="color:#8c3a1a;">250/100 mg · Caja × 20 comprimidos sublinguales</span>
+      <div class="nx-drug-indication">
+        <strong>Indicado para:</strong> Malestar social post-reunión (presencial y videollamada). Síndrome de responder mensajes acumulados (SRM-24h). Ansiedad anticipatoria antes de llamar a un número desconocido. Vergüenza retroactiva por cosas dichas en 2019.
+      </div>
+      <div class="nx-drug-indication">
+        <strong>Uso extendido:</strong> Parálisis decisional ante bandeja de entrada con más de 200 correos sin leer. "Me voy a desconectar unos días" crónico con recaída antes de las 48h.
+      </div>
+      <div class="nx-composicion">
+        <div class="nx-composicion-title">Composición por comprimido sublingual</div>
+        <table>
+          <tr><td>Vulimicasona activa</td><td>250 mg</td></tr>
+          <tr><td>Silentex PR (liberación prolongada)</td><td>100 mg</td></tr>
+          <tr><td>Serotonilex reconstituido</td><td>50 mg</td></tr>
+          <tr><td>Dopamina de síntesis (pendiente aprobación)</td><td>trazas</td></tr>
+          <tr><td>Glicerina de límites saludables</td><td>c.s.p.</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="nx-product-side" style="border-left-color:#e0e0dc;">
+      <div>
+        <div class="nx-side-block-title">Posología</div>
+        <div class="nx-side-block-body">1 comprimido sublingual al salir de cualquier reunión que pudo haber sido un correo. 2 comprimidos si alguien dijo "en la línea" o "según corresponda". No masticar.</div>
+      </div>
+      <div>
+        <div class="nx-side-block-title">Contraindicaciones</div>
+        <div class="nx-side-block-body">No usar en personas con límites naturales bien establecidos. Incompatible con trabajo remoto saludable, fin de semanas sin pantalla, y Headspace con suscripción activa.</div>
+      </div>
+      <div>
+        <div class="nx-side-block-title">Efectos adversos</div>
+        <div class="nx-side-block-body">Desactivación temporal del instinto de disculparse. Reducción del tiempo en leer mensajes antes de dormir. Posibilidad de decir "no" en contextos laborales sin transpirar.</div>
+      </div>
+      <div class="nx-price-block">
+        <div class="nx-price">$34.500</div>
+        <div class="nx-price-detail">Caja × 20 comp. sublinguales · Presentación premium · Receta retenida</div>
+        <a href="#" class="nx-btn" style="background:#8c3a1a;">Solicitar receta virtual →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRID PRODUCTOS SECUNDARIOS -->
+  <div class="nx-products-grid">
+
+    <div class="nx-product-card color-a">
+      <div class="nx-card-drug-name">PROCASTINIL</div>
+      <div class="nx-card-intl">procrastinasa límbica · cápsulas de liberación lenta</div>
+      <div class="nx-card-dosage">100 mg · 60 cápsulas</div>
+      <div class="nx-card-indication">
+        Para la dificultad de inicio de tareas sin urgencia inminente. Síndrome del "lo hago cuando tenga ganas" persistente. Apertura de pestañas de trabajo sin interacción posterior (APTI). Procrastinación productiva con sensación de logro.
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:24px;">
+        <div>
+          <div class="nx-card-price">$19.900</div>
+          <div class="nx-card-units">Caja × 60 cáps. · 2 meses de tratamiento teórico</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nx-product-card color-b">
+      <div class="nx-card-drug-name">SOBRECARGEX FORTE</div>
+      <div class="nx-card-intl">sobrecargatina + agotamex · comprimidos efervescentes</div>
+      <div class="nx-card-dosage">750/250 mg · 20 comprimidos efervescentes</div>
+      <div class="nx-card-indication">
+        Para el agotamiento crónico sin diagnóstico oficial. Cansancio que el médico general llama "estrés" y manda a casa. Burnout negado por el empleador. Sensación de "esto no lo voy a poder mantener" con más de 6 meses de antigüedad.
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:24px;">
+        <div>
+          <div class="nx-card-price">$22.400</div>
+          <div class="nx-card-units">Caja × 20 comp. efervescentes · Sabor naranja</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nx-product-card color-c">
+      <div class="nx-card-drug-name">DOOMSCROLLIX</div>
+      <div class="nx-card-intl">scrollatropina + pantallomex · parches transdérmicos</div>
+      <div class="nx-card-dosage">50 mcg/h · Caja × 14 parches</div>
+      <div class="nx-card-indication">
+        Para el síndrome de desplazamiento infinito compulsivo (SDIC). Consumo de noticias negativas antes de dormir sin capacidad de detención. Apertura refleja de Instagram sin intención ni recuerdo posterior. Dependencia al scroll como gesto motor disociado.
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:24px;">
+        <div>
+          <div class="nx-card-price">$38.000</div>
+          <div class="nx-card-units">Caja × 14 parches · Aplicar en muñeca no dominante</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nx-product-card" style="background:#f8f8f6;">
+      <div class="nx-card-drug-name" style="color:#888;">NEXAR LABS CHILD</div>
+      <div class="nx-card-intl" style="color:#bbb;">formulación pediátrica · en desarrollo</div>
+      <div class="nx-card-dosage" style="color:#ccc;">—</div>
+      <div class="nx-card-indication" style="color:#ccc; font-style:italic;">
+        Actualmente en ensayo clínico fase II. Para malestares en menores de 18 que tienen más vocabulario emocional que sus padres pero igual no saben usarlo. Esperamos resultados para Q3 2027.
+      </div>
+      <div style="margin-top:24px;">
+        <div class="nx-card-price" style="color:#ccc;">—</div>
+        <div class="nx-card-units" style="color:#ccc;">No disponible · registro ISP pendiente</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROSPECTO OFICIAL -->
+<section id="prospecto" style="padding: 80px 0;">
+  <div class="nx-prospecto">
+    <div class="nx-prospecto-header">
+      <div class="nx-prospecto-drug">
+        BÉZAMESTASONA ANOREX 500mg
+        <small>Prospecto para el paciente · Lea todo el prospecto detenidamente antes de empezar a tomar este medicamento, o después, que tampoco cambia mucho.</small>
+      </div>
+      <div class="nx-prospecto-reg">
+        REG. ISP CHILE Nº F-18432.26<br>
+        FECHA APROBACIÓN: 14.02.2026<br>
+        VENTA BAJO RECETA<br>
+        CÓDIGO NEXAR: BZA-ANX-500-30
+      </div>
+    </div>
+
+    <div class="nx-prospecto-grid">
+      <div>
+        <div class="nx-prospecto-section-title">1. Qué es y para qué sirve</div>
+        <p>Bézamestasona Anorex pertenece al grupo de los <strong>reguladores del apetito existencial</strong>. Actúa sobre los receptores de culpabilidad gástrica y los canales de serotonina del juicio propio.</p>
+        <p>Está indicado en adultos que mantienen con el refrigerador una relación más compleja que con sus personas cercanas.</p>
+
+        <div class="nx-prospecto-section-title" style="margin-top:24px;">2. Antes de tomar este medicamento</div>
+        <p><strong>No tome este medicamento si:</strong></p>
+        <ul>
+          <li>Ha comido sin culpa en los últimos 30 días</li>
+          <li>Tiene una relación saludable con la comida</li>
+          <li>Está en terapia con resultados visibles</li>
+          <li>Alguna vez ha terminado un postre sin fotografiarlo</li>
+          <li>No conoce el conteo de calorías del café con leche</li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="nx-prospecto-section-title">3. Cómo tomar este medicamento</div>
+        <p>Tome 1 comprimido 30 minutos antes de cada comida. Si ya comió sin tomarlo, tome 1 comprimido y reconsidere sus decisiones. Si come de pie frente al refrigerador, tome 2.</p>
+        <p>Trague entero con agua. No con otra cosa. El agua no tiene calorías. Eso ya lo sabe.</p>
+
+        <div class="nx-prospecto-section-title" style="margin-top:24px;">4. Posibles efectos adversos</div>
+        <ul>
+          <li>Pérdida del placer al comer (frecuente)</li>
+          <li>Instalación espontánea de MyFitnessPal (frecuente)</li>
+          <li>Inicio no solicitado de dieta sin gluten (poco frecuente)</li>
+          <li>Suscripción a newsletter de nutrición funcional (frecuente)</li>
+          <li>Mejora transitoria de autoestima (raro, dura máx. 3 días)</li>
+          <li>Compra compulsiva de recipientes herméticos (poco frecuente)</li>
+          <li>Explicar la dieta en conversaciones donde nadie preguntó (muy frecuente)</li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="nx-prospecto-section-title">5. Conservación</div>
+        <p>Conservar a temperatura ambiente, alejado de la humedad y de cualquier persona que cocine bien y disfrute de ello sin remordimiento.</p>
+        <p>Mantener fuera del alcance de personas con paz interior genuina. Pueden sentirse confundidas ante el prospecto.</p>
+
+        <div class="nx-prospecto-section-title" style="margin-top:24px;">6. Información adicional</div>
+        <p>NEXAR LABS no se responsabiliza por el uso de este medicamento en contextos de bienestar real. En caso de sentirse bien consigo mismo durante más de 72 horas consecutivas, consulte a su médico tratante.</p>
+        <p>Si tiene preguntas, puede escribir a <strong>no-conteste@nexarlabs.cl</strong>. Probablemente no respondamos antes de 5-7 días hábiles.</p>
+
+        <div class="nx-fine-print">
+          NEXAR LABS S.A. · Av. La Medicina 2340, Providencia, Santiago · Reg. ISP Chile Nº F-18432.26 · Este medicamento no ha sido evaluado por la FDA, la EMA, ni por ningún ente regulatorio que exista en la realidad. Los efectos adversos descritos son más reales de lo que nos gustaría admitir. POORK INC. no se hace responsable de nada, incluyendo pero no limitándose a: decisiones nutricionales, suscripciones de bienestar, y el hecho de que esta es una marca ficticia creada con fines satíricos. Si llegó hasta aquí, su médico general tampoco leyó el prospecto completo.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BARRA REGULATORIA -->
+<div class="nx-reg-bar">
+  <div class="nx-reg-text">
+    NEXAR LABS S.A. · RUT 76.543.210-K · ISP Chile Reg. Nº 2604-B<br>
+    Fabricado en: Zona Franca Ficticia de Iquique · Importado por: POORK INC. DISTRIBUCIÓN
+  </div>
+  <div class="nx-reg-logo">NEXAR LABS</div>
+  <div class="nx-reg-text" style="text-align:right;">
+    Ante eventos adversos graves, contactar a:<br>
+    farmacovigilancia@nexarlabs.cl (no monitoreado)
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="nx-footer">
+  <div>
+    <div class="nx-footer-logo">NEXAR<br>LABS</div>
+  </div>
+  <div class="nx-footer-copy">
+    Un drop de <a href="../index.html">POORK INC.</a> · 2026<br>
+    Farmacéutica conceptual para malestares reales con nombres inventados.<br>
+    No es un medicamento. No es consejo médico. Sí es una broma en serio.<br><br>
+    © NEXAR LABS 2026 · Todos los derechos reservados · Ninguna cura garantizada
+  </div>
+</footer>
+
+</body>
+</html>
