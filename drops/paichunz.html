@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAICHUNZ — Una Retrospectiva Prematura · POORK INC.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --paper: oklch(97% 0.008 70);
+  --ink:   oklch(12% 0.006 30);
+  --rust:  oklch(52% 0.16 28);
+  --sand:  oklch(82% 0.04 72);
+  --dust:  oklch(88% 0.014 65);
+  --dim:   oklch(60% 0.008 50);
+  --font-d:'Cormorant Garamond',serif;
+  --font-b:'DM Sans',sans-serif;
+  --font-m:'Space Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--font-b);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 64px;
+  background:var(--paper);
+  border-bottom:1px solid var(--dust);
+}
+.nav-label{
+  font-family:var(--font-m);font-size:10px;letter-spacing:0.25em;
+  text-transform:uppercase;color:var(--dim);
+}
+.nav-brand{
+  font-family:var(--font-d);font-size:22px;font-weight:600;
+  font-style:italic;letter-spacing:-0.01em;color:var(--ink);
+}
+.nav-back{
+  font-family:var(--font-b);font-size:10px;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--dim);
+  transition:color 0.2s;
+}
+.nav-back:hover{color:var(--rust)}
+
+/* ── BANNER DE ANUNCIO ── */
+.announcement{
+  margin-top:62px;
+  background:var(--ink);
+  color:var(--paper);
+  padding:14px 64px;
+  display:flex;justify-content:space-between;align-items:center;
+  gap:24px;
+}
+.ann-badge{
+  font-family:var(--font-m);font-size:9px;letter-spacing:0.3em;
+  text-transform:uppercase;color:var(--rust);
+  white-space:nowrap;
+}
+.ann-text{
+  font-family:var(--font-d);font-size:15px;font-style:italic;
+  color:oklch(92% 0.008 70);
+  flex:1;text-align:center;
+}
+.ann-date{
+  font-family:var(--font-m);font-size:9px;letter-spacing:0.15em;
+  color:oklch(60% 0.006 50);white-space:nowrap;
+}
+
+/* ── HERO ── */
+.hero{
+  display:grid;grid-template-columns:1fr 1fr;
+  min-height:90vh;
+}
+.hero-text{
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:80px 64px 80px;
+  border-right:1px solid var(--dust);
+}
+.hero-eyebrow{
+  font-family:var(--font-m);font-size:9px;letter-spacing:0.35em;
+  text-transform:uppercase;color:var(--dim);margin-bottom:32px;
+}
+.hero-title{
+  font-family:var(--font-d);font-size:clamp(52px, 7vw, 96px);
+  font-weight:300;line-height:0.92;letter-spacing:-0.02em;
+  color:var(--ink);margin-bottom:16px;
+}
+.hero-title em{
+  font-style:italic;color:var(--rust);
+}
+.hero-subtitle{
+  font-family:var(--font-d);font-size:clamp(18px,2vw,26px);
+  font-weight:300;font-style:italic;color:var(--dim);
+  margin-bottom:48px;line-height:1.3;
+  max-width:42ch;
+}
+.hero-meta{
+  display:grid;grid-template-columns:1fr 1fr;gap:24px;
+  padding-top:40px;border-top:1px solid var(--dust);
+}
+.meta-item{}
+.meta-label{
+  font-family:var(--font-m);font-size:9px;letter-spacing:0.25em;
+  text-transform:uppercase;color:var(--dim);margin-bottom:6px;
+}
+.meta-value{
+  font-family:var(--font-d);font-size:18px;color:var(--ink);
+}
+
+/* ── GALERÍA WALL CSS ART ── */
+.hero-gallery{
+  background:oklch(16% 0.008 30);
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  padding:60px 48px 0;
+}
+
+/* Piso de parqué */
+.gallery-floor{
+  position:absolute;bottom:0;left:0;right:0;height:120px;
+  background:oklch(22% 0.012 35);
+  background-image:repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 59px,
+    oklch(18% 0.010 32) 59px,
+    oklch(18% 0.010 32) 60px
+  ),repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 19px,
+    oklch(18% 0.010 32) 19px,
+    oklch(18% 0.010 32) 20px
+  );
+}
+
+/* Focos de luz */
+.spotlight{
+  position:absolute;top:-40px;
+  width:200px;height:500px;
+  background:conic-gradient(from 0deg at 50% 0%, transparent 70deg, oklch(95% 0.02 80 / 0.06) 85deg, oklch(95% 0.02 80 / 0.12) 90deg, oklch(95% 0.02 80 / 0.06) 95deg, transparent 110deg);
+  pointer-events:none;
+}
+.spot-1{left:15%}
+.spot-2{left:48%}
+.spot-3{right:10%}
+
+/* Pared de cuadros */
+.gallery-wall{
+  position:relative;z-index:2;
+  display:flex;align-items:flex-end;gap:24px;
+  width:100%;padding-bottom:120px;
+}
+
+/* Marco genérico */
+.frame{
+  flex-shrink:0;
+  background:oklch(20% 0.008 30);
+  border:3px solid oklch(38% 0.008 35);
+  box-shadow:
+    inset 0 0 0 4px oklch(26% 0.006 32),
+    0 12px 40px oklch(0% 0 0 / 0.6),
+    0 4px 12px oklch(0% 0 0 / 0.4);
+  position:relative;
+  overflow:hidden;
+}
+.frame::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg, oklch(100% 0 0 / 0.06) 0%, transparent 50%);
+  z-index:10;pointer-events:none;
+}
+/* Etiqueta de obra */
+.frame-label{
+  position:absolute;bottom:-28px;left:50%;transform:translateX(-50%);
+  white-space:nowrap;
+  font-family:var(--font-m);font-size:8px;letter-spacing:0.15em;
+  color:oklch(55% 0.006 50);text-transform:uppercase;
+}
+
+/* Obra 1: composición abstracta terracota */
+.obra-1{width:160px;height:200px;align-self:flex-end;margin-bottom:40px}
+.obra-1 .canvas{
+  width:100%;height:100%;
+  background:oklch(28% 0.04 28);
+  position:relative;
+}
+.obra-1 .canvas::before{
+  content:'';position:absolute;
+  bottom:0;left:0;right:0;height:55%;
+  background:var(--rust);
+  clip-path:polygon(0 30%, 100% 0%, 100% 100%, 0% 100%);
+}
+.obra-1 .canvas::after{
+  content:'';position:absolute;
+  top:20%;right:15%;
+  width:30px;height:30px;
+  border-radius:50%;
+  background:oklch(82% 0.07 72);
+  box-shadow:0 0 20px oklch(82% 0.07 72 / 0.4);
+}
+
+/* Obra 2: retrato esquemático */
+.obra-2{width:120px;height:150px;align-self:flex-end;margin-bottom:60px}
+.obra-2 .canvas{
+  width:100%;height:100%;
+  background:oklch(90% 0.012 75);
+  position:relative;
+}
+.obra-2 .canvas::before{
+  content:'';position:absolute;
+  top:20%;left:50%;transform:translateX(-50%);
+  width:36px;height:36px;border-radius:50%;
+  background:oklch(18% 0.008 30);
+}
+.obra-2 .canvas::after{
+  content:'';position:absolute;
+  bottom:18%;left:25%;right:25%;
+  height:3px;
+  background:oklch(18% 0.008 30);
+  box-shadow:0 -10px 0 oklch(18% 0.008 30), 0 -20px 0 oklch(18% 0.008 30);
+}
+
+/* Obra 3: gran pieza principal */
+.obra-3{width:220px;height:280px;align-self:flex-end}
+.obra-3 .canvas{
+  width:100%;height:100%;
+  background:oklch(10% 0.004 260);
+  position:relative;overflow:hidden;
+}
+.obra-3 .canvas::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 80% at 35% 60%, var(--rust) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 50% at 75% 30%, oklch(65% 0.12 200) 0%, transparent 55%);
+}
+.obra-3 .canvas::after{
+  content:'P';
+  position:absolute;bottom:16px;right:16px;
+  font-family:var(--font-d);font-size:28px;font-style:italic;
+  color:oklch(95% 0.008 70 / 0.15);
+  font-weight:600;
+}
+
+/* Obra 4: geométrica */
+.obra-4{width:110px;height:140px;align-self:flex-end;margin-bottom:30px}
+.obra-4 .canvas{
+  width:100%;height:100%;
+  background:oklch(95% 0.006 80);
+  position:relative;
+}
+.obra-4 .canvas::before{
+  content:'';position:absolute;
+  top:15%;left:15%;right:50%;bottom:50%;
+  background:oklch(18% 0.008 30);
+}
+.obra-4 .canvas::after{
+  content:'';position:absolute;
+  top:50%;left:50%;right:10%;bottom:10%;
+  background:var(--rust);
+}
+
+/* Obra 5: acuarela */
+.obra-5{width:180px;height:220px;align-self:flex-end;margin-bottom:20px}
+.obra-5 .canvas{
+  width:100%;height:100%;
+  background:oklch(88% 0.018 200);
+  position:relative;overflow:hidden;
+}
+.obra-5 .canvas::before{
+  content:'';position:absolute;inset:-20%;
+  background:
+    radial-gradient(ellipse 60% 40% at 40% 50%, oklch(75% 0.08 160 / 0.7) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 70% 40%, oklch(68% 0.1 280 / 0.5) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 30% 70%, oklch(72% 0.12 50 / 0.6) 0%, transparent 65%);
+}
+
+/* ── SECCIÓN: SOBRE EL ARTISTA ── */
+.about-section{
+  display:grid;grid-template-columns:1fr 2fr;
+  border-top:1px solid var(--dust);
+}
+.about-index{
+  padding:80px 64px;
+  border-right:1px solid var(--dust);
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.section-number{
+  font-family:var(--font-m);font-size:11px;letter-spacing:0.2em;
+  color:var(--dim);
+}
+.about-index-title{
+  font-family:var(--font-d);font-size:clamp(32px,4vw,56px);
+  font-weight:300;font-style:italic;line-height:1.05;
+  letter-spacing:-0.02em;
+}
+.about-body{
+  padding:80px 80px 80px 64px;
+}
+.about-body p{
+  font-size:17px;line-height:1.75;color:oklch(28% 0.006 30);
+  max-width:60ch;margin-bottom:24px;
+}
+.about-body p:last-child{margin-bottom:0}
+.about-body strong{color:var(--ink);font-weight:500}
+.about-body em{font-style:italic;color:var(--rust)}
+
+/* ── OBRAS ── */
+.obras-section{
+  padding:80px 64px;
+  border-top:1px solid var(--dust);
+}
+.obras-header{
+  display:flex;justify-content:space-between;align-items:baseline;
+  margin-bottom:56px;
+}
+.obras-title{
+  font-family:var(--font-d);font-size:clamp(32px,4vw,54px);
+  font-weight:300;font-style:italic;
+}
+.obras-note{
+  font-family:var(--font-m);font-size:9px;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--dim);
+}
+
+/* Grid asimétrico de obras */
+.obras-grid{
+  display:grid;
+  grid-template-columns:3fr 2fr 2fr;
+  grid-template-rows:auto auto;
+  gap:2px;
+  background:var(--dust);
+}
+.obra-cell{
+  background:var(--paper);
+  padding:48px 40px;
+  position:relative;overflow:hidden;
+}
+.obra-cell.large{grid-row:1/3;padding:64px 48px}
+.obra-cell-art{
+  width:100%;
+  margin-bottom:24px;
+  position:relative;overflow:hidden;
+}
+
+/* Arte CSS para cada celda */
+.cell-art-1{
+  height:320px;
+  background:oklch(14% 0.006 28);
+  position:relative;overflow:hidden;
+}
+.cell-art-1::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 60% at 30% 70%, var(--rust) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 25%, oklch(75% 0.08 72) 0%, transparent 55%);
+}
+.cell-art-1::after{
+  content:'01';
+  position:absolute;top:16px;right:16px;
+  font-family:var(--font-m);font-size:10px;letter-spacing:0.1em;
+  color:oklch(90% 0.006 60 / 0.3);
+}
+
+.cell-art-2{
+  height:200px;
+  background:oklch(94% 0.010 75);
+  position:relative;overflow:hidden;
+}
+.cell-art-2::before{
+  content:'';position:absolute;
+  bottom:0;left:0;right:0;top:40%;
+  background:oklch(18% 0.008 30);
+}
+.cell-art-2::after{
+  content:'';position:absolute;
+  top:15%;left:50%;transform:translateX(-50%);
+  width:44px;height:44px;border-radius:50%;
+  background:oklch(18% 0.008 30);
+}
+
+.cell-art-3{
+  height:200px;
+  background:oklch(88% 0.022 190);
+  position:relative;overflow:hidden;
+}
+.cell-art-3::before{
+  content:'';position:absolute;inset:-10%;
+  background:
+    radial-gradient(ellipse 80% 80% at 50% 50%, oklch(72% 0.12 200 / 0.6) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 20% 80%, oklch(65% 0.14 260 / 0.5) 0%, transparent 60%);
+}
+
+.cell-art-4{
+  height:200px;
+  background:oklch(18% 0.008 200);
+  position:relative;overflow:hidden;
+}
+.cell-art-4::before{
+  content:'';position:absolute;
+  top:0;left:0;bottom:0;width:50%;
+  background:var(--rust);
+}
+.cell-art-4::after{
+  content:'';position:absolute;
+  top:30%;right:10%;
+  width:60px;height:60px;
+  border:2px solid oklch(82% 0.008 60);
+  transform:rotate(15deg);
+}
+
+.cell-art-5{
+  height:200px;
+  background:oklch(97% 0.004 70);
+  border:1px solid var(--dust);
+  position:relative;overflow:hidden;
+}
+.cell-art-5::before{
+  content:'PRÓXIMAMENTE';
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  font-family:var(--font-m);font-size:8px;letter-spacing:0.3em;
+  text-transform:uppercase;color:var(--dim);white-space:nowrap;
+}
+
+.obra-cell-title{
+  font-family:var(--font-d);font-size:22px;font-weight:400;
+  font-style:italic;margin-bottom:6px;color:var(--ink);
+}
+.obra-cell-meta{
+  font-family:var(--font-m);font-size:9px;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--dim);
+}
+
+/* ── TESTIMONIOS ── */
+.testimonios{
+  padding:80px 64px;
+  border-top:1px solid var(--dust);
+  background:var(--ink);
+  color:var(--paper);
+}
+.test-header{
+  display:flex;justify-content:space-between;align-items:baseline;
+  margin-bottom:64px;
+}
+.test-title{
+  font-family:var(--font-d);font-size:clamp(28px,3vw,44px);
+  font-weight:300;font-style:italic;
+  color:oklch(95% 0.006 70);
+}
+.test-caveat{
+  font-family:var(--font-m);font-size:8px;letter-spacing:0.2em;
+  color:oklch(40% 0.006 50);text-transform:uppercase;
+}
+.test-grid{
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:48px;
+}
+.test-item{}
+.test-quote{
+  font-family:var(--font-d);font-size:clamp(18px,2vw,24px);
+  font-weight:300;font-style:italic;line-height:1.4;
+  color:oklch(88% 0.006 65);margin-bottom:24px;
+}
+.test-quote::before{content:'\201C'}
+.test-quote::after{content:'\201D'}
+.test-author{
+  font-family:var(--font-m);font-size:9px;letter-spacing:0.2em;
+  text-transform:uppercase;color:oklch(45% 0.006 50);
+}
+.test-role{
+  font-family:var(--font-b);font-size:12px;
+  color:oklch(38% 0.006 50);margin-top:4px;
+}
+
+/* ── ENTRADA / PRICING ── */
+.pricing{
+  padding:80px 64px;
+  border-top:1px solid var(--dust);
+}
+.pricing-header{
+  margin-bottom:64px;
+}
+.pricing-eyebrow{
+  font-family:var(--font-m);font-size:9px;letter-spacing:0.35em;
+  text-transform:uppercase;color:var(--dim);margin-bottom:16px;
+}
+.pricing-title{
+  font-family:var(--font-d);font-size:clamp(36px,5vw,72px);
+  font-weight:300;font-style:italic;line-height:1;
+  letter-spacing:-0.02em;
+}
+.pricing-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border:1px solid var(--dust);
+}
+.price-tier{
+  padding:48px 40px;
+  border-right:1px solid var(--dust);
+}
+.price-tier:last-child{border-right:none}
+.tier-label{
+  font-family:var(--font-m);font-size:9px;letter-spacing:0.3em;
+  text-transform:uppercase;color:var(--dim);margin-bottom:24px;
+}
+.tier-price{
+  font-family:var(--font-d);font-size:clamp(40px,5vw,72px);
+  font-weight:300;line-height:1;letter-spacing:-0.03em;
+  margin-bottom:8px;
+}
+.tier-currency{
+  font-size:0.35em;vertical-align:top;margin-top:12px;display:inline-block;
+  color:var(--dim);
+}
+.tier-note{
+  font-family:var(--font-b);font-size:13px;color:var(--dim);
+  margin-bottom:32px;line-height:1.5;
+}
+.tier-includes{
+  list-style:none;margin-bottom:40px;
+}
+.tier-includes li{
+  font-family:var(--font-b);font-size:13px;color:oklch(35% 0.006 30);
+  padding:10px 0;border-bottom:1px solid var(--dust);
+  display:flex;align-items:center;gap:10px;
+}
+.tier-includes li::before{
+  content:'';
+  width:4px;height:4px;border-radius:50%;
+  background:var(--rust);flex-shrink:0;
+}
+.tier-cta{
+  display:block;width:100%;
+  padding:14px 24px;
+  background:var(--ink);color:var(--paper);
+  font-family:var(--font-b);font-size:11px;letter-spacing:0.2em;
+  text-transform:uppercase;font-weight:500;
+  border:none;cursor:pointer;
+  transition:background 0.2s;text-align:center;
+}
+.tier-cta:hover{background:var(--rust)}
+.tier-cta.featured{background:var(--rust)}
+.tier-cta.featured:hover{background:oklch(45% 0.18 28)}
+
+/* ── FOOTER ── */
+footer{
+  padding:48px 64px;
+  border-top:1px solid var(--dust);
+  display:flex;justify-content:space-between;align-items:center;
+  background:var(--ink);
+}
+.footer-copy{
+  font-family:var(--font-m);font-size:9px;letter-spacing:0.2em;
+  text-transform:uppercase;color:oklch(38% 0.006 50);
+}
+.footer-link{
+  font-family:var(--font-m);font-size:9px;letter-spacing:0.25em;
+  text-transform:uppercase;color:var(--rust);
+  transition:opacity 0.2s;
+}
+.footer-link:hover{opacity:0.7}
+.footer-handle{
+  font-family:var(--font-d);font-size:16px;font-style:italic;
+  color:oklch(70% 0.006 60);
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{padding:16px 24px}
+  .announcement{padding:12px 24px;flex-direction:column;gap:6px;text-align:center}
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-text{padding:60px 24px;border-right:none;border-bottom:1px solid var(--dust)}
+  .hero-gallery{min-height:360px;padding:40px 24px 0}
+  .about-section{grid-template-columns:1fr}
+  .about-index{padding:48px 24px;border-right:none;border-bottom:1px solid var(--dust)}
+  .about-body{padding:48px 24px}
+  .obras-section{padding:60px 24px}
+  .obras-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .obra-cell.large{grid-row:auto}
+  .test-grid{grid-template-columns:1fr}
+  .pricing{padding:60px 24px}
+  .pricing-grid{grid-template-columns:1fr}
+  .price-tier{border-right:none;border-bottom:1px solid var(--dust)}
+  footer{padding:32px 24px;flex-direction:column;gap:16px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-label">POORK INC. · DROP 041</div>
+  <div class="nav-brand">@paichunz</div>
+  <a href="https://poork-inc.vercel.app" class="nav-back">← Volver</a>
+</nav>
+
+<!-- BANNER -->
+<div class="announcement">
+  <span class="ann-badge">Evento · Exposición</span>
+  <span class="ann-text">Cupos limitados. Artista no garantiza que siga dibujando después de esto.</span>
+  <span class="ann-date">Temporada 2026 · Santiago de Chile</span>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Una retrospectiva prematura</div>
+    <h1 class="hero-title">
+      PAICHUNZ:<br>
+      <em>Doce Años<br>Dibujando</em><br>
+      Cosas
+    </h1>
+    <p class="hero-subtitle">
+      Una exposición de alguien que se inventó un nombre para hacer lo que ya hacía.
+    </p>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <div class="meta-label">Artista</div>
+        <div class="meta-value">@paichunz</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Obras</div>
+        <div class="meta-value">17 piezas</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Sala</div>
+        <div class="meta-value">Espacio POORK</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Duración</div>
+        <div class="meta-value">Una noche</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Galería CSS -->
+  <div class="hero-gallery">
+    <div class="spotlight spot-1"></div>
+    <div class="spotlight spot-2"></div>
+    <div class="spotlight spot-3"></div>
+
+    <div class="gallery-wall">
+      <div class="frame obra-1">
+        <div class="canvas"></div>
+        <div class="frame-label">I · Sin título</div>
+      </div>
+      <div class="frame obra-2">
+        <div class="canvas"></div>
+        <div class="frame-label">II · Retrato</div>
+      </div>
+      <div class="frame obra-3">
+        <div class="canvas"></div>
+        <div class="frame-label">III · Principal</div>
+      </div>
+      <div class="frame obra-4">
+        <div class="canvas"></div>
+        <div class="frame-label">IV · Estudio</div>
+      </div>
+      <div class="frame obra-5">
+        <div class="canvas"></div>
+        <div class="frame-label">V · Acuarela</div>
+      </div>
+    </div>
+
+    <div class="gallery-floor"></div>
+  </div>
+</section>
+
+<!-- SOBRE EL ARTISTA -->
+<section class="about-section">
+  <div class="about-index">
+    <div class="section-number">§ 01</div>
+    <h2 class="about-index-title">Sobre el<br>artista</h2>
+  </div>
+  <div class="about-body">
+    <p>
+      <strong>@paichunz</strong> es el alter ego ilustrador de Ricardo Jerez, director creativo radicado en Santiago de Chile.
+      El nombre apareció antes de que el trabajo lo justificara. Eso, en retrospectiva, fue una buena señal.
+    </p>
+    <p>
+      Durante doce años, Paichunz ha operado en los márgenes de la publicidad, el diseño editorial y las 3am de los domingos.
+      Sus piezas mezclan figuración, color arbitrario y un sentido del humor que <em>no todo el mundo capta a la primera</em>.
+      Eso también está bien.
+    </p>
+    <p>
+      Esta exposición no es una consagración. Es un inventario. Una forma de ver qué hay en el cajón antes de seguir llenándolo.
+    </p>
+    <p style="padding-top:24px;margin-top:8px;border-top:1px solid var(--dust);font-size:14px;color:var(--dim)">
+      También conocido como: Ricardo Jerez / @rjerez / el tipo de la agencia
+    </p>
+  </div>
+</section>
+
+<!-- OBRAS -->
+<section class="obras-section">
+  <div class="obras-header">
+    <h2 class="obras-title">Selección de obras</h2>
+    <span class="obras-note">Vista previa · 5 de 17</span>
+  </div>
+
+  <div class="obras-grid">
+    <div class="obra-cell large">
+      <div class="obra-cell-art">
+        <div class="cell-art-1"></div>
+      </div>
+      <div class="obra-cell-title">Sin título (terracota)</div>
+      <div class="obra-cell-meta">Ilustración digital · 2024 · 70×90 cm</div>
+    </div>
+
+    <div class="obra-cell">
+      <div class="obra-cell-art">
+        <div class="cell-art-2"></div>
+      </div>
+      <div class="obra-cell-title">Retrato sin cara</div>
+      <div class="obra-cell-meta">Mixta · 2022 · 50×60 cm</div>
+    </div>
+
+    <div class="obra-cell">
+      <div class="obra-cell-art">
+        <div class="cell-art-3"></div>
+      </div>
+      <div class="obra-cell-title">Azul innecesario</div>
+      <div class="obra-cell-meta">Acuarela digital · 2023 · 60×60 cm</div>
+    </div>
+
+    <div class="obra-cell">
+      <div class="obra-cell-art">
+        <div class="cell-art-4"></div>
+      </div>
+      <div class="obra-cell-title">Mitad</div>
+      <div class="obra-cell-meta">Collage · 2021 · 40×50 cm</div>
+    </div>
+
+    <div class="obra-cell">
+      <div class="obra-cell-art">
+        <div class="cell-art-5"></div>
+      </div>
+      <div class="obra-cell-title">Obra por revelar</div>
+      <div class="obra-cell-meta">Sorpresa · 2026 · ?×? cm</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="testimonios">
+  <div class="test-header">
+    <h2 class="test-title">Lo que dicen<br>los visitantes</h2>
+    <span class="test-caveat">* Opiniones de personas reales que quizás existieron</span>
+  </div>
+
+  <div class="test-grid">
+    <div class="test-item">
+      <div class="test-quote">
+        Llegué por el vino. Me quedé por las obras. No lo admito en público.
+      </div>
+      <div class="test-author">Valentina O.</div>
+      <div class="test-role">Arquitecta / Providencia</div>
+    </div>
+    <div class="test-item">
+      <div class="test-quote">
+        No entendí el 60% de las piezas. El otro 40% me incomodó de buena manera.
+      </div>
+      <div class="test-author">Tomás E.</div>
+      <div class="test-role">Publicista / Sin galería favorita</div>
+    </div>
+    <div class="test-item">
+      <div class="test-quote">
+        Finalmente una exposición donde la música de fondo no era Satie.
+      </div>
+      <div class="test-author">Fernanda R.</div>
+      <div class="test-role">Diseñadora / Las Condes</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing">
+  <div class="pricing-header">
+    <div class="pricing-eyebrow">Acceso a la exposición</div>
+    <h2 class="pricing-title">Elige cómo<br>entrar</h2>
+  </div>
+
+  <div class="pricing-grid">
+    <div class="price-tier">
+      <div class="tier-label">Entrada Base</div>
+      <div class="tier-price">
+        <span class="tier-currency">CLP $</span>0
+      </div>
+      <div class="tier-note">Gratis. Arte para todos.</div>
+      <ul class="tier-includes">
+        <li>Acceso a la sala completa</li>
+        <li>Catálogo impreso</li>
+        <li>Un vaso de agua</li>
+        <li>La mirada de juicio del artista</li>
+      </ul>
+      <button class="tier-cta" onclick="alert('¡Bienvenido! El artista te ha añadido mentalmente a la lista de personas que no pagan.')">
+        Reservar entrada
+      </button>
+    </div>
+
+    <div class="price-tier">
+      <div class="tier-label">Apoyo Voluntario</div>
+      <div class="tier-price">
+        <span class="tier-currency">CLP $</span>10.000
+      </div>
+      <div class="tier-note">Opcional. Muy apreciado. Ligeramente esperado.</div>
+      <ul class="tier-includes">
+        <li>Todo lo anterior</li>
+        <li>Vino (el bueno)</li>
+        <li>Una conversación con el artista</li>
+        <li>Sticker de @paichunz</li>
+      </ul>
+      <button class="tier-cta featured" onclick="alert('Gracias. En serio. El artista lloró un poco al recibir esto.')">
+        Apoyar el arte
+      </button>
+    </div>
+
+    <div class="price-tier">
+      <div class="tier-label">Coleccionista</div>
+      <div class="tier-price">
+        <span class="tier-currency">CLP $</span>990.000
+      </div>
+      <div class="tier-note">Por si quieres llevarte algo a casa.</div>
+      <ul class="tier-includes">
+        <li>Todo lo anterior</li>
+        <li>Una obra original</li>
+        <li>Certificado de autenticidad hecho a mano</li>
+        <li>El artista te debe un favor</li>
+      </ul>
+      <button class="tier-cta" onclick="alert('Excepcional. El artista ya está buscando dónde depositar el cheque.')">
+        Adquirir obra
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2026 @paichunz · Todos los derechos reservados con algo de descuido</div>
+  <div class="footer-handle">una exposición de POORK INC.</div>
+  <a href="https://poork-inc.vercel.app" class="footer-link">poork-inc.vercel.app →</a>
+</footer>
+
+</body>
+</html>
