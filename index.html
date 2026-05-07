@@ -1076,12 +1076,10 @@ body.trend-y2k .irr-logo { color: var(--irr-accent); text-shadow: 0 0 20px var(-
 
 /* Switch de modo */
 .mode-switch {
-  position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-  z-index: 200; background: #111; border: 1px solid #333;
-  display: none; align-items: center; gap: 0;
-  border-radius: 4px; overflow: hidden;
+  background: #111; border: 1px solid #333;
+  display: flex; align-items: center; gap: 0;
+  border-radius: 4px; overflow: hidden; flex-shrink: 0;
 }
-.mode-switch.visible { display: flex; }
 
 .mode-switch-btn {
   font-family: 'Space Mono', monospace;
@@ -1203,11 +1201,6 @@ body.trend-popping-colors .mode-switch { background: #111; border-color: #ff0055
 <!-- FASE 3 — CONTENIDO -->
 <div id="main-content">
 
-  <div class="mode-switch" id="mode-switch">
-    <button class="mode-switch-btn" id="switch-serious" onclick="switchMode('serious')">La Agencia</button>
-    <button class="mode-switch-btn" id="switch-irreverent" onclick="switchMode('irreverent')">Lo Que Sea</button>
-  </div>
-
   <div class="trend-badge" id="trend-badge">
     <span id="trend-name" style="display:block;font-size:11px;font-weight:bold;letter-spacing:0.1em;margin-bottom:4px;">—</span>
     <span id="badge-desc" style="display:block;font-size:9px;opacity:0.7;letter-spacing:0.08em;font-style:normal;"></span>
@@ -1218,12 +1211,16 @@ body.trend-popping-colors .mode-switch { background: #111; border-color: #ff0055
     <nav class="serious-nav">
       <div class="serious-logo">POORK INC.</div>
       <ul class="serious-nav-links">
-        <li><a href="#">Drops</a></li>
-        <li><a href="#">Manifiesto</a></li>
-        <li><a href="#">Clientes</a></li>
+        <li><a href="#serious-drops">Drops</a></li>
+        <li><a href="#serious-manifesto">Manifiesto</a></li>
+        <li><a href="#serious-clients">Clientes</a></li>
         <li class="nav-about-li"><a href="/about.html" class="nav-about">About</a></li>
         <li><a href="mailto:hola@poork.inc">Contacto</a></li>
       </ul>
+      <div class="mode-switch" id="mode-switch">
+        <button class="mode-switch-btn" id="switch-serious" onclick="switchMode('serious')">La Agencia</button>
+        <button class="mode-switch-btn" id="switch-irreverent" onclick="switchMode('irreverent')">Lo Que Sea</button>
+      </div>
     </nav>
 
     <section class="serious-hero">
@@ -1255,7 +1252,7 @@ body.trend-popping-colors .mode-switch { background: #111; border-color: #ff0055
       <div class="stat-cell fade-in-up delay-3"><div class="stat-number">∞</div><div class="stat-label">Ideas que no pueden ser</div></div>
     </section>
 
-    <section class="serious-clients">
+    <section class="serious-clients" id="serious-clients">
       <div class="serious-section-label">Marcas que hemos creado y nadie ha pedido</div>
       <div class="clients-row">
         <span class="client-name">Mediocre®</span>
@@ -1426,6 +1423,10 @@ body.trend-popping-colors .mode-switch { background: #111; border-color: #ff0055
         <li class="nav-about-li"><a href="/about.html" class="nav-about">About</a></li>
         <li><a href="mailto:hola@poork.inc">Contacto</a></li>
       </ul>
+      <div class="mode-switch mode-switch-irr" id="mode-switch-irr">
+        <button class="mode-switch-btn" id="switch-serious-irr" onclick="switchMode('serious')">La Agencia</button>
+        <button class="mode-switch-btn" id="switch-irreverent-irr" onclick="switchMode('irreverent')">Lo Que Sea</button>
+      </div>
       <div class="style-selector-wrap">
         <span class="style-label-text">Tendencia</span>
         <select class="style-dropdown" id="style-dropdown" onchange="applyTrend(this.value, true)">
@@ -1878,30 +1879,34 @@ function setMode(mode) {
 // ============================================
 // FASE 3 — CONTENIDO
 // ============================================
+function setSwitchActive(mode) {
+  ['switch-serious','switch-irreverent','switch-serious-irr','switch-irreverent-irr'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const isSerious = id.includes('serious');
+    el.classList.toggle('active', mode === 'serious' ? isSerious : !isSerious);
+  });
+}
+
 function activateMode(mode) {
   currentMode = mode;
   const main = document.getElementById('main-content');
-  const modeSwitch = document.getElementById('mode-switch');
   const aboutFloat = document.getElementById('about-float');
   if (aboutFloat) aboutFloat.style.display = 'block';
   const seriousContent = document.getElementById('serious-content');
   const irreverentContent = document.getElementById('irreverent-content');
 
   main.style.display = 'block';
-  modeSwitch.classList.add('visible');
+  setSwitchActive(mode);
 
   if (mode === 'serious') {
     document.body.className = 'mode-serious';
     seriousContent.style.display = 'block';
     irreverentContent.style.display = 'none';
-    document.getElementById('switch-serious').classList.add('active');
-    document.getElementById('switch-irreverent').classList.remove('active');
   } else {
     document.body.className = 'mode-irreverent';
     irreverentContent.style.display = 'block';
     seriousContent.style.display = 'none';
-    document.getElementById('switch-irreverent').classList.add('active');
-    document.getElementById('switch-serious').classList.remove('active');
     applyTrend(null, false);
   }
   requestAnimationFrame(() => requestAnimationFrame(() => { main.style.opacity = '1'; }));
@@ -1917,18 +1922,15 @@ function switchMode(mode) {
 
   main.style.opacity = '0';
   setTimeout(() => {
+    setSwitchActive(mode);
     if (mode === 'serious') {
       document.body.className = 'mode-serious';
       seriousContent.style.display = 'block';
       irreverentContent.style.display = 'none';
-      document.getElementById('switch-serious').classList.add('active');
-      document.getElementById('switch-irreverent').classList.remove('active');
     } else {
       document.body.className = 'mode-irreverent';
       irreverentContent.style.display = 'block';
       seriousContent.style.display = 'none';
-      document.getElementById('switch-irreverent').classList.add('active');
-      document.getElementById('switch-serious').classList.remove('active');
       applyTrend(null, true);
     }
     window.scrollTo(0, 0);
