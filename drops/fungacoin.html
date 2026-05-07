@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comprar FungaCoin — La cripto que vale hongo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700;900&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --soil:#0d0a06;--dark:#120e08;--surface:#1a1510;--card:#211a12;
+  --border:rgba(180,140,60,0.12);
+  --spore:#b4d44a;--gold:#d4a832;--amber:#e8780a;
+  --cream:#f5edd8;--muted:#6b5e42;--danger:#cc3322;
+  --mono:'DM Mono',monospace;--display:'Unbounded',sans-serif;--body:'DM Sans',sans-serif;
+}
+body{background:var(--soil);color:var(--cream);font-family:var(--body);overflow-x:hidden}
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 30%,rgba(180,212,74,.05) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 60% at 80% 70%,rgba(212,168,50,.06) 0%,transparent 60%);
+}
+
+nav{
+  position:sticky;top:0;z-index:500;
+  padding:16px 48px;display:flex;align-items:center;justify-content:space-between;
+  background:rgba(13,10,6,.95);border-bottom:1px solid var(--border);backdrop-filter:blur(20px);
+}
+.nav-logo{font-family:var(--display);font-size:17px;font-weight:900;letter-spacing:-0.02em;color:var(--cream)}
+.nav-logo span{color:var(--spore)}
+.nav-back{font-family:var(--mono);font-size:9px;color:var(--muted);text-decoration:none;letter-spacing:.15em;transition:color .2s}
+.nav-back:hover{color:var(--spore)}
+.nav-price{font-family:var(--mono);font-size:10px;color:var(--spore);letter-spacing:.1em;padding:5px 12px;border:1px solid rgba(180,212,74,.2);background:rgba(180,212,74,.05)}
+
+.hero{
+  padding:80px 48px 64px;
+  border-bottom:1px solid var(--border);
+  position:relative;overflow:hidden;
+  display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center;
+}
+.hero::before{
+  content:'🍄';
+  position:absolute;right:-40px;top:50%;transform:translateY(-50%);
+  font-size:280px;opacity:.04;line-height:1;pointer-events:none;
+  animation:mushroom-breathe 6s ease-in-out infinite;
+}
+@keyframes mushroom-breathe{0%,100%{transform:translateY(-50%) scale(1)}50%{transform:translateY(-52%) scale(1.03)}}
+.hero-eye{font-family:var(--mono);font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--spore);margin-bottom:16px;display:block}
+.hero-title{font-family:var(--display);font-size:clamp(40px,6vw,80px);font-weight:900;letter-spacing:-.03em;line-height:.92;margin-bottom:16px}
+.hero-title .g{color:var(--spore)}
+.hero-sub{font-family:var(--body);font-size:15px;color:var(--muted);line-height:1.7;font-weight:300;max-width:480px;margin-bottom:32px}
+.hero-disclaimer{
+  font-family:var(--mono);font-size:9px;color:rgba(107,94,66,.6);
+  letter-spacing:.07em;line-height:1.9;max-width:500px;
+  border-left:2px solid var(--border);padding-left:16px;
+}
+
+.live-stats{
+  background:var(--card);border:1px solid rgba(180,212,74,.2);
+  padding:28px;min-width:260px;position:relative;
+  align-self:start;
+}
+.live-stats::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--spore),var(--gold))}
+.ls-label{font-family:var(--mono);font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.ls-price{font-family:var(--display);font-size:40px;font-weight:900;letter-spacing:-.02em;color:var(--cream);line-height:1;margin-bottom:4px}
+.ls-price .unit{font-size:.4em;color:var(--spore);font-weight:400;vertical-align:super}
+.ls-change{font-family:var(--mono);font-size:10px;margin-bottom:20px}
+.ls-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:9px}
+.ls-row:last-child{border-bottom:none}
+.ls-row .k{color:var(--muted);letter-spacing:.1em}
+.ls-row .v{color:var(--cream)}
+
+.paquetes{padding:64px 48px}
+.section-eye{font-family:var(--mono);font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--spore);margin-bottom:10px;display:block}
+.section-title{font-family:var(--display);font-size:clamp(28px,4vw,44px);font-weight:700;letter-spacing:-.02em;margin-bottom:48px;line-height:1.05}
+.section-title em{color:var(--spore);font-style:normal}
+
+.paq-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:var(--border)}
+
+.paq-card{
+  background:var(--card);padding:32px 24px;
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:background .2s;
+  border:2px solid transparent;
+}
+.paq-card:hover{background:#281f14}
+.paq-card.featured{background:#1e1a0e;border-color:var(--gold);z-index:2}
+.paq-card.featured::before{
+  content:'MÁS POPULAR';
+  position:absolute;top:0;left:0;right:0;
+  font-family:var(--mono);font-size:7px;letter-spacing:.25em;
+  background:var(--gold);color:var(--soil);
+  padding:5px;text-align:center;font-weight:700;
+}
+
+.paq-icon{font-size:32px;margin-bottom:16px;display:block;margin-top:8px}
+.paq-card.featured .paq-icon{margin-top:28px}
+.paq-name{font-family:var(--display);font-size:14px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px;color:var(--cream)}
+.paq-fnga{font-family:var(--mono);font-size:10px;color:var(--spore);letter-spacing:.1em;margin-bottom:20px}
+.paq-price{font-family:var(--display);font-size:26px;font-weight:900;letter-spacing:-.02em;color:var(--cream);line-height:1;margin-bottom:4px}
+.paq-clp{font-family:var(--mono);font-size:8px;color:var(--muted);letter-spacing:.1em;margin-bottom:20px}
+.paq-includes{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:24px;flex:1}
+.paq-includes li{font-family:var(--body);font-size:11px;color:var(--muted);display:flex;gap:8px;line-height:1.4;align-items:flex-start}
+.paq-includes li::before{content:'🍄';font-size:9px;flex-shrink:0;margin-top:2px}
+.paq-includes li.active{color:var(--cream)}
+.paq-btn{
+  font-family:var(--display);font-size:10px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;
+  padding:14px 8px;border:1px solid var(--border);
+  background:transparent;color:var(--cream);
+  cursor:pointer;transition:all .2s;width:100%;margin-top:auto;
+}
+.paq-btn:hover{background:var(--spore);color:var(--soil);border-color:var(--spore)}
+.paq-card.featured .paq-btn{background:var(--gold);color:var(--soil);border-color:var(--gold)}
+.paq-card.featured .paq-btn:hover{background:var(--spore);border-color:var(--spore)}
+
+.modal-bg{
+  position:fixed;inset:0;z-index:1000;
+  background:rgba(0,0,0,.85);backdrop-filter:blur(8px);
+  display:none;align-items:center;justify-content:center;padding:24px;
+}
+.modal-bg.open{display:flex}
+.modal{
+  background:var(--dark);border:1px solid var(--border);
+  width:100%;max-width:560px;max-height:90vh;overflow-y:auto;position:relative;
+}
+.modal::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--spore),var(--gold),var(--amber))}
+.modal-close{
+  position:absolute;top:16px;right:16px;
+  font-family:var(--mono);font-size:16px;color:var(--muted);
+  background:none;border:none;cursor:pointer;transition:color .2s;line-height:1;padding:4px;
+}
+.modal-close:hover{color:var(--cream)}
+.modal-body{padding:40px}
+.modal-eye{font-family:var(--mono);font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--spore);margin-bottom:8px;display:block}
+.modal-title{font-family:var(--display);font-size:24px;font-weight:900;letter-spacing:-.02em;margin-bottom:4px}
+.modal-paq{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.15em;margin-bottom:28px}
+
+.step{display:none}
+.step.active{display:block}
+.step-label{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;display:block}
+.step-input{
+  width:100%;background:var(--surface);border:1px solid var(--border);
+  color:var(--cream);font-family:var(--mono);font-size:14px;
+  padding:14px 16px;outline:none;transition:border-color .2s;
+  margin-bottom:6px;letter-spacing:.05em;
+}
+.step-input:focus{border-color:rgba(180,212,74,.5)}
+.step-input::placeholder{color:var(--muted);opacity:.5}
+.step-hint{font-family:var(--mono);font-size:8px;color:var(--muted);letter-spacing:.08em;line-height:1.7;margin-bottom:24px}
+.step-btn{
+  font-family:var(--display);font-size:11px;font-weight:700;
+  letter-spacing:.15em;text-transform:uppercase;
+  background:var(--spore);color:var(--soil);border:none;
+  padding:16px 32px;cursor:pointer;width:100%;transition:background .2s;
+}
+.step-btn:hover{background:var(--gold)}
+
+.pay-methods{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.pay-method{
+  background:var(--surface);border:1px solid var(--border);
+  padding:16px 20px;cursor:pointer;transition:all .2s;
+  display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;
+}
+.pay-method:hover{border-color:rgba(180,212,74,.4);background:var(--card)}
+.pay-method.selected{border-color:var(--spore);background:rgba(180,212,74,.06)}
+.pm-icon{font-size:22px}
+.pm-name{font-family:var(--display);font-size:13px;font-weight:700;letter-spacing:-.01em}
+.pm-desc{font-family:var(--mono);font-size:8px;color:var(--muted);letter-spacing:.1em;margin-top:3px}
+.pm-arrow{font-family:var(--mono);font-size:16px;color:var(--muted);transition:color .2s}
+.pay-method:hover .pm-arrow,.pay-method.selected .pm-arrow{color:var(--spore)}
+
+.instr-box{
+  background:var(--surface);border:1px solid rgba(180,212,74,.2);
+  padding:24px;margin-bottom:20px;position:relative;
+}
+.instr-box::before{content:'';position:absolute;top:0;left:0;bottom:0;width:2px;background:var(--spore)}
+.instr-title{font-family:var(--mono);font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--spore);margin-bottom:12px}
+.instr-data{font-family:var(--mono);font-size:13px;color:var(--cream);letter-spacing:.05em;line-height:2;word-break:break-all}
+.copy-btn{
+  font-family:var(--mono);font-size:8px;letter-spacing:.2em;text-transform:uppercase;
+  background:transparent;border:1px solid var(--border);color:var(--muted);
+  padding:6px 14px;cursor:pointer;margin-top:8px;transition:all .2s;display:block;
+}
+.copy-btn:hover{border-color:var(--spore);color:var(--spore)}
+.instr-note{font-family:var(--mono);font-size:8px;color:var(--muted);letter-spacing:.07em;line-height:1.9;margin-bottom:20px}
+.instr-note strong{color:rgba(245,237,216,.6)}
+.confirm-btn{
+  font-family:var(--display);font-size:11px;font-weight:700;
+  letter-spacing:.15em;text-transform:uppercase;
+  background:var(--gold);color:var(--soil);border:none;
+  padding:16px 32px;cursor:pointer;width:100%;transition:background .2s;
+}
+.confirm-btn:hover{background:var(--spore)}
+
+.cert-success{text-align:center;padding:16px 0}
+.cert-emoji{font-size:64px;display:block;margin-bottom:16px;animation:bounce .6s ease}
+@keyframes bounce{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.cert-msg{font-family:var(--display);font-size:20px;font-weight:700;letter-spacing:-.01em;margin-bottom:8px}
+.cert-sub{font-family:var(--body);font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:28px}
+.cert-dl-btn{
+  font-family:var(--display);font-size:11px;font-weight:700;
+  letter-spacing:.15em;text-transform:uppercase;
+  background:var(--spore);color:var(--soil);border:none;
+  padding:16px 40px;cursor:pointer;width:100%;transition:background .2s;margin-bottom:8px;
+}
+.cert-dl-btn:hover{background:var(--gold)}
+.cert-dl-note{font-family:var(--mono);font-size:8px;color:var(--muted);letter-spacing:.1em;text-align:center;line-height:1.8}
+
+.how{padding:64px 48px;border-top:1px solid var(--border)}
+.how-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--border);margin-top:40px}
+.how-step{background:var(--card);padding:32px 24px;position:relative}
+.how-num{font-family:var(--display);font-size:56px;font-weight:900;color:rgba(180,212,74,.08);line-height:1;margin-bottom:12px;letter-spacing:-.03em}
+.how-icon{font-size:24px;display:block;margin-bottom:12px}
+.how-title{font-family:var(--display);font-size:13px;font-weight:700;letter-spacing:-.01em;margin-bottom:8px}
+.how-desc{font-family:var(--body);font-size:12px;color:var(--muted);line-height:1.6}
+
+.legal{
+  margin:0 48px 64px;
+  border:1px solid rgba(204,51,34,.25);background:rgba(204,51,34,.03);
+  padding:24px 28px;display:grid;grid-template-columns:auto 1fr;gap:20px;
+}
+.legal-icon{font-size:20px;color:var(--danger);margin-top:2px}
+.legal-title{font-family:var(--display);font-size:12px;font-weight:700;color:var(--danger);margin-bottom:8px;letter-spacing:-.01em}
+.legal-text{font-family:var(--mono);font-size:8px;color:rgba(245,237,216,.3);letter-spacing:.07em;line-height:2}
+.legal-text strong{color:rgba(245,237,216,.6)}
+
+footer{padding:40px 48px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end}
+.foot-logo{font-family:var(--display);font-size:28px;font-weight:900;color:rgba(180,212,74,.08);letter-spacing:-.02em}
+.foot-legal{font-family:var(--mono);font-size:8px;color:rgba(107,94,66,.4);letter-spacing:.05em;line-height:2;text-align:right}
+
+.fade-up{opacity:0;transform:translateY(16px);animation:fu .6s ease forwards}
+@keyframes fu{to{opacity:1;transform:translateY(0)}}
+.d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}
+
+@media(max-width:900px){
+  nav{padding:14px 24px}
+  .hero{grid-template-columns:1fr;padding:60px 24px 48px}
+  .live-stats{width:100%}
+  .paquetes,.how{padding:48px 24px}
+  .paq-grid{grid-template-columns:1fr}
+  .how-steps{grid-template-columns:repeat(2,1fr)}
+  .legal{margin:0 24px 48px}
+  footer{padding:32px 24px;flex-direction:column;gap:16px}
+  .foot-legal{text-align:left}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">FUNGA<span>COIN</span> · Tienda</div>
+  <div style="display:flex;gap:16px;align-items:center">
+    <div class="nav-price" id="nav-price">🍄 cargando...</div>
+    <a href="../index.html" class="nav-back">← poork.inc</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div>
+    <span class="hero-eye fade-up">$FNGA · La cripto que vale hongo · Santiago, Chile</span>
+    <h1 class="hero-title fade-up d1"><span class="g">COMPRA</span><br>FUNGA<br>COIN</h1>
+    <p class="hero-sub fade-up d2">
+      La primera criptomoneda chilena que admite abiertamente que no vale nada. Por eso vale algo. Compra, recibe tu certificado, cuéntaselo a alguien.
+    </p>
+    <p class="hero-disclaimer fade-up d3">
+      * FungaCoin es una obra de arte comercial / broma en serio. No es una inversión. Sí es real. El dinero llega a una persona real (Ricardo Jerez, POORK INC.) y tú recibes algo real a cambio. La honestidad es nuestra propuesta de valor.
+    </p>
+  </div>
+  <div class="live-stats">
+    <div class="ls-label">Precio actual · $FNGA</div>
+    <div class="ls-price"><span class="unit">🍄</span><span id="ls-price-val">0.0847</span></div>
+    <div class="ls-change" id="ls-change" style="color:var(--spore)">▲ +2.4% · sigue subiendo igual</div>
+    <div class="ls-row"><span class="k">CAP DE MERCADO</span><span class="v" id="ls-mcap">🍄 35.6M</span></div>
+    <div class="ls-row"><span class="k">VOLUMEN 24H</span><span class="v" id="ls-vol">🍄 4.2K</span></div>
+    <div class="ls-row"><span class="k">SUPPLY TOTAL</span><span class="v">1,000,000,000</span></div>
+    <div class="ls-row"><span class="k">CIRCULANTE</span><span class="v">420,000,000</span></div>
+    <div class="ls-row"><span class="k">ATH</span><span class="v">🍄 0.0847</span></div>
+    <div class="ls-row"><span class="k">ATL</span><span class="v">🍄 0.0847</span></div>
+    <div class="ls-row"><span class="k">CREADO EN</span><span class="v">Santiago 🇨🇱</span></div>
+  </div>
+</section>
+
+<section class="paquetes">
+  <span class="section-eye">Elige tu paquete</span>
+  <h2 class="section-title">Cuánto hongo<br>quieres <em>tener.</em></h2>
+  <div class="paq-grid">
+    <div class="paq-card">
+      <span class="paq-icon">🌱</span>
+      <div class="paq-name">Spore</div>
+      <div class="paq-fnga">1 $FNGA</div>
+      <div class="paq-price">$1.000</div>
+      <div class="paq-clp">CLP · ~$1 USD</div>
+      <ul class="paq-includes">
+        <li class="active">Certificado PDF oficial firmado</li>
+        <li class="active">Número de serie único $FNGA</li>
+        <li style="opacity:.3">Wallpaper edición especial</li>
+        <li style="opacity:.3">NFT coleccionable</li>
+        <li style="opacity:.3">Moneda de plástico física</li>
+        <li style="opacity:.3">Llamada con el fundador</li>
+      </ul>
+      <button class="paq-btn" onclick="abrirModal('Spore','1 $FNGA','$1.000 CLP',1)">Comprar →</button>
+    </div>
+    <div class="paq-card">
+      <span class="paq-icon">🍂</span>
+      <div class="paq-name">Micelio</div>
+      <div class="paq-fnga">10 $FNGA</div>
+      <div class="paq-price">$5.000</div>
+      <div class="paq-clp">CLP · ~$5 USD</div>
+      <ul class="paq-includes">
+        <li class="active">Certificado PDF oficial firmado</li>
+        <li class="active">Número de serie único $FNGA</li>
+        <li class="active">Wallpaper edición especial</li>
+        <li style="opacity:.3">NFT coleccionable</li>
+        <li style="opacity:.3">Moneda de plástico física</li>
+        <li style="opacity:.3">Llamada con el fundador</li>
+      </ul>
+      <button class="paq-btn" onclick="abrirModal('Micelio','10 $FNGA','$5.000 CLP',2)">Comprar →</button>
+    </div>
+    <div class="paq-card featured">
+      <span class="paq-icon">🍄</span>
+      <div class="paq-name">Hongo</div>
+      <div class="paq-fnga">100 $FNGA</div>
+      <div class="paq-price">$15.000</div>
+      <div class="paq-clp">CLP · ~$15 USD</div>
+      <ul class="paq-includes">
+        <li class="active">Certificado PDF oficial firmado</li>
+        <li class="active">Número de serie único $FNGA</li>
+        <li class="active">Wallpaper edición especial</li>
+        <li class="active">NFT coleccionable (archivo)</li>
+        <li style="opacity:.3">Moneda de plástico física</li>
+        <li style="opacity:.3">Llamada con el fundador</li>
+      </ul>
+      <button class="paq-btn" onclick="abrirModal('Hongo','100 $FNGA','$15.000 CLP',3)">Comprar →</button>
+    </div>
+    <div class="paq-card">
+      <span class="paq-icon">🏆</span>
+      <div class="paq-name">Boletus</div>
+      <div class="paq-fnga">1.000 $FNGA</div>
+      <div class="paq-price">$50.000</div>
+      <div class="paq-clp">CLP · ~$50 USD</div>
+      <ul class="paq-includes">
+        <li class="active">Certificado PDF oficial firmado</li>
+        <li class="active">Número de serie único $FNGA</li>
+        <li class="active">Wallpaper edición especial</li>
+        <li class="active">NFT coleccionable (archivo)</li>
+        <li class="active">Moneda de plástico física ✉️</li>
+        <li style="opacity:.3">Llamada con el fundador</li>
+      </ul>
+      <button class="paq-btn" onclick="abrirModal('Boletus','1.000 $FNGA','$50.000 CLP',4)">Comprar →</button>
+    </div>
+    <div class="paq-card">
+      <span class="paq-icon">💎</span>
+      <div class="paq-name">Trufa Negra</div>
+      <div class="paq-fnga">10.000 $FNGA</div>
+      <div class="paq-price">$150.000</div>
+      <div class="paq-clp">CLP · ~$150 USD</div>
+      <ul class="paq-includes">
+        <li class="active">Certificado PDF oficial firmado</li>
+        <li class="active">Número de serie único $FNGA</li>
+        <li class="active">Wallpaper edición especial</li>
+        <li class="active">NFT coleccionable (archivo)</li>
+        <li class="active">Moneda de plástico física ✉️</li>
+        <li class="active">Llamada 5 min con el fundador</li>
+      </ul>
+      <button class="paq-btn" onclick="abrirModal('Trufa Negra','10.000 $FNGA','$150.000 CLP',5)">Comprar →</button>
+    </div>
+  </div>
+</section>
+
+<section class="how">
+  <span class="section-eye">Cómo funciona</span>
+  <h2 class="section-title">Como la <em>callampa.</em></h2>
+  <div class="how-steps">
+    <div class="how-step">
+      <div class="how-num">01</div>
+      <span class="how-icon">🛒</span>
+      <div class="how-title">Elige tu paquete</div>
+      <div class="how-desc">Desde 1 hasta 10.000 $FNGA. Todos valen hongo. Algunos valen más hongo que otros.</div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">02</div>
+      <span class="how-icon">💸</span>
+      <div class="how-title">Paga como quieras</div>
+      <div class="how-desc">PayPal, transferencia bancaria chilena, Mercado Pago o crypto. Aceptamos todo menos promesas.</div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">03</div>
+      <span class="how-icon">📜</span>
+      <div class="how-title">Recibe tu certificado</div>
+      <div class="how-desc">PDF firmado descargable al instante. Con número de serie único. Completamente inútil. Completamente real.</div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">04</div>
+      <span class="how-icon">🍄</span>
+      <div class="how-title">Cuéntaselo a alguien</div>
+      <div class="how-desc">Eso es todo. Eres holder de FungaCoin. Puedes presumirlo. Nadie sabrá qué significa. Tú tampoco.</div>
+    </div>
+  </div>
+</section>
+
+<div class="legal">
+  <div class="legal-icon">⚠</div>
+  <div>
+    <div class="legal-title">ADVERTENCIA DE RIESGO FÚNGICO</div>
+    <div class="legal-text">
+      <strong>FungaCoin ($FNGA) no es una inversión, no es un instrumento financiero regulado y no está supervisada por ningún organismo.</strong> Es una obra de arte comercial con sentido del humor. El dinero que pagas va directamente a Ricardo Jerez, director creativo de POORK INC., quien a cambio te envía lo que se describe en cada paquete. El valor de $FNGA puede ir a cero en cualquier momento. De hecho, ya está en cero. Eso no cambia el trato. <strong>Compras la experiencia, el objeto y la historia.</strong> No el retorno. · POORK INC. · Santiago, Chile · 2026
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-logo">FUNGACOIN</div>
+  <div class="foot-legal">
+    FungaCoin ($FNGA) · POORK INC. · Santiago, Chile<br>
+    Ricardo Jerez · Director Creativo · hola@poork.inc<br>
+    © 2005–∞ · todos somos puercos · algunos somos hongos
+  </div>
+</footer>
+
+<div class="modal-bg" id="modal-bg" onclick="cerrarModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="cerrarModal()">✕</button>
+    <div class="modal-body">
+      <span class="modal-eye">Comprando FungaCoin</span>
+      <div class="modal-title" id="modal-title">Hongo</div>
+      <div class="modal-paq" id="modal-paq">100 $FNGA · $15.000 CLP</div>
+      <div class="step active" id="step-1">
+        <span class="step-label">Tu nombre (para el certificado)</span>
+        <input class="step-input" id="input-nombre" type="text" placeholder="Ej: Juan Pérez González" maxlength="60">
+        <span class="step-label" style="margin-top:16px">Tu email (para recibir extras)</span>
+        <input class="step-input" id="input-email" type="email" placeholder="tu@email.com">
+        <div class="step-hint">Solo se usa para enviarte el wallpaper, NFT y coordinar el envío físico si aplica. No spam. No newsletter. Prometido.</div>
+        <button class="step-btn" onclick="irStep2()">Continuar → Elegir método de pago</button>
+      </div>
+      <div class="step" id="step-2">
+        <span class="step-label">Elige cómo pagar</span>
+        <div class="pay-methods">
+          <div class="pay-method" onclick="seleccionarPago('paypal',this)">
+            <div class="pm-icon">🌐</div>
+            <div><div class="pm-name">PayPal</div><div class="pm-desc">INTERNACIONAL · TARJETA / SALDO PAYPAL</div></div>
+            <div class="pm-arrow">→</div>
+          </div>
+          <div class="pay-method" onclick="seleccionarPago('transfer',this)">
+            <div class="pm-icon">🏦</div>
+            <div><div class="pm-name">Transferencia Bancaria</div><div class="pm-desc">CHILE · CUALQUIER BANCO</div></div>
+            <div class="pm-arrow">→</div>
+          </div>
+          <div class="pay-method" onclick="seleccionarPago('mercadopago',this)">
+            <div class="pm-icon">💳</div>
+            <div><div class="pm-name">Mercado Pago</div><div class="pm-desc">CHILE · TARJETA / SALDO MP</div></div>
+            <div class="pm-arrow">→</div>
+          </div>
+          <div class="pay-method" onclick="seleccionarPago('crypto',this)">
+            <div class="pm-icon">₿</div>
+            <div><div class="pm-name">Crypto</div><div class="pm-desc">BTC · ETH · USDT · USDC</div></div>
+            <div class="pm-arrow">→</div>
+          </div>
+        </div>
+        <button class="step-btn" id="btn-step3" onclick="irStep3()" style="opacity:.4" disabled>Ver instrucciones de pago →</button>
+      </div>
+      <div class="step" id="step-3">
+        <div class="instr-box" id="instr-box"></div>
+        <div class="instr-note" id="instr-note"></div>
+        <button class="confirm-btn" onclick="confirmar()">✓ Ya realicé el pago — Descargar certificado</button>
+      </div>
+      <div class="step" id="step-4">
+        <div class="cert-success">
+          <span class="cert-emoji">🍄</span>
+          <div class="cert-msg">¡Eres holder de FungaCoin!</div>
+          <p class="cert-sub">Bienvenido al ecosistema más honestamente inútil de la blockchain.<br>Tu certificado está listo para descargar.</p>
+          <button class="cert-dl-btn" onclick="descargarCertificado()">📜 Descargar Certificado PDF</button>
+          <div class="cert-dl-note">El certificado incluye tu nombre, número de serie único y el sello oficial de POORK INC.<br>Completamente inútil. Completamente tuyo. <span id="cert-serial"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentPaq = { nombre:'Hongo', fnga:'100 $FNGA', precio:'$15.000 CLP', nivel:3 };
+let comprador  = { nombre:'', email:'' };
+let metodoPago = '';
+let serialNum  = '';
+
+let price = 0.0847;
+function fluctuate() {
+  price *= (1 + (Math.random()-.49)*.004);
+  price = Math.max(.001, price);
+  const v = (price).toFixed(4);
+  document.getElementById('ls-price-val').textContent = v;
+  document.getElementById('nav-price').textContent = '🍄 ' + v;
+  document.getElementById('ls-mcap').textContent = '🍄 ' + (price*420e6).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+}
+setInterval(fluctuate, 2200);
+
+function abrirModal(nombre, fnga, precio, nivel) {
+  currentPaq = { nombre, fnga, precio, nivel };
+  document.getElementById('modal-title').textContent = nombre + ' 🍄';
+  document.getElementById('modal-paq').textContent = fnga + ' · ' + precio;
+  ['step-1','step-2','step-3','step-4'].forEach(id => document.getElementById(id).classList.remove('active'));
+  document.getElementById('step-1').classList.add('active');
+  document.getElementById('input-nombre').value = '';
+  document.getElementById('input-email').value = '';
+  metodoPago = '';
+  document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('selected'));
+  document.getElementById('btn-step3').style.opacity = '.4';
+  document.getElementById('btn-step3').disabled = true;
+  document.getElementById('modal-bg').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function cerrarModal(e) {
+  if (e && e.target !== document.getElementById('modal-bg')) return;
+  document.getElementById('modal-bg').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function irStep2() {
+  const n = document.getElementById('input-nombre').value.trim();
+  if (!n) { document.getElementById('input-nombre').focus(); return; }
+  comprador.nombre = n;
+  comprador.email  = document.getElementById('input-email').value.trim();
+  goTo('step-2');
+}
+
+function seleccionarPago(metodo, el) {
+  metodoPago = metodo;
+  document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('btn-step3').style.opacity = '1';
+  document.getElementById('btn-step3').disabled = false;
+}
+
+const DATOS_PAGO = {
+  paypal: {
+    titulo: 'PayPal',
+    datos: [
+      { k:'Enviar a', v:'pagos@poork.inc' },
+      { k:'Monto', v: '' },
+      { k:'Referencia', v:'' }
+    ],
+    nota: `Envía el pago como "Pago de bienes/servicios".\nEn el mensaje escribe tu nombre y el paquete.\nUna vez confirmado, te enviamos los extras por email.`
+  },
+  transfer: {
+    titulo: 'Transferencia Bancaria Chile',
+    datos: [
+      { k:'Banco', v:'Banco Estado' },
+      { k:'Tipo de cuenta', v:'Cuenta Vista' },
+      { k:'N° de cuenta', v:'000-000000-00' },
+      { k:'RUT', v:'00.000.000-0' },
+      { k:'Nombre', v:'Ricardo Jerez' },
+      { k:'Email', v:'hola@poork.inc' },
+      { k:'Monto', v:'' },
+      { k:'Asunto', v:'' }
+    ],
+    nota: `Envía el comprobante a <strong>hola@poork.inc</strong> con tu nombre y paquete en el asunto.\nConfirmamos en máximo 24 horas hábiles.`
+  },
+  mercadopago: {
+    titulo: 'Mercado Pago',
+    datos: [
+      { k:'Link de pago', v:'https://mpago.la/fungacoin' },
+      { k:'O busca', v:'@ricardojerez en Mercado Pago' },
+      { k:'Monto', v:'' },
+      { k:'Referencia', v:'' }
+    ],
+    nota: `Agrega en el mensaje de pago tu nombre y paquete.\nRecibimos notificación automática y enviamos los extras por email.`
+  },
+  crypto: {
+    titulo: 'Crypto (BTC · ETH · USDT · USDC)',
+    datos: [
+      { k:'BTC',  v:'bc1q...' },
+      { k:'ETH',  v:'0x...' },
+      { k:'USDT', v:'TRC20: T...' },
+      { k:'Red',  v:'Ethereum / Tron / BSC' },
+      { k:'Monto equivalente', v:'' }
+    ],
+    nota: `Envía el hash de transacción a <strong>hola@poork.inc</strong> junto a tu nombre.\nVerificamos en blockchain y enviamos los extras.`
+  }
+};
+
+function irStep3() {
+  if (!metodoPago) return;
+  const d = DATOS_PAGO[metodoPago];
+  serialNum = 'FNGA-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substr(2,4).toUpperCase();
+  d.datos.forEach(row => {
+    if (row.k === 'Monto' || row.k === 'Monto equivalente') row.v = currentPaq.precio;
+    if (row.k === 'Asunto' || row.k === 'Referencia') row.v = currentPaq.nombre + ' · ' + serialNum;
+  });
+  const box = document.getElementById('instr-box');
+  box.innerHTML = `
+    <div class="instr-title">${d.titulo}</div>
+    <div class="instr-data">
+      ${d.datos.map(r => `<div style="display:flex;justify-content:space-between;gap:16px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)">
+        <span style="color:var(--muted);font-size:9px;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap">${r.k}</span>
+        <span style="text-align:right;font-size:11px">${r.v}</span>
+      </div>`).join('')}
+    </div>
+    <button class="copy-btn" onclick="copiarDatos()">📋 Copiar datos</button>
+  `;
+  document.getElementById('instr-note').innerHTML = d.nota.replace(/<strong>/g,'<strong style="color:rgba(245,237,216,.6)">');
+  goTo('step-3');
+}
+
+function copiarDatos() {
+  const d = DATOS_PAGO[metodoPago];
+  const txt = d.datos.map(r => r.k + ': ' + r.v).join('\n');
+  navigator.clipboard.writeText(txt).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = '✓ Copiado';
+    setTimeout(() => btn.textContent = '📋 Copiar datos', 2000);
+  });
+}
+
+function confirmar() {
+  document.getElementById('cert-serial').textContent = '· Serie: ' + serialNum;
+  goTo('step-4');
+}
+
+function goTo(id) {
+  ['step-1','step-2','step-3','step-4'].forEach(s => document.getElementById(s).classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function descargarCertificado() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
+  const W = 210, H = 297;
+  doc.setFillColor(13,10,6); doc.rect(0,0,W,H,'F');
+  doc.setDrawColor(180,212,74); doc.setLineWidth(0.3); doc.rect(12,12,W-24,H-24,'S');
+  doc.setDrawColor(100,80,30); doc.setLineWidth(0.1); doc.rect(16,16,W-32,H-32,'S');
+  doc.setFillColor(180,212,74); doc.rect(12,12,W-24,1.5,'F');
+  doc.setTextColor(107,94,66); doc.setFontSize(7); doc.setFont('helvetica','normal');
+  doc.text('POORK INC.  ·  SANTIAGO, CHILE  ·  DIVISIÓN FÚNGICA', W/2, 28, {align:'center'});
+  doc.setFontSize(48); doc.text('🍄', W/2, 62, {align:'center'});
+  doc.setTextColor(180,212,74); doc.setFontSize(9); doc.setFont('helvetica','bold');
+  doc.text('CERTIFICADO OFICIAL DE TENENCIA', W/2, 78, {align:'center'});
+  doc.setTextColor(245,237,216); doc.setFontSize(32); doc.setFont('helvetica','bold');
+  doc.text('FUNGACOIN', W/2, 98, {align:'center'});
+  doc.setTextColor(107,94,66); doc.setFontSize(8); doc.setFont('helvetica','normal');
+  doc.text('La criptomoneda que vale hongo · $FNGA', W/2, 106, {align:'center'});
+  doc.setDrawColor(180,212,74); doc.setLineWidth(0.2); doc.line(40, 112, W-40, 112);
+  doc.setTextColor(107,94,66); doc.setFontSize(7); doc.text('POR CUANTO', W/2, 122, {align:'center'});
+  doc.setTextColor(245,237,216); doc.setFontSize(22); doc.setFont('helvetica','bold');
+  doc.text((comprador.nombre || 'Holder Anónimo').toUpperCase(), W/2, 136, {align:'center'});
+  doc.setTextColor(150,130,100); doc.setFontSize(9); doc.setFont('helvetica','normal');
+  doc.text('ha adquirido legítimamente y con plena conciencia de lo que hace', W/2, 146, {align:'center'});
+  doc.setTextColor(212,168,50); doc.setFontSize(20); doc.setFont('helvetica','bold');
+  doc.text(currentPaq.fnga.toUpperCase(), W/2, 162, {align:'center'});
+  doc.setTextColor(150,130,100); doc.setFontSize(9); doc.setFont('helvetica','normal');
+  doc.text(`Paquete ${currentPaq.nombre}  ·  ${currentPaq.precio}`, W/2, 171, {align:'center'});
+  doc.setDrawColor(50,40,20); doc.setLineWidth(0.1); doc.line(40, 178, W-40, 178);
+  doc.setTextColor(70,58,38); doc.setFontSize(6.5);
+  ['Este certificado acredita la tenencia de los $FNGA indicados en el ecosistema FungaCoin, emitido por POORK INC.',
+   'FungaCoin ($FNGA) no constituye una inversión, instrumento financiero regulado ni tiene valor de mercado garantizado.',
+   'El titular adquiere este certificado con pleno conocimiento de que vale hongo, y eso está bien.',
+   'POORK INC. garantiza la autenticidad de este documento y la honestidad de sus intenciones.']
+  .forEach((l, i) => doc.text(l, W/2, 188 + i*6, {align:'center'}));
+  doc.setTextColor(180,212,74); doc.setFontSize(7); doc.setFont('helvetica','bold');
+  doc.text('N° DE SERIE: ' + serialNum, W/2, 218, {align:'center'});
+  const fecha = new Date().toLocaleDateString('es-CL',{day:'2-digit',month:'long',year:'numeric'});
+  doc.setTextColor(107,94,66); doc.setFontSize(7); doc.setFont('helvetica','normal');
+  doc.text('Emitido en Santiago, Chile · ' + fecha, W/2, 226, {align:'center'});
+  doc.setDrawColor(180,212,74); doc.setLineWidth(0.2); doc.circle(W/2, 252, 20, 'S');
+  doc.setTextColor(180,212,74); doc.setFontSize(6); doc.setFont('helvetica','bold');
+  doc.text('POORK', W/2, 249, {align:'center'}); doc.text('INC.', W/2, 253, {align:'center'});
+  doc.setFontSize(5); doc.setTextColor(107,94,66); doc.text('SELLO OFICIAL', W/2, 257, {align:'center'});
+  doc.setDrawColor(70,58,38); doc.setLineWidth(0.1); doc.line(W/2-25, 276, W/2+25, 276);
+  doc.setTextColor(70,58,38); doc.setFontSize(6);
+  doc.text('Ricardo Jerez · Director Creativo · POORK INC.', W/2, 281, {align:'center'});
+  doc.setTextColor(50,40,25); doc.setFontSize(6);
+  doc.text('poork.inc  ·  hola@poork.inc  ·  © 2005–∞  ·  todos somos puercos  ·  algunos somos hongos', W/2, 290, {align:'center'});
+  doc.save('FungaCoin-' + (comprador.nombre||'holder').replace(/\s+/g,'-') + '-' + serialNum + '.pdf');
+}
+
+document.addEventListener('keydown', e => { if(e.key==='Escape') cerrarModal({target:document.getElementById('modal-bg')}) });
+</script>
+</body>
+</html>
