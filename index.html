@@ -1108,6 +1108,17 @@ body.trend-popping-colors .mode-switch { background: #111; border-color: #ff0055
   .serious-nav-links, .irr-nav-links {
     display: none;
   }
+  .nav-about-li {
+    display: list-item !important;
+  }
+  .nav-about {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px; letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #c9a84c !important;
+    opacity: 1 !important;
+    font-weight: 700;
+  }
   .serious-drops, .serious-clients, .serious-manifesto,
   .irr-drops, .irr-manifesto { padding: 60px 24px; }
   .serious-footer, .irr-footer { flex-direction: column; gap: 24px; text-align: center; }
@@ -1195,7 +1206,7 @@ body.trend-popping-colors .mode-switch { background: #111; border-color: #ff0055
         <li><a href="#">Drops</a></li>
         <li><a href="#">Manifiesto</a></li>
         <li><a href="#">Clientes</a></li>
-        <li><a href="/about.html">About</a></li>
+        <li class="nav-about-li"><a href="/about.html" class="nav-about">About</a></li>
         <li><a href="mailto:hola@poork.inc">Contacto</a></li>
       </ul>
     </nav>
@@ -1391,7 +1402,7 @@ body.trend-popping-colors .mode-switch { background: #111; border-color: #ff0055
       <ul class="irr-nav-links">
         <li><a href="#irr-drops">Drops</a></li>
         <li><a href="#irr-manifesto-sec">Manifiesto</a></li>
-        <li><a href="/about.html">About</a></li>
+        <li class="nav-about-li"><a href="/about.html" class="nav-about">About</a></li>
         <li><a href="mailto:hola@poork.inc">Contacto</a></li>
       </ul>
       <div class="style-selector-wrap">
