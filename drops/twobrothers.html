@@ -376,6 +376,32 @@
     }
     .ph-generic2 .ph-label { color: #6090d8; text-shadow: 0 0 20px rgba(51,112,212,0.6); }
 
+    /* Daughters of the Quantum War: warm battle tones */
+    .ph-daughters { background: linear-gradient(160deg, #1a0a06 0%, #2a1208 60%, #180a08 100%); }
+    .ph-daughters::before {
+      content: '';position:absolute;inset:0;
+      background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(200,80,20,0.25) 0%, transparent 70%);
+    }
+    .ph-daughters .ph-label { color: #e88050; text-shadow: 0 0 20px rgba(200,80,20,0.6); }
+
+    /* ISSIN: kraft/sepia */
+    .ph-issin { background: #1a180a; }
+    .ph-issin::before {
+      content: '';position:absolute;inset:0;
+      background: radial-gradient(ellipse 90% 70% at 50% 50%, rgba(180,150,60,0.2) 0%, transparent 70%);
+    }
+    .ph-issin .ph-label { color: #c8a860; text-shadow: 0 0 16px rgba(180,140,40,0.5); }
+
+    /* Cap Blaze: fire/orange */
+    .ph-capblaze { background: #0a0604; }
+    .ph-capblaze::before {
+      content: '';position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);
+      width:180px;height:180px;
+      background: radial-gradient(circle, rgba(240,100,10,0.45) 0%, rgba(200,40,10,0.2) 50%, transparent 70%);
+      border-radius: 50%;
+    }
+    .ph-capblaze .ph-label { color: #ff8040; text-shadow: 0 0 20px rgba(240,80,10,0.8); }
+
     .badge-new {
       position: absolute;
       top: 0; right: 0;
@@ -715,31 +741,32 @@
     <a href="../index.html" class="nav-back">← POORK INC.</a>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO — Daughters of the Quantum War (evento principal) -->
   <section class="hero">
     <div class="hero-cover-wrap">
       <img
-        src="../assets/blindbat-cover.jpg"
-        alt="BlindBat #1 — El hombre que no vio el problema"
+        src="../assets/daughters-quantum-war.jpg"
+        alt="Daughters of the Quantum War"
         class="hero-cover"
         onerror="this.style.display='none'; document.getElementById('hero-ph').style.display='flex';"
+        style="object-position:center top"
       />
       <div class="cover-ph-hero" id="hero-ph">
-        <span class="ph-title-hero">BLIND<br>BAT</span>
+        <span class="ph-title-hero">DAUGHTERS<br>OF THE<br>QUANTUM<br>WAR</span>
       </div>
     </div>
     <div class="hero-content">
-      <span class="hero-eyebrow">Editorial independiente</span>
+      <span class="hero-eyebrow">Evento de crossover · Temporada 1</span>
       <h1 class="hero-title">
-        UNIVERSO<br>
-        <span class="red">TWO BROTHERS</span><br>
-        <span class="yellow">Temporada 1 activa</span>
+        DAUGHTERS<br>
+        <span class="red">OF THE</span><br>
+        <span class="yellow">QUANTUM WAR</span>
       </h1>
       <p class="hero-subtitle">
-        Héroes que nadie pidió. Poderes que nadie entiende. Narrativas que se desarrollan a un ritmo ligeramente preocupante. Bienvenido al universo que siempre faltó.
+        BlindBat, StormCat y Ravage Girl. Un evento que nadie coordinó. Una guerra que empezó sola. Tres personajes en el mismo panel por primera vez porque los guionistas finalmente hablaron entre ellos.
       </p>
       <button class="btn-primary" onclick="alert('Procesando pedido. Estimado de entrega: cuando los personajes sean un poco más desarrollados.')">
-        Ver la serie →
+        Ver el evento →
       </button>
     </div>
   </section>
@@ -823,6 +850,64 @@
         </div>
       </div>
 
+
+      <!-- Daughters of the Quantum War — crossover event -->
+      <div class="comic-card">
+        <div class="comic-cover-wrap">
+          <img
+            src="../assets/daughters-quantum-war.jpg"
+            alt="Daughters of the Quantum War"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="ph ph-daughters" style="display:none;"><span class="ph-label">DAUGHTERS<br>OF THE<br>QUANTUM<br>WAR</span></div>
+          <span class="badge-new">EVENTO</span>
+        </div>
+        <div class="comic-info">
+          <div class="comic-issue">CROSSOVER · EDICIÓN ESPECIAL</div>
+          <div class="comic-name">BlindBat · StormCat · Ravage Girl</div>
+          <div class="comic-subtitle">Un evento que nadie coordinó. Tres heroínas que no se llevan bien. Una guerra que ya terminó antes de empezar.</div>
+          <button class="btn-comic" onclick="alert('Procesando pedido. Estimado de entrega: cuando los personajes sean un poco más desarrollados.')">Comprar</button>
+        </div>
+      </div>
+
+      <!-- ISSIN — limited series -->
+      <div class="comic-card">
+        <div class="comic-cover-wrap">
+          <img
+            src="../assets/issin.jpg"
+            alt="ISSIN Limited Series"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="ph ph-issin" style="display:none;"><span class="ph-label">ISSIN</span></div>
+          <span class="badge-coming">LIMITADA</span>
+        </div>
+        <div class="comic-info">
+          <div class="comic-issue">ISSIN · SERIE LIMITADA · 4 NÚMEROS</div>
+          <div class="comic-name">No recuerdan de dónde vienen</div>
+          <div class="comic-subtitle">Un equipo sin nombre oficial, sin cuartel general, y sin presupuesto. La misión no está clara. La factura de suministros sí.</div>
+          <button class="btn-comic" onclick="alert('Procesando pedido. Estimado de entrega: cuando los personajes sean un poco más desarrollados.')">Reservar</button>
+        </div>
+      </div>
+
+      <!-- Cap Blaze #1 -->
+      <div class="comic-card">
+        <div class="comic-cover-wrap">
+          <img
+            src="../assets/cap-blaze.jpg"
+            alt="Cap Blaze #1"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="ph ph-capblaze" style="display:none;"><span class="ph-label">CAP<br>BLAZE</span></div>
+          <span class="badge-new">NUEVO</span>
+        </div>
+        <div class="comic-info">
+          <div class="comic-issue">CAP BLAZE · ISSUE #1</div>
+          <div class="comic-name">Todo lo que toca lo quema</div>
+          <div class="comic-subtitle">Héroe de fuego. Calor constante. Los trajes no duran más de dos misiones. El seguro se lo rechaza todo.</div>
+          <button class="btn-comic" onclick="alert('Procesando pedido. Estimado de entrega: cuando los personajes sean un poco más desarrollados.')">Comprar</button>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -874,6 +959,23 @@
           <div class="char-name">Ravage Girl</div>
           <p class="char-power">Identidad en construcción. Poderes sin confirmar. Motivaciones ambiguas. Todo indica que cuando llegue su número cero, va a resolver varios problemas de trama previos.</p>
           <span class="status-badge status-coming">En desarrollo</span>
+        </div>
+      </div>
+
+      <!-- Cap Blaze -->
+      <div class="char-card">
+        <div class="char-cover">
+          <img
+            src="../assets/cap-blaze.jpg"
+            alt="Cap Blaze"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="ph ph-capblaze" style="display:none;"><span class="ph-label">CAP<br>BLAZE</span></div>
+        </div>
+        <div class="char-body">
+          <div class="char-name">Cap Blaze</div>
+          <p class="char-power">Pirokinesis total. Temperatura corporal permanentemente elevada. Sus compañeros de equipo mantienen distancia física. Los trajes son desechables. La actitud, lamentablemente, no.</p>
+          <span class="status-badge status-active">Serie activa</span>
         </div>
       </div>
 
