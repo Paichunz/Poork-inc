@@ -36,7 +36,7 @@ body {
 .nx-back:hover { color: #1a4b8c; }
 
 .nx-logo {
-  display: flex; align-items: baseline; gap: 10px;
+  display: flex; align-items: center; gap: 0;
 }
 .nx-logo-main {
   font-family: 'DM Sans', sans-serif;
@@ -683,10 +683,20 @@ body {
 <header class="nx-header">
   <a href="../index.html" class="nx-back">← poork.inc</a>
   <div class="nx-logo">
-    <img src="../assets/tentacle-labs-logo.png" alt="Tentacle Labs" style="height:40px;object-fit:contain;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-    <span style="display:none">
-      <span class="nx-logo-main">TENTACLE LABS</span>
-      <span class="nx-logo-sub">Farmacéutica de precisión</span>
+    <img src="../assets/tentacle-labs-logo.png" alt="Tentacle Labs"
+      id="tl-logo-img"
+      style="height:44px;width:44px;object-fit:contain;display:block;flex-shrink:0;"
+      onerror="this.style.display='none';document.getElementById('tl-logo-fallback').style.display='flex'">
+    <span id="tl-logo-text" style="display:flex;flex-direction:column;line-height:1.1;margin-left:10px">
+      <span class="nx-logo-main" style="font-size:15px;letter-spacing:.12em;font-weight:700">TENTACLE LABS</span>
+      <span class="nx-logo-sub" style="font-size:9px;letter-spacing:.22em;opacity:.55">Farmacéutica de precisión</span>
+    </span>
+    <span id="tl-logo-fallback" style="display:none;align-items:center;gap:8px">
+      <span style="font-size:28px">🐙</span>
+      <span style="display:flex;flex-direction:column;line-height:1.1">
+        <span class="nx-logo-main" style="font-size:15px;letter-spacing:.12em;font-weight:700">TENTACLE LABS</span>
+        <span class="nx-logo-sub" style="font-size:9px;letter-spacing:.22em;opacity:.55">Farmacéutica de precisión</span>
+      </span>
     </span>
   </div>
   <nav><ul class="nx-nav">
@@ -709,8 +719,8 @@ body {
 
     <!-- IMÁGENES REALES (cuando existan en /assets/) -->
     <div id="real-product-imgs" style="display:none;gap:24px;align-items:flex-end;justify-content:center;width:100%">
-      <img src="../assets/bezamestasona.jpg" alt="Bezamestasona" style="height:340px;object-fit:contain;border-radius:4px;filter:drop-shadow(0 20px 40px rgba(0,0,0,0.4))">
-      <img src="../assets/vulimyx-anorex.jpg" alt="Vulimyx + Anorex" style="height:320px;object-fit:contain;border-radius:4px;filter:drop-shadow(0 20px 40px rgba(0,0,0,0.4))">
+      <img src="../assets/tentaclelabs_1.jpg" alt="Beza-Mestasona" style="height:340px;object-fit:contain;border-radius:4px;filter:drop-shadow(0 20px 40px rgba(0,0,0,0.4))">
+      <img src="../assets/tentaclelabs_2.jpg" alt="Vulimyx + Anorex" style="height:320px;object-fit:contain;border-radius:4px;filter:drop-shadow(0 20px 40px rgba(0,0,0,0.4))">
     </div>
 
     <!-- BEZAMESTASONA -->
