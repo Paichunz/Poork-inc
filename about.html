@@ -606,7 +606,12 @@ a{color:inherit;text-decoration:none}
     </div>
 
     <div class="cv-identity">
-      <div class="cv-monogram">R</div>
+      <div class="cv-monogram" id="cv-photo-wrap">
+        <img src="assets/ricardo-cv.jpg" alt="Ricardo Jerez"
+          style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"
+          onerror="this.style.display='none';document.getElementById('cv-initial').style.display='flex'">
+        <span id="cv-initial" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:36px;font-style:italic;color:rgba(240,237,232,0.4)">R</span>
+      </div>
       <div>
         <h1 class="cv-name">Ricardo Jerez</h1>
         <div class="cv-title">Director Creativo · Fundador · POORK INC.</div>

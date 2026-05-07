@@ -219,7 +219,7 @@ body.mode-serious { background: #080808; color: #f0ede8; }
 .serious-nav-links a {
   font-family: 'DM Sans', sans-serif;
   font-size: 11px; letter-spacing: 0.2em;
-  text-transform: uppercase; color: #888;
+  text-transform: uppercase; color: #bbb;
   text-decoration: none; transition: color 0.2s;
 }
 .serious-nav-links a:hover { color: #f0ede8; }
@@ -411,7 +411,7 @@ body.mode-serious { background: #080808; color: #f0ede8; }
 
 .drop-number {
   font-family: 'Space Mono', monospace;
-  font-size: 10px; color: #333;
+  font-size: 10px; color: #777;
   letter-spacing: 0.2em; margin-bottom: 32px;
 }
 
@@ -423,7 +423,7 @@ body.mode-serious { background: #080808; color: #f0ede8; }
 
 .drop-tagline {
   font-family: 'DM Sans', sans-serif;
-  font-size: 13px; color: #555; line-height: 1.5; font-weight: 300;
+  font-size: 13px; color: #999; line-height: 1.5; font-weight: 300;
 }
 
 .drop-status {
@@ -1095,6 +1095,18 @@ body.trend-y2k .mode-switch { background: #000; border: 1px solid #00ff88; }
 body.trend-y2k .mode-switch-btn.active { background: #00ff88; color: #000; }
 body.trend-popping-colors .mode-switch { background: #111; border-color: #ff0055; }
 
+/* ── BOTÓN FLOTANTE ABOUT ── */
+#about-float {
+  position: fixed; bottom: 28px; right: 28px; z-index: 5000;
+  background: #c9a84c; color: #080808;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+  font-weight: 700; padding: 11px 18px;
+  display: none; text-decoration: none;
+  transition: background 0.2s;
+}
+#about-float:hover { background: #b8954a; }
+
 @media (max-width: 768px) {
   .serious-stats { grid-template-columns: repeat(2, 1fr); }
   .serious-manifesto { grid-template-columns: 1fr; gap: 40px; }
@@ -1184,6 +1196,9 @@ body.trend-popping-colors .mode-switch { background: #111; border-color: #ff0055
     </button>
   </div>
 </div>
+
+<!-- BOTÓN FLOTANTE ABOUT -->
+<a id="about-float" href="/about.html">About</a>
 
 <!-- FASE 3 — CONTENIDO -->
 <div id="main-content">
@@ -1356,8 +1371,8 @@ body.trend-popping-colors .mode-switch { background: #111; border-color: #ff0055
         </a>
         <a href="drops/paichunz.html" class="drop-card" style="text-decoration:none;color:inherit;">
           <div class="drop-number">DROP 041 · 2026.05.20</div>
-          <div class="drop-name">@paichunz</div>
-          <div class="drop-tagline">Una retrospectiva prematura. 17 piezas, una noche, un alter ego ilustrador con doce años de trabajo y ninguna urgencia por mostrarlo.</div>
+          <div class="drop-name">Galería Vacía</div>
+          <div class="drop-tagline">Arte contemporáneo. Espacio de exhibición independiente. Temporada 2026: exposición de @paichunz — doce años de trabajo en una sola noche.</div>
           <div class="drop-status">EXPOSICIÓN · ENTRADA LIBRE</div>
         </a>
         <a href="drops/destono.html" class="drop-card" style="text-decoration:none;color:inherit;">
@@ -1502,8 +1517,8 @@ body.trend-popping-colors .mode-switch { background: #111; border-color: #ff0055
         </a>
         <a href="drops/paichunz.html" class="irr-drop-card" style="text-decoration:none;color:inherit;">
           <span class="irr-card-num">DROP 041 · ENTRADA LIBRE</span>
-          <span class="irr-card-name">@paichunz</span>
-          <span class="irr-card-desc">Exposición de un alter ego. 17 piezas. Una noche. Un nombre inventado con doce años de trabajo real detrás.</span>
+          <span class="irr-card-name">Galería Vacía</span>
+          <span class="irr-card-desc">Espacio de arte independiente. Temporada 2026: @paichunz en exposición. Una noche. Doce años.</span>
         </a>
         <a href="drops/destono.html" class="irr-drop-card" style="text-decoration:none;color:inherit;">
           <span class="irr-card-num">DROP 034 · BETA</span>
@@ -1774,9 +1789,11 @@ const TRANSITIONS = {
 // ============================================
 // PERSISTENCIA — saltar intro si ya eligió modo
 // ============================================
+let alreadyActivated = false;
 (function() {
   const saved = localStorage.getItem('poork-mode');
   if (saved === 'serious' || saved === 'irreverent') {
+    alreadyActivated = true;
     document.getElementById('error-screen').style.display = 'none';
     document.getElementById('poork-takeover').style.display = 'none';
     document.getElementById('selector-screen').style.display = 'none';
@@ -1808,6 +1825,7 @@ function typeNext() {
 setTimeout(typeNext, 400);
 
 setTimeout(() => {
+  if (alreadyActivated) return;
   const errorScreen = document.getElementById('error-screen');
   const takeover = document.getElementById('poork-takeover');
   let glitchCount = 0;
@@ -1853,6 +1871,8 @@ function activateMode(mode) {
   currentMode = mode;
   const main = document.getElementById('main-content');
   const modeSwitch = document.getElementById('mode-switch');
+  const aboutFloat = document.getElementById('about-float');
+  if (aboutFloat) aboutFloat.style.display = 'block';
   const seriousContent = document.getElementById('serious-content');
   const irreverentContent = document.getElementById('irreverent-content');
 
