@@ -442,8 +442,16 @@ footer a:hover{color:var(--orange)}
     </div>
   </div>
 
-  <!-- CSS TUBE ART -->
-  <div class="tube-stage">
+  <!-- PRODUCT IMAGE (real photo, falls back to CSS) -->
+  <div class="tube-stage" id="tube-stage">
+    <img
+      src="../assets/pegafix-hero.jpg"
+      alt="PEGAFIXBEDURICKSPICKTERANCRUEHCUGAGGAG"
+      id="pegafix-real-img"
+      style="max-height:520px;max-width:100%;object-fit:contain;filter:drop-shadow(0 24px 48px rgba(0,0,0,0.18));display:block;"
+      onerror="this.style.display='none';document.getElementById('pegafix-css').style.display='block'"
+    />
+    <div id="pegafix-css" style="display:none">
     <div class="tube-wrap">
       <div class="tube-tip"></div>
       <div class="tube-cap"></div>
@@ -472,6 +480,7 @@ footer a:hover{color:var(--orange)}
       <div class="tube-crimp"></div>
       <div class="tube-age">+3<br>años</div>
     </div>
+    </div><!-- /pegafix-css -->
   </div>
 </section>
 
