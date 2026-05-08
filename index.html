@@ -314,25 +314,33 @@ body.mode-serious { background: #080808; color: #f0ede8; }
 }
 .serious-cta-secondary:active { transform: scale(0.97); }
 
+/* Stats — editorial strip, no hero-metric template */
 .serious-stats {
-  padding: 80px 60px;
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 1px; background: #1a1a1a;
-  border-top: 1px solid #1a1a1a; border-bottom: 1px solid #1a1a1a;
+  padding: 0 60px;
+  border-top: 1px solid #1a1a1a;
+  border-bottom: 1px solid #1a1a1a;
+  display: flex; align-items: stretch;
+  overflow-x: auto;
 }
 
-.stat-cell { background: #080808; padding: 48px 40px; }
+.stat-item {
+  display: flex; align-items: baseline; gap: 12px;
+  padding: 32px 40px; border-right: 1px solid #1a1a1a;
+  flex-shrink: 0;
+}
+.stat-item:first-child { padding-left: 0; }
+.stat-item:last-child  { border-right: none; }
 
 .stat-number {
   font-family: 'Playfair Display', serif;
-  font-size: 56px; font-weight: 700;
-  color: #f0ede8; line-height: 1; margin-bottom: 8px;
+  font-size: 22px; font-weight: 700;
+  font-style: italic; color: #f0ede8; line-height: 1;
 }
 
 .stat-label {
   font-family: 'DM Sans', sans-serif;
-  font-size: 11px; letter-spacing: 0.2em;
-  text-transform: uppercase; color: #555;
+  font-size: 10px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: #444;
 }
 
 .serious-clients { padding: 80px 60px; }
@@ -349,10 +357,14 @@ body.mode-serious { background: #080808; color: #f0ede8; }
 
 .client-name {
   font-family: 'Playfair Display', serif;
-  font-size: 22px; color: #2a2a2a;
-  font-style: italic; transition: color 0.2s; cursor: default;
+  font-size: 22px; color: #3c3c3c;
+  font-style: italic;
+  transition: color 200ms var(--ease-out);
+  cursor: default;
 }
-.client-name:hover { color: #555; }
+@media (hover: hover) and (pointer: fine) {
+  .client-name:hover { color: #888; }
+}
 
 .serious-manifesto {
   padding: 120px 60px; border-top: 1px solid #1a1a1a;
@@ -408,8 +420,18 @@ body.mode-serious { background: #080808; color: #f0ede8; }
 .drops-link:hover { color: #f0ede8; }
 
 .drops-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
+  display: grid; grid-template-columns: 1fr 1fr;
   gap: 1px; background: #1a1a1a;
+}
+/* Ritmo asimétrico: cada 5° card ocupa fila completa */
+.drops-grid .drop-card:nth-child(5n+1) {
+  grid-column: 1 / -1;
+}
+.drops-grid .drop-card:nth-child(5n+1) .drop-name {
+  font-size: 36px;
+}
+.drops-grid .drop-card:nth-child(5n+1) .drop-tagline {
+  max-width: 60ch;
 }
 
 .drop-card {
@@ -1189,9 +1211,13 @@ body.trend-popping-colors .mode-switch { background: #111; border-color: #ff0055
 #about-float:active { transform: scale(0.96); }
 
 @media (max-width: 768px) {
-  .serious-stats { grid-template-columns: repeat(2, 1fr); }
+  .serious-stats { padding: 0 20px; }
+  .stat-item { padding: 24px 20px; }
   .serious-manifesto { grid-template-columns: 1fr; gap: 40px; }
-  .drops-grid, .irr-drop-grid { grid-template-columns: 1fr; }
+  .drops-grid { grid-template-columns: 1fr; }
+  .drops-grid .drop-card:nth-child(5n+1) { grid-column: auto; }
+  .drops-grid .drop-card:nth-child(5n+1) .drop-name { font-size: 28px; }
+  .irr-drop-grid { grid-template-columns: 1fr; }
   .serious-hero { padding: 0 24px 60px; }
   .serious-awards { display: none; }
   .serious-nav, .irr-nav {
@@ -1352,10 +1378,10 @@ body.trend-popping-colors .mode-switch { background: #111; border-color: #ff0055
     </section>
 
     <section class="serious-stats">
-      <div class="stat-cell fade-in-up"><div class="stat-number">035</div><div class="stat-label">Drops lanzados</div></div>
-      <div class="stat-cell fade-in-up delay-1"><div class="stat-number">∅</div><div class="stat-label">Clientes reales atendidos</div></div>
-      <div class="stat-cell fade-in-up delay-2"><div class="stat-number">20+</div><div class="stat-label">Años gestando esto</div></div>
-      <div class="stat-cell fade-in-up delay-3"><div class="stat-number">∞</div><div class="stat-label">Ideas que no pueden ser</div></div>
+      <div class="stat-item"><span class="stat-number">035</span><span class="stat-label">drops lanzados</span></div>
+      <div class="stat-item"><span class="stat-number">∅</span><span class="stat-label">clientes reales atendidos</span></div>
+      <div class="stat-item"><span class="stat-number">20+</span><span class="stat-label">años gestando esto</span></div>
+      <div class="stat-item"><span class="stat-number">∞</span><span class="stat-label">ideas que no pueden ser</span></div>
     </section>
 
     <section class="serious-clients" id="serious-clients">

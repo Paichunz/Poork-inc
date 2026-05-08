@@ -785,6 +785,17 @@ a{color:inherit;text-decoration:none}
     </div>
   </div>
 
+  <!-- Fallback móvil: tap en lugar de drag -->
+  <div id="mobile-reveal" onclick="autoReveal()" style="
+    display:none;
+    position:fixed;bottom:0;left:0;right:0;z-index:11;
+    background:#c9a84c;color:#080808;
+    font-family:'DM Sans',sans-serif;font-size:10px;
+    letter-spacing:0.35em;text-transform:uppercase;font-weight:700;
+    text-align:center;padding:18px 24px;cursor:pointer;
+    transition:background 180ms cubic-bezier(0.23,1,0.32,1);
+  ">Ver versión creativa →</div>
+
 </div><!-- /cv-layer -->
 
 
@@ -896,6 +907,21 @@ function collapsePortfolio() {
       cvLayer.style.opacity    = '1';
     });
   });
+}
+
+// Mostrar fallback móvil en dispositivos touch sin hover
+const mobileReveal = document.getElementById('mobile-reveal');
+if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) {
+  mobileReveal.style.display = 'block';
+  // En móvil, ocultar el drag handle — el botón lo reemplaza
+  document.querySelector('.handle-cta').style.display = 'none';
+}
+
+// Ocultar fallback al revelar portfolio
+const _origReveal = revealPortfolio;
+function revealPortfolio() {
+  _origReveal();
+  mobileReveal.style.display = 'none';
 }
 
 // Event listeners — handle only (not whole CV, so scrolling works)
