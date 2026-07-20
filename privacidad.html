@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacidad — POORK</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: oklch(8% 0.012 265);
+  --void-2: oklch(12% 0.014 268);
+  --screen: oklch(16% 0.018 268);
+  --incense: oklch(72% 0.098 72);
+  --mist: oklch(52% 0.018 265);
+  --mist-light: oklch(70% 0.014 265);
+  --rule: oklch(22% 0.016 265);
+  --text: oklch(92% 0.008 265);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--void);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--incense); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 48px;
+  border-bottom: 1px solid var(--rule);
+  background: oklch(8% 0.012 265 / 0.92);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.brand {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-decoration: none;
+}
+.brand em { color: var(--incense); font-style: normal; }
+.nav-back {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: oklch(36% 0.012 265);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-back:hover { color: var(--text); text-decoration: none; }
+
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 80px 48px 120px;
+}
+
+.doc-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--incense);
+  margin-bottom: 20px;
+}
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 40px;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin-bottom: 12px;
+}
+.doc-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-bottom: 56px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--rule);
+}
+
+h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  margin-top: 40px;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--mist-light);
+  margin-bottom: 16px;
+}
+p strong { color: var(--text); font-weight: 500; }
+ul {
+  margin: 0 0 16px 0;
+  padding-left: 20px;
+}
+ul li {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--mist-light);
+  margin-bottom: 6px;
+}
+
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 24px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--mist);
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 640px) {
+  nav { padding: 14px 20px; }
+  main { padding: 48px 20px 80px; }
+  h1 { font-size: 28px; }
+  footer { flex-direction: column; gap: 10px; padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="index.html">poork <em>inc.</em></a>
+  <a class="nav-back" href="javascript:history.back()">← Volver</a>
+</nav>
+
+<main>
+  <div class="doc-kicker">Documento legal</div>
+  <h1>Política de Privacidad</h1>
+  <p class="doc-meta">POORK &nbsp;·&nbsp; Última actualización: julio 2025</p>
+
+  <h2>1. Quién recopila los datos</h2>
+  <p>
+    Los datos personales ingresados en los formularios de este sitio son recopilados por
+    <strong>POORK</strong>, operado por Ricardo Jerez Morán, con dominio en
+    <a href="https://www.poork.cl">www.poork.cl</a>. Consultas de privacidad:
+    <a href="mailto:hola@poork.cl">hola@poork.cl</a>.
+  </p>
+
+  <h2>2. Qué datos se recopilan</h2>
+  <p>Dependiendo del formulario utilizado, se pueden recopilar:</p>
+  <ul>
+    <li><strong>Nombre</strong> — para identificar la solicitud</li>
+    <li><strong>Correo electrónico</strong> — para enviar el aviso de disponibilidad o responder la solicitud</li>
+    <li><strong>Mensajes opcionales</strong> — en formularios de postulación o contacto</li>
+  </ul>
+  <p>No se recopilan datos de pago, datos de salud ni categorías especiales de datos personales.</p>
+
+  <h2>3. Para qué se usan</h2>
+  <ul>
+    <li>Notificar cuando un producto o servicio esté disponible (listas de espera)</li>
+    <li>Responder solicitudes de contacto o postulación</li>
+    <li>Gestión interna de interesados en productos conceptuales de POORK</li>
+  </ul>
+  <p>Los datos no se usan para publicidad dirigida, perfilado automatizado ni se venden a terceros.</p>
+
+  <h2>4. Con quién se comparten</h2>
+  <p>
+    Los formularios utilizan <strong>Formspree</strong> (<a href="https://formspree.io" target="_blank" rel="noopener">formspree.io</a>)
+    como procesador de datos. Formspree transmite los datos directamente al correo del responsable
+    y los almacena temporalmente en sus servidores. Su política de privacidad está disponible en
+    <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener">formspree.io/legal/privacy-policy</a>.
+  </p>
+  <p>No se comparten datos con otros terceros.</p>
+
+  <h2>5. Por cuánto tiempo se conservan</h2>
+  <p>
+    Los datos se conservan mientras sean necesarios para el propósito indicado.
+    Para listas de espera, los datos se eliminan una vez que el producto es lanzado o descartado,
+    o antes si el titular lo solicita.
+  </p>
+
+  <h2>6. Derechos del titular</h2>
+  <p>De acuerdo con la Ley N° 19.628 sobre Protección de la Vida Privada (Chile), el titular tiene derecho a:</p>
+  <ul>
+    <li>Solicitar acceso a los datos almacenados</li>
+    <li>Solicitar la rectificación de datos incorrectos</li>
+    <li>Solicitar la eliminación de sus datos</li>
+    <li>Oponerse al tratamiento de sus datos</li>
+  </ul>
+  <p>
+    Para ejercer cualquiera de estos derechos, enviar un correo a
+    <a href="mailto:hola@poork.cl">hola@poork.cl</a> con el asunto "Privacidad — [nombre]".
+    La respuesta se entregará dentro de 5 días hábiles.
+  </p>
+
+  <h2>7. Cookies y rastreo</h2>
+  <p>
+    Este sitio utiliza <strong>Vercel Analytics</strong> para métricas de tráfico agregadas
+    (páginas vistas, visitantes únicos, país de origen). No utiliza cookies de rastreo ni
+    requiere banner de consentimiento — los datos son anónimos y no permiten identificar
+    a usuarios individuales.
+  </p>
+
+  <h2>8. Cambios a esta política</h2>
+  <p>
+    Cualquier modificación se publicará en esta página con la fecha de actualización.
+    El uso continuado del sitio después de un cambio implica aceptación de la política actualizada.
+  </p>
+</main>
+
+<footer>
+  <div class="footer-brand">POORK &nbsp;·&nbsp; <a href="index.html">poork.cl</a></div>
+  <div class="footer-brand">
+    <a href="terminos.html">Términos de Servicio</a>
+    &nbsp;&middot;&nbsp;
+    <a href="mailto:hola@poork.cl">hola@poork.cl</a>
+  </div>
+</footer>
+
+</body>
+</html>

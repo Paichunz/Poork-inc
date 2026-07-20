@@ -2,244 +2,1736 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HOLY SCROLL — el libro sagrado, formato feed infinito</title>
+<meta name="description" content="La primera reescritura de los grandes textos espirituales en formato vertical, infinito, con notificación cada cuatro horas. La fe, finalmente, optimizada para el pulgar.">
+<meta property="og:title" content="HOLY SCROLL — el libro sagrado, formato feed infinito">
+<meta property="og:description" content="La primera reescritura de los grandes textos espirituales en formato vertical, infinito, con notificación cada cuatro horas. La fe, finalmente, optimizada para el pulgar.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.poork.cl/drops/holy-scroll.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HOLY SCROLL — el libro sagrado, formato feed infinito">
+<meta name="twitter:description" content="La primera reescritura de los grandes textos espirituales en formato vertical, infinito, con notificación cada cuatro horas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Cormorant+Garamond:ital,wght@1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:"Helvetica Neue",Arial,sans-serif;background:#0a0a0f;color:#e8e8ee;-webkit-font-smoothing:antialiased}
-  a{color:inherit;text-decoration:none}
+:root {
+  --void: oklch(8% 0.012 265);
+  --void-2: oklch(12% 0.014 268);
+  --screen: oklch(16% 0.018 268);
+  --incense: oklch(72% 0.098 72);
+  --incense-dim: oklch(52% 0.065 70);
+  --mist: oklch(52% 0.018 265);
+  --mist-light: oklch(70% 0.014 265);
+  --rule: oklch(22% 0.016 265);
+  --text: oklch(92% 0.008 265);
+}
 
-  header{
-    display:flex;justify-content:space-between;align-items:center;
-    padding:14px 24px;border-bottom:1px solid #20202a;background:rgba(10,10,15,.85);
-    position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--void);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+
+/* NAV */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 48px;
+  border-bottom: 1px solid var(--rule);
+  background: oklch(8% 0.012 265 / 0.92);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.brand {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+}
+.brand em { color: var(--incense); font-style: normal; }
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+}
+.nav-links a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mist);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links .back { color: oklch(36% 0.012 265); }
+
+/* HERO */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  min-height: 92dvh;
+  border-bottom: 1px solid var(--rule);
+}
+
+.hero-copy {
+  padding: 88px 64px 88px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid var(--rule);
+}
+
+.hero-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--incense);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hero-kicker::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: var(--incense);
+}
+
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(56px, 8.5vw, 120px);
+  line-height: 0.90;
+  letter-spacing: -0.04em;
+  color: var(--text);
+  margin-bottom: 36px;
+}
+.hero h1 em { color: var(--incense); font-style: normal; display: block; }
+
+.hero-lead {
+  font-size: 16px;
+  line-height: 1.72;
+  color: var(--mist-light);
+  max-width: 52ch;
+  margin-bottom: 44px;
+}
+.hero-lead strong { color: var(--text); font-weight: 500; }
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--incense);
+  color: var(--void);
+  padding: 14px 28px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  align-self: flex-start;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.hero-cta:hover { background: oklch(78% 0.095 72); }
+
+.hero-testament {
+  margin-top: 44px;
+  padding-top: 36px;
+  border-top: 1px solid var(--rule);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 17px;
+  color: var(--incense-dim);
+  line-height: 1.6;
+  max-width: 44ch;
+}
+.hero-testament cite {
+  display: block;
+  margin-top: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-style: normal;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: oklch(38% 0.018 265);
+}
+
+/* HERO VISUAL — CSS Phone */
+.hero-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 40px;
+  background: var(--void-2);
+  position: relative;
+}
+
+.phone-wrap {
+  position: relative;
+  width: 280px;
+}
+
+.phone {
+  width: 280px;
+  height: 540px;
+  background: oklch(6% 0.010 265);
+  border-radius: 36px;
+  border: 1.5px solid oklch(24% 0.018 265);
+  box-shadow:
+    0 0 0 1px oklch(14% 0.016 265),
+    0 32px 64px -16px oklch(5% 0.010 265 / 0.8),
+    inset 0 1px 0 oklch(30% 0.020 265 / 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Dynamic island */
+.phone::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 88px;
+  height: 26px;
+  background: oklch(5% 0.008 265);
+  border-radius: 20px;
+  z-index: 10;
+}
+
+/* Volume buttons */
+.phone::after {
+  content: '';
+  position: absolute;
+  left: -3px;
+  top: 80px;
+  width: 3px;
+  height: 36px;
+  background: oklch(20% 0.016 265);
+  border-radius: 2px 0 0 2px;
+  box-shadow: 0 48px 0 oklch(20% 0.016 265);
+}
+
+.phone-screen {
+  position: absolute;
+  inset: 0;
+  border-radius: 34px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.phone-statusbar {
+  padding: 14px 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  z-index: 5;
+  padding-top: 16px;
+}
+.phone-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text);
+}
+.phone-icons {
+  font-size: 10px;
+  color: var(--text);
+  letter-spacing: 2px;
+}
+
+/* Content feed */
+.phone-feed {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: linear-gradient(180deg,
+    oklch(10% 0.016 265) 0%,
+    oklch(8% 0.012 265) 100%);
+}
+
+.feed-topbar {
+  padding: 12px 16px 8px;
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.feed-topbar-brand {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  color: var(--incense);
+}
+.feed-topbar-tab {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+
+.feed-verse {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 20px 20px;
+  text-align: center;
+  position: relative;
+}
+.feed-ref {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--incense);
+  margin-bottom: 14px;
+}
+.feed-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 19px;
+  line-height: 1.45;
+  color: var(--text);
+  max-width: 28ch;
+  margin-bottom: 14px;
+}
+.feed-audio {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.14em;
+  color: var(--mist);
+  text-transform: uppercase;
+}
+
+/* Side actions */
+.feed-actions {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+.feed-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+.feed-action-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: oklch(20% 0.016 265);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+.feed-action-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  color: var(--mist);
+  letter-spacing: 0.08em;
+}
+
+.feed-swipe {
+  text-align: center;
+  padding: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mist);
+  animation: bob 2.2s ease-in-out infinite;
+}
+@keyframes bob { 50% { transform: translateY(-4px); } }
+
+/* Phone side button */
+.phone-side-btn {
+  position: absolute;
+  right: -3px;
+  top: 100px;
+  width: 3px;
+  height: 48px;
+  background: oklch(20% 0.016 265);
+  border-radius: 0 2px 2px 0;
+}
+
+/* FEAT ROWS SECTION */
+.section {
+  padding: 80px 48px;
+  border-bottom: 1px solid var(--rule);
+}
+.section-inner { max-width: 1100px; margin: 0 auto; }
+
+.section-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 56px;
+  align-items: end;
+}
+.section-h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(36px, 5vw, 60px);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+}
+.section-h2 em { color: var(--incense); font-style: normal; }
+.section-lead {
+  font-size: 15px;
+  line-height: 1.70;
+  color: var(--mist-light);
+  max-width: 52ch;
+}
+
+/* FEED WALL — features as full-viewport verses */
+.feed-intro {
+  min-height: 60dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 64px 48px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--void);
+}
+.feed-wall { /* no padding — cards fill viewport */ }
+.feed-card {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--rule);
+  padding: 64px 40px;
+  background: var(--void);
+}
+.feed-card:nth-child(even) { background: var(--void-2); }
+.feed-card-inner {
+  max-width: 580px;
+  text-align: center;
+  width: 100%;
+}
+.feed-card-ref {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--incense);
+  margin-bottom: 28px;
+}
+.feed-card-verse {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(26px, 5vw, 54px);
+  line-height: 1.22;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+.feed-card-sub {
+  font-size: 13px;
+  line-height: 1.72;
+  color: var(--mist);
+  max-width: 44ch;
+  margin: 0 auto 36px;
+}
+.feed-card-counts {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+.feed-card-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--mist);
+  text-transform: uppercase;
+}
+.feed-card-audio {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.10em;
+  color: oklch(34% 0.012 265);
+}
+
+/* SCROLL-DRIVEN ANIMATION */
+@keyframes feedReveal {
+  from { opacity: 0; transform: translateY(52px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@supports (animation-timeline: view()) {
+  .feed-card-inner {
+    animation: feedReveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 42%;
   }
-  .logo{font-family:Georgia,serif;font-style:italic;font-size:24px;color:#f0d27a}
-  .logo b{font-style:normal;font-weight:900}
-  nav a{margin-left:18px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#9090a0}
-  nav a:hover{color:#f0d27a}
+}
+@media (prefers-reduced-motion: reduce) {
+  .feed-card-inner { animation: none !important; opacity: 1 !important; transform: none !important; }
+}
 
-  .hero{
-    padding:90px 24px 60px;text-align:center;
-    background:radial-gradient(ellipse at top,rgba(240,210,122,.15),transparent 60%);
-    border-bottom:1px solid #20202a;
-  }
-  .hero h1{
-    font-family:Georgia,"Times New Roman",serif;
-    font-size:clamp(56px,11vw,140px);font-weight:400;letter-spacing:-.04em;line-height:.92;
-    color:#f0d27a;
-  }
-  .hero h1 i{font-style:italic}
-  .hero h1 b{font-style:normal;font-weight:900;display:block}
-  .hero .strap{
-    font-size:18px;line-height:1.55;color:#b0b0c0;max-width:54ch;margin:30px auto 0;
-  }
+/* MODO DE LECTURA */
+.modo-toggle {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 40px;
+}
+.modo-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: oklch(32% 0.012 265);
+}
+.modo-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  color: var(--mist);
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s;
+}
+.modo-btn.active { color: var(--incense); }
+.modo-btn:hover { color: var(--text); }
+.modo-sep {
+  color: oklch(26% 0.012 265);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+}
 
-  .demo-stage{
-    margin:60px auto 0;display:flex;justify-content:center;gap:30px;flex-wrap:wrap;
-  }
-  .phone{
-    width:320px;height:640px;background:#13131c;border-radius:38px;border:6px solid #1f1f2c;
-    box-shadow:0 30px 80px rgba(240,210,122,.1);
-    padding:14px;position:relative;overflow:hidden;display:flex;flex-direction:column;
-  }
-  .phone::before{
-    content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);
-    width:90px;height:22px;background:#0a0a0f;border-radius:0 0 14px 14px;z-index:5;
-  }
-  .phone .scr{margin-top:30px;flex:1;background:#0a0a0f;border-radius:24px;overflow:hidden;display:flex;flex-direction:column}
-  .scr .top-bar{font-family:Georgia,serif;font-style:italic;font-size:18px;color:#f0d27a;padding:12px 14px;border-bottom:1px solid #20202a;display:flex;justify-content:space-between;align-items:center}
-  .scr .top-bar small{font-size:9px;color:#9090a0;letter-spacing:.2em;text-transform:uppercase;font-style:normal;font-family:"Helvetica Neue"}
+/* Feed card visibility by mode — sombra hidden by default */
+#how .feed-card.sombra { display: none; }
+#how[data-modo="sombra"] .feed-card.luz { display: none; }
+#how[data-modo="sombra"] .feed-card.sombra { display: flex; }
 
-  .feed{flex:1;overflow:hidden;position:relative}
-  .verse{
-    height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;
-    padding:30px 24px;text-align:center;
-    background:linear-gradient(180deg,#1a1a26 0%,#0a0a0f 100%);position:relative;
-  }
-  .verse .ref{font-size:10px;letter-spacing:.3em;color:#f0d27a;text-transform:uppercase;margin-bottom:14px}
-  .verse .text{font-family:Georgia,serif;font-size:26px;line-height:1.35;color:#e8e8ee;font-style:italic;max-width:38ch}
-  .verse .acts{position:absolute;right:14px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:18px;font-size:10px;color:#9090a0;text-align:center}
-  .verse .acts div{display:flex;flex-direction:column;align-items:center;gap:4px}
-  .verse .acts span{font-size:24px;color:#f0d27a}
-  .verse .audio{position:absolute;bottom:14px;left:14px;font-size:10px;color:#9090a0;display:flex;align-items:center;gap:6px}
-  .verse .audio::before{content:"♪";color:#f0d27a;font-size:14px}
+/* LUZ — paleta pergamino/tinta */
+#how .feed-card.luz {
+  background: oklch(96% 0.014 82);
+  border-bottom-color: oklch(84% 0.018 80);
+}
+#how .feed-card.luz:nth-child(even) {
+  background: oklch(93% 0.018 78);
+}
+#how .feed-card.luz .feed-card-ref {
+  color: oklch(44% 0.090 68);
+}
+#how .feed-card.luz .feed-card-verse {
+  color: oklch(11% 0.018 265);
+}
+#how .feed-card.luz .feed-card-sub {
+  color: oklch(36% 0.016 80);
+}
+#how .feed-card.luz .feed-card-count {
+  color: oklch(50% 0.016 80);
+}
+#how .feed-card.luz .feed-card-audio {
+  color: oklch(66% 0.018 80);
+}
 
-  .swipe{position:absolute;bottom:80px;left:50%;transform:translateX(-50%);font-size:10px;color:#9090a0;letter-spacing:.2em;text-transform:uppercase;opacity:.7;animation:bob 2s infinite}
-  @keyframes bob{50%{transform:translate(-50%,-6px)}}
+/* ORÁCULO */
+.oraculo-section {
+  padding: 80px 48px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--void-2);
+}
+.oraculo-inner { max-width: 640px; margin: 0 auto; }
+.oraculo-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--incense);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.oraculo-kicker::before { content: ''; width: 20px; height: 1px; background: var(--incense); }
+.oraculo-h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin-bottom: 40px;
+}
+.oraculo-h2 em { color: var(--incense); font-style: normal; }
+.oraculo-form { display: flex; flex-direction: column; gap: 12px; }
+.oraculo-input {
+  background: var(--screen);
+  border: 1px solid var(--rule);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  padding: 16px 20px;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+  resize: none;
+  min-height: 84px;
+  line-height: 1.6;
+}
+.oraculo-input:focus { border-color: var(--incense); }
+.oraculo-input::placeholder { color: oklch(34% 0.014 265); font-size: 14px; }
+.oraculo-submit {
+  background: transparent;
+  border: 1px solid var(--rule);
+  color: var(--mist-light);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: all 0.18s;
+}
+.oraculo-submit:hover { border-color: var(--incense); color: var(--incense); }
+.oraculo-submit:disabled { opacity: 0.4; cursor: not-allowed; }
+.oraculo-loading {
+  display: none;
+  margin-top: 44px;
+  text-align: center;
+}
+.oraculo-loading.visible { display: block; }
+.oraculo-loading-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: oklch(36% 0.014 265);
+  animation: archivoPulse 1.8s ease-in-out infinite;
+}
+@keyframes archivoPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+.oraculo-result {
+  display: none;
+  margin-top: 48px;
+  padding-top: 48px;
+  border-top: 1px solid var(--rule);
+  text-align: center;
+}
+.oraculo-result.visible { display: block; }
+.oraculo-result-ref {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--incense);
+  margin-bottom: 24px;
+}
+.oraculo-result-verso {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(24px, 4vw, 44px);
+  line-height: 1.25;
+  color: var(--text);
+  margin-bottom: 24px;
+  max-width: 36ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+.oraculo-result-razon {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: oklch(40% 0.014 265);
+  text-transform: uppercase;
+  max-width: 48ch;
+  margin: 0 auto;
+  line-height: 1.9;
+}
+.oraculo-error {
+  display: none;
+  margin-top: 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: oklch(52% 0.080 22);
+  text-transform: uppercase;
+  text-align: center;
+}
+.oraculo-error.visible { display: block; }
 
-  section{padding:90px 24px;max-width:1100px;margin:0 auto}
-  h2{font-family:Georgia,serif;font-size:54px;font-weight:400;font-style:italic;letter-spacing:-.03em;line-height:.95;margin-bottom:18px}
-  h2 b{font-weight:900;color:#f0d27a;font-style:normal}
-  .lead{font-size:17px;line-height:1.65;max-width:62ch;color:#b0b0c0;margin-bottom:30px}
+/* COMMANDMENTS */
+.commandments-section {
+  padding: 80px 48px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--void-2);
+}
+.commandments-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 360px 1fr; gap: 72px; }
+.commandments-h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 44px;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: var(--text);
+  position: sticky;
+  top: 80px;
+  padding-top: 4px;
+}
+.commandments-h2 em { color: var(--incense); font-style: normal; }
+.commandments-note {
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--mist);
+  line-height: 1.6;
+}
 
-  .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
-  .feat{background:#13131c;border:1px solid #20202a;padding:30px;border-radius:14px}
-  .feat .icn{
-    width:46px;height:46px;border-radius:50%;background:rgba(240,210,122,.12);
-    color:#f0d27a;display:flex;align-items:center;justify-content:center;font-size:22px;font-family:Georgia,serif;font-style:italic;margin-bottom:14px;
-  }
-  .feat h3{font-size:18px;font-weight:800;margin-bottom:6px}
-  .feat p{font-size:14px;line-height:1.55;color:#9090a0}
+.clist {
+  list-style: none;
+  counter-reset: cmd;
+}
+.clist li {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--rule);
+  gap: 20px;
+  align-items: start;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--mist-light);
+  counter-increment: cmd;
+}
+.clist li::before {
+  content: counter(cmd, upper-roman);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--incense);
+  padding-top: 1px;
+}
 
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid #20202a;margin-top:50px;border-radius:14px;overflow:hidden}
-  .stat{padding:30px;border-right:1px solid #20202a;text-align:center}
-  .stat:last-child{border-right:none}
-  .stat .num{font-family:Georgia,serif;font-style:italic;font-size:54px;color:#f0d27a;letter-spacing:-.04em;line-height:1}
-  .stat .lbl{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#9090a0;margin-top:6px}
+/* PRICING — plan rows, not equal cards */
+.pricing-section {
+  padding: 80px 48px;
+  border-bottom: 1px solid var(--rule);
+}
+.pricing-h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(36px, 5vw, 60px);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  margin-bottom: 56px;
+}
+.pricing-h2 em { color: var(--incense); font-style: normal; }
 
-  .pricing{padding:90px 24px;background:linear-gradient(180deg,#0a0a0f,#13131c)}
-  .pricing h2{text-align:center}
-  .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1000px;margin:40px auto 0}
-  .plan{background:#0a0a0f;border:1px solid #20202a;border-radius:14px;padding:30px}
-  .plan.f{border-color:#f0d27a;background:linear-gradient(180deg,#1a1410,#0a0a0f)}
-  .plan h3{font-family:Georgia,serif;font-style:italic;font-size:24px;margin-bottom:6px}
-  .plan .lvl{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#f0d27a;margin-bottom:14px}
-  .plan .pp{font-family:Georgia,serif;font-style:italic;font-size:48px;letter-spacing:-.03em;line-height:1;margin-bottom:18px;color:#f0d27a}
-  .plan .pp small{font-size:14px;color:#9090a0}
-  .plan ul{list-style:none;font-size:13px;line-height:1.9;color:#c0c0d0}
-  .plan ul li::before{content:"† ";color:#f0d27a}
-  .plan button{width:100%;margin-top:18px;padding:14px;background:#f0d27a;color:#0a0a0f;border:none;border-radius:10px;font-weight:bold;cursor:pointer;letter-spacing:.05em}
-  .plan.f button{background:#fff}
+.plan-row {
+  display: grid;
+  grid-template-columns: 240px 140px 1fr auto;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--rule);
+  gap: 40px;
+  align-items: center;
+}
+.plan-row:first-of-type { border-top: 1px solid var(--rule); }
 
-  .commandments{padding:90px 24px;text-align:center;background:#13131c;border-top:1px solid #20202a;border-bottom:1px solid #20202a}
-  .commandments h2{margin-bottom:40px}
-  .clist{max-width:780px;margin:0 auto;text-align:left;font-family:Georgia,serif;font-style:italic;font-size:18px;line-height:2.2;color:#e8e8ee}
-  .clist li{display:flex;gap:16px;border-bottom:1px solid #20202a;padding:8px 0}
-  .clist li::before{content:counter(li,upper-roman) ".";counter-increment:li;color:#f0d27a;flex-shrink:0;width:60px;font-style:normal;font-weight:bold}
-  .clist{counter-reset:li;list-style:none;padding:0}
+.plan-name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.03em;
+}
+.plan-tier {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-top: 4px;
+}
 
-  footer{padding:30px;text-align:center;font-size:11px;color:#9090a0;letter-spacing:.2em;text-transform:uppercase;border-top:1px solid #20202a}
-  footer a{color:#f0d27a;text-decoration:underline}
+.plan-price {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.plan-price.free { color: var(--mist); }
+.plan-price.featured { color: var(--incense); }
+.plan-cadence {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--mist);
+  letter-spacing: 0.10em;
+  margin-top: 4px;
+}
 
-  @media(max-width:800px){.feats,.stats,.pgrid{grid-template-columns:1fr}.stat{border-right:none;border-bottom:1px solid #20202a}}
+.plan-perks {
+  font-size: 13px;
+  color: var(--mist-light);
+  line-height: 1.7;
+}
+.plan-perks span {
+  display: inline;
+}
+.plan-perks span + span::before {
+  content: ' · ';
+  color: var(--mist);
+}
+
+.plan-btn {
+  padding: 12px 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1px solid var(--rule);
+  background: transparent;
+  color: var(--mist-light);
+  white-space: nowrap;
+  transition: all 0.18s;
+}
+.plan-btn:hover { border-color: var(--mist); color: var(--text); }
+.plan-btn.featured {
+  background: var(--incense);
+  color: var(--void);
+  border-color: var(--incense);
+}
+.plan-btn.featured:hover { background: oklch(78% 0.095 72); border-color: oklch(78% 0.095 72); }
+
+/* FOOTER */
+footer {
+  padding: 28px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--mist);
+  letter-spacing: 0.06em;
+}
+.footer-brand a { color: var(--incense); }
+.footer-note {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: oklch(30% 0.012 265);
+  letter-spacing: 0.06em;
+}
+
+/* STATEMENT */
+.statement {
+  padding: 72px 48px;
+  border-bottom: 1px solid var(--rule);
+  text-align: center;
+}
+.statement-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(36px, 6vw, 80px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  max-width: 18ch;
+  margin: 0 auto;
+}
+.statement-text em { color: var(--incense); font-style: normal; }
+
+/* TESTIMONIALS */
+.testi-section {
+  padding: 80px 48px;
+  border-bottom: 1px solid var(--rule);
+}
+.testi-inner { max-width: 1100px; margin: 0 auto; }
+.testi-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--incense);
+  margin-bottom: 48px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.testi-kicker::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: var(--incense);
+}
+.testi-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 2px;
+  border-top: 1px solid var(--rule);
+  border-left: 1px solid var(--rule);
+}
+.testi-card:first-child {
+  grid-row: 1 / 3;
+}
+.testi-card {
+  padding: 28px 32px;
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  background: var(--void-2);
+}
+.testi-stars {
+  color: var(--incense);
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+}
+.testi-body {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+.testi-handle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+.testi-handle span { color: var(--incense); }
+
+/* PHONE ANIMATION */
+.feed-verse-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: none;
+}
+.feed-verse-inner.exit {
+  animation: verseExit 0.35s ease-in forwards;
+}
+.feed-verse-inner.enter {
+  animation: verseEnter 0.35s ease-out forwards;
+}
+@keyframes verseExit {
+  to { opacity: 0; transform: translateY(-28px); }
+}
+@keyframes verseEnter {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* MODAL */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: oklch(5% 0.010 265 / 0.88);
+  backdrop-filter: blur(6px);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s;
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal {
+  background: var(--void-2);
+  border: 1px solid var(--rule);
+  max-width: 480px;
+  width: 100%;
+  padding: 48px;
+  position: relative;
+  transform: translateY(12px);
+  transition: transform 0.22s;
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: var(--mist);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  cursor: pointer;
+  letter-spacing: 0.10em;
+  transition: color 0.15s;
+}
+.modal-close:hover { color: var(--text); }
+
+.modal-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--incense);
+  margin-bottom: 16px;
+}
+.modal-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 30px;
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.modal-input {
+  background: var(--screen);
+  border: 1px solid var(--rule);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  padding: 12px 16px;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+.modal-input:focus { border-color: var(--incense); }
+.modal-input::placeholder { color: var(--mist); }
+textarea.modal-input { resize: vertical; min-height: 88px; }
+.modal-submit {
+  background: var(--incense);
+  color: var(--void);
+  border: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 14px 24px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.18s;
+  align-self: flex-start;
+}
+.modal-submit:hover { background: oklch(78% 0.095 72); }
+.modal-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+.modal-note {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.10em;
+  color: oklch(34% 0.012 265);
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+.modal-success {
+  display: none;
+  text-align: center;
+  padding: 16px 0;
+}
+.modal-success.visible { display: block; }
+.modal-success-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 26px;
+  color: var(--incense);
+  margin-bottom: 10px;
+}
+.modal-success-note {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+
+/* AVISO LEGAL */
+.aviso {
+  padding: 20px 48px;
+  border-top: 1px solid var(--rule);
+  text-align: center;
+}
+.aviso p {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.10em;
+  color: oklch(30% 0.012 265);
+  line-height: 1.8;
+  max-width: 80ch;
+  margin: 0 auto;
+}
+
+/* RESPONSIVE */
+@media (max-width: 960px) {
+  nav { padding: 14px 20px; }
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-visual { display: none; }
+  .hero-copy { padding: 56px 20px; border-right: none; border-bottom: 1px solid var(--rule); }
+  .feed-intro { padding: 48px 20px; min-height: 40dvh; }
+  .feed-card { padding: 48px 24px; }
+  .section-head { grid-template-columns: 1fr; gap: 20px; }
+  .commandments-section { padding: 56px 20px; }
+  .commandments-inner { grid-template-columns: 1fr; gap: 36px; }
+  .commandments-h2 { position: static; font-size: 36px; }
+  .pricing-section { padding: 56px 20px; }
+  .plan-row { grid-template-columns: 1fr 1fr; gap: 16px 32px; }
+  .plan-perks { display: none; }
+  footer { flex-direction: column; gap: 12px; padding: 24px 20px; }
+  .footer-note { text-align: center; }
+  .statement { padding: 48px 20px; }
+  .testi-section { padding: 56px 20px; }
+  .testi-grid { grid-template-columns: 1fr; }
+  .aviso { padding: 20px; }
+}
 </style>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 
-<header>
-  <div class="logo">holy <b>scroll</b></div>
-  <nav>
+<nav>
+  <div class="brand">holy <em>scroll</em></div>
+  <div class="nav-links">
     <a href="#how">Cómo se reza</a>
     <a href="#commandments">Mandamientos</a>
     <a href="#pricing">Diezmo</a>
-    <a class="back" href="../index.html" style="opacity:.4">← poork.inc</a>
-  </nav>
-</header>
+    <a class="back" href="../index.html">← poork.cl</a>
+  </div>
+</nav>
 
+<main>
+
+<!-- HERO -->
 <section class="hero">
-  <h1><i>El libro sagrado.</i><br><b>Formato feed.</b></h1>
-  <p class="strap">HOLY SCROLL es la primera reescritura de los grandes textos espirituales en formato vertical, infinito, con sonido pegadizo y una notificación cada cuatro horas. Tu fe, finalmente, optimizada para tu pulgar.</p>
+  <div class="hero-copy">
+    <div class="hero-kicker">Drop 028 &nbsp;&middot;&nbsp; Plataforma espiritual</div>
+    <h1>El libro<br>sagrado.<br><em>Formato feed.</em></h1>
+    <p class="hero-lead">
+      HOLY SCROLL es la primera reescritura de los grandes textos espirituales
+      en formato vertical, infinito, con sonido pegadizo y una notificación
+      cada cuatro horas. <strong>La fe, finalmente, optimizada para el pulgar.</strong>
+    </p>
+    <button class="hero-cta" onclick="openModal('waitlist')">
+      Empezar a rezar &nbsp;&rarr;
+    </button>
+    <div class="hero-testament">
+      "y resultó que la fe también podía ser SaaS. nadie lo vio venir. o sí."
+      <cite>Revelaciones &middot; v.0 &middot; capítulo ahora</cite>
+    </div>
+  </div>
 
-  <div class="demo-stage">
-    <div class="phone">
-      <div class="scr">
-        <div class="top-bar">holy <small>· para ti</small></div>
-        <div class="feed">
-          <div class="verse">
-            <div class="ref">profeta · v.4 · capítulo 12</div>
-            <p class="text">"y bienaventurado el que llega a inbox cero, porque heredará el reino del fin de semana."</p>
-            <div class="acts">
-              <div><span>♡</span>4.2M</div>
-              <div><span>↻</span>312k</div>
-              <div><span>✦</span>guardar</div>
-              <div><span>↗</span>compartir</div>
+  <div class="hero-visual">
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone-side-btn"></div>
+        <div class="phone-screen">
+          <div class="phone-statusbar">
+            <span class="phone-time">02:14</span>
+            <span class="phone-icons">▲ ▲ ▐▐</span>
+          </div>
+          <div class="phone-feed">
+            <div class="feed-topbar">
+              <div class="feed-topbar-brand">holy scroll</div>
+              <div class="feed-topbar-tab">Para Ti</div>
             </div>
-            <div class="audio">audio original · sermón remix (loop)</div>
-            <div class="swipe">↓ desliza para más fe</div>
+            <div class="feed-verse">
+              <div class="feed-verse-inner" id="verse-content">
+                <div class="feed-ref" id="verse-ref">profeta &middot; v.4 &middot; capítulo 12</div>
+                <div class="feed-text" id="verse-text">"bienaventurado el que llega a inbox cero, porque heredará el fin de semana."</div>
+                <div class="feed-audio">♪ sermón remix (loop)</div>
+              </div><!-- /verse-inner -->
+              <div class="feed-actions">
+                <div class="feed-action">
+                  <div class="feed-action-icon">♡</div>
+                  <div class="feed-action-label">4.2M</div>
+                </div>
+                <div class="feed-action">
+                  <div class="feed-action-icon">↻</div>
+                  <div class="feed-action-label">312k</div>
+                </div>
+                <div class="feed-action">
+                  <div class="feed-action-icon">✦</div>
+                  <div class="feed-action-label">Guardar</div>
+                </div>
+                <div class="feed-action">
+                  <div class="feed-action-icon">↗</div>
+                  <div class="feed-action-label">Compartir</div>
+                </div>
+              </div>
+            </div>
+            <div class="feed-swipe">↓ desliza para más fe</div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="phone">
-      <div class="scr">
-        <div class="top-bar">holy <small>· descubrir</small></div>
-        <div class="feed">
-          <div class="verse" style="background:linear-gradient(180deg,#2a1815,#0a0a0f)">
-            <div class="ref">apóstol jonás · clip 03/14</div>
-            <p class="text">"si tu vecino te ofende, bloquéalo. y si vuelve a ofenderte con otra cuenta, bloquéalo otra vez. setenta veces siete."</p>
-            <div class="acts">
-              <div><span>♡</span>1.8M</div>
-              <div><span>↻</span>89k</div>
-              <div><span>✦</span>guardar</div>
-              <div><span>↗</span>compartir</div>
-            </div>
-            <div class="audio">trending · #fewish #ecclesiastesvibes</div>
-            <div class="swipe">↓ desliza para más fe</div>
-          </div>
+<!-- STATEMENT -->
+<section class="statement">
+  <p class="statement-text">"La fe nunca fue el problema. El <em>formato</em>, sí."</p>
+</section>
+
+<!-- FEED WALL -->
+<section id="how" aria-label="Cómo se reza">
+
+  <div class="feed-intro">
+    <h2 class="section-h2">La sabiduría estaba.<br><em>El formato, no.</em></h2>
+    <p class="section-lead" style="margin-top:24px;">HOLY SCROLL compila los textos canónicos en dos registros. Los pasajes son auténticos, extraídos de fuentes primarias. El contexto histórico y teológico se incluye. Solo el formato es nuevo.</p>
+    <div class="modo-toggle">
+      <span class="modo-label">Modo de lectura</span>
+      <button class="modo-btn active" id="btn-luz" onclick="setModo('luz')">Misericordia</button>
+      <span class="modo-sep">&middot;</span>
+      <button class="modo-btn" id="btn-sombra" onclick="setModo('sombra')">Juicio</button>
+    </div>
+  </div>
+
+  <div class="feed-wall">
+
+    <!-- LUZ — pasajes de esperanza y consuelo -->
+
+    <div class="feed-card luz">
+      <div class="feed-card-inner">
+        <div class="feed-card-ref">Salmos 23 &nbsp;&middot;&nbsp; v.1-3 &nbsp;&middot;&nbsp; Reina-Valera 1960</div>
+        <p class="feed-card-verse">"El Señor es mi pastor; nada me faltará. En lugares de delicados pastos me hará descansar; junto a aguas de reposo me pastoreará."</p>
+        <p class="feed-card-sub">Atribuido al rey David. En 2.000 años de uso litúrgico, este texto se ha recitado en lechos de muerte, campos de batalla y clínicas de oncología. También, ahora, en formato vertical.</p>
+        <div class="feed-card-counts">
+          <span class="feed-card-count">14.2M ♡</span>
+          <span class="feed-card-count">3.1M ↻</span>
+          <span class="feed-card-audio">&nbsp;&nbsp;♪ salmo pastoral (loop)</span>
         </div>
+      </div>
+    </div>
+
+    <div class="feed-card luz">
+      <div class="feed-card-inner">
+        <div class="feed-card-ref">Isaías 40 &nbsp;&middot;&nbsp; v.31 &nbsp;&middot;&nbsp; Reina-Valera 1960</div>
+        <p class="feed-card-verse">"Los que esperan en el Señor tendrán nuevas fuerzas; levantarán alas como las águilas; correrán, y no se cansarán; caminarán, y no se fatigarán."</p>
+        <p class="feed-card-sub">Isaías escribió esto para una nación en cautiverio babilónico. El contexto original: 70 años de exilio. El contexto de despacho del profeta: una cárcel. La promesa no tiene condición de contexto.</p>
+        <div class="feed-card-counts">
+          <span class="feed-card-count">9.8M ♡</span>
+          <span class="feed-card-count">1.7M ↻</span>
+          <span class="feed-card-audio">&nbsp;&nbsp;♪ canto del exilio (loop)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="feed-card luz">
+      <div class="feed-card-inner">
+        <div class="feed-card-ref">Jeremías 29 &nbsp;&middot;&nbsp; v.11 &nbsp;&middot;&nbsp; Reina-Valera 1960</div>
+        <p class="feed-card-verse">"Porque yo sé los pensamientos que tengo acerca de vosotros, dice el Señor, pensamientos de paz y no de mal, para daros el fin que esperáis."</p>
+        <p class="feed-card-sub">Escrita para deportados a Babilonia con instrucción expresa de construir casas y plantar jardines en el exilio. La esperanza como protocolo de supervivencia, no como sentimiento.</p>
+        <div class="feed-card-counts">
+          <span class="feed-card-count">11.4M ♡</span>
+          <span class="feed-card-count">2.2M ↻</span>
+          <span class="feed-card-audio">&nbsp;&nbsp;♪ profecía del retorno (loop)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="feed-card luz">
+      <div class="feed-card-inner">
+        <div class="feed-card-ref">Mateo 5 &nbsp;&middot;&nbsp; v.3-4 &nbsp;&middot;&nbsp; El Sermón del Monte</div>
+        <p class="feed-card-verse">"Bienaventurados los pobres en espíritu, porque de ellos es el reino de los cielos. Bienaventurados los que lloran, porque ellos recibirán consolación."</p>
+        <p class="feed-card-sub">Pronunciado en un monte de Galilea circa 30 d.C. El Sermón del Monte es el discurso más influyente de la historia occidental. Duración estimada: 20 minutos. Aquí: formato vertical.</p>
+        <div class="feed-card-counts">
+          <span class="feed-card-count">7.6M ♡</span>
+          <span class="feed-card-count">1.4M ↻</span>
+          <span class="feed-card-audio">&nbsp;&nbsp;♪ bienaventuranzas (loop)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="feed-card luz">
+      <div class="feed-card-inner">
+        <div class="feed-card-ref">Romanos 8 &nbsp;&middot;&nbsp; v.38-39 &nbsp;&middot;&nbsp; Reina-Valera 1960</div>
+        <p class="feed-card-verse">"Estoy persuadido de que ni la muerte, ni la vida, ni los ángeles, ni los principados, ni las potestades, ni lo presente, ni lo por venir... podrá separarnos del amor de Dios."</p>
+        <p class="feed-card-sub">Pablo escribió esto desde la cárcel. La lista de adversarios incluye muerte, ángeles, principados y "lo por venir". El amor como variable que ningún adversario puede cancelar.</p>
+        <div class="feed-card-counts">
+          <span class="feed-card-count">8.3M ♡</span>
+          <span class="feed-card-count">1.9M ↻</span>
+          <span class="feed-card-audio">&nbsp;&nbsp;♪ epístola a los romanos (loop)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="feed-card luz">
+      <div class="feed-card-inner">
+        <div class="feed-card-ref">Apocalipsis 21 &nbsp;&middot;&nbsp; v.4 &nbsp;&middot;&nbsp; Reina-Valera 1960</div>
+        <p class="feed-card-verse">"Enjugará Dios toda lágrima de los ojos de ellos; y ya no habrá muerte, ni habrá más llanto, ni clamor, ni dolor; porque las primeras cosas pasaron."</p>
+        <p class="feed-card-sub">Del mismo libro que contiene las siete trompetas, los cuatro jinetes y la bestia. Capítulo 21. Lo que viene después del fin del mundo. El texto lo llama prometido.</p>
+        <div class="feed-card-counts">
+          <span class="feed-card-count">12.7M ♡</span>
+          <span class="feed-card-count">2.8M ↻</span>
+          <span class="feed-card-audio">&nbsp;&nbsp;♪ nueva creación (loop)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOMBRA — pasajes de juicio y sufrimiento -->
+
+    <div class="feed-card sombra">
+      <div class="feed-card-inner">
+        <div class="feed-card-ref">Job 3 &nbsp;&middot;&nbsp; v.3,11 &nbsp;&middot;&nbsp; Reina-Valera 1960</div>
+        <p class="feed-card-verse">"Perezca el día en que yo nací, y la noche en que se dijo: Varón es concebido. ¿Por qué no morí yo en la matriz, o expiré al salir del vientre?"</p>
+        <p class="feed-card-sub">Job, declarado justo por Dios, pierde hijos, salud y posesiones en un acuerdo entre Dios y Satanás descrito en el prólogo. Este verso es su respuesta. El libro no ofrece explicación final.</p>
+        <div class="feed-card-counts">
+          <span class="feed-card-count">3.1M ♡</span>
+          <span class="feed-card-count">788k ↻</span>
+          <span class="feed-card-audio">&nbsp;&nbsp;♪ lamento de Job (loop)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="feed-card sombra">
+      <div class="feed-card-inner">
+        <div class="feed-card-ref">Lamentaciones 3 &nbsp;&middot;&nbsp; v.1-3 &nbsp;&middot;&nbsp; Reina-Valera 1960</div>
+        <p class="feed-card-verse">"Yo soy el hombre que ha visto la aflicción bajo la vara de su enojo. Me llevó y me hizo caminar en tinieblas y no en luz; ciertamente contra mí volvió su mano."</p>
+        <p class="feed-card-sub">Escrito tras la destrucción de Jerusalén en 587 a.C. El texto es un acróstico: cada capítulo sigue el alfabeto hebreo, de alef a tau. El orden del lenguaje como respuesta al caos total.</p>
+        <div class="feed-card-counts">
+          <span class="feed-card-count">2.4M ♡</span>
+          <span class="feed-card-count">411k ↻</span>
+          <span class="feed-card-audio">&nbsp;&nbsp;♪ llanto de Jerusalén (loop)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="feed-card sombra">
+      <div class="feed-card-inner">
+        <div class="feed-card-ref">Mateo 10 &nbsp;&middot;&nbsp; v.34-36 &nbsp;&middot;&nbsp; Reina-Valera 1960</div>
+        <p class="feed-card-verse">"No penséis que he venido para traer paz a la tierra; no he venido para traer paz, sino espada. Porque he venido para poner en disensión al hombre contra su padre."</p>
+        <p class="feed-card-sub">El mismo orador del Sermón del Monte. Doce versículos después de "Bienaventurados los pacíficos". El texto completo del Evangelio requiere los dos modos.</p>
+        <div class="feed-card-counts">
+          <span class="feed-card-count">4.8M ♡</span>
+          <span class="feed-card-count">1.2M ↻</span>
+          <span class="feed-card-audio">&nbsp;&nbsp;♪ espada del evangelio (loop)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="feed-card sombra">
+      <div class="feed-card-inner">
+        <div class="feed-card-ref">Isaías 45 &nbsp;&middot;&nbsp; v.7 &nbsp;&middot;&nbsp; Reina-Valera 1960</div>
+        <p class="feed-card-verse">"Que formo la luz y creo las tinieblas, que hago la paz y creo el mal. Yo el Señor soy el que hago todo esto."</p>
+        <p class="feed-card-sub">Este versículo ha sido traducido de formas distintas para reducir su impacto teológico. El término hebreo original es רַע (ra): mal en sentido absoluto. La traducción más honesta es también la más incómoda.</p>
+        <div class="feed-card-counts">
+          <span class="feed-card-count">5.6M ♡</span>
+          <span class="feed-card-count">1.4M ↻</span>
+          <span class="feed-card-audio">&nbsp;&nbsp;♪ declaración del creador (loop)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="feed-card sombra">
+      <div class="feed-card-inner">
+        <div class="feed-card-ref">Apocalipsis 6 &nbsp;&middot;&nbsp; v.15-17 &nbsp;&middot;&nbsp; Reina-Valera 1960</div>
+        <p class="feed-card-verse">"Los reyes de la tierra, los grandes, los ricos, los capitanes, los poderosos, y todo siervo y todo libre, se escondieron en las cuevas. Y decían a los montes: Caed sobre nosotros."</p>
+        <p class="feed-card-sub">El sexto sello. A este punto del relato, el cielo se ha enrollado como pergamino y toda montaña ha sido removida. La lista de los que huyen incluye reyes, ricos y libres. Sin excepción documentada.</p>
+        <div class="feed-card-counts">
+          <span class="feed-card-count">6.2M ♡</span>
+          <span class="feed-card-count">1.8M ↻</span>
+          <span class="feed-card-audio">&nbsp;&nbsp;♪ sexto sello (loop)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="feed-card sombra">
+      <div class="feed-card-inner">
+        <div class="feed-card-ref">Salmos 88 &nbsp;&middot;&nbsp; v.18 &nbsp;&middot;&nbsp; Reina-Valera 1960</div>
+        <p class="feed-card-verse">"Has alejado de mí al amigo y al compañero, y a mis conocidos has puesto en tinieblas."</p>
+        <p class="feed-card-sub">El Salmo 88 es el único en el Salterio que no termina con esperanza. Comienza en angustia y termina en oscuridad, sin resolución. Los académicos lo llaman el Salmo de la Desesperanza. Este es el último versículo.</p>
+        <div class="feed-card-counts">
+          <span class="feed-card-count">4.1M ♡</span>
+          <span class="feed-card-count">912k ↻</span>
+          <span class="feed-card-audio">&nbsp;&nbsp;♪ salmo sin respuesta (loop)</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ORÁCULO -->
+<section class="oraculo-section" id="oraculo">
+  <div class="oraculo-inner">
+    <div class="oraculo-kicker">El Compendio responde &nbsp;&middot;&nbsp; acceso anticipado</div>
+    <h2 class="oraculo-h2">Escribe lo que<br>se siente.<br><em>El archivo busca.</em></h2>
+    <form class="oraculo-form" id="oraculo-form">
+      <textarea
+        class="oraculo-input"
+        id="oraculo-input"
+        placeholder="escribe lo que se siente, lo que ocurre, lo que se teme, lo que se busca."
+        maxlength="500"
+        rows="3"
+      ></textarea>
+      <button class="oraculo-submit" type="submit" id="oraculo-btn">Consultar el archivo</button>
+    </form>
+    <div class="oraculo-loading" id="oraculo-loading">
+      <span class="oraculo-loading-text">consultando el archivo &nbsp;&middot;&nbsp; 66 libros &nbsp;&middot;&nbsp; 31.102 versículos</span>
+    </div>
+    <div class="oraculo-error" id="oraculo-error">
+      el archivo no está disponible &nbsp;&middot;&nbsp; intentar más tarde
+    </div>
+    <div class="oraculo-result" id="oraculo-result">
+      <div class="oraculo-result-ref" id="oraculo-ref"></div>
+      <p class="oraculo-result-verso" id="oraculo-verso"></p>
+      <p class="oraculo-result-razon" id="oraculo-razon"></p>
+    </div>
+  </div>
+</section>
+
+<!-- COMMANDMENTS -->
+<section class="commandments-section" id="commandments">
+  <div class="commandments-inner">
+    <div>
+      <h2 class="commandments-h2">Los manda&shy;mientos.<br><em>Éxodo 20.</em></h2>
+      <p class="commandments-note">"No añadiréis a la palabra que yo os mando, ni disminuiréis de ella." — Deuteronomio 4:2<br><br>Las instrucciones incluyen instrucciones sobre las instrucciones. Reproducidos sin modificaciones.</p>
+    </div>
+    <ol class="clist">
+      <li>No tendrás dioses ajenos delante de mí.</li>
+      <li>No te harás imagen, ni ninguna semejanza de lo que esté arriba en el cielo, ni abajo en la tierra, ni en las aguas debajo de la tierra. No te inclinarás a ellas, ni las honrarás.</li>
+      <li>No tomarás el nombre del Señor tu Dios en vano; porque no dará por inocente el Señor al que tomare su nombre en vano.</li>
+      <li>Acuérdate del día de reposo para santificarlo. Seis días trabajarás, y harás toda tu obra; mas el séptimo día es reposo para el Señor tu Dios.</li>
+      <li>Honra a tu padre y a tu madre, para que tus días se alarguen en la tierra que el Señor tu Dios te da.</li>
+      <li>No matarás.</li>
+      <li>No cometerás adulterio.</li>
+      <li>No hurtarás.</li>
+      <li>No hablarás contra tu prójimo falso testimonio.</li>
+      <li>No codiciarás la casa de tu prójimo, no codiciarás la mujer de tu prójimo, ni su siervo, ni su sierva, ni su buey, ni su asno, ni cosa alguna de tu prójimo.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section">
+  <div class="testi-inner">
+    <div class="testi-kicker">El rebaño habla</div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-body">"Llevaba 30 años sin leer el Génesis. Con Holy Scroll lo devoré en un commute de metro. El señor trabaja en el subterráneo."</p>
+        <div class="testi-handle"><span>@cordero.digital</span> · feligrés verificado</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-body">"El algoritmo me conoce mejor que el confesor. Y no me da penitencia. Solo más contenido relacionado."</p>
+        <div class="testi-handle"><span>@hermana_marta_sz</span> · feligrés verificado</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-body">"Subí un versículo propio. Llegó a 800k reproducciones en 48 horas. El señor es viral. El señor siempre fue viral."</p>
+        <div class="testi-handle"><span>@profeta.cl</span> · profeta verificado ✦</div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="how">
-  <h2>El libro era largo.<br><b>La gente, no.</b></h2>
-  <p class="lead">Durante 2.000 años los textos espirituales se distribuyeron en forma de tomos voluminosos, requiriendo concentración, silencio, y a veces incluso una vela. HOLY SCROLL adapta toda esa sabiduría a la única superficie en la que la humanidad presta atención hoy: una columna vertical de 9:16 con un audio de fondo. Cada parábola, en 14 segundos. Cada salmo, con un beat. Cada mandamiento, con un swipe.</p>
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="section-inner">
+    <h2 class="pricing-h2">Diezmo.<br><em>Variable.</em></h2>
 
-  <div class="feats">
-    <div class="feat"><div class="icn">Φ</div><h3>Algoritmo del Espíritu</h3><p>Aprende qué tipo de fe te engancha más y te lo sirve sin parar. ¿Eres más de remordimiento? ¿De gratitud? ¿De ira justa? Te tenemos clasificado.</p></div>
-    <div class="feat"><div class="icn">↻</div><h3>Doomscroll Sagrado</h3><p>Tres horas seguidas leyendo sentencias proféticas con beat de drill. Sales con menos ansiedad y más miedo a Dios. Equilibrio.</p></div>
-    <div class="feat"><div class="icn">✦</div><h3>Stitch con Profetas</h3><p>Funcionalidad que te permite responder en vídeo a un profeta del antiguo testamento. Ellos no te contestan. Es tradición.</p></div>
-    <div class="feat"><div class="icn">∞</div><h3>Infinite Scroll Cuaresma</h3><p>Modo penitencia: durante 40 días el feed se vuelve gris, sin audios y con sólo dos versos por hora. Vuelven los anuncios sólo el domingo.</p></div>
-    <div class="feat"><div class="icn">⌁</div><h3>Streak de Fe</h3><p>Reza 7 días seguidos y desbloqueas el badge de "alma constante". Falla un día y la app te manda un push pasivo-agresivo de tu santo patrón.</p></div>
-    <div class="feat"><div class="icn">$</div><h3>Diezmo One-Click</h3><p>Apple Pay, Bizum o el plato de la parroquia. Donaciones directas a la deidad de tu elección. Recibo fiscal opcional.</p></div>
-  </div>
+    <div class="plan-row">
+      <div>
+        <div class="plan-name">Cordero</div>
+        <div class="plan-tier">free tier</div>
+      </div>
+      <div>
+        <div class="plan-price free">$0</div>
+        <div class="plan-cadence">para siempre</div>
+      </div>
+      <div class="plan-perks">
+        <span>Versículos con anuncio cada 5</span>
+        <span>1 milagro pequeño/semana</span>
+        <span>Sin modo offline</span>
+        <span>Mandamientos en orden aleatorio</span>
+      </div>
+      <button class="plan-btn" onclick="openModal('waitlist')">Unirse al rebaño</button>
+    </div>
 
-  <div class="stats">
-    <div class="stat"><div class="num">3,4 s</div><div class="lbl">duración media de un versículo</div></div>
-    <div class="stat"><div class="num">87 %</div><div class="lbl">retención tras un sermón viral</div></div>
-    <div class="stat"><div class="num">14 M</div><div class="lbl">conversiones espontáneas en 2025</div></div>
-    <div class="stat"><div class="num">∞</div><div class="lbl">versículos generados por IA aprobada por el sínodo</div></div>
+    <div class="plan-row">
+      <div>
+        <div class="plan-name">Discípulo ★</div>
+        <div class="plan-tier">premium</div>
+      </div>
+      <div>
+        <div class="plan-price featured">$9.990</div>
+        <div class="plan-cadence">por mes</div>
+      </div>
+      <div class="plan-perks">
+        <span>Sin anuncios</span>
+        <span>Versículos exclusivos</span>
+        <span>Modo offline</span>
+        <span>Streak con 1 día de gracia</span>
+        <span>Acceso al Discord del Sínodo</span>
+      </div>
+      <button class="plan-btn featured" onclick="openModal('waitlist')">Probar 7 días</button>
+    </div>
+
+    <div class="plan-row">
+      <div>
+        <div class="plan-name">Profeta Verificado</div>
+        <div class="plan-tier">creator</div>
+      </div>
+      <div>
+        <div class="plan-price">$49.000</div>
+        <div class="plan-cadence">por mes</div>
+      </div>
+      <div class="plan-perks">
+        <span>Todo lo de Discípulo</span>
+        <span>Tick dorado de profeta</span>
+        <span>Sube tus propios versículos</span>
+        <span>50% de comisión sobre el diezmo generado</span>
+        <span>Verificación canónica express</span>
+      </div>
+      <button class="plan-btn" onclick="openModal('profeta')">Postularme</button>
+    </div>
   </div>
 </section>
 
-<section id="commandments" class="commandments">
-  <h2>Los mandamientos <b>actualizados</b><br><i>para la versión móvil.</i></h2>
-  <ol class="clist">
-    <li>Amarás el algoritmo sobre todas las cosas, porque conoce tu corazón mejor que tú.</li>
-    <li>No tomarás la notificación en vano: si vibró, abre.</li>
-    <li>Santificarás el doomscroll vespertino, especialmente del domingo.</li>
-    <li>Honrarás a tus creators favoritos, aunque no entiendas del todo qué venden.</li>
-    <li>No matarás el streak. Ya no.</li>
-    <li>No cometerás captura sin atribuir.</li>
-    <li>No robarás el sonido viral sin etiquetar al original.</li>
-    <li>No darás falso "leído" contra tu prójimo.</li>
-    <li>No codiciarás los seguidores ajenos. Pídelos en oración primero.</li>
-    <li>No codiciarás el plan premium del prójimo.</li>
-  </ol>
-</section>
+</main>
 
-<section id="pricing" class="pricing">
-  <h2>Diezmo. <b>Variable.</b></h2>
-  <div class="pgrid">
-    <div class="plan">
-      <h3>Cordero</h3>
-      <div class="lvl">free tier</div>
-      <div class="pp">$0</div>
-      <ul><li>Versículos con anuncio cada 5</li><li>1 milagro pequeño/semana</li><li>Sin modo offline (sólo en parroquias con WiFi)</li><li>Mandamientos en orden aleatorio</li></ul>
-      <button onclick="alert('Bienvenido al rebaño. Ya tienes 4 anuncios pendientes.');return false;">Empezar a rezar</button>
-    </div>
-    <div class="plan f">
-      <h3>★ Discípulo</h3>
-      <div class="lvl">premium · $9.990/mes</div>
-      <div class="pp">$9.990<small>/mes</small></div>
-      <ul><li>Sin anuncios</li><li>Versículos exclusivos</li><li>Modo offline para retiros espirituales</li><li>Streak con compensación de 1 día</li><li>Acceso al servidor Discord del Sínodo</li></ul>
-      <button onclick="alert('Aleluya. Tu suscripción se renovará automáticamente hasta el fin del mundo.');return false;">Probar 7 días</button>
-    </div>
-    <div class="plan">
-      <h3>Profeta Verificado</h3>
-      <div class="lvl">creator · $49.000/mes</div>
-      <div class="pp">$49.000<small>/mes</small></div>
-      <ul><li>Todo lo Discípulo</li><li>Tick dorado de profeta</li><li>Subes tus propios versículos</li><li>50% de comisión sobre tu diezmo</li><li>Verificación canónica express</li></ul>
-      <button onclick="alert('Tu solicitud será revisada por un comité teológico de tres millennials.');return false;">Postularme</button>
+<!-- MODAL WAITLIST -->
+<div class="modal-overlay" id="modal-waitlist" role="dialog" aria-modal="true">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('waitlist')">ESC ×</button>
+    <h3 class="modal-title">"El que se inscribe primero,<br>primero scrollea."</h3>
+    <div class="modal-form-wrap">
+      <form class="modal-form" action="https://formspree.io/hola@poork.cl" method="POST" onsubmit="handleSubmit(event, 'waitlist')">
+        <input type="hidden" name="origen" value="holy-scroll — waitlist">
+        <input class="modal-input" type="text" name="nombre" placeholder="Nombre" required>
+        <input class="modal-input" type="email" name="email" placeholder="Email" required>
+        <button class="modal-submit" type="submit">Unirse al rebaño &nbsp;→</button>
+        <p class="modal-note">Al enviar, se aceptan los <a href="../terminos.html" target="_blank" style="color:var(--incense);">Términos de Servicio</a> y la <a href="../privacidad.html" target="_blank" style="color:var(--incense);">Política de privacidad</a>. Sin spam. Sin cesión a terceros.</p>
+      </form>
+      <div class="modal-success" id="success-waitlist">
+        <p class="modal-success-title">Aleluya.</p>
+        <p class="modal-success-note">Te avisamos cuando abra el rebaño.<br>El señor te tiene en la lista.</p>
+      </div>
     </div>
   </div>
-</section>
+</div>
+
+<!-- MODAL PROFETA -->
+<div class="modal-overlay" id="modal-profeta" role="dialog" aria-modal="true">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('profeta')">ESC ×</button>
+    <h3 class="modal-title">"El llamado llega.<br>La verificación, también."</h3>
+    <div class="modal-form-wrap">
+      <form class="modal-form" action="https://formspree.io/hola@poork.cl" method="POST" onsubmit="handleSubmit(event, 'profeta')">
+        <input type="hidden" name="origen" value="holy-scroll — profeta verificado">
+        <input class="modal-input" type="text" name="nombre" placeholder="Nombre" required>
+        <input class="modal-input" type="email" name="email" placeholder="Email" required>
+        <textarea class="modal-input" name="justificacion" placeholder="¿Por qué mereces el tick dorado? (comité teológico lo evalúa)" required></textarea>
+        <button class="modal-submit" type="submit">Postularme &nbsp;→</button>
+        <p class="modal-note">Al enviar, se aceptan los <a href="../terminos.html" target="_blank" style="color:var(--incense);">Términos de Servicio</a> y la <a href="../privacidad.html" target="_blank" style="color:var(--incense);">Política de privacidad</a>.</p>
+      </form>
+      <div class="modal-success" id="success-profeta">
+        <p class="modal-success-title">Recibido.</p>
+        <p class="modal-success-note">El comité teológico evaluará la candidatura.<br>Tres millennials. Mayoría simple.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="aviso">
+  <p>Holy Scroll es un producto conceptual. Los textos reproducidos son pasajes canónicos de dominio público (Reina-Valera 1960). Las fuentes originales no fueron consultadas sobre el formato. El Señor tampoco.</p>
+</div>
 
 <footer>
-  HOLY SCROLL es una división conceptual de <a href="../index.html">POORK INC.</a> · ningún libro sagrado fue dañado. probablemente acortado.
+  <div class="footer-brand">
+    Holy Scroll &nbsp;&middot;&nbsp; división conceptual de <a href="../index.html">POORK INC.</a>
+  </div>
+  <div class="footer-note">
+    <a href="../terminos.html" style="color:oklch(36% 0.012 265);">Términos</a>
+    &nbsp;&middot;&nbsp;
+    <a href="../privacidad.html" style="color:oklch(36% 0.012 265);">Privacidad</a>
+    &nbsp;&middot;&nbsp;
+    ningún libro sagrado fue dañado.
+  </div>
 </footer>
+
+<script>
+function setModo(m) {
+  document.getElementById('how').setAttribute('data-modo', m);
+  document.getElementById('btn-luz').classList.toggle('active', m === 'luz');
+  document.getElementById('btn-sombra').classList.toggle('active', m === 'sombra');
+}
+
+function openModal(id) {
+  document.getElementById('modal-' + id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById('modal-' + id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    ['waitlist', 'profeta'].forEach(function(id) { closeModal(id); });
+  }
+});
+document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closeModal(overlay.id.replace('modal-', ''));
+  });
+});
+
+function handleSubmit(e, id) {
+  e.preventDefault();
+  var form = e.target;
+  var btn = form.querySelector('.modal-submit');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+  fetch(form.action, {
+    method: 'POST',
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  }).then(function(res) {
+    if (res.ok) {
+      form.style.display = 'none';
+      document.getElementById('success-' + id).classList.add('visible');
+    } else {
+      btn.disabled = false;
+      btn.textContent = 'Reintentar';
+    }
+  }).catch(function() {
+    btn.disabled = false;
+    btn.textContent = 'Reintentar';
+  });
+}
+
+(function () {
+  const verses = [
+    {
+      ref: 'profeta &middot; v.4 &middot; capítulo 12',
+      text: '"bienaventurado el que llega a inbox cero, porque heredará el fin de semana."',
+      likes: '4.2M', shares: '312k'
+    },
+    {
+      ref: 'apocalipsis &middot; v.7 &middot; capítulo 3',
+      text: '"y el que silencia las notificaciones del grupo familiar, ese es de los míos."',
+      likes: '6.1M', shares: '891k'
+    },
+    {
+      ref: 'crónicas &middot; v.1 &middot; capítulo 44',
+      text: '"no juzgues al prójimo por su ratio de respuesta. juzga por su story activity."',
+      likes: '3.7M', shares: '204k'
+    },
+    {
+      ref: 'proverbios &middot; v.9 &middot; capítulo 21',
+      text: '"dichoso el que guarda el screenshot, porque de él será el recibo."',
+      likes: '8.9M', shares: '1.4M'
+    }
+  ];
+
+  let current = 0;
+  const refEl = document.getElementById('verse-ref');
+  const textEl = document.getElementById('verse-text');
+  const inner = document.getElementById('verse-content');
+  const likeEl = document.querySelector('.feed-action-label');
+
+  if (!refEl || !textEl || !inner || !likeEl) return;
+
+  function nextVerse() {
+    current = (current + 1) % verses.length;
+    const v = verses[current];
+
+    inner.classList.remove('enter');
+    inner.classList.add('exit');
+
+    setTimeout(function () {
+      refEl.innerHTML = v.ref;
+      textEl.textContent = v.text;
+      likeEl.textContent = v.likes;
+      inner.classList.remove('exit');
+      inner.classList.add('enter');
+    }, 360);
+
+    setTimeout(function () {
+      inner.classList.remove('enter');
+    }, 720);
+  }
+
+  setInterval(nextVerse, 3500);
+})();
+
+(function () {
+  var form = document.getElementById('oraculo-form');
+  if (!form) return;
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var q = document.getElementById('oraculo-input').value.trim();
+    if (!q) return;
+
+    var btn = document.getElementById('oraculo-btn');
+    var loading = document.getElementById('oraculo-loading');
+    var result = document.getElementById('oraculo-result');
+    var error = document.getElementById('oraculo-error');
+
+    result.classList.remove('visible');
+    error.classList.remove('visible');
+    loading.classList.add('visible');
+    btn.disabled = true;
+    btn.textContent = 'Consultando...';
+
+    try {
+      var res = await fetch('/api/oraculo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ q: q })
+      });
+      var data = await res.json();
+
+      if (!res.ok || !data.verso) throw new Error(data.error || 'sin respuesta');
+
+      document.getElementById('oraculo-ref').textContent = data.ref;
+      document.getElementById('oraculo-verso').textContent = data.verso;
+      document.getElementById('oraculo-razon').textContent = data.razon || '';
+
+      loading.classList.remove('visible');
+      result.classList.add('visible');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (_) {
+      loading.classList.remove('visible');
+      error.classList.add('visible');
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Consultar el archivo';
+  });
+})();
+</script>
 
 </body>
 </html>

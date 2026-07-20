@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Términos de Servicio — POORK</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: oklch(8% 0.012 265);
+  --void-2: oklch(12% 0.014 268);
+  --screen: oklch(16% 0.018 268);
+  --incense: oklch(72% 0.098 72);
+  --mist: oklch(52% 0.018 265);
+  --mist-light: oklch(70% 0.014 265);
+  --rule: oklch(22% 0.016 265);
+  --text: oklch(92% 0.008 265);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--void);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--incense); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 48px;
+  border-bottom: 1px solid var(--rule);
+  background: oklch(8% 0.012 265 / 0.92);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.brand {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-decoration: none;
+}
+.brand em { color: var(--incense); font-style: normal; }
+.nav-back {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: oklch(36% 0.012 265);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-back:hover { color: var(--text); text-decoration: none; }
+
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 80px 48px 120px;
+}
+
+.doc-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--incense);
+  margin-bottom: 20px;
+}
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 40px;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin-bottom: 12px;
+}
+.doc-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-bottom: 56px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--rule);
+}
+h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  margin-top: 40px;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--mist-light);
+  margin-bottom: 16px;
+}
+p strong { color: var(--text); font-weight: 500; }
+ul {
+  margin: 0 0 16px 0;
+  padding-left: 20px;
+}
+ul li {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--mist-light);
+  margin-bottom: 6px;
+}
+
+.aviso-legal {
+  margin-top: 56px;
+  padding: 20px 24px;
+  border: 1px solid var(--rule);
+  background: var(--void-2);
+}
+.aviso-legal p {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.10em;
+  color: oklch(46% 0.014 265);
+  line-height: 1.8;
+  margin: 0;
+}
+.aviso-legal p strong {
+  color: var(--incense);
+  font-weight: 500;
+}
+
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 24px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--mist);
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 640px) {
+  nav { padding: 14px 20px; }
+  main { padding: 48px 20px 80px; }
+  h1 { font-size: 28px; }
+  footer { flex-direction: column; gap: 10px; padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="index.html">poork <em>inc.</em></a>
+  <a class="nav-back" href="javascript:history.back()">← Volver</a>
+</nav>
+
+<main>
+  <div class="doc-kicker">Documento legal</div>
+  <h1>Términos de Servicio</h1>
+  <p class="doc-meta">POORK &nbsp;·&nbsp; Última actualización: julio 2025 &nbsp;·&nbsp; Versión 1.0</p>
+
+  <h2>1. Identificación</h2>
+  <p>
+    Este sitio es operado por <strong>Ricardo Jerez Morán</strong>, con nombre de marca
+    <strong>POORK</strong>, con domicilio en Chile. Contacto:
+    <a href="mailto:hola@poork.cl">hola@poork.cl</a> · <a href="https://www.poork.cl">www.poork.cl</a>.
+  </p>
+
+  <h2>2. Qué es POORK</h2>
+  <p>
+    POORK es un estudio independiente de drops conceptuales: landing pages que presentan
+    ideas de producto digital en exploración. Los productos mostrados en estas páginas son
+    conceptos en distintas etapas de desarrollo. El acceso al sitio y a los formularios de
+    lista de espera es gratuito.
+  </p>
+  <p>
+    Algunos drops pueden estar en proceso de convertirse en productos reales. En ese caso,
+    se publicarán términos adicionales específicos al producto antes de realizar cobros o
+    de activar funciones de la plataforma.
+  </p>
+
+  <h2>3. Elegibilidad</h2>
+  <p>
+    Para registrarse en cualquier lista de espera o formulario del sitio, la persona debe
+    tener al menos <strong>13 años de edad</strong>. Al enviar el formulario, se confirma
+    que se cumple este requisito. POORK no recolecta datos de menores de forma consciente;
+    si se detecta que un registro pertenece a un menor de 13 años, será eliminado.
+  </p>
+
+  <h2>4. Registros y listas de espera</h2>
+  <p>
+    Los formularios del sitio permiten registrar nombre y correo electrónico para recibir
+    notificaciones sobre el lanzamiento de un producto. Este registro:
+  </p>
+  <ul>
+    <li>No constituye una compra ni genera ningún compromiso económico.</li>
+    <li>No garantiza acceso al producto ni disponibilidad.</li>
+    <li>Puede ser eliminado en cualquier momento enviando un correo a <a href="mailto:hola@poork.cl">hola@poork.cl</a>.</li>
+  </ul>
+  <p>
+    POORK se reserva el derecho de cerrar, modificar o cancelar cualquier lista de espera
+    sin previo aviso y sin responsabilidad frente a los registrados.
+  </p>
+
+  <h2>5. Uso aceptable</h2>
+  <p>Está prohibido usar este sitio para:</p>
+  <ul>
+    <li>Registrar datos falsos, datos de terceros sin consentimiento, o múltiples cuentas por persona con el fin de acaparar posiciones en una lista.</li>
+    <li>Realizar scraping, extracción automatizada de datos, o reproducción masiva del contenido.</li>
+    <li>Intentar acceder a sistemas o datos que no correspondan al uso público del sitio.</li>
+    <li>Cualquier actividad ilegal o que cause daño a terceros o al propio sitio.</li>
+  </ul>
+  <p>
+    El incumplimiento puede resultar en la eliminación del registro y bloqueo de acceso,
+    sin perjuicio de las acciones legales que correspondan.
+  </p>
+
+  <h2>6. Propiedad intelectual</h2>
+  <p>
+    Todo el contenido del sitio — textos, diseño, sistema visual, copy, nombres de drops,
+    logotipos y código — es propiedad de POORK o sus creadores, y está protegido por las
+    leyes de propiedad intelectual vigentes en Chile.
+  </p>
+  <p>
+    El acceso al sitio no otorga ninguna licencia para reproducir, distribuir, modificar
+    o explotar el contenido con fines comerciales. Se permite compartir enlaces al sitio
+    y citar fragmentos con atribución para fines no comerciales.
+  </p>
+  <p>
+    Los textos bíblicos reproducidos en Holy Scroll provienen de la versión Reina-Valera 1960,
+    cuyo texto original es de dominio público.
+  </p>
+
+  <h2>7. Pagos y suscripciones</h2>
+  <p>
+    A la fecha de esta versión, ningún producto de POORK requiere pago. Las estructuras
+    de precio que aparecen en algunas landing pages son proyecciones de producto conceptual
+    y no constituyen oferta comercial vigente.
+  </p>
+  <p>
+    Cuando un producto pase a fase de cobro real, se publicarán términos específicos que
+    incluirán ciclo de cobro, método de pago, política de cancelación y política de
+    reembolsos, con al menos 14 días de preaviso a los registrados.
+  </p>
+
+  <h2>8. Exclusión de garantías</h2>
+  <p>
+    El sitio y todos sus contenidos se entregan <strong>"tal cual" (as-is)</strong>, sin
+    garantía de disponibilidad continua, exactitud, idoneidad para un fin específico, ni
+    ausencia de errores. POORK no garantiza que el acceso sea ininterrumpido ni que los
+    productos conceptuales mostrados lleguen a existir en alguna forma comercial.
+  </p>
+
+  <h2>9. Limitación de responsabilidad</h2>
+  <p>
+    En la máxima medida permitida por la ley chilena, POORK no será responsable por
+    daños indirectos, incidentales, especiales o consecuenciales derivados del uso
+    o de la imposibilidad de uso del sitio, incluyendo pérdida de datos o de oportunidades.
+  </p>
+  <p>
+    La responsabilidad total de POORK frente a cualquier usuario por cualquier causa no
+    superará el monto pagado por el usuario a POORK en los 12 meses anteriores al reclamo.
+    Como el sitio es actualmente gratuito, ese límite es de $0 (cero pesos).
+  </p>
+
+  <h2>10. Terminación</h2>
+  <p>
+    POORK puede, a su exclusivo criterio, eliminar un registro de cualquier lista de espera,
+    cerrar un formulario, o dar de baja el sitio total o parcialmente, en cualquier momento
+    y sin previo aviso. Al eliminar un registro, los datos personales asociados serán
+    suprimidos de conformidad con la <a href="privacidad.html">Política de Privacidad</a>.
+  </p>
+
+  <h2>11. Modificaciones a estos términos</h2>
+  <p>
+    POORK puede actualizar estos términos en cualquier momento. La versión vigente siempre
+    estará disponible en esta página con la fecha de la última actualización. Para cambios
+    materiales, se notificará por correo electrónico a las personas registradas con al menos
+    7 días de anticipación. El uso continuado del sitio después de la notificación implica
+    aceptación de los términos actualizados.
+  </p>
+
+  <h2>12. Ley aplicable y jurisdicción</h2>
+  <p>
+    Estos términos se rigen por las leyes de la República de Chile, incluyendo la
+    Ley N° 19.628 y la Ley N° 21.719 sobre protección de datos personales.
+    Cualquier controversia que no pueda resolverse de manera directa será sometida a los
+    tribunales ordinarios de justicia de la ciudad de Santiago, Chile.
+  </p>
+
+  <div class="aviso-legal">
+    <p>
+      <strong>⚠ Nota importante</strong> &nbsp;—&nbsp;
+      Este documento fue redactado con asistencia de IA a partir del intake del producto.
+      No reemplaza asesoría legal profesional. Antes de publicarlo, debe ser revisado por
+      un abogado, especialmente si el producto opera en más de una jurisdicción o si se
+      activan cobros reales. Contacto de referencia: hola@poork.cl.
+    </p>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-brand">POORK &nbsp;·&nbsp; <a href="index.html">poork.cl</a></div>
+  <div class="footer-brand"><a href="mailto:hola@poork.cl">hola@poork.cl</a></div>
+</footer>
+
+</body>
+</html>
