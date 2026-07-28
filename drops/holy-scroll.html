@@ -26,6 +26,13 @@
   --mist-light: oklch(70% 0.014 265);
   --rule: oklch(22% 0.016 265);
   --text: oklch(92% 0.008 265);
+  /* cream register */
+  --cream: oklch(96.5% 0.014 82);
+  --cream-2: oklch(99% 0.008 76);
+  --ink: oklch(14% 0.018 265);
+  --ink-2: oklch(36% 0.018 265);
+  --rule-c: oklch(84% 0.018 80);
+  --gold-deep: oklch(62% 0.120 68);
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -75,20 +82,35 @@ nav {
 .nav-links a:hover { color: var(--text); }
 .nav-links .back { color: oklch(36% 0.012 265); }
 
-/* HERO */
+/* HERO — dirección C: oscuro centrado, gateway a crema */
 .hero {
-  display: grid;
-  grid-template-columns: 1fr 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   min-height: 92dvh;
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 4px solid var(--incense);
+  padding: 100px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% -5%, oklch(72% 0.098 72 / 0.09) 0%, transparent 58%);
+  pointer-events: none;
 }
 
 .hero-copy {
-  padding: 88px 64px 88px 48px;
+  position: relative;
+  z-index: 1;
+  max-width: 820px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  border-right: 1px solid var(--rule);
+  align-items: center;
+  padding: 0;
 }
 
 .hero-kicker {
@@ -98,23 +120,14 @@ nav {
   text-transform: uppercase;
   color: var(--incense);
   margin-bottom: 28px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.hero-kicker::before {
-  content: '';
-  width: 20px;
-  height: 1px;
-  background: var(--incense);
 }
 
 .hero h1 {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Jacques Francois', serif;
   font-weight: 400;
-  font-size: clamp(56px, 8.5vw, 120px);
+  font-size: clamp(64px, 9.5vw, 120px);
   line-height: 0.90;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   color: var(--text);
   margin-bottom: 36px;
 }
@@ -124,8 +137,8 @@ nav {
   font-size: 16px;
   line-height: 1.72;
   color: var(--mist-light);
-  max-width: 52ch;
-  margin-bottom: 44px;
+  max-width: 56ch;
+  margin: 0 auto 44px;
 }
 .hero-lead strong { color: var(--text); font-weight: 500; }
 
@@ -142,7 +155,6 @@ nav {
   text-transform: uppercase;
   cursor: pointer;
   border: none;
-  align-self: flex-start;
   font-weight: 500;
   transition: background 0.2s;
 }
@@ -158,6 +170,7 @@ nav {
   color: var(--incense-dim);
   line-height: 1.6;
   max-width: 44ch;
+  text-align: center;
 }
 .hero-testament cite {
   display: block;
@@ -201,91 +214,143 @@ nav {
   max-width: 52ch;
 }
 
-/* FEED WALL — features as full-viewport verses */
+/* FEED WALL — registro crema, grid editorial (dirección A) */
 .feed-intro {
-  min-height: 60dvh;
+  min-height: 52dvh;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-end;
   padding: 64px 48px;
-  border-bottom: 1px solid var(--rule);
-  background: var(--void);
+  border-bottom: none;
+  background: var(--cream);
 }
-.feed-wall { /* no padding — cards fill viewport */ }
+.feed-intro .section-h2 { color: var(--ink); }
+.feed-intro .section-h2 em { color: var(--gold-deep); }
+.feed-intro .section-lead { color: var(--ink-2); }
+.feed-intro .modo-label { color: oklch(56% 0.022 80); }
+.feed-intro .modo-btn { color: oklch(44% 0.018 265); }
+.feed-intro .modo-btn.active { color: var(--gold-deep); }
+.feed-intro .modo-sep { color: oklch(68% 0.018 80); }
+
+.feed-wall {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--rule-c);
+  border-top: 1px solid var(--rule-c);
+  border-bottom: 1px solid var(--rule-c);
+}
 .feed-card {
-  min-height: 100dvh;
+  min-height: auto;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid var(--rule);
-  padding: 64px 40px;
-  background: var(--void);
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  border-bottom: none;
+  padding: 36px 32px 32px;
+  background: var(--cream);
 }
-.feed-card:nth-child(even) { background: var(--void-2); }
+.feed-card:nth-child(even) { background: var(--cream-2); }
 .feed-card-inner {
-  max-width: 580px;
-  text-align: center;
+  max-width: none;
+  text-align: left;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 .feed-card-ref {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
+  font-size: 8px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--incense);
-  margin-bottom: 28px;
+  color: var(--gold-deep);
+  margin-bottom: 16px;
 }
 .feed-card-verse {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
-  font-size: clamp(26px, 5vw, 54px);
-  line-height: 1.22;
-  color: var(--text);
-  margin-bottom: 20px;
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--ink);
+  margin-bottom: 16px;
+  flex: 1;
 }
 .feed-card-sub {
-  font-size: 13px;
+  font-size: 12px;
   line-height: 1.72;
-  color: var(--mist);
-  max-width: 44ch;
-  margin: 0 auto 36px;
+  color: var(--ink-2);
+  max-width: none;
+  margin: 0 0 20px;
+  border-top: 1px solid var(--rule-c);
+  padding-top: 14px;
 }
 .feed-card-counts {
   display: flex;
-  gap: 20px;
-  justify-content: center;
+  gap: 16px;
+  justify-content: flex-start;
   align-items: center;
 }
 .feed-card-count {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
+  font-size: 8px;
   letter-spacing: 0.14em;
-  color: var(--mist);
+  color: oklch(54% 0.022 80);
   text-transform: uppercase;
 }
 .feed-card-audio {
   font-family: 'JetBrains Mono', monospace;
   font-size: 8px;
   letter-spacing: 0.10em;
-  color: oklch(34% 0.012 265);
+  color: oklch(62% 0.018 80);
 }
 
 /* SCROLL-DRIVEN ANIMATION */
 @keyframes feedReveal {
-  from { opacity: 0; transform: translateY(52px); }
+  from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 @supports (animation-timeline: view()) {
-  .feed-card-inner {
+  .feed-card {
     animation: feedReveal linear both;
     animation-timeline: view();
-    animation-range: entry 0% entry 42%;
+    animation-range: entry 0% entry 50%;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .feed-card-inner { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .feed-card { animation: none !important; opacity: 1 !important; transform: none !important; }
 }
+
+/* LUZ cards — cream base confirmed */
+#how .feed-card.luz {
+  background: var(--cream);
+}
+#how .feed-card.luz:nth-child(even) {
+  background: var(--cream-2);
+}
+
+/* SOMBRA cards — dark override */
+#how[data-modo="sombra"] .feed-card.luz { display: none; }
+#how[data-modo="sombra"] .feed-card.sombra { display: flex; }
+#how[data-modo="sombra"] .feed-wall {
+  background: var(--rule);
+  border-color: var(--rule);
+}
+#how[data-modo="sombra"] .feed-card.sombra {
+  background: var(--void);
+}
+#how[data-modo="sombra"] .feed-card.sombra:nth-child(even) {
+  background: var(--void-2);
+}
+#how[data-modo="sombra"] .feed-card.sombra .feed-card-ref { color: var(--incense); }
+#how[data-modo="sombra"] .feed-card.sombra .feed-card-verse { color: var(--text); }
+#how[data-modo="sombra"] .feed-card.sombra .feed-card-sub {
+  color: var(--mist);
+  border-top-color: var(--rule);
+}
+#how[data-modo="sombra"] .feed-card.sombra .feed-card-count { color: var(--mist); }
+#how[data-modo="sombra"] .feed-card.sombra .feed-card-audio { color: oklch(34% 0.012 265); }
 
 /* MODO DE LECTURA */
 .modo-toggle {
@@ -321,33 +386,135 @@ nav {
   font-size: 9px;
 }
 
+/* VIEW TRANSITIONS — switch LUZ / SOMBRA */
+#how { view-transition-name: how-section; }
+
+::view-transition-old(how-section) {
+  animation: 0.32s ease-in both vt-modo-out;
+}
+::view-transition-new(how-section) {
+  animation: 0.32s ease-out 0.06s both vt-modo-in;
+}
+@keyframes vt-modo-out {
+  to { opacity: 0; filter: blur(2px); transform: scale(0.99); }
+}
+@keyframes vt-modo-in {
+  from { opacity: 0; filter: blur(2px); transform: scale(0.99); }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(how-section),
+  ::view-transition-new(how-section) { animation: none; }
+}
+
 /* Feed card visibility by mode — sombra hidden by default */
 #how .feed-card.sombra { display: none; }
-#how[data-modo="sombra"] .feed-card.luz { display: none; }
-#how[data-modo="sombra"] .feed-card.sombra { display: flex; }
 
-/* LUZ — paleta pergamino/tinta */
-#how .feed-card.luz {
-  background: oklch(96% 0.014 82);
-  border-bottom-color: oklch(84% 0.018 80);
+/* DEMO FEED — experiencia real, full-viewport */
+.demo-section {
+  background: var(--void);
+  border-top: 4px solid var(--incense);
 }
-#how .feed-card.luz:nth-child(even) {
-  background: oklch(93% 0.018 78);
+.demo-intro {
+  padding: 64px 48px 0;
 }
-#how .feed-card.luz .feed-card-ref {
-  color: oklch(44% 0.090 68);
+.demo-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--incense);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
-#how .feed-card.luz .feed-card-verse {
-  color: oklch(11% 0.018 265);
+.demo-kicker::before { content: ''; width: 20px; height: 1px; background: var(--incense); }
+.demo-h2 {
+  font-family: 'Jacques Francois', serif;
+  font-weight: 400;
+  font-size: clamp(36px, 5vw, 60px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 0;
 }
-#how .feed-card.luz .feed-card-sub {
-  color: oklch(36% 0.016 80);
+.demo-feed { }
+.demo-card {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 40px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--void);
 }
-#how .feed-card.luz .feed-card-count {
-  color: oklch(50% 0.016 80);
+.demo-card:nth-child(even) { background: var(--void-2); }
+.demo-card-inner {
+  max-width: 560px;
+  text-align: center;
+  width: 100%;
 }
-#how .feed-card.luz .feed-card-audio {
-  color: oklch(66% 0.018 80);
+.demo-card-ref {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--incense);
+  margin-bottom: 32px;
+}
+.demo-card-verse {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(30px, 5.5vw, 58px);
+  line-height: 1.18;
+  color: var(--text);
+  margin-bottom: 28px;
+}
+.demo-card-sub {
+  font-size: 13px;
+  line-height: 1.70;
+  color: var(--mist);
+  max-width: 44ch;
+  margin: 0 auto 32px;
+}
+.demo-card-meta {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+.demo-card-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--mist);
+  text-transform: uppercase;
+}
+.demo-card-audio {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.10em;
+  color: oklch(34% 0.012 265);
+}
+.demo-hint {
+  padding: 28px 48px;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: oklch(30% 0.012 265);
+  border-bottom: 1px solid var(--rule);
+}
+@supports (animation-timeline: view()) {
+  .demo-card-inner {
+    animation: feedReveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 40%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-card-inner { animation: none !important; opacity: 1 !important; transform: none !important; }
 }
 
 /* ORÁCULO */
@@ -432,7 +599,18 @@ nav {
   border-top: 1px solid var(--rule);
   text-align: center;
 }
-.oraculo-result.visible { display: block; }
+.oraculo-result.visible {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.48s ease, transform 0.48s ease;
+}
+@starting-style {
+  .oraculo-result.visible {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
 .oraculo-result-ref {
   font-family: 'JetBrains Mono', monospace;
   font-size: 9px;
@@ -637,23 +815,28 @@ footer {
   letter-spacing: 0.06em;
 }
 
-/* STATEMENT */
+/* STATEMENT — registro crema, gateway visible */
 .statement {
   padding: 72px 48px;
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule-c);
   text-align: center;
+  background: var(--cream);
 }
 .statement-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
+  font-family: 'Jacques Francois', serif;
+  font-style: normal;
   font-size: clamp(36px, 6vw, 80px);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  color: var(--text);
-  max-width: 18ch;
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  max-width: 20ch;
   margin: 0 auto;
 }
-.statement-text em { color: var(--incense); font-style: normal; }
+.statement-text em {
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--gold-deep);
+}
 
 /* TESTIMONIALS */
 .testi-section {
@@ -885,10 +1068,14 @@ textarea.modal-input { resize: vertical; min-height: 88px; }
 /* RESPONSIVE */
 @media (max-width: 960px) {
   nav { padding: 14px 20px; }
-  .hero { grid-template-columns: 1fr; min-height: auto; }
-  .hero-copy { padding: 56px 20px; border-right: none; border-bottom: 1px solid var(--rule); }
+  .hero { min-height: auto; padding: 72px 24px; }
+  .hero-copy { max-width: 100%; }
   .feed-intro { padding: 48px 20px; min-height: 40dvh; }
-  .feed-card { padding: 48px 24px; }
+  .feed-wall { grid-template-columns: 1fr; }
+  .feed-card { padding: 32px 20px 28px; }
+  .demo-intro { padding: 48px 20px 0; }
+  .demo-card { padding: 48px 24px; }
+  .demo-hint { padding: 20px; }
   .section-head { grid-template-columns: 1fr; gap: 20px; }
   .commandments-section { padding: 56px 20px; }
   .commandments-inner { grid-template-columns: 1fr; gap: 36px; }
@@ -1125,6 +1312,57 @@ textarea.modal-input { resize: vertical; min-height: 88px; }
   </div>
 </section>
 
+<!-- DEMO FEED — el scroll infinito real -->
+<section class="demo-section">
+  <div class="demo-intro">
+    <div class="demo-kicker">Formato feed &nbsp;&middot;&nbsp; experiencia real</div>
+    <h2 class="demo-h2">Así se reza.</h2>
+  </div>
+  <div class="demo-feed">
+
+    <div class="demo-card">
+      <div class="demo-card-inner">
+        <div class="demo-card-ref">Salmos 46 &nbsp;&middot;&nbsp; v.10 &nbsp;&middot;&nbsp; Reina-Valera 1960</div>
+        <p class="demo-card-verse">"Estad quietos, y conoced que yo soy Dios."</p>
+        <p class="demo-card-sub">Doce palabras. El mandato más conciso del Salterio. Contexto original: una batalla. El texto no dice qué hacer con esa quietud — solo que es el lugar donde Dios se conoce.</p>
+        <div class="demo-card-meta">
+          <span class="demo-card-count">18.3M ♡</span>
+          <span class="demo-card-count">4.1M ↻</span>
+          <span class="demo-card-audio">&nbsp;&nbsp;♪ quietud (loop)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-card">
+      <div class="demo-card-inner">
+        <div class="demo-card-ref">Juan 11 &nbsp;&middot;&nbsp; v.35 &nbsp;&middot;&nbsp; Reina-Valera 1960</div>
+        <p class="demo-card-verse">"Jesús lloró."</p>
+        <p class="demo-card-sub">El versículo más corto de la Biblia. Dos palabras. Pronunciadas ante la tumba de Lázaro, a quien resucitaría minutos después. El texto no explica por qué lloró si sabía lo que iba a hacer.</p>
+        <div class="demo-card-meta">
+          <span class="demo-card-count">22.1M ♡</span>
+          <span class="demo-card-count">6.8M ↻</span>
+          <span class="demo-card-audio">&nbsp;&nbsp;♪ lamento breve (loop)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-card">
+      <div class="demo-card-inner">
+        <div class="demo-card-ref">Eclesiastés 3 &nbsp;&middot;&nbsp; v.1-2 &nbsp;&middot;&nbsp; Reina-Valera 1960</div>
+        <p class="demo-card-verse">"Todo tiene su momento oportuno; hay un tiempo para todo lo que se hace bajo el cielo."</p>
+        <p class="demo-card-sub">Atribuido a Qohélet, el Predicador. Este versículo precedió un listado de 28 pares de opuestos. Nacer y morir, plantar y arrancar, amar y aborrecer. El formato de lista ya existía antes de los feeds.</p>
+        <div class="demo-card-meta">
+          <span class="demo-card-count">16.4M ♡</span>
+          <span class="demo-card-count">3.2M ↻</span>
+          <span class="demo-card-audio">&nbsp;&nbsp;♪ ciclos (loop)</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="demo-hint">y siguen los versículos &nbsp;&middot;&nbsp; 31.102 en total &nbsp;&middot;&nbsp; feed infinito</div>
+</section>
+
 <!-- ORÁCULO -->
 <section class="oraculo-section" id="oraculo">
   <div class="oraculo-inner">
@@ -1327,9 +1565,13 @@ textarea.modal-input { resize: vertical; min-height: 88px; }
 
 <script>
 function setModo(m) {
-  document.getElementById('how').setAttribute('data-modo', m);
-  document.getElementById('btn-luz').classList.toggle('active', m === 'luz');
-  document.getElementById('btn-sombra').classList.toggle('active', m === 'sombra');
+  function apply() {
+    document.getElementById('how').setAttribute('data-modo', m);
+    document.getElementById('btn-luz').classList.toggle('active', m === 'luz');
+    document.getElementById('btn-sombra').classList.toggle('active', m === 'sombra');
+  }
+  if (!document.startViewTransition) { apply(); return; }
+  document.startViewTransition(apply);
 }
 
 function openModal(id) {
