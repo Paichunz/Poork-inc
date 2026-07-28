@@ -1381,9 +1381,7 @@ textarea.modal-input { resize: vertical; min-height: 88px; }
     <div class="oraculo-loading" id="oraculo-loading">
       <span class="oraculo-loading-text">consultando el archivo &nbsp;&middot;&nbsp; 66 libros &nbsp;&middot;&nbsp; 31.102 versículos</span>
     </div>
-    <div class="oraculo-error" id="oraculo-error">
-      el archivo no está disponible &nbsp;&middot;&nbsp; intentar más tarde
-    </div>
+    <div class="oraculo-error" id="oraculo-error"></div>
     <div class="oraculo-result" id="oraculo-result">
       <div class="oraculo-result-ref" id="oraculo-ref"></div>
       <p class="oraculo-result-verso" id="oraculo-verso"></p>
@@ -1709,8 +1707,16 @@ function handleSubmit(e, id) {
       loading.classList.remove('visible');
       result.classList.add('visible');
       result.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    } catch (_) {
+    } catch (err) {
       loading.classList.remove('visible');
+      var apiMsg = err && err.message &&
+        err.message !== 'sin respuesta' &&
+        !err.message.toLowerCase().includes('fetch') &&
+        !err.message.toLowerCase().includes('network') &&
+        err.message.length < 200;
+      error.textContent = apiMsg
+        ? err.message.toLowerCase()
+        : 'el archivo no está disponible · intentar más tarde';
       error.classList.add('visible');
     }
 
