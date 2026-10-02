@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>POORK INC. — 17:30</title>
-<meta name="description" content="Cuenta regresiva. Llega a cero a las 17:30, hora de Chile.">
+<meta name="description" content="Solo esto falta para el gran rajazo de Julio. Llega a cero a las 17:30, hora de Chile.">
 <meta name="theme-color" content="#0a0a0a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
 
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -53,10 +53,15 @@ main {
   padding: 48px 0;
 }
 
-.eyebrow {
-  font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: clamp(16px, 4vh, 40px);
+.headline {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic; font-weight: 400;
+  font-size: clamp(20px, 3.2vw, 44px);
+  line-height: 1.2;
+  color: var(--fg);
+  max-width: 28ch;
+  text-wrap: balance;
+  margin-bottom: clamp(24px, 6vh, 56px);
 }
 
 .clock {
@@ -102,6 +107,17 @@ body.done .num { color: var(--gold); }
   .clock { font-size: min(17vw, 30vh); }
   .lbl { font-size: 9px; letter-spacing: 0.2em; }
 }
+
+/* Celular en horizontal u otras pantallas bajas: todo debe caber sin scroll */
+@media (max-height: 480px) {
+  body { padding: 12px 24px; }
+  main { padding: 8px 0; }
+  .headline { font-size: clamp(16px, 2.6vw, 28px); max-width: none; margin-bottom: 12px; }
+  .clock { font-size: min(15vw, 24vh); }
+  .lbl { margin-top: 0.8em; }
+  .target { margin-top: 12px; }
+  .bottom { display: none; }
+}
 </style>
 </head>
 <body>
@@ -112,7 +128,7 @@ body.done .num { color: var(--gold); }
 </div>
 
 <main>
-  <p class="eyebrow" id="eyebrow">Faltan</p>
+  <h1 class="headline" id="headline">Solo esto falta para el gran rajazo de Julio</h1>
 
   <div class="clock" id="clock" role="timer" aria-label="Cargando cuenta regresiva">
     <div class="unit" aria-hidden="true"><span class="num" id="h"><span class="d">-</span><span class="d">-</span></span><span class="lbl">horas</span></div>
@@ -124,7 +140,7 @@ body.done .num { color: var(--gold); }
 
   <p class="target">Hoy <b>17:30</b> · hora de Chile</p>
 
-  <noscript><p class="noscript">Esta cuenta regresiva necesita JavaScript. Llega a cero hoy a las 17:30, hora de Chile.</p></noscript>
+  <noscript><p class="noscript">Esta cuenta regresiva necesita JavaScript. Solo esto falta para el gran rajazo de Julio: llega a cero hoy a las 17:30, hora de Chile.</p></noscript>
 </main>
 
 <div class="bottom">
@@ -143,7 +159,7 @@ body.done .num { color: var(--gold); }
     m: document.getElementById('m'),
     s: document.getElementById('s'),
     clock: document.getElementById('clock'),
-    eyebrow: document.getElementById('eyebrow')
+    headline: document.getElementById('headline')
   };
 
   var timer;
@@ -178,7 +194,7 @@ body.done .num { color: var(--gold); }
 
     if (total === 0) {
       document.body.classList.add('done');
-      els.eyebrow.textContent = 'Ya es la hora';
+      els.headline.textContent = 'Ya es la hora';
       els.clock.setAttribute('aria-label', 'La cuenta regresiva llegó a cero');
       return; // sin más ticks
     }
