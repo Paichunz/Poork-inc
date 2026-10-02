@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POORK INC. — 17:30</title>
+<meta name="description" content="Cuenta regresiva. Llega a cero a las 17:30, hora de Chile.">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0a0a;
+  --fg: #f0ede8;
+  --gold: #c9a84c;
+  --dim: #6f6b64;
+}
+
+html, body { height: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Space Mono', monospace;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100svh;
+  display: flex; flex-direction: column;
+  padding: 24px 32px;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.top, .bottom {
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--dim);
+}
+.top a { color: var(--fg); transition: color 200ms ease-out; }
+@media (hover: hover) and (pointer: fine) {
+  .top a:hover { color: var(--gold); }
+}
+.top a:focus-visible { outline: 1px solid var(--gold); outline-offset: 4px; }
+
+main {
+  flex: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 48px 0;
+}
+
+.eyebrow {
+  font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: clamp(16px, 4vh, 40px);
+}
+
+.clock {
+  display: flex; align-items: flex-start; justify-content: center;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  font-size: min(15vw, 30vh, 240px);
+  line-height: 1;
+  font-variant-numeric: lining-nums;
+}
+
+.unit { display: flex; flex-direction: column; align-items: center; }
+
+.num { color: var(--fg); transition: color 600ms ease-out; white-space: nowrap; }
+
+/* Playfair no tiene dígitos tabulares (el "1" mide 0,39em y el "0" 0,65em):
+   cada dígito va en una celda fija para que el reloj no cambie de ancho cada segundo */
+.d { display: inline-block; width: 0.66em; text-align: center; }
+
+.lbl {
+  font-family: 'Space Mono', monospace; font-weight: 400;
+  font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--dim);
+  margin-top: 1.6em;
+}
+
+.sep { color: var(--gold); padding: 0 0.12em; }
+
+.target {
+  margin-top: clamp(24px, 6vh, 56px);
+  font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--dim);
+}
+.target b { color: var(--fg); font-weight: 400; }
+
+body.done .num { color: var(--gold); }
+
+.noscript { margin-top: 24px; font-size: 13px; color: var(--fg); }
+
+@media (max-width: 520px) {
+  body { padding: 20px 16px; }
+  .top span:last-child, .bottom span:last-child { display: none; }
+  .clock { font-size: min(17vw, 30vh); }
+  .lbl { font-size: 9px; letter-spacing: 0.2em; }
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <a href="/">POORK INC.</a>
+  <span>est. 2026</span>
+</div>
+
+<main>
+  <p class="eyebrow" id="eyebrow">Faltan</p>
+
+  <div class="clock" id="clock" role="timer" aria-label="Cargando cuenta regresiva">
+    <div class="unit" aria-hidden="true"><span class="num" id="h"><span class="d">-</span><span class="d">-</span></span><span class="lbl">horas</span></div>
+    <span class="sep" aria-hidden="true">:</span>
+    <div class="unit" aria-hidden="true"><span class="num" id="m"><span class="d">-</span><span class="d">-</span></span><span class="lbl">minutos</span></div>
+    <span class="sep" aria-hidden="true">:</span>
+    <div class="unit" aria-hidden="true"><span class="num" id="s"><span class="d">-</span><span class="d">-</span></span><span class="lbl">segundos</span></div>
+  </div>
+
+  <p class="target">Hoy <b>17:30</b> · hora de Chile</p>
+
+  <noscript><p class="noscript">Esta cuenta regresiva necesita JavaScript. Llega a cero hoy a las 17:30, hora de Chile.</p></noscript>
+</main>
+
+<div class="bottom">
+  <span>poork-inc.vercel.app</span>
+  <span>todos somos puercos</span>
+</div>
+
+<script>
+(function () {
+  // Instante absoluto: 17:30 en Santiago (UTC-3 el 2 de octubre de 2026).
+  // Es el mismo para todos, sin importar la zona horaria de quien mira.
+  var TARGET = new Date('2026-10-02T17:30:00-03:00').getTime();
+
+  var els = {
+    h: document.getElementById('h'),
+    m: document.getElementById('m'),
+    s: document.getElementById('s'),
+    clock: document.getElementById('clock'),
+    eyebrow: document.getElementById('eyebrow')
+  };
+
+  var timer;
+
+  function pad(n) { return n < 10 ? '0' + n : String(n); }
+
+  // Un <span class="d"> por dígito (celdas de ancho fijo, ver CSS)
+  function setNum(el, n) {
+    var str = pad(n);
+    if (el.getAttribute('data-v') === str) return;
+    el.setAttribute('data-v', str);
+    var html = '';
+    for (var i = 0; i < str.length; i++) html += '<span class="d">' + str.charAt(i) + '</span>';
+    el.innerHTML = html;
+  }
+
+  function render() {
+    clearTimeout(timer);
+    var ms = TARGET - Date.now();
+    // ceil: llega a 00:00:00 exactamente a las 17:30:00
+    var total = Math.max(0, Math.ceil(ms / 1000));
+    var h = Math.floor(total / 3600);
+    var m = Math.floor((total % 3600) / 60);
+    var s = total % 60;
+    var text = pad(h) + ':' + pad(m) + ':' + pad(s);
+
+    setNum(els.h, h);
+    setNum(els.m, m);
+    setNum(els.s, s);
+    els.clock.setAttribute('aria-label', 'Faltan ' + h + ' horas, ' + m + ' minutos y ' + s + ' segundos');
+    document.title = text + ' · POORK INC.';
+
+    if (total === 0) {
+      document.body.classList.add('done');
+      els.eyebrow.textContent = 'Ya es la hora';
+      els.clock.setAttribute('aria-label', 'La cuenta regresiva llegó a cero');
+      return; // sin más ticks
+    }
+
+    // Próximo tick justo cuando cambia el segundo mostrado (sin deriva del setInterval)
+    var wait = ms % 1000;
+    timer = setTimeout(render, wait > 0 ? wait : 1000);
+  }
+
+  // Los navegadores frenan los timers en pestañas ocultas: al volver, recalcular al tiro
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
